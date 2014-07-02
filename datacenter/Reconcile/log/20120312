@@ -1,0 +1,135 @@
+connect to OFFON success
+TIME:2012/03/12 10:57:01
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13943080000         9d807402903[272:103]
+TIME:2012/03/12 10:57:02
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2012/03/12 10:57:02
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/03/12 10:57:02
+
+====sqlca.sqlcode=[-903],sqlca.sqlerrm.sqlerrmc=[ORA-00903: invalid table name
+                                        ]
+TIME:2012/03/12 10:57:02
+
+====EXEC SQL ERROR END
+TIME:2012/03/12 10:57:02
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/03/12 10:57:02
+
+====sqlca.sqlcode=[-903],sqlca.sqlerrm.sqlerrmc=[ORA-00903: invalid table name
+                                        ]
+TIME:2012/03/12 10:57:02
+
+====EXEC SQL ERROR END
+TIME:2012/03/12 10:57:02
+
+write to db fail! 111 sqlstmt=[INSERT INTO  VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')],retry......
+TIME:2012/03/12 10:57:02
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/03/12 10:57:32
+
+====sqlca.sqlcode=[-903],sqlca.sqlerrm.sqlerrmc=[ORA-00903: invalid table name
+                                        ]
+TIME:2012/03/12 10:57:32
+
+====EXEC SQL ERROR END
+TIME:2012/03/12 10:57:32
+
+write to db fail! 111 sqlstmt=[INSERT INTO  VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')]
+TIME:2012/03/12 10:57:32
+
+process is killed
+TIME:2012/03/12 10:57:49
+
+connect to OFFON success
+TIME:2012/03/12 11:25:34
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13943080010         9d807402903[272:103]
+TIME:2012/03/12 11:25:34
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2012/03/12 11:25:34
+
+INSERT to db succ 8913941622|13943080010!
+TIME:2012/03/12 11:25:34
+
+process is killed
+TIME:2012/03/12 11:26:04
+
+connect to OFFON success
+TIME:2012/03/12 16:20:06
+
+process is killed
+TIME:2012/03/12 16:20:10
+
+connect to OFFON success
+TIME:2012/03/12 16:22:14
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13943080099         9d807402903[272:103]
+TIME:2012/03/12 16:22:14
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00002                                                                                                                                                                                              [272]
+TIME:2012/03/12 16:22:14
+
+INSERT to db succ 8913941623|13943080099!
+TIME:2012/03/12 16:22:14
+
+process is killed
+TIME:2012/03/12 16:22:20
+
+connect to OFFON success
+TIME:2012/03/12 16:41:16
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         992012031100000020120312000000[272:122]
+TIME:2012/03/12 16:41:16
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/03/12 16:41:16
+
+INSERT to db succ 8913941624|13900000000!
+TIME:2012/03/12 16:41:16
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         9a2012031100000020120312000000[272:122]
+TIME:2012/03/12 16:41:16
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/03/12 16:41:16
+
+INSERT to db succ 8913941625|13900000000!
+TIME:2012/03/12 16:41:16
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         9b2012031100000020120312000000[272:122]
+TIME:2012/03/12 16:41:16
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/03/12 16:41:16
+
+INSERT to db succ 8913941626|13900000000!
+TIME:2012/03/12 16:41:16
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         9d2012031100000020120312000000[272:122]
+TIME:2012/03/12 16:41:16
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/03/12 16:41:16
+
+INSERT to db succ 8913941627|13900000000!
+TIME:2012/03/12 16:41:16
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         9g2012031100000020120312000000[272:122]
+TIME:2012/03/12 16:41:16
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/03/12 16:41:16
+
+INSERT to db succ 8913941628|13900000000!
+TIME:2012/03/12 16:41:16
+
+process is killed
+TIME:2012/03/12 16:41:21
+

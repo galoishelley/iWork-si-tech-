@@ -1,0 +1,499 @@
+#!/bin/sh
+.SUFFIXES:.cp
+PUBDIR=/iboss1/run/public
+ORADIR=/ora10g/app/oracle/product/10.2.0
+#WORKDIR=/iboss1/run/public
+WORKDIR=.
+BINDIR=$(WORKDIR)/bin/
+
+ORAINCL = $(ORADIR)/precomp/public
+TUXINCL = ${TUXDIR}/include
+ORALIBS = $(ORADIR)/lib -lcore10 -lnls10 -lunls10 -lxml10 -lclntsh -lncrypt10
+XDKINCL = $(ORADIR)/xdk/include
+PUBINCL = $(PUBDIR)/include
+#PUBLIBS = $(PUBDIR)/lib -lDesMac -lprodparam -lbosspub -lquerybill -lDBServer -lacctquery -lquerybill -ldetailbill -lcli500002 -lPubOrder -lLG_bus
+PUBLIBS = $(PUBDIR)/lib -lDesMac -lbosspub -lShortMsg -lprodparam -lquerybill -lDBServer -lacctquery -lquerybill -ldetailbill -lcli500002 -lPubOrder -lLG_bus -llua
+#TUXLIBS = ${TUXDIR}/lib -ltux -lbuft -lfml -lnws -lwsc
+#TUXLIBS = ${TUXDIR}/lib -ltux -lbuft -lfml -lgw -lwsc -lwsh -ltrpc -lgpnet -lfml32 -lengine -lpthread -lcl -lnsl
+TUXLIBS = ${TUXDIR}/lib -ltux -lbuft -lfml -lwsc -lwsh -ltrpc -lgpnet -lfml32 -lengine -lpthread -lcl -lnsl
+SYSLIBS = /lib
+USRLIBS = /usr/lib
+
+LIBPATH = $(WORKDIR)/lib -lftpfunc64
+WORKINCL = $(WORKDIR)/include
+
+INCLUDE = -I$(ORAINCL) -I$(XDKINCL) -I$(PUBINCL) -I$(WORKINCL) -I$(TUXINCL)
+
+#PROCFLAGS = include=$(ORAINCL) include=$(TUXINCL) include=$(XDKINCL) include=$(PUBINCL) include=$(WORKINCL) DYNAMIC=ANSI USERID=dbcustadm/dbcustadm0703@boss181 sqlcheck=SEMANTICS parse=FULL
+
+#PROCFLAGS = include=$(ORAINCL) include=$(TUXINCL) include=$(XDKINCL) include=$(PUBINCL) include=$(WORKINCL) DYNAMIC=ANSI USERID=dbcustadm/dbcustadm0703@boss181 sqlcheck=SEMANTICS parse=FULL
+#PROCFLAGS = include=$(ORAINCL) include=$(XDKINCL) include=$(WORKINCL) include=$(TUXINCL) DYNAMIC=ANSI  USERID=dbobossusr/dbu0i9o8-.@ngcustdb sqlcheck=SEMANTICS parse=FULL LINE=TRUE
+PROCFLAGS = include=$(ORAINCL) include=$(XDKINCL) include=$(WORKINCL) include=$(TUXINCL) DYNAMIC=ANSI  USERID=dbcustadm/dbu0i9o8-.@ngcustdb sqlcheck=SEMANTICS parse=FULL LINE=TRUE
+#PROCFLAGS = include=$(ORAINCL) include=$(XDKINCL) include=$(WORKINCL) include=$(TUXINCL)  USERID=dbobossusr/s0j5c7@crmdb sqlcheck=SEMANTICS parse=FULL LINE=TRUE
+
+CC=cc +DD64
+PRECOMP=$(ORADIR)/bin/proc
+LIBS=-lm -lcl -L$(ORALIBS) -L$(PUBLIBS) -L$(LIBPATH) -L$(TUXLIBS) -L$(SYSLIBS) -L$(USRLIBS)
+
+#LFLAGS=-L$(PUBDIR)/lib -L$(PUBDIR)/lib/libc -luasp -ltuxedo -lDesMac -lbase -lmd5 -lenc -lsock -ldb -L$(ORACLE_HOME)/lib32 -lclntsh -lm -lpthread -lpthread -L$(TUXDIR)/lib -lfml -lfml32   -lwsc -lbuft -lwsc  -lgpnet  -lfml -lfml32 -lengine  -lpthread -lnsl -lcl
+
+PUBLOGUTIL=/iboss1/run/utils/pubLogUtil
+COMPILE= $(TUXDIR)/bin/buildclient -w -f "$(PUBOBJ)" -l $(PUBDIR)/lib/libDesMac.a
+CLIBEACOMP=$(TUXDIR)/bin/buildclient
+
+ALLPROG= ModeAddFunc	ModeAdd139	CaseAddFunc	ModeAddFuncIm
+PUBOBJ=debug.o globalFunc.o pubdb.o include32.o
+PUBH=include/debug.h include/global.h include/pubdb.h include/pubdef.h
+all:$(ALLPROG)
+
+
+OBJ01=ModeAddFunc.o	debug.o globalFunc.o pubdb.o
+OBJ80=ModeAddFuncIm.o	debug.o globalFunc.o pubdb.o
+OBJ12=CaseAddFunc.o	debug.o globalFunc.o pubdb.o
+OBJ02=ModeAdd139.o	debug.o globalFunc.o pubdb.o
+OBJ03=RNescOrder.o	debug.o globalFunc.o pubdb.o sTermPub.o pubBill.o pubFunc.o
+OBJ04=RAybOrder.o	debug.o globalFunc.o pubdb.o sTermPub.o pubBill.o
+OBJ05=RTmpDealJcsh.o	debug.o globalFunc.o pubdb.o
+OBJ06=AdcFuncOrder.o	debug.o globalFunc.o pubdb.o
+OBJ07=InterRoamChg.o	debug.o globalFunc.o pubdb.o
+OBJ08=NetCardChange.o	debug.o globalFunc.o pubdb.o
+OBJ09=BatchDeal.o	debug.o globalFunc.o pubdb.o
+OBJ10=ModeZnmsFunc.o	debug.o globalFunc.o
+OBJ11=dsmpbatchim.o	debug.o globalFunc.o pubdb.o
+OBJ99=GprsDown.o	debug.o globalFunc.o pubdb.o
+OBJ15=WlanStopFunc.o    debug.o globalFunc.o pubdb.o
+OBJ16=WlanBeginFunc.o    debug.o globalFunc.o pubdb.o
+OBJ19=UpdateStmm.o	debug.o globalFunc.o pubdb.o
+OBJ22=UpdateMusc.o	debug.o globalFunc.o pubdb.o
+OBJ23=UserStateWire.o	debug.o globalFunc.o pubdb.o
+OBJ25=UpWireBizChg.o	debug.o globalFunc.o pubdb.o
+OBJ26=UpHscsBizChg.o	debug.o globalFunc.o pubdb.o
+OBJ27=UserStateHscs.o	debug.o globalFunc.o pubdb.o
+OBJ28=UpMdopBizChg.o	debug.o globalFunc.o pubdb.o
+OBJ29=UserStateMdop.o	debug.o globalFunc.o pubdb.o
+OBJ30=UserOrderSnd.o	debug.o globalFunc.o pubdb.o
+OBJ31=UpVmxpBizChg.o	debug.o globalFunc.o pubdb.o
+OBJ20=UpStmmBizChg.o	debug.o globalFunc.o pubdb.o
+OBJ21=UserStatePimm.o    debug.o globalFunc.o pubdb.o
+OBJ13=gSMSFunc.o        debug.o globalFunc.o pubdb.o SpamFunc.o
+#20110428 OBJ14=BatchVasOrderSync.o debug.o globalFunc.o pubdb.o pubFunc.o pubBill.o 
+OBJ14=BatchVasOrderSync.o debug.o globalFunc.o pubdb.o
+#OBJ24=BatchVpmnOrderSync.o debug.o globalFunc.o pubdb.o pubFunc.o pubBill.o
+OBJ24=BatchVpmnOrderSync.o debug.o globalFunc.o pubdb.o  pubBill.o
+#OBJ34=BatchMarkOrderSync.o debug.o globalFunc.o pubdb.o pubFunc.o pubBill.o
+OBJ34=BatchMarkOrderSync.o debug.o globalFunc.o pubdb.o pubBill.o
+OBJ17=DealRubTxMsg.o        debug.o globalFunc.o pubdb.o
+OBJ18=DealMpayPayReq.o debug.o globalFunc.o pubdb.o pubFunc.o pubBill.o 
+OBJ44=DelMuscBoxData.o	debug.o globalFunc.o pubdb.o HttpConnet.o
+OBJ54=BatchComOrderSync.o debug.o globalFunc.o pubdb.o pubBill.o 
+OBJ55=BatchDeadFuncSync.o debug.o globalFunc.o pubdb.o pubBill.o
+OBJ56=GenerateComDate.o debug.o globalFunc.o pubdb.o pubBill.o
+OBJ57=tDealComData.o debug.o globalFunc.o pubdb.o 
+OBJ58=wNetCareShortMsg.o debug.o globalFunc.o pubdb.o pubBill.o
+OBJ59=FetchCompareDate.o debug.o globalFunc.o pubdb.o pubBill.o
+OBJ60=DelFvpnUserInfo.o debug.o globalFunc.o pubdb.o pubBill.o
+OBJ61=RDealFamilyVpmn.o debug.o globalFunc.o pubdb.o pubBill.o
+OBJ67=DealFamShortNoOrder.o debug.o globalFunc.o pubdb.o pubBill.o
+OBJ62=BatchVasOrderDeal.o debug.o globalFunc.o pubdb.o pubBill.o  
+OBJ63=BatchVscpOrderMsg.o debug.o globalFunc.o pubdb.o pubBill.o  
+OBJ64=dMobileInfoMsg.o debug.o globalFunc.o pubdb.o pubBill.o  pubDataOrder.o
+OBJ65=BatchMpayCreditMsg.o debug.o globalFunc.o pubdb.o pubBill.o  
+OBJ97=RCancelDataCmd.o	debug.o globalFunc.o pubdb.o
+OBJ66=dAwakeDataMsg.o debug.o globalFunc.o pubdb.o pubBill.o  pubDataOrder.o
+##OBJ68=BatchDsmpOrderSync.o debug.o globalFunc.o pubdb.o pubBill.o  pubDataOrder.o
+OBJ68=BatchDsmpOrderSync.o debug.o globalFunc.o pubdb.o pubBill.o
+OBJ70=Tddsmporderchgload.o debug.o globalFunc.o pubdb.o pubBill.o  pubDataOrder.o
+OBJ71=DealWlanOrder.o debug.o globalFunc.o pubdb.o pubBill.o  
+OBJ72=BatchSendUserState.o debug.o globalFunc.o pubdb.o pubBill.o  pubDataOrder.o
+OBJ73=BatchOneWapOrderSync.o debug.o globalFunc.o pubdb.o pubBill.o
+OBJ74=Rrecover.o debug.o globalFunc.o pubdb.o pubBill.o
+#OBJ74=Rrecover.o debug.o globalFunc.o pubdb.o 
+OBJ75=ChgPhNoSend.o pubFunc.o debug.o globalFunc.o pubdb.o 
+OBJ76=DealIotgrpOrder.o pubFunc.o debug.o globalFunc.o pubdb.o 
+OBJ77=DealIotgrpMebOrder.o pubFunc.o debug.o globalFunc.o pubdb.o 
+OBJ78=BatchReserveOrder.o pubFunc.o debug.o globalFunc.o pubdb.o
+
+
+######debug.o globalFunc.o pubdb.o pubDataOrder.o
+gSMSFunc: $(OBJ13)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+ModeAddFunc: $(OBJ01)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+ModeAddFuncIm: $(OBJ80)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+CaseAddFunc: $(OBJ12)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+MonitorBill: $(OBJ98)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+	
+ModeAdd139: $(OBJ02)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+	
+RNescOrder: $(OBJ03)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+RTmpDealJcsh: $(OBJ05)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+	
+AdcFuncOrder: $(OBJ06)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+InterRoamChg: $(OBJ07)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+GprsDown: $(OBJ99)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+NetCardChange: $(OBJ08)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+	
+BatchDeal: $(OBJ09)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+	
+ModeZnmsFunc: $(OBJ10)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+	
+dsmpbatchim: $(OBJ11)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+RAybOrder: $(OBJ04)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+BatchVasOrderSync: $(OBJ14) 
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+BatchVasOrderDeal: $(OBJ62) 
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+BatchVscpOrderMsg: $(OBJ63) 
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+BatchMpayCreditMsg: $(OBJ65) 
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+BatchDeadFuncSync: $(OBJ55) 
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+dMobileInfoMsg: $(OBJ64) 
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+dAwakeDataMsg: $(OBJ66) 
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+BatchComOrderSync: $(OBJ54) 
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+GenerateComDate: $(OBJ56)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+	
+tDealComData: $(OBJ57)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+wNetCareShortMsg: $(OBJ58)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+FetchCompareDate: $(OBJ59)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+DelMuscBoxData: $(OBJ44) 
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+DealMpayPayReq: $(OBJ18) 
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+BatchMarkOrderSync: $(OBJ34) 
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+BatchVpmnOrderSync: $(OBJ24) 
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+WlanStopFunc: $(OBJ15)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+WlanBeginFunc: $(OBJ16)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+DealRubTxMsg: $(OBJ17)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+UpdateStmm: $(OBJ19)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+UpdateMusc: $(OBJ22)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+UserStateWire: $(OBJ23)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+UpWireBizChg: $(OBJ25)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+UpHscsBizChg: $(OBJ26)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+UserStateHscs: $(OBJ27)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+UpMdopBizChg: $(OBJ28)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+	
+UpVmxpBizChg: $(OBJ31)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+Rrecover: $(OBJ74)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+UserStateMdop: $(OBJ29)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+UserOrderSnd: $(OBJ30)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+UpStmmBizChg: $(OBJ20)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+
+UserStatePimm: $(OBJ21)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+DelFvpnUserInfo: $(OBJ60)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+RDealFamilyVpmn: $(OBJ61)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+DealFamShortNoOrder: $(OBJ67)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+RCancelDataCmd: $(OBJ97)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+BatchDsmpOrderSync: $(OBJ68)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+Tddsmporderchgload: $(OBJ70)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+DealWlanOrder: $(OBJ71)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+	
+BatchSendUserState: $(OBJ72)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+BatchOneWapOrderSync: $(OBJ73) 
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+ChgPhNoSend: $(OBJ75)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+	
+DealIotgrpOrder: $(OBJ76)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+DealIotgrpMebOrder: $(OBJ77)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+BatchReserveOrder: $(OBJ78)
+	$(CC) -o $@ $? $(LIBS)
+	$(CLIBEACOMP) -w -o $@ -f "$?" -l "$(LIBS)"
+	mv -f $@ ./bin
+	@echo "### $@ loaded ###\n"
+
+	
+############################
+.cp.c: $(PUBH)
+	$(PRECOMP) $(PROCFLAGS) $<
+	$(PUBLOGUTIL) $(<:.cp=.c)
+.cp.o: $(PUBH)
+	$(PRECOMP) $(PROCFLAGS) $<
+	$(PUBLOGUTIL) $(<:.cp=.c)
+	$(CC) $(INCLUDE) -c $(<:.cp=.c)
+.c.o: $(PUBH)
+	$(CC) $(INCLUDE) -g -c $<
+clean:
+	rm -f *.o
+	rm -f *.lis
+	rm -f pubdb.c pubBill.c AdcFuncOrder.c ModeAddFunc.c ModeAdd139.c RNescOrder.c RAybOrder.c RTmpDealJcsh.c AdcFuncOrder.c NetCardChange.c MonitorBill.c BatchDeal.c CaseAddFunc.c BatchSendUserState.c Rrecover.c ChgPhNoSend.c BatchVasOrderSync.c DealIotgrpOrder.c BatchReserveOrder.c

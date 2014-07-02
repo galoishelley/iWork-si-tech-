@@ -1,0 +1,859 @@
+connect to OFFON success
+TIME:2011/05/18 10:58:48
+
+process is killed
+TIME:2011/05/18 10:59:41
+
+connect to OFFON success
+TIME:2011/05/18 11:10:05
+
+process is killed
+TIME:2011/05/18 11:14:11
+
+connect to OFFON success
+TIME:2011/05/18 11:19:44
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13654314057    2010081092330406                1    911       [134:134]
+TIME:2011/05/18 11:19:44
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:44
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:44
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:44
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:44
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:44
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:44
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:44
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:44
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:44
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:44
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:44
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:44
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13756633333    2010081092330406                0    911       [134:134]
+TIME:2011/05/18 11:19:44
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:44
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:44
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:44
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:44
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:44
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:44
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:44
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:44
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:44
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:44
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:44
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:44
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13654314057    2010081092330406                1    911       [134:134]
+TIME:2011/05/18 11:19:49
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:49
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:49
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:49
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:49
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:49
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:49
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:49
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:49
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:49
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:49
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:49
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:49
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13756633333    2010081092330406                0    911       [134:134]
+TIME:2011/05/18 11:19:49
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:49
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:49
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:49
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:49
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:49
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:49
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:49
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:49
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:49
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:49
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:49
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:49
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13654314057    2010081092330406                1    911       [134:134]
+TIME:2011/05/18 11:19:54
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:54
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:54
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:54
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:54
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:54
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:54
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:54
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:54
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:54
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:54
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:54
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:54
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13756633333    2010081092330406                0    911       [134:134]
+TIME:2011/05/18 11:19:54
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:54
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:54
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:54
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:54
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:54
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:54
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:54
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:54
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:54
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:54
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:54
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:54
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13654314057    2010081092330406                1    911       [134:134]
+TIME:2011/05/18 11:19:59
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:59
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:59
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:59
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:59
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:59
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:59
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:59
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:59
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:59
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:59
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:59
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:59
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13756633333    2010081092330406                0    911       [134:134]
+TIME:2011/05/18 11:19:59
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:59
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:59
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:59
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:59
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:59
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:59
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:59
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:59
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:59
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:19:59
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:19:59
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:19:59
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13654314057    2010081092330406                1    911       [134:134]
+TIME:2011/05/18 11:20:04
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:20:04
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:20:04
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:20:04
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:20:04
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:20:04
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:20:04
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:20:04
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:20:04
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:20:04
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:20:04
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:20:04
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:20:04
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13756633333    2010081092330406                0    911       [134:134]
+TIME:2011/05/18 11:20:04
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:20:04
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:20:04
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:20:04
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:20:04
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:20:04
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:20:04
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:20:04
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:20:04
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:20:04
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 11:20:04
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 11:20:04
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 11:20:04
+
+process is killed
+TIME:2011/05/18 11:20:07
+
+connect to OFFON success
+TIME:2011/05/18 14:27:29
+
+deal table [dSaleTaskExec_00]
+TIME:2011/05/18 14:27:29
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 14:27:29
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 14:27:29
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 14:27:29
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 14:27:29
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2011/05/18 14:27:29
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 14:27:29
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 14:27:29
+
+====sqlca.sqlcode=[-1002],sqlca.sqlerrm.sqlerrmc=[ORA-01002: fetch out of sequence
+                                     ]
+TIME:2011/05/18 14:27:29
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 14:27:29
+
+tmpsql==[select a.Taskexec_id,nvl(a.phone_no,' '),nvl(a.act_id,' '),nvl(a.is_local_transact,' '),nvl(a.contact_channel_code,' '),nvl(a.feedback_code,' ') from dSaleTaskExec_00 a where mod(a.Taskexec_id,:v1)=:v2 and (a.bak3!='1' or a.bak3 is null) and a.contact_channel_code!='905' and exists (select 1 from dSaleChannel b where b.act_id=a.act_id and b.group_id=a.group_id and b.contact_channel_code='905')]
+TIME:2011/05/18 14:27:29
+
+connect to OFFON success
+TIME:2011/05/18 14:28:33
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/18 14:28:33
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13654314057    2010081092330406                1    911       [134:134]
+TIME:2011/05/18 14:28:33
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 14:28:33
+
+====sqlca.sqlcode=[-904],sqlca.sqlerrm.sqlerrmc=[ORA-00904: "EXEC_CIRCS_ID": invalid identifier
+                       ]
+TIME:2011/05/18 14:28:33
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 14:28:33
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 14:28:33
+
+====sqlca.sqlcode=[-904],sqlca.sqlerrm.sqlerrmc=[ORA-00904: "EXEC_CIRCS_ID": invalid identifier
+                       ]
+TIME:2011/05/18 14:28:33
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 14:28:33
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13756633333    2010081092330406                0    911       [134:134]
+TIME:2011/05/18 14:28:33
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 14:28:33
+
+====sqlca.sqlcode=[-904],sqlca.sqlerrm.sqlerrmc=[ORA-00904: "EXEC_CIRCS_ID": invalid identifier
+                       ]
+TIME:2011/05/18 14:28:33
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 14:28:33
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 14:28:33
+
+====sqlca.sqlcode=[-904],sqlca.sqlerrm.sqlerrmc=[ORA-00904: "EXEC_CIRCS_ID": invalid identifier
+                       ]
+TIME:2011/05/18 14:28:33
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 14:28:33
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/18 14:28:38
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/18 14:28:43
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/18 14:28:48
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/18 14:28:53
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/18 14:28:58
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/18 14:29:03
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/18 14:29:08
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/18 14:29:13
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/18 14:29:18
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13654314057    2010081092330406                1    911       [134:134]
+TIME:2011/05/18 14:29:18
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 14:29:18
+
+====sqlca.sqlcode=[-904],sqlca.sqlerrm.sqlerrmc=[ORA-00904: "EXEC_CIRCS_ID": invalid identifier
+                       ]
+TIME:2011/05/18 14:29:18
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 14:29:18
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 14:29:18
+
+====sqlca.sqlcode=[-904],sqlca.sqlerrm.sqlerrmc=[ORA-00904: "EXEC_CIRCS_ID": invalid identifier
+                       ]
+TIME:2011/05/18 14:29:18
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 14:29:18
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13756633333    2010081092330406                0    911       [134:134]
+TIME:2011/05/18 14:29:18
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 14:29:18
+
+====sqlca.sqlcode=[-904],sqlca.sqlerrm.sqlerrmc=[ORA-00904: "EXEC_CIRCS_ID": invalid identifier
+                       ]
+TIME:2011/05/18 14:29:18
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 14:29:18
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 14:29:18
+
+====sqlca.sqlcode=[-904],sqlca.sqlerrm.sqlerrmc=[ORA-00904: "EXEC_CIRCS_ID": invalid identifier
+                       ]
+TIME:2011/05/18 14:29:18
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 14:29:18
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/18 14:29:23
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/18 14:29:28
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/18 14:29:33
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/18 14:29:38
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/18 14:29:43
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/18 14:29:48
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/18 14:29:53
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/18 14:29:58
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/18 14:30:03
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13654314057    2010081092330406                1    911       [134:134]
+TIME:2011/05/18 14:30:03
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 14:30:03
+
+====sqlca.sqlcode=[-904],sqlca.sqlerrm.sqlerrmc=[ORA-00904: "EXEC_CIRCS_ID": invalid identifier
+                       ]
+TIME:2011/05/18 14:30:03
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 14:30:03
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 14:30:03
+
+====sqlca.sqlcode=[-904],sqlca.sqlerrm.sqlerrmc=[ORA-00904: "EXEC_CIRCS_ID": invalid identifier
+                       ]
+TIME:2011/05/18 14:30:03
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 14:30:03
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13756633333    2010081092330406                0    911       [134:134]
+TIME:2011/05/18 14:30:03
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 14:30:03
+
+====sqlca.sqlcode=[-904],sqlca.sqlerrm.sqlerrmc=[ORA-00904: "EXEC_CIRCS_ID": invalid identifier
+                       ]
+TIME:2011/05/18 14:30:03
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 14:30:03
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/05/18 14:30:03
+
+====sqlca.sqlcode=[-904],sqlca.sqlerrm.sqlerrmc=[ORA-00904: "EXEC_CIRCS_ID": invalid identifier
+                       ]
+TIME:2011/05/18 14:30:03
+
+====EXEC SQL ERROR END
+TIME:2011/05/18 14:30:03
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/18 14:30:08
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/18 14:30:13
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/18 14:30:18
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/18 14:30:23
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/18 14:30:28
+
+process is killed
+TIME:2011/05/18 14:30:32
+
+connect to OFFON success
+TIME:2011/05/18 14:32:05
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/18 14:32:05
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13654314057    2010081092330406                1    911       [134:134]
+TIME:2011/05/18 14:32:05
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13756633333    2010081092330406                0    911       [134:134]
+TIME:2011/05/18 14:32:05
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/18 14:32:10
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/18 14:32:15
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/18 14:32:20
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/18 14:32:25
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/18 14:32:30
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/18 14:32:35
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/18 14:32:40
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/18 14:32:45
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/18 14:32:50
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/18 14:32:55
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/18 14:33:00
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/18 14:33:05
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/18 14:33:10
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/18 14:33:15
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/18 14:33:20
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/18 14:33:25
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/18 14:33:30
+
+process is killed
+TIME:2011/05/18 14:33:33
+
+connect to OFFON success
+TIME:2011/05/18 14:45:01
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/18 14:45:01
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13654314057    2010081092330406                1    911  01   [134:134]
+TIME:2011/05/18 14:45:01
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13756633333    2010081092330406                0    911  07   [134:134]
+TIME:2011/05/18 14:45:01
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/18 14:45:06
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/18 14:45:11
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/18 14:45:16
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/18 14:45:21
+
+process is killed
+TIME:2011/05/18 14:45:24
+
+connect to OFFON success
+TIME:2011/05/18 14:53:04
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/18 14:53:04
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/18 14:53:09
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/18 14:53:14
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/18 14:53:19
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/18 14:53:24
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/18 14:53:29
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/18 14:53:34
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/18 14:53:39
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/18 14:53:44
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/18 14:53:49
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13654314057    2010081092330406                1    911  01   [134:134]
+TIME:2011/05/18 14:53:49
+
+connect to OFFON success
+TIME:2011/05/18 16:22:49
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/18 16:22:49
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13654314057 2010081092330406       1    911                 01   [134:137]
+TIME:2011/05/18 16:22:49
+
+connect to OFFON success
+TIME:2011/05/18 16:29:45
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/18 16:29:45
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13654314057    2010081092330406                1    911  01   [134:134]
+TIME:2011/05/18 16:29:45
+
+connect to OFFON success
+TIME:2011/05/18 16:55:42
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/18 16:55:42
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     13654314057    2010081092330406                1    911  01[200:131]
+TIME:2011/05/18 16:55:42
+

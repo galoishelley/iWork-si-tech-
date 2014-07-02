@@ -1,0 +1,876 @@
+connect to OFFON success
+TIME:2012/09/12 08:50:48
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13689828658         0  20120227201202272012022780742200701081[272:133]
+TIME:2012/09/12 08:50:48
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:50:49
+
+INSERT to db succ 8913925672|13689828658!
+TIME:2012/09/12 08:50:49
+
+SND:`BD`0QX:SJB         jifee     jifee                                     13689828658         807422007084[272:104]
+TIME:2012/09/12 08:50:49
+
+RCV:`BD`1QX:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:50:49
+
+INSERT to db succ 8913925673|13689828658!
+TIME:2012/09/12 08:50:49
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13689828658         0  20120227201202272012022780742200701085[272:133]
+TIME:2012/09/12 08:50:49
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:50:49
+
+INSERT to db succ 8913925674|13689828658!
+TIME:2012/09/12 08:50:49
+
+SND:`BD`0QX:SJB         jifee     jifee                                     13689828658         807422007080[272:104]
+TIME:2012/09/12 08:50:49
+
+RCV:`BD`1QX:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:50:49
+
+INSERT to db succ 8913925675|13689828658!
+TIME:2012/09/12 08:50:49
+
+SND:`BD`0KT:NXT         jifee     jifee                                     13944802279         20120227010101AJL001090102[272:118]
+TIME:2012/09/12 08:50:49
+
+RCV:`BD`1KT:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:50:49
+
+INSERT to db succ 8913925681|13944802279!
+TIME:2012/09/12 08:50:49
+
+SND:`BD`0QX:NXT         jifee     jifee                                     13944802279         AJL001090102[272:104]
+TIME:2012/09/12 08:50:49
+
+RCV:`BD`1QX:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:50:49
+
+INSERT to db succ 8913925682|13944802279!
+TIME:2012/09/12 08:50:49
+
+INSERT to db succ 8913925683|13689828658!
+TIME:2012/09/12 08:50:49
+
+SND:`BD`0KT:NXT         jifee     jifee                                     15943058480         20120229010101AJL011991102[272:118]
+TIME:2012/09/12 08:50:57
+
+RCV:`BD`1KT:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:50:57
+
+INSERT to db succ 8913933639|15943058480!
+TIME:2012/09/12 08:50:57
+
+INSERT to db succ 8913937636|15043193241!
+TIME:2012/09/12 08:50:57
+
+INSERT to db succ 8913937642|15043193241!
+TIME:2012/09/12 08:51:05
+
+INSERT to db succ 8913937645|15104459107!
+TIME:2012/09/12 08:51:13
+
+INSERT to db succ 8913937655|15948166808!
+TIME:2012/09/12 08:51:21
+
+SND:`BD`0KT:SJB         jifee     jifee                                     15043193241         0  20120306201203062012030680742200701081[272:133]
+TIME:2012/09/12 08:51:27
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:51:27
+
+INSERT to db succ 8913937665|15043193241!
+TIME:2012/09/12 08:51:27
+
+SND:`BD`0KT:NXT         jifee     jifee                                     15104459107         20120306010101AJL001090102[272:118]
+TIME:2012/09/12 08:51:27
+
+RCV:`BD`1KT:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:51:27
+
+INSERT to db succ 8913937711|15104459107!
+TIME:2012/09/12 08:51:27
+
+SND:`BD`0QX:NXT         jifee     jifee                                     15104459107         AJL001090102[272:104]
+TIME:2012/09/12 08:51:27
+
+RCV:`BD`1QX:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:51:28
+
+INSERT to db succ 8913937712|15104459107!
+TIME:2012/09/12 08:51:28
+
+INSERT to db succ 8913939614|13844091889!
+TIME:2012/09/12 08:51:28
+
+INSERT to db succ 8913939615|13844091889!
+TIME:2012/09/12 08:51:36
+
+INSERT to db succ 8913939616|13844091889!
+TIME:2012/09/12 08:51:44
+
+INSERT to db succ 8913939617|13844091889!
+TIME:2012/09/12 08:51:52
+
+INSERT to db succ 8913939618|13844091889!
+TIME:2012/09/12 08:51:58
+
+INSERT to db succ 8913939619|13844091889!
+TIME:2012/09/12 08:52:06
+
+INSERT to db succ 8913939620|13844091889!
+TIME:2012/09/12 08:52:14
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13844091889         0  20120314201203142012031480742200701081[272:133]
+TIME:2012/09/12 08:52:22
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:52:22
+
+INSERT to db succ 8913941660|13844091889!
+TIME:2012/09/12 08:52:22
+
+SND:`BD`0QX:SJB         jifee     jifee                                     13844091889         807422007084[272:104]
+TIME:2012/09/12 08:52:22
+
+RCV:`BD`1QX:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:52:22
+
+INSERT to db succ 8913941661|13844091889!
+TIME:2012/09/12 08:52:22
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13844091889         0  20120314201203142012031480741410101081[272:133]
+TIME:2012/09/12 08:52:22
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:52:22
+
+INSERT to db succ 8913941662|13844091889!
+TIME:2012/09/12 08:52:22
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13844820310         0  20120314201203142012031480742200701081[272:133]
+TIME:2012/09/12 08:52:22
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:52:22
+
+INSERT to db succ 8913941663|13844820310!
+TIME:2012/09/12 08:52:22
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13844820310         0  20120314201203142012031480741410401081[272:133]
+TIME:2012/09/12 08:52:22
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:52:22
+
+INSERT to db succ 8913941669|13844820310!
+TIME:2012/09/12 08:52:22
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13844820310         0  20120316201203162012031680741410601081[272:133]
+TIME:2012/09/12 08:52:22
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:52:22
+
+INSERT to db succ 8913951633|13844820310!
+TIME:2012/09/12 08:52:22
+
+INSERT to db succ 8913961614|13500889033!
+TIME:2012/09/12 08:52:22
+
+INSERT to db succ 8913961616|13500889033!
+TIME:2012/09/12 08:52:30
+
+INSERT to db succ 8913961617|13500889033!
+TIME:2012/09/12 08:52:38
+
+INSERT to db succ 8913967631|15886172217!
+TIME:2012/09/12 08:52:46
+
+SND:`BD`0QX:NXT         jifee     jifee                                     13500855478         AJL011991308[272:104]
+TIME:2012/09/12 08:52:52
+
+RCV:`BD`1QX:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:52:52
+
+INSERT to db succ 8913967632|13500855478!
+TIME:2012/09/12 08:52:52
+
+SND:`BD`0QX:NXT         jifee     jifee                                     13500855478         AJL001090208[272:104]
+TIME:2012/09/12 08:52:52
+
+RCV:`BD`1QX:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:52:52
+
+INSERT to db succ 8913967633|13500855478!
+TIME:2012/09/12 08:52:52
+
+SND:`BD`0QX:NXT         jifee     jifee                                     13500855478         AJL011990s08[272:104]
+TIME:2012/09/12 08:52:52
+
+RCV:`BD`1QX:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:52:52
+
+INSERT to db succ 8913967634|13500855478!
+TIME:2012/09/12 08:52:52
+
+SND:`BD`0QX:NXT         jifee     jifee                                     13500855478         AJL001090108[272:104]
+TIME:2012/09/12 08:52:52
+
+RCV:`BD`1QX:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:52:52
+
+INSERT to db succ 8913967636|13500855478!
+TIME:2012/09/12 08:52:52
+
+SND:`BD`0QX:NXT         jifee     jifee                                     13500855478         AJL001090108[272:104]
+TIME:2012/09/12 08:52:52
+
+RCV:`BD`1QX:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:52:52
+
+INSERT to db succ 8913967637|13500855478!
+TIME:2012/09/12 08:52:52
+
+SND:`BD`0QX:SJB         jifee     jifee                                     15886172217         807422007080[272:104]
+TIME:2012/09/12 08:52:52
+
+RCV:`BD`1QX:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:52:52
+
+INSERT to db succ 8913967639|15886172217!
+TIME:2012/09/12 08:52:52
+
+INSERT to db succ 8913967640|15886172217!
+TIME:2012/09/12 08:52:52
+
+INSERT to db succ 8913967641|13500855478!
+TIME:2012/09/12 08:53:00
+
+SND:`BD`0QX:SJB         jifee     jifee                                     13500855478         807422007080[272:104]
+TIME:2012/09/12 08:53:08
+
+RCV:`BD`1QX:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:53:08
+
+INSERT to db succ 8913967642|13500855478!
+TIME:2012/09/12 08:53:08
+
+INSERT to db succ 8913967643|13654378573!
+TIME:2012/09/12 08:53:08
+
+SND:`BD`0QX:NXT         jifee     jifee                                     15886172217         AJL001090108[272:104]
+TIME:2012/09/12 08:53:16
+
+RCV:`BD`1QX:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:53:16
+
+INSERT to db succ 8913969624|15886172217!
+TIME:2012/09/12 08:53:16
+
+SND:`BD`0QX:NXT         jifee     jifee                                     15886172217         AJL001090108[272:104]
+TIME:2012/09/12 08:53:16
+
+RCV:`BD`1QX:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:53:16
+
+INSERT to db succ 8913971615|15886172217!
+TIME:2012/09/12 08:53:16
+
+INSERT to db succ 8913975613|13500855478!
+TIME:2012/09/12 08:53:16
+
+SND:`BD`0QX:NXT         jifee     jifee                                     13500855478         AJL011990j08[272:104]
+TIME:2012/09/12 08:53:24
+
+RCV:`BD`1QX:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:53:24
+
+INSERT to db succ 8913975615|13500855478!
+TIME:2012/09/12 08:53:24
+
+SND:`BD`0QX:NXT         jifee     jifee                                     13500855478         AJL011990d08[272:104]
+TIME:2012/09/12 08:53:24
+
+RCV:`BD`1QX:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:53:24
+
+INSERT to db succ 8913975616|13500855478!
+TIME:2012/09/12 08:53:24
+
+SND:`BD`0QX:NXT         jifee     jifee                                     13500855478         AJL011990a08[272:104]
+TIME:2012/09/12 08:53:24
+
+RCV:`BD`1QX:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:53:24
+
+INSERT to db succ 8913975617|13500855478!
+TIME:2012/09/12 08:53:24
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13844091869         0  20120401201204012012040180742200701081[272:133]
+TIME:2012/09/12 08:53:24
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:53:24
+
+INSERT to db succ 8913979032|13844091869!
+TIME:2012/09/12 08:53:24
+
+SND:`BD`0QX:SJB         jifee     jifee                                     13844091869         807422007080[272:104]
+TIME:2012/09/12 08:53:24
+
+RCV:`BD`1QX:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:53:24
+
+INSERT to db succ 8913979033|13844091869!
+TIME:2012/09/12 08:53:24
+
+INSERT to db succ 8913979034|13844091869!
+TIME:2012/09/12 08:53:24
+
+INSERT to db succ 8913979636|13844091869!
+TIME:2012/09/12 08:53:32
+
+INSERT to db succ 8913979637|13844091869!
+TIME:2012/09/12 08:53:40
+
+INSERT to db succ 8913979638|13844091869!
+TIME:2012/09/12 08:53:48
+
+INSERT to db succ 8913983618|15886172217!
+TIME:2012/09/12 08:53:54
+
+SND:`BD`0KT:SJB         jifee     jifee                                     15124426949         0  20120405201204052012040580742200702081[272:133]
+TIME:2012/09/12 08:54:02
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:54:02
+
+INSERT to db succ 8913983635|15124426949!
+TIME:2012/09/12 08:54:02
+
+INSERT to db succ 8913991621|13844091889!
+TIME:2012/09/12 08:54:02
+
+INSERT to db succ 8913995616|13894356627!
+TIME:2012/09/12 08:54:10
+
+SND:`BD`0KT:SJB         jifee     jifee                                     15843414387         0  20120412201204122012041280742600804081[272:133]
+TIME:2012/09/12 08:54:18
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:54:18
+
+INSERT to db succ 8913995617|15843414387!
+TIME:2012/09/12 08:54:18
+
+INSERT to db succ 8913997748|13504412391!
+TIME:2012/09/12 08:54:18
+
+INSERT to db succ 8913997819|13500805043!
+TIME:2012/09/12 08:54:26
+
+INSERT to db succ 8913997821|13500805044!
+TIME:2012/09/12 08:54:34
+
+INSERT to db succ 8913997834|15944002681!
+TIME:2012/09/12 08:54:42
+
+INSERT to db succ 8913997835|15944002681!
+TIME:2012/09/12 08:54:48
+
+INSERT to db succ 8913997836|15944002681!
+TIME:2012/09/12 08:54:56
+
+INSERT to db succ 8913997894|13504412391!
+TIME:2012/09/12 08:55:04
+
+INSERT to db succ 8913997896|13504412391!
+TIME:2012/09/12 08:55:12
+
+INSERT to db succ 8914001643|15948719818!
+TIME:2012/09/12 08:55:20
+
+INSERT to db succ 8914001644|15948719818!
+TIME:2012/09/12 08:55:28
+
+INSERT to db succ 8914001645|15948719818!
+TIME:2012/09/12 08:55:36
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13504412391         0  20120426201204262012042680742200701081[272:133]
+TIME:2012/09/12 08:55:44
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:55:44
+
+INSERT to db succ 8914001704|13504412391!
+TIME:2012/09/12 08:55:44
+
+INSERT to db succ 8914001710|13944869316!
+TIME:2012/09/12 08:55:44
+
+INSERT to db succ 8914003659|13944869316!
+TIME:2012/09/12 08:55:53
+
+INSERT to db succ 8914003662|13944869316!
+TIME:2012/09/12 08:56:01
+
+INSERT to db succ 8914003663|13944869316!
+TIME:2012/09/12 08:56:09
+
+INSERT to db succ 8914003665|13944869316!
+TIME:2012/09/12 08:56:14
+
+INSERT to db succ 8914003666|13944869316!
+TIME:2012/09/12 08:56:22
+
+INSERT to db succ 8914015641|13944869316!
+TIME:2012/09/12 08:56:31
+
+INSERT to db succ 8914015642|13944869316!
+TIME:2012/09/12 08:56:39
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13844800675         0  20120517201205172012051780741410101081[272:133]
+TIME:2012/09/12 08:56:47
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:56:47
+
+INSERT to db succ 8914017627|13844800675!
+TIME:2012/09/12 08:56:47
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13504412391         0  20120602201206022012060280742601901081[272:133]
+TIME:2012/09/12 08:56:47
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:56:47
+
+INSERT to db succ 8914027632|13504412391!
+TIME:2012/09/12 08:56:47
+
+INSERT to db succ 8914027633|15004385547!
+TIME:2012/09/12 08:56:47
+
+SND:`BD`0QX:NXT         jifee     jifee                                     13578762996         AJL001090108[272:104]
+TIME:2012/09/12 08:56:55
+
+RCV:`BD`1QX:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:56:55
+
+INSERT to db succ 8914027635|13578762996!
+TIME:2012/09/12 08:56:55
+
+INSERT to db succ 8914027646|13610790929!
+TIME:2012/09/12 08:56:55
+
+INSERT to db succ 8914027655|13610790929!
+TIME:2012/09/12 08:57:03
+
+INSERT to db succ 8914027656|13610790929!
+TIME:2012/09/12 08:57:11
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13610790929         0  20120607201206072012060780742200701081[272:133]
+TIME:2012/09/12 08:57:19
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2012/09/12 08:57:19
+
+INSERT to db succ 8914027658|13610790929!
+TIME:2012/09/12 08:57:19
+
+SND:`BD`0KT:NXT         jifee     jifee                                     13610790929         20120607010101AJL001090308[272:118]
+TIME:2012/09/12 08:57:19
+
+RCV:`BD`1KT:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 08:57:19
+
+INSERT to db succ 8914027659|13610790929!
+TIME:2012/09/12 08:57:19
+
+INSERT to db succ 8914029672|13504412391!
+TIME:2012/09/12 08:57:19
+
+INSERT to db succ 8914029673|13504412391!
+TIME:2012/09/12 08:57:27
+
+INSERT to db succ 8914029674|13504412391!
+TIME:2012/09/12 08:57:35
+
+INSERT to db succ 8914029675|13504412391!
+TIME:2012/09/12 08:57:43
+
+INSERT to db succ 8914029676|13504412391!
+TIME:2012/09/12 08:57:49
+
+INSERT to db succ 8914029677|13504412391!
+TIME:2012/09/12 08:57:57
+
+INSERT to db succ 8914029680|13504412391!
+TIME:2012/09/12 08:58:05
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500855478         AJL0010903201009011[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914281712|13500855478!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500855478         AJL0010903201009012[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914281715|13500855478!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500855478         AJL0010903201009011[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914281708|13500855478!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500855478         AJL0010903201009011[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914281705|13500855478!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500855478         AJL0010903201009011[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914281706|13500855478!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500855478         AJL0010903201009011[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914281707|13500855478!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500800379         AJL0010901201109151[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914281709|13500800379!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500800379         AJL0010901201109152[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914281710|13500800379!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500800379         AJL0119903201109152[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914281711|13500800379!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500800379         AJL0119903201109151[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914281713|13500800379!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500800379         AJL0010901201109151[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914281714|13500800379!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500800379         AJL0010901201109152[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914281716|13500800379!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500855478         AJL0010903201009011[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914281717|13500855478!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500855478         AJL0010903201009012[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914283635|13500855478!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500809988         AJL0010901201209041[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914285635|13500809988!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500809988         AJL0010901201209041[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914285636|13500809988!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500855478         AJL0010903201009011[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914285639|13500855478!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500855478         AJL0010903201009011[272:111]
+TIME:2012/09/12 08:58:13
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 08:58:13
+
+INSERT to db succ 8914285640|13500855478!
+TIME:2012/09/12 08:58:13
+
+SND:`BD`0BF:NXT         jifee     jifee                                     13500809988         AJL0010901201209041[272:111]
+TIME:2012/09/12 09:10:05
+
+RCV:`BD`1BF:NXT         jifee     jifee                                     RETN=00002 [272]
+TIME:2012/09/12 09:10:05
+
+INSERT to db succ 8914289635|13500809988!
+TIME:2012/09/12 09:10:05
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500855478         AJL0010903201009011[272:111]
+TIME:2012/09/12 09:31:50
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:50
+
+INSERT to db succ 8914281712|13500855478!
+TIME:2012/09/12 09:31:50
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500855478         AJL0010903201009012[272:111]
+TIME:2012/09/12 09:31:50
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:50
+
+INSERT to db succ 8914281715|13500855478!
+TIME:2012/09/12 09:31:50
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500855478         AJL0010903201009011[272:111]
+TIME:2012/09/12 09:31:50
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:50
+
+INSERT to db succ 8914281708|13500855478!
+TIME:2012/09/12 09:31:50
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500855478         AJL0010903201009011[272:111]
+TIME:2012/09/12 09:31:50
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:50
+
+INSERT to db succ 8914281705|13500855478!
+TIME:2012/09/12 09:31:50
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500855478         AJL0010903201009011[272:111]
+TIME:2012/09/12 09:31:50
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:50
+
+INSERT to db succ 8914281706|13500855478!
+TIME:2012/09/12 09:31:50
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500855478         AJL0010903201009011[272:111]
+TIME:2012/09/12 09:31:50
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:50
+
+INSERT to db succ 8914281707|13500855478!
+TIME:2012/09/12 09:31:50
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500800379         AJL0010901201109151[272:111]
+TIME:2012/09/12 09:31:50
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:50
+
+INSERT to db succ 8914281709|13500800379!
+TIME:2012/09/12 09:31:50
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500800379         AJL0010901201109152[272:111]
+TIME:2012/09/12 09:31:50
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:50
+
+INSERT to db succ 8914281710|13500800379!
+TIME:2012/09/12 09:31:50
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500800379         AJL0119903201109152[272:111]
+TIME:2012/09/12 09:31:50
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:50
+
+INSERT to db succ 8914281711|13500800379!
+TIME:2012/09/12 09:31:50
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500800379         AJL0119903201109151[272:111]
+TIME:2012/09/12 09:31:50
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:50
+
+INSERT to db succ 8914281713|13500800379!
+TIME:2012/09/12 09:31:50
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500800379         AJL0010901201109151[272:111]
+TIME:2012/09/12 09:31:50
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:50
+
+INSERT to db succ 8914281714|13500800379!
+TIME:2012/09/12 09:31:50
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500800379         AJL0010901201109152[272:111]
+TIME:2012/09/12 09:31:50
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:50
+
+INSERT to db succ 8914281716|13500800379!
+TIME:2012/09/12 09:31:50
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500855478         AJL0010903201009011[272:111]
+TIME:2012/09/12 09:31:50
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:50
+
+INSERT to db succ 8914281717|13500855478!
+TIME:2012/09/12 09:31:50
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500855478         AJL0010903201009012[272:111]
+TIME:2012/09/12 09:31:50
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:50
+
+INSERT to db succ 8914283635|13500855478!
+TIME:2012/09/12 09:31:50
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500809988         AJL0010901201209041[272:111]
+TIME:2012/09/12 09:31:50
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:50
+
+INSERT to db succ 8914285635|13500809988!
+TIME:2012/09/12 09:31:50
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500809988         AJL0010901201209041[272:111]
+TIME:2012/09/12 09:31:50
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:51
+
+INSERT to db succ 8914285636|13500809988!
+TIME:2012/09/12 09:31:51
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500855478         AJL0010903201009011[272:111]
+TIME:2012/09/12 09:31:51
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:51
+
+INSERT to db succ 8914285639|13500855478!
+TIME:2012/09/12 09:31:51
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500855478         AJL0010903201009011[272:111]
+TIME:2012/09/12 09:31:51
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:51
+
+INSERT to db succ 8914285640|13500855478!
+TIME:2012/09/12 09:31:51
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500809988         AJL0010901201209041[272:111]
+TIME:2012/09/12 09:31:51
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:31:51
+
+INSERT to db succ 8914289635|13500809988!
+TIME:2012/09/12 09:31:51
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500809988         AJL0010901201209041[272:111]
+TIME:2012/09/12 09:34:05
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:34:05
+
+INSERT to db succ 8914289639|13500809988!
+TIME:2012/09/12 09:34:05
+
+SND:`BD`0KT:NXTBF       jifee     jifee                                     13500809988         AJL0010901201209041[272:111]
+TIME:2012/09/12 09:34:29
+
+RCV:`BD`1KT:NXTBF       nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/09/12 09:34:29
+
+INSERT to db succ 8914289640|13500809988!
+TIME:2012/09/12 09:34:29
+

@@ -1,0 +1,108 @@
+connect to OFFON success
+TIME:2011/07/18 21:34:25
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13654378573         0  2011060920110609201106098074220070108[272:132]
+TIME:2011/07/18 21:34:25
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/07/18 21:34:25
+
+INSERT to db succ 8913668161|13654378573!
+TIME:2011/07/18 21:34:25
+
+SND:`BD`0QX:SJB         jifee     jifee                                     13654378573         80742200708[272:103]
+TIME:2011/07/18 21:34:25
+
+RCV:`BD`1QX:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/07/18 21:34:25
+
+INSERT to db succ 8913668163|13654378573!
+TIME:2011/07/18 21:34:25
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13654378573         0  2011060920110609201106098074220070108[272:132]
+TIME:2011/07/18 21:34:25
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/07/18 21:34:25
+
+INSERT to db succ 8913668169|13654378573!
+TIME:2011/07/18 21:34:25
+
+SND:`BD`0QX:SJB         jifee     jifee                                     13654378573         80742200708[272:103]
+TIME:2011/07/18 21:34:25
+
+RCV:`BD`1QX:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/07/18 21:34:25
+
+INSERT to db succ 8913668171|13654378573!
+TIME:2011/07/18 21:34:26
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13654378573         0  2011060920110609201106098074220070108[272:132]
+TIME:2011/07/18 21:34:26
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/07/18 21:34:26
+
+INSERT to db succ 8913668177|13654378573!
+TIME:2011/07/18 21:34:26
+
+INSERT to db succ 8913668197|13654378573!
+TIME:2011/07/18 21:34:26
+
+INSERT to db succ 8913668199|13654378573!
+TIME:2011/07/18 21:34:34
+
+INSERT to db succ 8913668203|13654378573!
+TIME:2011/07/18 21:34:42
+
+INSERT to db succ 8913668204|13654378573!
+TIME:2011/07/18 21:34:50
+
+process is killed
+TIME:2011/07/18 21:34:53
+
+connect to OFFON success
+TIME:2011/07/18 21:38:56
+
+SND:`BD`0KT:NXT         jifee     jifee                                     15948738796         20110325010101AJL001090308[272:118]
+TIME:2011/07/18 21:38:56
+
+RCV:`BD`1KT:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2011/07/18 21:38:56
+
+INSERT to db succ 8913570538|15948738796!
+TIME:2011/07/18 21:38:56
+
+process is killed
+TIME:2011/07/18 21:39:08
+
+connect to OFFON success
+TIME:2011/07/18 21:42:11
+
+SND:`BD`0KT:NXT         jifee     jifee                                     13944869316         20110718010101AJL001090108[272:118]
+TIME:2011/07/18 21:42:11
+
+RCV:`BD`1KT:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2011/07/18 21:42:11
+
+INSERT to db succ 8913818961|13944869316!
+TIME:2011/07/18 21:42:11
+
+process is killed
+TIME:2011/07/18 21:42:14
+
+connect to OFFON success
+TIME:2011/07/18 21:45:03
+
+SND:`BD`0QX:NXT         jifee     jifee                                     13944869316         AJL001090108[272:104]
+TIME:2011/07/18 21:45:03
+
+RCV:`BD`1QX:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2011/07/18 21:45:03
+
+INSERT to db succ 8913818960|13944869316!
+TIME:2011/07/18 21:45:03
+
+process is killed
+TIME:2011/07/18 21:45:07
+

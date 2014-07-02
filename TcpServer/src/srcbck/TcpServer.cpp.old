@@ -1,0 +1,3560 @@
+/**********************************************************************\
+ *
+ * File: SynServ.cpp
+ *
+ *  NOTE!!! 使用VI打开此文件时, 请将 tablespace设置为4 (:set ts=4)
+ *
+\**********************************************************************/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <ctype.h>
+#include <time.h>
+#include <sys/time.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
+#include <sys/shm.h>
+#include <sys/sem.h>
+#include <libgen.h>
+#include <sys/socket.h>
+#include <sys/socketvar.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <errno.h>
+#include <memory.h>
+
+/*调用tuxedo公共函数定义*/
+#include <atmi.h>
+#include <ctype.h>
+#include <fml.h>
+#include <fml32.h>
+#include <Usysflds.h>
+
+#include <map>
+#include <vector>
+#include <iterator>
+
+#include "PubFunc.h"
+#include "SysVar.h"
+
+#define BUFF_SIZE  1024*20
+#define MAX_LEGALIP_COUNT 60
+#define RECV_SIZE  900
+#define MAXPROCNUMBER 500
+
+typedef struct str_PARA
+{
+	char acParaName[30][512];		
+	int  nParaCount;
+}STRPARA;
+
+typedef struct share_Buffer
+{
+	pid_t ProcPid[MAXPROCNUMBER];		
+	int  nProcCount;
+}SHAREBUFFER;
+
+/*
+using namespace std;
+*/
+
+extern void SigTerm(int);
+extern void SigChld(int);
+extern void Usage(const char *);
+extern int InitSysVar(int,char**);
+extern void LogCfgSysVar(void);
+extern void LogIPCSysVar(void);
+extern void GenDaemon(void);
+extern void GenLckFile(const char *);
+extern void DelLckFile(const char *);
+extern void ResetSignal(void);
+extern int GetMainMsqID(const char *,int);
+extern int GetSynMsqID(const char *,int);
+extern int GetASynMsqID(const char *,int);
+extern int GetSynResShmID(const char*,int);
+extern int GetSynCtlShmID(const char*,int);
+extern int GetSynCtlSemSetID(const char*,int,int);
+extern int InitServerSocket(int*,char*,int);
+extern int InitSynCtlSems(int,int,int);
+extern int InitSynShm(int,int,int);
+extern int LockSem(int,int);
+extern int UnLockSem(int,int);
+extern int SendData(int,const char *,int,int);
+extern int RecvData(int,char *,int,int,int);
+extern void DelayMS(int);
+extern int GetReqStrLen(int);
+extern int KillCldPids(int,int);
+extern int IncreaseChild(int,int,int,pid_t);
+extern int AllIsDigit(const char*);
+extern int GetReqString(int,char*,int);
+extern int SendBackErrInfo(int,const char*);
+extern int GetPackage(int,char *,int);
+extern int GetASynFlag(const char *);
+
+
+/*****************Add By Zhaodw**************************/
+extern int ReadCfgToBuffer(const char*,CFGFILESTRUCT*);
+extern int ReadCmdFromBuf(const CFGFILESTRUCT*,const char*,const char*,char*);
+extern int CreateShm(key_t,int);
+extern int CreateSem(key_t);
+extern int GetShm(key_t,int&);
+extern int GetSem(key_t,int&);
+extern int Sem_P(int,int);
+extern int Sem_V(int,int);
+/*******************************************************/
+
+int convertpath(char *);
+int getConfpath(char *);
+int readcfg(char *,char *,char *,char *);
+char * ALLTrim(char *);  
+int	Initialize(char *);
+int LogIt( char *,char *) ;
+int LockFile(char* );
+int	InitServerSocket(int *,	char *, char *);
+void sig_int(int);
+void TimeOutAlarm(int );
+void InitSignal();
+int GetStringNumber(char*, char**);
+void sig_chld(int);
+void sig_chld1(int);
+void sig_int1(int);
+int RecvResultOnHP(int, char *,int,int);
+int bSelect (int,struct fd_set*,struct fd_set*,struct fd_set*,int);
+int GetTransCode(const char*,char*);
+int getPara(const char*,char*,STRPARA*);
+int Create_share(key_t,int );
+int CreateSEM(key_t);
+int creat_semaphore(key_t,int);
+int init_semaphore(int,int,int);
+int unlocksem(int, int);
+int locksem(int,int);
+int IncreaseChildPid(int,int,pid_t);
+int decreaseChildPid(int,int,pid_t);
+void Killsonpid(int,int);
+
+/*********************全局变量**********************************/
+int  MainQuitFlag = 0;
+char logpath[255]; 
+char IPAddress[30];
+char IPPort[10];
+char loginfo[BUFF_SIZE];
+char HEAD[255];
+char LockFilePath[255];
+int	 acceptsocket=0;
+int  ipflag = 0;
+char acconnip[MAX_LEGALIP_COUNT][20];
+int  ipcount = 0;
+int  sonquit=0;
+/***************************************************************/
+int
+main( int argc, char **argv )
+{
+	int    i = 0;
+	char   cfgFilePath[255];
+	int    nRet = 0;
+	int	   socketfd=-1;
+	struct sockaddr_in Connect_Address;
+	int    length=0;
+	char   connIp[32];
+	pid_t  childpid = 0;
+	char   RecvBuff[RECV_SIZE];
+	char   TransCode[13];
+	STRPARA  ParaValue;
+	char*  PacketBody = NULL;
+	char   SeparateFlag[2];
+	key_t  IPCkey = 0;
+	int    ShmId  = 0;
+	int    SemId  = 0;
+	SHAREBUFFER* pShareBuffer = NULL;
+	
+	
+	
+	memset(cfgFilePath,0,sizeof(cfgFilePath));
+	memset(logpath,0,sizeof(logpath));	
+	memset(IPAddress,0,sizeof(IPAddress));
+	memset(IPPort,0,sizeof(IPPort));
+	memset(HEAD,0,sizeof(HEAD));
+	memset(LockFilePath,0,sizeof(LockFilePath));
+	memset(&Connect_Address,0,sizeof(struct sockaddr_in));
+	memset(connIp,0,sizeof(connIp));	
+	memset(TransCode,0,sizeof(TransCode));
+	memset(&ParaValue,0,sizeof(STRPARA));
+	
+	SeparateFlag[0] = '\t';
+	SeparateFlag[1] = '\0';
+	
+	nRet = getConfpath(cfgFilePath);
+	if(nRet < 0)
+	{
+		printf("请检查配置文件$ADAPTERDIR/TcpServerCfg/TcpServer.cfg是否存在！\n");
+	    return -1; 
+	}
+	nRet = Initialize(cfgFilePath);
+	if(nRet<0)
+	{
+		printf("Initialize error! Error	number=%d\n",nRet);
+		return -1;
+	}
+	
+	strcat(logpath,"/");
+	sprintf(HEAD,"%s",logpath);
+	
+	sprintf(loginfo,	"Program<%d> started!.",getpid());
+	LogIt(loginfo,HEAD);
+	
+	strcat(LockFilePath,"/TcpServer.lk");
+	if((nRet=LockFile(LockFilePath)) != 1)
+	{
+		if (nRet == -1)    /*操作锁文件失败*/
+		{
+			sprintf(loginfo,"operate lock file %s failed!",LockFilePath);
+			LogIt(loginfo,HEAD);
+			printf("operate lock file %s failed!\n",LockFilePath);
+			exit(-1);
+		}/* 已经有进程实例*/
+		else if (nRet == 0)      /*ERR_EXIST 在运行*/
+		{
+			sprintf(loginfo,"TcpServer has already been exist!");
+			LogIt(loginfo,HEAD);
+			printf("TcpServer has already been exist!\n");
+			exit(0);
+		}
+	}
+	
+	IPCkey = ftok(cfgFilePath,115);
+	printf("IPCkey=[%d]\n",IPCkey);
+	ShmId = Create_share(IPCkey,sizeof(SHAREBUFFER));
+	if(ShmId == -1)
+	{
+	    sprintf(loginfo,"%s","创建共享内存失败" );
+    	LogIt(loginfo,HEAD);
+    	return -1;
+	}
+	printf("创建成功ShmId=[%d]\n",ShmId);
+	pShareBuffer = (SHAREBUFFER*)shmat(ShmId,0,0);
+	if(pShareBuffer == (SHAREBUFFER*)SHM_FAILED)
+	{
+		sprintf(loginfo,"%s","连接共享内存失败" );
+		LogIt(loginfo,HEAD);
+		return -1;
+	}
+	for(i = 0; i < MAXPROCNUMBER; i++)
+	{
+		pShareBuffer->ProcPid[i] = -1;
+	}
+	pShareBuffer->nProcCount = 0;
+	shmdt(pShareBuffer);
+	
+	SemId = CreateSEM(IPCkey);
+	if(SemId == -1)
+	{
+	    sprintf(loginfo,"%s","创建信号量失败" );
+	    LogIt(loginfo,HEAD);
+    	return -1;
+    }
+    printf("创建成功SemId=[%d]\n",SemId);
+	
+	nRet = InitServerSocket(&socketfd,IPAddress,IPPort);
+	if (nRet < 0)
+	{
+	    printf(	"Init ServerSocket failed!->[%s]!\n",strerror(socketfd));
+		sprintf(loginfo,"Init ServerSocket failed!error:<%d>,errmsg:<%s>.Program exit!",	socketfd, strerror(socketfd));
+		LogIt(loginfo,HEAD);
+		return -1;
+	}
+	printf("process running ip=[%s],port=[%s]\n",IPAddress,IPPort);
+	
+	while (!MainQuitFlag)
+	{
+		
+		printf("进入主循环，等待连接\n");
+		length =sizeof(Connect_Address);
+ 		acceptsocket = accept(socketfd, reinterpret_cast<struct sockaddr *>(&Connect_Address),&length);
+ 		printf("connect acceptsocket=[%d]\n",acceptsocket);
+ 		if (acceptsocket< 0)
+ 		{
+ 			if(MainQuitFlag)
+	 			break;
+	  		continue;
+ 		}
+		/*判断连接IP是否合法，非法则记录日志，取消该连接*/
+		memset(connIp,0,sizeof(connIp));
+		ipflag = 0;
+		strcpy(connIp,inet_ntoa(Connect_Address.sin_addr));
+		if(strcmp(acconnip[0],"0.0.0.0") == 0)
+		{
+			ipflag = 1;
+		}
+		for (i=0;i<ipcount;i++)
+		{			
+			if(strcmp(acconnip[i],connIp) == 0)
+			{
+				ipflag = 1;				
+				break;
+			}
+		}
+		if(!ipflag)
+		{			
+			sprintf(loginfo, "Connect ip isn't legal [%s]", connIp );
+			LogIt(loginfo,HEAD);
+			printf("%s\n",loginfo);			
+			close(acceptsocket);
+			sleep(1);
+			continue;
+		}	
+		else
+		{
+			printf("connect legal ip=[%s]\n",connIp);
+		}
+		
+		childpid = fork();
+		if (childpid < 0)
+		{
+			printf("Fork failed!\n");
+			sprintf(loginfo,"Fork Child Error->[%s]",strerror(errno));
+			LogIt(loginfo,HEAD);
+			break;
+		}
+		if (childpid ==	0)
+		{
+			close(socketfd);
+			
+			struct sigaction act1, oact1;
+			sigemptyset(&act1.sa_mask);
+			act1.sa_handler = sig_int1;
+			act1.sa_flags = 0;
+			sigaction(SIGINT, &act1,	&oact1);
+			sigaction(SIGTERM, &act1,&oact1);
+			sigaction(SIGQUIT, &act1,&oact1);
+			
+			/*act1.sa_handler = sig_chld1;
+		  	sigemptyset(&act1.sa_mask);
+		  	act1.sa_flags = 0;
+		  	sigaction(SIGCHLD, &act1,&oact1);*/ 
+		  	
+		  	while(!sonquit)
+		  	{
+		  		memset(RecvBuff, 0, sizeof(RecvBuff));
+		  		nRet = RecvResultOnHP(acceptsocket,RecvBuff,RECV_SIZE,30);
+		  		if(nRet <= 0)
+		  		{
+		  			printf("[%s]断开连接\n",connIp);
+		  			break;
+		  		}
+		  		printf("RecvBuff = [%s]\n",RecvBuff);
+		  		
+		  		PacketBody = &RecvBuff[140];
+		  		memset(&ParaValue,0,sizeof(STRPARA));
+		  		getPara(PacketBody,SeparateFlag,&ParaValue);
+		  		for(i = 0; i < ParaValue.nParaCount; i ++ )
+		  		{
+		  			printf("[%s]\n",ParaValue.acParaName[i]);
+		  		}
+		  		
+		  		
+		  		printf("服务代码 = [%s]\n",ParaValue.acParaName[3]);
+		  		
+		  		if(!strcmp(ParaValue.acParaName[3],"QUERY_SERVICE_BALANCE"))
+		  		{
+		  			char buff[168];
+		  			sprintf(buff,"%s","01000016700000000zzzdboss102100000001111111111111111111111111111111111YYYYMMDDHHMMSS000000000000000000000000000000000000100100000000000000001\t3\t1\t2008315\t12.1\t5\n");
+		  			send(acceptsocket,buff,168,0);		
+		  		}
+		  		else if(!strcmp(ParaValue.acParaName[3],"QUERY_GSM_BILL"))
+		  		{
+		  			/*王良 2008年3月18日 修改*/
+		  			doProcess(&ParaValue, 1000);
+		  			
+		  			char buff[270];
+		  			sprintf(buff,"%s","01000027000000000zzzdboss102100000002111111111111111111111111111111111YYYYMMDDHHMMSS000000000000000000000000000000000000100100000000000000002\t8\t开始日期\t结束日期\t交费状态\t总话费\t优惠话费\t滞纳金\t付费1\t付费2\n20080101\t20080305\t1\t150.0\t15.2\t0.0\t12.1\t17.9\n");
+		  	    	send(acceptsocket,buff,270,0);
+		  	    }
+		  	    else if(!strcmp(ParaValue.acParaName[3],"QUERY_GSM_SERVICE_NUM_CALL_RECORD"))
+		  		{
+		  			char buff[224];
+		  			sprintf(buff,"%s","01000022300000000zzzdboss102100000003111111111111111111111111111111111YYYYMMDDHHMMSS000000000000000000000000000000000000100100000000000000001\t10\t1\t6936069684\tMM\t13091714170\t0315 17:50:20\t1.15\t哈尔滨\ty\t21\t15\t21\n");
+		  	    	send(acceptsocket,buff,224,0);
+		  	    }
+		  	    else if(!strcmp(ParaValue.acParaName[3],"QUERY_GSM"))
+		  		{
+		  			if(!strcmp(ParaValue.acParaName[7],"7"))
+		  			{
+			  			char buff[191];
+			  			sprintf(buff,"%s","01000019000000000zzzdboss102100000004111111111111111111111111111111111YYYYMMDDHHMMSS000000000000000000000000000000000000100100000000000000001\t5\t1\t13936059684\t17\t0.1\t15\t0315 17:25:24\n");
+			  	    	send(acceptsocket,buff,191,0);
+			  	    }
+			  	    else if(!strcmp(ParaValue.acParaName[7],"2"))
+		  			{
+			  			char buff[228];
+			  			sprintf(buff,"%s","01000022700000000zzzdboss102100000004111111111111111111111111111111111YYYYMMDDHHMMSS000000000000000000000000000000000000100100000000000000001\t7\t1\t13936059684\t13936059684\t13091714170\t0315 17:25:24\t0.1\t0315 17:25:29\tGH\n");
+			  	    	send(acceptsocket,buff,228,0);
+			  	    }
+		  	    }
+		  	    else if(!strcmp(ParaValue.acParaName[3],"Query_jfjl"))
+		  		{
+		  			char buff[195];
+		  			sprintf(buff,"%s","01000019400000000zzzdboss102100000005111111111111111111111111111111111YYYYMMDDHHMMSS000000000000000000000000000000000000100100000000000000001\t5\t1\t13936059684\t mm-d\t0315 17:25:24\t697\t152\n");
+		  	    	send(acceptsocket,buff,195,0);
+		  	    }
+		  	    else if(!strcmp(ParaValue.acParaName[3],"QUERY_CUSTOMERS_AMOUNT"))
+		  		{
+		  			char buff[303];
+		  			sprintf(buff,"%s","01000030200000000zzzdboss102100000006111111111111111111111111111111111YYYYMMDDHHMMSS000000000000000000000000000000000000100100000000000000001\t14\t1\tintegral\t96\tintegral_year_base\t2400\tintegral_base\t500\tintegral_favour\t600\tintegral_trans_in\t300\tintegral_trans_out\t500\tntegral_remove\t300\n");
+		  	    	send(acceptsocket,buff,303,0);
+		  	    }
+		  	    else if(!strcmp(ParaValue.acParaName[3],"QUERY_SERVICE_NUM_PUK_CODE"))
+		  		{
+		  			char buff[157];
+		  			sprintf(buff,"%s","01000015600000000zzzdboss102100000007111111111111111111111111111111111YYYYMMDDHHMMSS000000000000000000000000000000000000100100000000000000001\t1\t1\tukmkd\n");
+		  	    	send(acceptsocket,buff,157,0);
+		  	    }
+		  	    else if(!strcmp(ParaValue.acParaName[3],"GSM_INTERFACE_SWITCH"))
+		  		{
+		  			if(!strcmp(ParaValue.acParaName[5],"19") || !strcmp(ParaValue.acParaName[5],"20"))
+		  			{
+			  			char buff[150];
+			  			sprintf(buff,"%s","01000014900000000zzzdboss102100000004111111111111111111111111111111111YYYYMMDDHHMMSS000000000000000000000000000000000000100100000000000000000\t0\t1\n");
+			  	    	send(acceptsocket,buff,150,0);
+			  	    }
+			  	    else if(!strcmp(ParaValue.acParaName[5],"3") || !strcmp(ParaValue.acParaName[5],"4"))
+		  			{
+			  			char buff[150];
+			  			sprintf(buff,"%s","01000014900000000zzzdboss102100000004111111111111111111111111111111111YYYYMMDDHHMMSS000000000000000000000000000000000000100100000000000000000\t0\t1\n");
+			  	    	send(acceptsocket,buff,150,0);
+			  	    }
+			  	    else if(!strcmp(ParaValue.acParaName[5],"13") || !strcmp(ParaValue.acParaName[5],"14"))
+		  			{
+			  			char buff[150];
+			  			sprintf(buff,"%s","01000014900000000zzzdboss102100000004111111111111111111111111111111111YYYYMMDDHHMMSS000000000000000000000000000000000000100100000000000000000\t0\t1\n");
+			  	    	send(acceptsocket,buff,150,0);
+			  	    }
+			  	    else if(!strcmp(ParaValue.acParaName[5],"2") || !strcmp(ParaValue.acParaName[5],"1"))
+		  			{
+			  			char buff[150];
+			  			sprintf(buff,"%s","01000014900000000zzzdboss102100000004111111111111111111111111111111111YYYYMMDDHHMMSS000000000000000000000000000000000000100100000000000000000\t0\t1\n");
+			  	    	send(acceptsocket,buff,150,0);
+			  	    }
+		  	    }
+		  	    else if(!strcmp(ParaValue.acParaName[3],"UPDATE_SERVICE_NUM_PASSWORD"))
+		  		{
+		  			char buff[158];
+		  			sprintf(buff,"%s","01000015700000000zzzdboss102100000006111111111111111111111111111111111YYYYMMDDHHMMSS000000000000000000000000000000000000100100000000000000001\t1\t1\t256541\n");
+		  	    	send(acceptsocket,buff,158,0);
+		  	    }
+		  	    else if(!strcmp(ParaValue.acParaName[3],"IUSER_INTERFACE_SWITCH"))
+		  		{
+		  			if(!strcmp(ParaValue.acParaName[5],"1") || !strcmp(ParaValue.acParaName[5],"0"))
+		  			{
+			  			char buff[150];
+			  			sprintf(buff,"%s","01000014900000000zzzdboss102100000004111111111111111111111111111111111YYYYMMDDHHMMSS000000000000000000000000000000000000100100000000000000000\t0\t1\n");
+			  	    	send(acceptsocket,buff,150,0);
+			  	    }
+		  	    }
+		  	    else
+		  	    {
+		  	    	send(acceptsocket,RecvBuff,RECV_SIZE,0);	
+		  	    }
+		  	    
+		  		/*sleep(50);
+		  		close(acceptsocket);
+		  		break;*/
+		  	}
+		  	close(acceptsocket);
+		  	nRet = decreaseChildPid(ShmId,SemId,getpid());
+			if(nRet < 0)
+			{
+				sprintf(loginfo,"decreaseChildPid Error");
+				LogIt(loginfo,HEAD);
+			}
+			
+			exit(0);
+		}
+		close(acceptsocket);
+		printf("running a process,pid=[%d]\n",childpid);
+		nRet = IncreaseChildPid(ShmId,SemId,childpid);
+		if(nRet < 0)
+		{
+			sprintf(loginfo,"IncreaseChildPid Error");
+			LogIt(loginfo,HEAD);
+			break;
+		}
+		
+		
+		/*printf("[IncreaseChildPid Succeed]\n");	
+		sleep(40);
+		break;*/
+	}
+	
+	
+	                                            
+	close(socketfd);
+	Killsonpid(ShmId,SemId);
+	sprintf(loginfo,"Main proc realease all ,exit success!");
+	shmctl(ShmId,IPC_RMID,0);
+	semctl(SemId,IPC_RMID,0);
+	LogIt(loginfo,HEAD);
+	printf("ok\n");
+   	return( 0 );
+}
+
+/*********************************************************************\
+ * Function:	Usage
+ * Action:		程序参数提示
+ *
+ * Input:		无
+ *
+ * Output:
+ *				无
+ * Return:
+ *				无
+\*********************************************************************/
+void
+Usage( const char *procpath )
+{
+	char	procname[256];
+	memset( procname, 0x00, sizeof(procname) );
+	snprintf( procname, sizeof(procname), procpath );
+
+	fprintf( stderr, "\n\tUsage: %s ServCfgFile WorkCfgFile ServID start|stop|refresh\n\n", basename(procname) );
+	fprintf( stderr, "\t参数说明：\n" );
+	fprintf( stderr, "\t\t[ %-12s: 服务配置文件 ]\n", "ServCfgFile" );
+	fprintf( stderr, "\t\t[ %-12s: 业务配置文件 ]\n", "WorkCfgFile" );
+	fprintf( stderr, "\t\t[ %-12s: 业务类别编码 ]\n", "ServID" );
+	fprintf( stderr, "\t\t[ %-20s: 启动服务|停止服务|刷新业务配置到共享内存 ]\n\n", "start|stop|refresh" );
+}
+
+/*********************************************************************\
+ * Function:	InitSysVar
+ * Action:		从服务配置文件中读取配置选项到全局变量
+ *
+ * Input:		无
+ *
+ * Output:
+ *				无
+ * Return:
+ *				无
+\*********************************************************************/
+int
+InitSysVar( int argc, char **argv )
+{
+	/* 清空全局变量的内容 */
+	memset( gCfgFileServ, 0x00, sizeof(gCfgFileServ) );
+	memset( gCfgFileWork, 0x00, sizeof(gCfgFileWork) );
+	memset( gServID, 0x00, sizeof(gServID) );
+	gLogFlag = 1;
+	memset( gLogFile, 0x00, sizeof(gLogFile) );
+
+	memset( gIP, 0x00, sizeof(gIP) );
+	gPort = 0;
+	memset( gIpcKeyPath, 0x00, sizeof(gIpcKeyPath) );
+	memset( gChannelID, 0x00, sizeof(gChannelID) );
+	gPollCount = 0;
+	gTimeOut = 0;
+	gMaxProcNum = 0;
+
+	gQuit = 0;
+
+	gMainQueue = 0;
+	gSynQueue = 0;
+	gASynQueue = 0;
+
+	gSynResSHM = 0;
+	gSynCtlSHM = 0;
+	gSynSEM = 0;
+
+	/* 对配置文件全局变量赋初值 */
+	snprintf( gCfgFileServ, sizeof(gCfgFileServ),
+		"%s/personal/zhaodw/cfg/%s", getenv("HOME"), argv[1] );
+
+	snprintf( gCfgFileWork, sizeof(gCfgFileWork),
+				"%s/personal/zhaodw/cfg/%s", getenv("HOME"), argv[2] );
+
+	snprintf( gServID, sizeof(gServID), argv[3] );
+
+	int		result=0;
+	char	section[32];
+	char	key[32];
+	char	value[256];
+
+	memset( section, 0x00, sizeof(section) );
+	memset( key, 0x00, sizeof(key) );
+	memset( value, 0x00, sizeof(value) );
+
+	fprintf( stdout, "\t[读取服务配置文件 %s]\n", gCfgFileServ );
+
+	/* 获取日志文件 */
+	snprintf( section, sizeof(section), "SERVER_%s", gServID );
+	snprintf( key, sizeof(key), "LogFile" );
+
+	if( (result=ReadConfig( gCfgFileServ, section, key, value, sizeof(value) )) < 0 ) {
+		if( -1 == result ) {
+			fprintf( stderr, "[Parameter 不合法.]\n" );
+		}
+		else if( -2 == result ) {
+			fprintf( stderr, "[打开配置文件失败 Failed. FILE=%s]\n", gCfgFileServ );
+		}
+		else if( -3 == result ) {
+			fprintf( stderr, "[找不到参数类别 SECTION=%s]\n", section );
+		}
+		else {
+			fprintf( stderr, "[找不到参数 KEY=%s]\n", key );
+		}
+		return( -1 );
+	}
+
+	/* 将 value 中的环境变量替换成实际的值 */
+	if( ReplaceEnvString( value, sizeof(value) ) != 0 ) {
+		fprintf( stderr, "\t[日志文件名 (%s) 错误，请检查]\n", value );
+		return( -1 );
+	}
+	snprintf( gLogFile, sizeof(gLogFile), "%s", value );
+
+	/* 获取调试日志函数 BOSSLog 打印日志标志 */
+	memset( key, 0x00, sizeof(key) );
+	memset( value, 0x00, sizeof(value) );
+
+	snprintf( key, sizeof(key), "LogFlag" );
+
+	if( (result=ReadConfig( gCfgFileServ, section, key, value, sizeof(value) )) < 0 ) {
+		if( -1 == result ) {
+			fprintf( stderr, "\t[参数不合法，请检查.]\n" );
+		}
+		else if( -2 == result ) {
+			fprintf( stderr, "\t[打开配置文件失败 Failed. FILE=%s]\n", gCfgFileServ );
+		}
+		else if( -3 == result ) {
+			fprintf( stderr, "\t[找不到参数类别 SECTION=%s]\n", section );
+		}
+		else {
+			fprintf( stderr, "\t[找不到参数 KEY=%s]\n", key );
+		}
+		return( -1 );
+	}
+	gLogFlag = atoi(value);
+
+	/* 获取程序监听IP地址 */
+	memset( key, 0x00, sizeof(key) );
+	memset( value, 0x00, sizeof(value) );
+
+	snprintf( key, sizeof(key), "IP" );
+
+	if( (result=ReadConfig( gCfgFileServ, section, key, value, sizeof(value) )) < 0 ) {
+		if( -1 == result ) {
+			fprintf( stderr, "\t[参数不合法，请检查.]\n" );
+		}
+		else if( -2 == result ) {
+			fprintf( stderr, "\t[打开配置文件失败 Failed. FILE=%s]\n", gCfgFileServ );
+		}
+		else if( -3 == result ) {
+			fprintf( stderr, "\t[找不到参数类别 SECTION=%s]\n", section );
+		}
+		else {
+			fprintf( stderr, "\t[找不到参数 KEY=%s]\n", key );
+		}
+		return( -1 );
+	}
+	snprintf( gIP, sizeof(gIP), value );
+
+	/* 获取程序监听端口号Port */
+	memset( key, 0x00, sizeof(key) );
+	memset( value, 0x00, sizeof(value) );
+
+	snprintf( key, sizeof(key), "Port" );
+
+	if( (result=ReadConfig( gCfgFileServ, section, key, value, sizeof(value) )) < 0 ) {
+		if( -1 == result ) {
+			fprintf( stderr, "\t[参数不合法，请检查.]\n" );
+		}
+		else if( -2 == result ) {
+			fprintf( stderr, "\t[打开配置文件失败 Failed. FILE=%s]\n", gCfgFileServ );
+		}
+		else if( -3 == result ) {
+			fprintf( stderr, "\t[找不到参数类别 SECTION=%s]\n", section );
+		}
+		else {
+			fprintf( stderr, "\t[找不到参数 KEY=%s]\n", key );
+		}
+		return( -1 );
+	}
+	gPort = atoi(value);
+
+	/* 获取键值路径IpcKeyPath */
+	memset( key, 0x00, sizeof(key) );
+	memset( value, 0x00, sizeof(value) );
+
+	snprintf( key, sizeof(key), "IpcKeyPath" );
+
+	if( (result=ReadConfig( gCfgFileServ, section, key, value, sizeof(value) )) < 0 ) {
+		if( -1 == result ) {
+			fprintf( stderr, "\t[参数不合法，请检查.]\n" );
+		}
+		else if( -2 == result ) {
+			fprintf( stderr, "\t[打开配置文件失败 Failed. FILE=%s]\n", gCfgFileServ );
+		}
+		else if( -3 == result ) {
+			fprintf( stderr, "\t[找不到参数类别 SECTION=%s]\n", section );
+		}
+		else {
+			fprintf( stderr, "\t[找不到参数 KEY=%s]\n", key );
+		}
+		return( -1 );
+	}
+	/* 将 value 中的环境变量替换成实际的值 */
+	if( ReplaceEnvString( value, sizeof(value) ) != 0 ) {
+		fprintf( stderr, "\t[键值路径 (%s) 错误，请检查]\n", value );
+		return( -1 );
+	}
+	snprintf( gIpcKeyPath, sizeof(gIpcKeyPath), value );
+
+	/* 获取渠道标识 ChannelID */
+	memset( key, 0x00, sizeof(key) );
+	memset( value, 0x00, sizeof(value) );
+
+	snprintf( key, sizeof(key), "ChannelID" );
+
+	if( (result=ReadConfig( gCfgFileServ, section, key, value, sizeof(value) )) < 0 ) {
+		if( -1 == result ) {
+			fprintf( stderr, "\t[参数不合法，请检查.]\n" );
+		}
+		else if( -2 == result ) {
+			fprintf( stderr, "\t[打开配置文件失败 Failed. FILE=%s]\n", gCfgFileServ );
+		}
+		else if( -3 == result ) {
+			fprintf( stderr, "\t[找不到参数类别 SECTION=%s]\n", section );
+		}
+		else {
+			fprintf( stderr, "\t[找不到参数 KEY=%s]\n", key );
+		}
+		return( -1 );
+	}
+	snprintf( gChannelID, sizeof(gChannelID), value );
+
+	/* 获取超时时间 TimeOut */
+	memset( key, 0x00, sizeof(key) );
+	memset( value, 0x00, sizeof(value) );
+
+	snprintf( key, sizeof(key), "TimeOut" );
+
+	if( (result=ReadConfig( gCfgFileServ, section, key, value, sizeof(value) )) < 0 ) {
+		if( -1 == result ) {
+			fprintf( stderr, "\t[参数不合法，请检查.]\n" );
+		}
+		else if( -2 == result ) {
+			fprintf( stderr, "\t[打开配置文件失败 Failed. FILE=%s]\n", gCfgFileServ );
+		}
+		else if( -3 == result ) {
+			fprintf( stderr, "\t[找不到参数类别 SECTION=%s]\n", section );
+		}
+		else {
+			fprintf( stderr, "\t[找不到参数 KEY=%s]\n", key );
+		}
+		return( -1 );
+	}
+	gTimeOut = atoi( value );
+
+	/* 获取轮询次数 */
+	memset( key, 0x00, sizeof(key) );
+	memset( value, 0x00, sizeof(value) );
+
+	snprintf( key, sizeof(key), "PollCount" );
+
+	if( (result=ReadConfig( gCfgFileServ, section, key, value, sizeof(value) )) < 0 ) {
+		if( -1 == result ) {
+			fprintf( stderr, "\t[参数不合法，请检查.]\n" );
+		}
+		else if( -2 == result ) {
+			fprintf( stderr, "\t[打开配置文件失败 Failed. FILE=%s]\n", gCfgFileServ );
+		}
+		else if( -3 == result ) {
+			fprintf( stderr, "\t[找不到参数类别 SECTION=%s]\n", section );
+		}
+		else {
+			fprintf( stderr, "\t[找不到参数 KEY=%s]\n", key );
+		}
+		return( -1 );
+	}
+	gPollCount = atoi( value );
+
+	/* 获取最大同步进程个数 MaxProcNum */
+	memset( key, 0x00, sizeof(key) );
+	memset( value, 0x00, sizeof(value) );
+
+	snprintf( key, sizeof(key), "MaxProcNum" );
+
+	if( (result=ReadConfig( gCfgFileServ, section, key, value, sizeof(value) )) < 0 ) {
+		if( -1 == result ) {
+			fprintf( stderr, "\t[参数不合法，请检查.]\n" );
+		}
+		else if( -2 == result ) {
+			fprintf( stderr, "\t[打开配置文件失败 Failed. FILE=%s]\n", gCfgFileServ );
+		}
+		else if( -3 == result ) {
+			fprintf( stderr, "\t[找不到参数类别 SECTION=%s]\n", section );
+		}
+		else {
+			fprintf( stderr, "\t[找不到参数 KEY=%s]\n", key );
+		}
+		return( -1 );
+	}
+	gMaxProcNum = atoi( value );
+
+	return( 0 );
+}
+
+/*********************************************************************\
+ * Function:	LogCfgSysVar
+ * Action:		打印 从配置文件中读取的全局变量
+ *
+ * Input:		无
+ *
+ * Output:
+ *				无
+ * Return:
+ *				无
+\*********************************************************************/
+void
+LogCfgSysVar(void)
+{
+	BOSSLog( gLogFile, "\n[%s]\n", GetSysDateTime(NULL,0,7) );
+	BOSSLog( gLogFile, "程序开始启动，请稍候......\n" );
+	BOSSLog( gLogFile, "配置文件全局变量初始化成功，内容如下：\n" );
+	BOSSLog( gLogFile, "[gCfgFileServ=%s]\n", gCfgFileServ );
+	BOSSLog( gLogFile, "[gCfgFileWork=%s]\n", gCfgFileWork );
+	BOSSLog( gLogFile, "[gServID=%s]\n", gServID );
+	BOSSLog( gLogFile, "[gLogFlag=%d]\n", gLogFlag );
+	BOSSLog( gLogFile, "[gLogFile=%s.%s]\n", gLogFile, GetSysDateTime(NULL,0,1) );
+
+	BOSSLog( gLogFile, "[gIP=%s]\n", gIP );
+	BOSSLog( gLogFile, "[gPort=%d]\n", gPort );
+	BOSSLog( gLogFile, "[gIpcKeyPath=%s]\n", gIpcKeyPath );
+	BOSSLog( gLogFile, "[gChannelID=%s]\n", gChannelID );
+	BOSSLog( gLogFile, "[gTimeOut=%d]\n", gTimeOut );
+	BOSSLog( gLogFile, "[gPollCount=%d]\n", gPollCount );
+	BOSSLog( gLogFile, "[gMaxProcNum=%d]\n", gMaxProcNum );
+	BOSSLog( gLogFile, "[gQuit=%d]\n", gQuit );
+}
+
+/*********************************************************************\
+ * Function:	LogIPCSysVar
+ * Action:		打印 申请的IPC资源
+ *
+ * Input:		无
+ *
+ * Output:
+ *				无
+ * Return:
+ *				无
+\*********************************************************************/
+void
+LogIPCSysVar(void)
+{
+	BOSSLog( gLogFile, "[主进程获得的队列、共享内存、信号量标识ID]\n" );
+	BOSSLog( gLogFile, "[ 主控队列：gMainQueue=%d ]\n", gMainQueue );
+	BOSSLog( gLogFile, "[ 同步队列：gSynQueue=%d ]\n", gSynQueue );
+	BOSSLog( gLogFile, "[ 异步队列：gASynQueue=%d ]\n", gASynQueue );
+	BOSSLog( gLogFile, "[ 同步资源共享内存：gSynResSHM=%d ]\n", gSynResSHM );
+	BOSSLog( gLogFile, "[ 同步控制共享内存：gSynCtlSHM=%d ]\n", gSynCtlSHM );
+	BOSSLog( gLogFile, "[ 同步控制信号量：gSynSem=%d ]\n", gSynSEM );
+}
+
+/*********************************************************************\
+ * Function:	GenDaemon
+ * Action:		产生一个后台守候进程
+ *
+ * Input:		void
+ *
+ * Output:
+ *				void
+ * Return:
+ *				无
+\*********************************************************************/
+void
+GenDaemon(void)
+{
+	pid_t	pid=0;
+
+	BOSSLog( gLogFile, "\n[产生守护进程开始]\n" );
+
+	if( (pid=fork()) < 0 )
+	{
+		EBOSSLog( gLogFile, "\t[产生守护进程失败，第一次 fork() 失败]\n" );
+		exit( -1 );
+	}
+	else if( pid > 0 )
+	{
+		/* 父进程 */
+		exit( 0 );
+	}
+	BOSSLog( gLogFile, "\t[第一次fork()成功]\n" );
+
+	/* 第一个子进程 */
+	if( setsid() < 0 )
+	{
+		EBOSSLog( gLogFile, "\t[产生守护进程失败，setsid()失败]\n" );
+		exit( -1 );
+	}
+
+	BOSSLog( gLogFile, "\t[setsid()成功]\n" );
+
+	if( (pid=fork()) < 0 )
+	{
+		EBOSSLog( gLogFile, "\t[产生守护进程失败，第二次 fork() 失败]\n" );
+		exit( -1 );
+	}
+	else if( pid > 0 )
+	{
+		exit( 0 );
+	}
+	BOSSLog( gLogFile, "\t[第二次 fork() 成功]\n" );
+
+	/* 关闭从父进程继承来的 打开的输入输出流 */
+	int		i=0;
+	for( i=0; i<=1024; i++ )
+	{
+		close(i);
+	}
+
+	BOSSLog( gLogFile, "[产生守护进程成功结束]\n" );
+}
+
+/*********************************************************************************\
+ *	函 数 名	:	GenLckFile
+ *	函数功能	:	产生主监听进程的锁文件，如果锁文件本来就存在，则程序退出
+ *
+ *	输入参数	:	const char *lckkey -- 锁文件的路径
+ *	返回值		:
+ *					无
+\*********************************************************************************/
+void
+GenLckFile(const char *lckkey)
+{
+	int		result = 0;
+	char	lckFileName[256];
+
+	memset( lckFileName, 0x00, sizeof(lckFileName) );
+	snprintf( lckFileName, sizeof(lckFileName),
+			"%s/lck/%s.%s",
+			getenv("ADAPTERDIR"), LCKHEAD, lckkey );
+
+	BOSSLog( gLogFile, "\n[产生进程锁文件开始]\n" );
+	if( (result=LockFile(lckFileName)) !=LOCK_OK )
+	{
+		if( result == LOCK_ERR_EXIST )
+		{
+			EBOSSLog( gLogFile, "\t[已经有活动进程，禁止重复启动程序]\n" );
+			exit( -1 );
+		}
+		else
+		{
+			EBOSSLog( gLogFile, "\t[产生进程锁文件%s失败，请检查]\n", lckFileName );
+			exit( -1 );
+		}
+	}
+
+	BOSSLog( gLogFile, "[产生进程锁文件成功结束]\n" );
+}
+
+/*********************************************************************************\
+ *	函 数 名	:	ResetSignal
+ *	函数功能	:	重新设置进程的信号屏蔽字
+ *
+ *	输入参数	:	无
+ *	返回值		:
+ *					无
+\*********************************************************************************/
+void
+ResetSignal( void )
+{
+	struct sigaction act;
+
+	/* 忽视信号：SIGINT SIGHUP SIGQUIT SIGPIPE */
+	/* 只捕获信号：SIGTERM SIGCHLD */
+
+	BOSSLog( gLogFile, "\n[设置信号处理函数开始]\n" );
+
+	BOSSLog( gLogFile, "\t[忽略信号SIGINT]\n" );
+	sigemptyset( &act.sa_mask );
+	act.sa_handler = SIG_IGN;
+	act.sa_flags = 0;
+#ifdef SA_INTERRUPT
+	act.sa_flags |= SA_INTERRUPT;
+#endif
+	sigaction( SIGINT, &act,  NULL );
+
+	BOSSLog( gLogFile, "\t[忽略信号SIGHUP]\n" );
+	sigemptyset( &act.sa_mask );
+	act.sa_handler = SIG_IGN;
+	act.sa_flags = 0;
+#ifdef SA_INTERRUPT
+	act.sa_flags |= SA_INTERRUPT;
+#endif
+	sigaction( SIGHUP, &act,  NULL );
+
+	BOSSLog( gLogFile, "\t[忽略信号SIGQUIT]\n" );
+	sigemptyset( &act.sa_mask );
+	act.sa_handler = SIG_IGN;
+	act.sa_flags = 0;
+#ifdef SA_INTERRUPT
+	act.sa_flags |= SA_INTERRUPT;
+#endif
+	sigaction( SIGQUIT, &act,  NULL );
+
+	BOSSLog( gLogFile, "\t[忽略信号SIGPIPE]\n" );
+	sigemptyset( &act.sa_mask );
+	act.sa_handler = SIG_IGN;
+	act.sa_flags = 0;
+#ifdef SA_INTERRUPT
+	act.sa_flags |= SA_INTERRUPT;
+#endif
+	sigaction( SIGPIPE, &act,  NULL );
+
+	BOSSLog( gLogFile, "\t[捕捉信号SIGTERM]\n" );
+	sigemptyset( &act.sa_mask );
+	act.sa_handler = SigTerm;
+	act.sa_flags = 0;
+#ifdef SA_INTERRUPT
+	act.sa_flags |= SA_INTERRUPT;
+#endif
+	sigaction( SIGTERM, &act,  NULL );
+
+	BOSSLog( gLogFile, "\t[捕捉信号SIGCHLD]\n" );
+	sigemptyset( &act.sa_mask );
+	act.sa_handler = SigChld;
+	act.sa_flags = 0;
+#ifdef SA_INTERRUPT
+	act.sa_flags |= SA_INTERRUPT;
+#endif
+	sigaction( SIGCHLD, &act,  NULL );
+
+	BOSSLog( gLogFile, "[设置信号处理函数成功结束]\n" );
+}
+
+/*********************************************************************************\
+ *	函 数 名	:	SigTerm
+ *	函数功能	:	进程的退出处理函数
+ *
+ *	输入参数	:	int signo -- 信号值
+ *	返回值		:
+ *					无
+\*********************************************************************************/
+void
+SigTerm( int signo )
+{
+	BOSSLog( gLogFile, "\n[捕捉到终止信号 SIGTERM 进程准备退出.]\n" );
+	gQuit = 1;
+}
+
+/*********************************************************************************\
+ *	函 数 名	:	SigChld
+ *	函数功能	:	主监听进程要获取子进程的退出状态
+ *
+ *	输入参数	:	int signo -- 信号值
+ *	返回值		:
+ *					无
+\*********************************************************************************/
+void
+SigChld( int signo )
+{
+	pid_t	childpid;
+	int		status;
+
+	while( (childpid=waitpid(-1, &status, WNOHANG)) > 0 ) {
+		BOSSLog( gLogFile, "[CATCH signal SIGCHLD child's pid is %d]\n", childpid );
+		if( WIFEXITED(status) ) {
+			BOSSLog( gLogFile,
+				"[Child's exit status (normal termination,exit status<%d> )]\n",
+					WEXITSTATUS(status) );
+		}
+		else if( WIFSIGNALED(status) ) {
+			BOSSLog( gLogFile,
+				"[abnormal termination, signal number=%d %s]\n",
+					WTERMSIG(status),
+			#ifdef WCOREDUMP
+				WCOREDUMP(status) ? " (core file generated ) " : "");
+			#else
+				"");
+			#endif
+		}
+		else if( WIFSTOPPED(status) ) {
+			BOSSLog( gLogFile,
+				"[child stopped, signal number=%d]\n",
+					WSTOPSIG( status ) );
+		}
+	}
+}
+
+/*********************************************************************************\
+ *	函 数 名	:	GetMainMsqID
+ *	函数功能	:	删除主监听进程的锁文件
+ *
+ *	输入参数	:	const char *lckkey --  锁文件的路径
+ *	返回值		:
+ *					无
+\*********************************************************************************/
+void
+DelLckFile( const char *lckkey )
+{
+	char	lckFileName[256];
+
+	memset( lckFileName, 0x00, sizeof(lckFileName) );
+	snprintf( lckFileName, sizeof(lckFileName),
+		"%s/lck/%s.%s",
+		getenv("ADAPTERDIR"), LCKHEAD, lckkey );
+	unlink( lckFileName );
+	BOSSLog( gLogFile, "\n[进程锁文件被删除，监听进程退出]\n" );
+}
+
+/*********************************************************************************\
+ *	函 数 名	:	GetMainMsqID
+ *	函数功能	:	获取主控队列
+ *
+ *	输入参数	:	const char *keypath -- 主控队列键值路径
+ *					int id 		-- 主控队列键值ID
+ *	返回值		:
+ *				  >=0 -- 获取成功
+ *				   -1 -- 主控队列不存在
+ *				   -2 -- 获取主控队列失败
+\*********************************************************************************/
+int
+GetMainMsqID( const char *keypath, int id )
+{
+	if( keypath==NULL || strlen(keypath)<=0 || id<0 || id>255 ) {
+		return( -1 );
+	}
+
+	key_t	msgkey=0;
+	int		msgid=0;
+
+	msgkey = ftok( keypath, id );
+	if( ( msgid = msgget(msgkey,0660) ) < 0 ) {
+		if( errno==ENOENT ) {
+			EBOSSLog( gLogFile, "\n[主控队列不存在]\n" );
+			EBOSSLog( gLogFile, "[path=%s id=%d key=%x]\n", keypath, id, msgkey );
+			return( -1 );
+		}
+		else
+		{
+			EBOSSLog( gLogFile, "\n[未知错误 errno=%d strerror(errno)=%s]\n", errno, strerror(errno) );
+			EBOSSLog( gLogFile, "[path=%s id=%d key=%x]\n", keypath, id, msgkey );
+			return( -2 );
+		}
+	}
+
+	BOSSLog( gLogFile, "\n[主控队列存在，获取成功]\n[path=%s id=%d key=0x%x]\n\n", keypath, id, msgkey );
+
+	return( msgid );
+}
+
+/*********************************************************************************\
+ *	函 数 名	:	GetSynMsqID
+ *	函数功能	:	创建或获取同步队列
+ *
+ *	输入参数	:	const char *keypath -- 同步队列键值路径
+ *					int id 		-- 同步队列键值ID
+ *	返回值		:
+ *				  >=0 -- 创建或获取成功
+ *				   -1 -- 参数非法
+ *				   -2 -- 未知错误
+ *				   -3 -- 未知错误
+\*********************************************************************************/
+int
+GetSynMsqID( const char *keypath, int id )
+{
+	if( keypath==NULL || strlen(keypath)<=0 || id<0 || id>255 ) {
+		return( -1 );
+	}
+
+	key_t	msgkey=0;
+	int		msgid=0;
+	int		iExistFlag=0;
+
+	msgkey = ftok( keypath, id );
+	if( ( msgid = msgget(msgkey,0660|IPC_CREAT|IPC_EXCL) ) < 0 ) {
+		if( errno==EEXIST ) {
+			iExistFlag = 1;
+			BOSSLog( gLogFile, "[程序启动前，同步队列已存在]\n" );
+			BOSSLog( gLogFile, "[path=%s id=%d key=0x%x]\n", keypath, id, msgkey );
+		}
+		else
+		{
+			EBOSSLog( gLogFile, "[未知错误 errno=%d strerror(errno)=%s]\n", errno, strerror(errno) );
+			EBOSSLog( gLogFile, "[path=%s id=%d key=0x%x]\n", keypath, id, msgkey );
+			return( -2 );
+		}
+	}
+
+	if( iExistFlag==1 ) {
+		if( ( msgid = msgget(msgkey,0660) ) < 0 ) {
+			EBOSSLog( gLogFile, "[获取已经存在的同步队列失败]\n" );
+			EBOSSLog( gLogFile, "[未知错误 errno=%d strerror(errno)=%s]\n", errno, strerror(errno) );
+			return( -3 );
+		}
+	}
+
+	if( iExistFlag==1 ) {
+		BOSSLog( gLogFile, "[获取同步队列成功]\n\n" );
+	}
+	else {
+		BOSSLog( gLogFile, "[创建同步队列成功][path=%s id=%d key=0x%x]\n\n", keypath, id, msgkey );
+	}
+
+	return( msgid );
+}
+
+/*********************************************************************************\
+ *	函 数 名	:	GetASynMsqID
+ *	函数功能	:	创建或获取异步队列
+ *
+ *	输入参数	:	const char *keypath -- 异步队列键值路径
+ *					int id 		-- 异步队列键值ID
+ *	返回值		:
+ *				  >=0 -- 创建或获取成功
+ *				   -1 -- 参数非法
+ *				   -2 -- 未知错误
+ *				   -3 -- 未知错误
+\*********************************************************************************/
+int
+GetASynMsqID( const char *keypath, int id )
+{
+	if( keypath==NULL || strlen(keypath)<=0 || id<0 || id>255 ) {
+		return( -1 );
+	}
+
+	key_t	msgkey=0;
+	int		msgid=0;
+	int		iExistFlag=0;
+
+	msgkey = ftok( keypath, id );
+	if( ( msgid = msgget(msgkey,0660|IPC_CREAT|IPC_EXCL) ) < 0 ) {
+		if( errno==EEXIST ) {
+			iExistFlag = 1;
+			BOSSLog( gLogFile, "[程序启动前，异步队列已存在]\n" );
+			BOSSLog( gLogFile, "[path=%s id=%d key=0x%x]\n", keypath, id, msgkey );
+		}
+		else
+		{
+			EBOSSLog( gLogFile, "[未知错误 errno=%d strerror(errno)=%s]\n", errno, strerror(errno) );
+			EBOSSLog( gLogFile, "[path=%s id=%d key=0x%x]\n", keypath, id, msgkey );
+			return( -2 );
+		}
+	}
+
+	if( iExistFlag==1 ) {
+		if( ( msgid = msgget(msgkey,0660) ) < 0 ) {
+			EBOSSLog( gLogFile, "[获取已经存在的异步队列失败]\n" );
+			EBOSSLog( gLogFile, "[未知错误 errno=%d strerror(errno)=%s]\n", errno, strerror(errno) );
+			return( -3 );
+		}
+	}
+
+	if( iExistFlag==1 ) {
+		BOSSLog( gLogFile, "[获取异步队列成功]\n\n" );
+	}
+	else {
+		BOSSLog( gLogFile, "[创建异步队列成功][path=%s id=%d key=0x%x]\n\n", keypath, id, msgkey );
+	}
+
+	return( msgid );
+}
+
+/*********************************************************************************\
+ *	函 数 名	:	GetSynResShmID
+ *	函数功能	:	创建同步进程资源共享内存
+ *
+ *	输入参数	:	const char *keypath -- 同步进程资源共享内存的键值路径
+ *					int id 		-- 同步进程资源共享内存的键值ID
+ *	返回值		:
+ *				  >=0 -- 创建成功
+ *				   -1 -- 创建失败
+\*********************************************************************************/
+int
+GetSynResShmID( const char *keypath, int id )
+{
+	if( keypath==NULL || strlen(keypath)<=0 || id<0 || id>255 ) {
+		return( -1 );
+	}
+
+	key_t	shmkey=0;
+	int		shmid=0;
+
+	shmkey = ftok( keypath, id );
+	if( ( shmid = shmget(shmkey,sizeof(SHM_MTYPE),0660|IPC_CREAT|IPC_EXCL) ) < 0 ) {
+		if( errno==EEXIST ) {
+			BOSSLog( gLogFile, "[程序启动前，同步进程资源共享内存已存在]\n" );
+			BOSSLog( gLogFile, "[path=%s id=%d key=0x%x]\n", keypath, id, shmkey );
+			return( -1 );
+		}
+		else
+		{
+			EBOSSLog( gLogFile, "[未知错误 errno=%d strerror(errno)=%s]\n", errno, strerror(errno) );
+			EBOSSLog( gLogFile, "[path=%s id=%d key=0x%x]\n", keypath, id, shmkey );
+			return( -2 );
+		}
+	}
+
+	BOSSLog( gLogFile, "[创建同步进程资源共享内存成功]\n" );
+	BOSSLog( gLogFile, "[path=%s id=%d key=0x%x]\n\n", keypath, id, shmkey );
+
+	return( shmid );
+}
+
+/*********************************************************************************\
+ *	函 数 名	:	GetSynCtlShmID
+ *	函数功能	:	创建同步进程控制共享内存
+ *
+ *	输入参数	:	const char *keypath -- 同步进程控制共享内存的键值路径
+ *					int id 		-- 同步进程控制共享内存的键值ID
+ *	返回值		:
+ *				  >=0 -- 创建成功
+ *				   -1 -- 创建失败
+\*********************************************************************************/
+int
+GetSynCtlShmID( const char *keypath, int id )
+{
+	if( keypath==NULL || strlen(keypath)<=0 || id<0 || id>255 ) {
+		return( -1 );
+	}
+
+	key_t	shmkey=0;
+	int		shmid=0;
+
+	shmkey = ftok( keypath, id );
+	if( ( shmid = shmget(shmkey,sizeof(SHM_MTYPE),0660|IPC_CREAT|IPC_EXCL) ) < 0 ) {
+		if( errno==EEXIST ) {
+			BOSSLog( gLogFile, "[程序启动前，同步进程控制共享内存已存在]\n" );
+			BOSSLog( gLogFile, "[path=%s id=%d key=0x%x]\n", keypath, id, shmkey );
+			return( -1 );
+		}
+		else
+		{
+			EBOSSLog( gLogFile, "[未知错误 errno=%d strerror(errno)=%s]\n", errno, strerror(errno) );
+			EBOSSLog( gLogFile, "[path=%s id=%d key=0x%x]\n", keypath, id, shmkey );
+			return( -2 );
+		}
+	}
+
+	BOSSLog( gLogFile, "[创建同步进程控制共享内存成功]\n" );
+	BOSSLog( gLogFile, "[path=%s id=%d key=0x%x]\n\n", keypath, id, shmkey );
+
+	return( shmid );
+}
+
+/*********************************************************************************\
+ *	函 数 名	:	GetSynCtlSemSetID
+ *	函数功能	:	创建同步进程信号量集
+ *
+ *	输入参数	:	const char *keypath -- 控制同步进程访问共享内存的信号量集的键值路径
+ *					int id 		-- 控制同步进程访问共享内存的信号量集的键值ID
+ *					int semnum	-- 信号量集中含有的信号量的个数
+ *	返回值		:
+ *			      >=0 -- 创建成功
+ *				   -1 -- 程序启动前，同步进程信号量集已经存在
+ *				   -2 -- 未知错误
+\*********************************************************************************/
+int
+GetSynCtlSemSetID( const char *keypath, int id, int semnum )
+{
+	if( keypath==NULL || strlen(keypath)<=0 || id<0 || id>255 ) {
+		return( -1 );
+	}
+
+	key_t	semkey=0;
+	int		semid=0;
+
+	semkey = ftok( keypath, id );
+	if( ( semid = semget(semkey,semnum,0660|IPC_CREAT|IPC_EXCL) ) < 0 ) {
+		if( errno==EEXIST ) {
+			BOSSLog( gLogFile, "[程序启动前，同步进程信号量集已经存在\n" );
+			BOSSLog( gLogFile, "[path=%s id=%d key=0x%x]\n", keypath, id, semkey );
+			return( -1 );
+		}
+		else
+		{
+			EBOSSLog( gLogFile, "[未知错误 errno=%d strerror(errno)=%s]\n", errno, strerror(errno) );
+			EBOSSLog( gLogFile, "[path=%s id=%d key=0x%x]\n", keypath, id, semkey );
+			return( -2 );
+		}
+	}
+
+	BOSSLog( gLogFile, "[创建同步进程信号量集成功]\n" );
+	BOSSLog( gLogFile, "[path=%s id=%d key=0x%x]\n\n", keypath, id, semkey );
+
+	return( semid );
+}
+
+/*********************************************************************************\
+ *	函 数 名	:	InitSynCtlSems
+ *	函数功能	:	对信号量集合进行初始化
+ *
+ *	输入参数	:	int semid	-- 控制同步进程访问共享内存的信号量集的标识ID
+ *					int semnum	-- 此信号量集合中信号量的个数
+ *					int flag 	-- 信号量的值
+ *						SYNSEMAVAL - 信号量可以获得
+ *						SYNSEMUNAVAL - 信号量不可获得
+ *	返回值		:
+ *					0 -- 初始化成功
+ *				   -1 -- 初始化失败
+\*********************************************************************************/
+int
+InitSynCtlSems( int semid, int semnum, int flag )
+{
+	union semun	arg;
+	arg.val = flag;
+
+	for( int i=0; i<semnum; i++ ) {
+		if( semctl(semid,i,SETVAL,arg)<0 ) {
+			EBOSSLog( gLogFile,
+				"[FILE:%s LINE:%d][未知错误 errno=%d strerror(errno)=%s]\n",
+					_FL_, errno, strerror(errno) );
+			return( -1 );
+		}
+	}
+
+	BOSSLog( gLogFile, "\n[初始化同步进程信号量成功]\n" );
+
+	return( 0 );
+}
+
+/*********************************************************************************\
+ *	函 数 名	:	LockSem
+ *	函数功能	:	对信号量上锁
+ *
+ *	输入参数	:	int semid	-- 控制同步进程访问共享内存的信号量集的标识ID
+ *					int memindex -- 信号量的下标(一个信号量集合中可以有多个信号量)
+ *	返回值		:
+ *					0 -- 上锁成功
+ *				   -1 -- 上锁失败
+\*********************************************************************************/
+int
+LockSem( int semid, int memindex )
+{
+	if( semid<0 || memindex<0 ) {
+		return( -1 );
+	}
+
+	struct sembuf sem_lock;
+	memset(&sem_lock,0,sizeof(struct sembuf));
+
+	sem_lock.sem_num = memindex;
+	sem_lock.sem_op = -1;
+	sem_lock.sem_flg = SEM_UNDO;
+
+	if( semop(semid,&sem_lock,1) < 0 ) {
+		if( errno==EINTR ) {
+			EBOSSLog( gLogFile, "\n[FILE=%s LINE=%d][ semop() 被信号中断 ]\n", _FL_ );
+		}
+		else if( errno==EIDRM ) {
+			EBOSSLog( gLogFile, "\n[FILE=%s LINE=%d][ semid 信号集已被删除 ]\n", _FL_ );
+		}
+		else {
+			EBOSSLog( gLogFile,
+				"\n[FILE=%s LINE=%d][ 未知错误 errno=%d strerror(errno)=%s]\n",
+					_FL_, errno, strerror(errno) );
+		}
+		return( -1 );
+	}
+
+	return( 0 );
+}
+
+/*********************************************************************************\
+ *	函 数 名	:	UnLockSem
+ *	函数功能	:	对信号量解锁
+ *
+ *	输入参数	:	int semid	-- 控制同步进程访问共享内存的信号量集的标识ID
+ *					int memindex -- 信号量的下标(一个信号量集合中可以有多个信号量)
+ *	返回值		:
+ *					0 -- 解锁成功
+ *				   -1 -- 解锁失败
+\*********************************************************************************/
+int
+UnLockSem( int semid, int semindex )
+{
+	if( semid<0 || semindex<0 ) {
+		return( -1 );
+	}
+
+	struct sembuf sem_lock;
+	memset(&sem_lock,0,sizeof(struct sembuf));
+
+	sem_lock.sem_num = semindex;
+	sem_lock.sem_op = 1;
+	sem_lock.sem_flg = SEM_UNDO;
+
+	if( semop(semid,&sem_lock,1) < 0 ) {
+		if( errno==EINTR ) {
+			EBOSSLog( gLogFile, "\n[FILE=%s LINE=%d][ semop() 被信号中断 ]\n", _FL_ );
+		}
+		else if( errno==EIDRM ) {
+			EBOSSLog( gLogFile, "\n[FILE=%s LINE=%d][ semid 信号集已被删除 ]\n", _FL_ );
+		}
+		else {
+			EBOSSLog( gLogFile,
+				"\n[FILE=%s LINE=%d][ 未知错误 errno=%d strerror(errno)=%s]\n",
+					_FL_, errno, strerror(errno) );
+		}
+		return( -1 );
+	}
+
+	return( 0 );
+}
+
+/***************************************************************************\
+ *	函 数 名	:	InitSynShm
+ *	函数功能	:	初始化程序使用的共享内存
+ *
+ *	输入参数	:	int semid	-- 控制同步进程访问共享内存的信号量集的标识ID
+ *					int resshmid	-- 资源共享内存
+ *					int ctlshmid	-- 控制共享内存
+ *	返回值		:
+ *					0 -- 初始化成功
+ *				   -1 -- 初始化失败
+\***************************************************************************/
+int
+InitSynShm( int semid, int resshmid, int ctlshmid )
+{
+	SHM_MTYPE		*mtypeid=NULL;
+	mtypeid = (SHM_MTYPE*)shmat( resshmid, 0, 0 );
+
+	if( mtypeid==(SHM_MTYPE*)SHM_FAILED ) {
+		EBOSSLog( gLogFile,
+			"\n[FILE=%s LINE=%d][errno=%d strerror(errno)=%s]\n",
+				_FL_, errno, strerror(errno) );
+		EBOSSLog( gLogFile, "\n[ shmat() 资源共享内存失败 ]\n" );
+		return( -1 );
+	}
+
+	if( LockSem(semid,0)<0 ) {
+		EBOSSLog( gLogFile, "\n[FILE=%s LINE=%d][ 对同步进程资源共享内存上锁失败 ]\n", _FL_ );
+		return( -1 );
+	}
+
+	memset( mtypeid, 0x00, sizeof(SHM_MTYPE) );
+
+	if( UnLockSem(semid,0)<0 ) {
+		EBOSSLog( gLogFile, "\n[FILE=%s LINE=%d][ 对同步进程资源共享内存解锁失败 ]\n", _FL_ );
+		return( -1 );
+	}
+
+	int				*childnum=NULL;
+	pid_t			*childpid=NULL;
+
+	childnum = (int*)shmat( ctlshmid, 0, 0 );
+
+	if( childnum==(int*)SHM_FAILED ) {
+		EBOSSLog( gLogFile,
+			"\n[FILE=%s LINE=%d][errno=%d strerror(errno)=%s]\n",
+				_FL_, errno, strerror(errno) );
+		EBOSSLog( gLogFile, "\n[ shmat() 资源共享内存失败 ]\n" );
+		return( -1 );
+	}
+
+	if( LockSem(semid,1)<0 ) {
+		EBOSSLog( gLogFile, "\n[FILE=%s LINE=%d][ 对同步进程控制共享内存上锁失败 ]\n", _FL_ );
+		return( -1 );
+	}
+
+	childnum[0] = 0;
+	childpid = (pid_t*)(childnum+1);
+	for( int i=0; i<gMaxProcNum; i++ ) {
+		childpid[i] = -1;
+	}
+
+	if( UnLockSem(semid,1)<0 ) {
+		EBOSSLog( gLogFile, "\n[FILE=%s LINE=%d][ 对同步进程控制共享内存解锁失败 ]\n", _FL_ );
+		return( -1 );
+	}
+
+	return( 0 );
+}
+
+/*****************************************************************\
+ *	函 数 名	:	InitServerSocket
+ *	函数功能	:	初始化一个socket for server	side,并启动监听服务
+ *	编 程 者	:	付佳毅
+ *	编写日期	:	2002.08.10
+ *
+ *	输入参数	:	int *socketfd -- socket句柄
+ *					char *ip	-- server IP地址
+ *					int port	-- 监听端口
+ *	返回值		:
+ *					0 -- 初始化成功
+ *				   -1 -- 参数不合法
+ *				   -2 -- 初始化 socket 句柄失败
+ *				   -3 -- 初始化 socket 句柄的地址重用失败
+ *				   -4 -- 初始化 socket 句柄的端口重用失败
+ *				   -5 -- 初始化 socket 句柄的绑定失败
+ *				   -6 -- 初始化 socket 监听失败
+ *	修 改 者	:
+ *	修改内容	:
+ *	修改日期	:
+\*****************************************************************/
+int
+InitServerSocket( int *socketfd, char *ip, int port )
+{
+	if( socketfd==NULL || ip==NULL || strlen(ip)<=0 || port<=1024 )
+	{
+		return( -1 );
+	}
+
+	int sockfd = 0;
+	int reuse = 1;
+
+	if( ( sockfd = socket(AF_INET, SOCK_STREAM, 0) ) < 0 ) {
+		*socketfd = errno;
+		return( -2 );
+	}
+
+	if( setsockopt( sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse) ) < 0 ) {
+		close( sockfd );
+		*socketfd =	errno;
+		return( -3 );
+	}
+
+	if( setsockopt( sockfd, SOL_SOCKET, SO_REUSEPORT, &reuse, sizeof(reuse) ) < 0 ) {
+		close( sockfd );
+		*socketfd =	errno;
+		return( -4 );
+	}
+
+	struct sockaddr_in addr;
+	memset( &addr, 0x00, sizeof(struct sockaddr_in) );
+
+	addr.sin_family	= AF_INET;
+	addr.sin_addr.s_addr = inet_addr(ip);
+	addr.sin_port =	htons((unsigned	short)port);
+
+	if( bind( sockfd, reinterpret_cast<struct sockaddr *>(&addr), (socklen_t)(sizeof(struct sockaddr)) ) < 0 )
+	{
+		*socketfd =	errno;
+		close( sockfd );
+		return( -5 );
+	}
+
+	if( listen( sockfd, BACKLOG ) < 0 )
+	{
+		*socketfd =	errno;
+		close( sockfd );
+		return( -6 );
+	}
+
+	BOSSLog( gLogFile, "\n[创建 SOCKET 监听成功]\n\n" );
+
+	*socketfd =	sockfd;
+	return( 0 );
+}
+
+/*****************************************************************\
+ *	函 数 名	:	SendData
+ *	函数功能	:	向一个 SOCKET 句柄 发送数据，当发送缓冲满时
+ *						进行轮询，并且轮询指定次数后仍是已满状态时
+ *						返回发送成功的字节数
+ *
+ *	输入参数	:
+ *					int sockfd 			-- SOCKET 句柄
+ *					char *send_buff 	-- 发送数据的缓冲区
+ *					int len				-- 需要发送数据的长度
+ *					int poll_count 		-- 轮询次数
+ *	输出参数	:
+ *					无
+ *	返回值		:
+ *					>=0	成功发送出去的字节数
+ *					-1	参数非法
+ *					-2	数据没有发送完毕，peer 关闭了连接
+ *					-3	系统错误
+\*****************************************************************/
+int
+SendData( int sockfd, const char *send_buff, int len, int poll_count )
+{
+	int		send_len=0;		//需要发送的总长度
+	int		send_num=0;		//非阻塞模式下每次发送的数据长度
+	int		fflags=0;		//句柄属性值
+	int		send_count=0;	//轮询次数计数器
+
+	if( sockfd<0 || send_buff==NULL || len<=0 || poll_count<=0 ) {
+		return( -1 );
+	}
+
+	// 设置SOCKET句柄为非阻塞模式
+	fflags = fcntl(sockfd,F_GETFL,0);
+	fcntl(sockfd,F_SETFL,fflags|O_NONBLOCK);
+
+	send_len = len;
+	while( send_len>0 ) {
+		if( (send_num=send(sockfd,send_buff,send_len,0)) < 0 ) {
+			if( errno==EAGAIN ) {
+				if( send_count==poll_count ) {
+					break;
+				}
+				DBOSSLog( gLogFile, "[ SOCKET 句柄的发送缓冲区已满，正在延时发送 ]\n" );
+				DelayMS( 200 );		//延时200毫秒
+				send_count++;
+				continue;
+			}
+			else if( errno==EINTR ) {
+				BOSSLog( gLogFile, "[ send() 被中断 ]\n" );
+				continue;
+			}
+			else if( errno==EPIPE ) {
+				EBOSSLog( gLogFile, "[ 连接已被peer side关闭，无法继续发送 ]\n" );
+				return( -2 );
+			}
+			else {
+				EBOSSLog( gLogFile,
+					"[ 系统错误 errno=%d strerror(errno)=%s ]\n",
+						errno, strerror(errno) );
+				return( -2 );
+			}
+		}
+		DBOSSLog( gLogFile, "[ 此次发送了 %d 个字节 ]\n", send_num );
+		send_len -= send_num;
+		send_buff += send_num;
+	}
+
+	if( send_len>0 ) {
+		BOSSLog( gLogFile, "\n[ 有 %d 个字节没有发送出去 ]\n", send_len );
+	}
+
+	return( len-send_len );
+}
+
+/*************************************************************************\
+ *	函 数 名	:	RecvData
+ *	函数功能	:	从一个 SOCKET 句柄接收数据
+ *						先通过select函数测试接收数据是否已经到达
+ *						如果已经到达，
+ *							则通过recv函数非阻塞的轮询获取指定长度的数据
+ *						并将实际接收到的数据长度返回给调用者
+ *
+ *	输入参数	:
+ *					int sockfd 			-- socket 句柄
+ *					char *recv_buff 	-- 接收数据的缓冲区
+ *					int len 			-- 需要接收的数据长度
+ *					int timeout			-- select的超时时间
+ *							 0 	-- 代表 永远等待
+ *							>0	-- 代表 等待的秒数
+ *					int poll_count 		-- 轮询次数
+ *	输出参数	:
+ *					无
+ *	返回值		:
+ *					>=0	成功接收到字节数
+ *					-1	参数非法
+ *					-2	系统错误
+ *					-3	超时
+ *					-4	socket 句柄被 peer 关闭，但数据没有接收完
+ *					-5	系统未知错误
+\*************************************************************************/
+int
+RecvData( int sockfd, char *recv_buff, int len,
+		int timeout, int poll_count )
+{
+	struct timeval	time_wait;
+	struct timeval	*ptime_wait=NULL;
+
+	int		result = 0;
+	int		fflags = 0;
+	fd_set	ready;
+
+	if( sockfd<0 || recv_buff==NULL || len<=0 || timeout<0 || poll_count<=0 ) {
+		return( -1 );
+	}
+
+	if( timeout>0 ) {
+		time_wait.tv_sec = timeout;
+		time_wait.tv_usec = 0;
+		ptime_wait = &time_wait;
+	}
+
+	fflags = fcntl( sockfd, F_GETFL, 0 );
+	fcntl( sockfd, F_SETFL, fflags|O_NONBLOCK );
+
+	while( 1 )
+	{
+		FD_ZERO( &ready );
+		FD_SET( sockfd, &ready );
+
+		result = select( sockfd+1, &ready, NULL, NULL, ptime_wait );
+		if( result==-1 ) {
+			if( errno==EINTR ) {
+				BOSSLog( gLogFile, "\n[ EINTR select() 被信号中断 ]\n" );
+				continue;
+			}
+			else {
+				BOSSLog( gLogFile,
+					"\n[系统错误 <errno=%d><strerror=%s>]\n", errno, strerror(errno) );
+				return( -2 );
+			}
+		}
+		else if( result==0 ) {
+			BOSSLog( gLogFile, "\n[select() TIMEOUT.]\n" );
+			return( -3 );
+		}
+		else {
+			break;
+		}
+	}
+
+	int readlen = 0;
+	int rcvnum = 0;
+	int rcvcount = 0;
+
+	if( FD_ISSET( sockfd, &ready ) ) {
+		readlen = len;
+		while( readlen>0 )
+		{
+			rcvnum = recv( sockfd, recv_buff, readlen, 0 );
+			if( rcvnum>0 ) {
+				recv_buff += rcvnum;
+				readlen -= rcvnum;
+				DBOSSLog( gLogFile,
+					"\n[此次接收到%d个字节 还有%d字节没有接收到]\n", rcvnum, readlen );
+			}
+			else if( rcvnum == 0 ) {
+				EBOSSLog( gLogFile, "\n[socket closed by peer.]\n" );
+				return( -4 );
+			}
+			else {
+				if( errno==EAGAIN ) {
+					if( rcvcount==poll_count ) {
+						break;
+					}
+					else {
+						DelayMS(200);		//延时200毫秒
+						rcvcount++;
+						continue;
+					}
+				}
+				else {
+					EBOSSLog( gLogFile,
+						"\n[系统错误 <errno=%d><strerror=%s>]\n", errno, strerror(errno) );
+					return( -2 );
+				}
+			}
+		}
+		if( readlen>0 ) {
+			EBOSSLog( gLogFile, "\n[需要接收%d个字节，有%d个字节没有接收]\n", len, readlen );
+		}
+		return( len-readlen );
+	}
+	else {
+		EBOSSLog( gLogFile, "\n[FILE=%s LINE=%d][系统未知错误]\n", _FL_ );
+		return( -5 );
+	}
+}
+
+/*****************************************************************\
+ *	函 数 名	:	DelayMS
+ *	函数功能	:	通过 select 函数实现毫秒级定时器
+ *
+ *	输入参数	:	int mseconds 毫秒数
+ *	返回值		:	无
+\*****************************************************************/
+void
+DelayMS( int mseconds )
+{
+	if( mseconds<=0 ) {
+		return;
+	}
+
+	struct timeval timeout;
+	memset( &timeout, 0, sizeof(struct timeval) );
+	timeout.tv_sec=mseconds/1000;
+
+	timeout.tv_usec = (mseconds%1000)*1000;
+	select( 0, NULL, NULL, NULL, &timeout );
+	return;
+}
+
+/*****************************************************************\
+ *	函 数 名	:	GetReqStrLen
+ *	函数功能	:	获取请求数据的前五位(这五位代表后面跟的串长度)
+ *				 如:	00020 代表 后面还有20个字符
+ *
+ *	输入参数	:	int sockfd -- socket 句柄
+ *	输出参数	:	无
+ *	返回值		:
+ *				  >=0 - 代表取长度成功，返回后面还有的字节的个数
+ *				   -1 - 获取请求串长度失败
+ *				   -2 - 请求包长度格式错误
+\*****************************************************************/
+int
+GetReqStrLen( int sockfd )
+{
+	int		len=0;
+	int		real_len=0;
+	char	str_len[5+1];
+	memset( str_len, 0x00, sizeof(str_len) );
+
+	if( RecvData( sockfd, str_len, 5, gTimeOut, gPollCount ) != 5 ) {
+		EBOSSLog( gLogFile, "\n[获取请求串长度失败]\n" );
+		return( -1 );
+	}
+
+	if( AllIsDigit(str_len) < 0 ) {
+		return( -2 );
+	}
+	real_len = atoi( str_len );
+	if( real_len == 0 ) {
+		EBOSSLog( gLogFile, "\n[获取请求串长度为0[%s]]\n", str_len );
+	}
+	return( real_len );
+}
+
+/*****************************************************************\
+ *	函 数 名	:	GetReqString
+ *	函数功能	:	获取指定长度的字节数
+ *
+ *	输入参数	:	int		sockfd	-- socket 句柄
+ *					char	rcv_buf	-- 接收缓冲区
+ *					int		len 	-- 需要获取的字节长度
+ *	输出参数	:	无
+ *	返回值		:
+ *				  >=0 - 代表取长度成功，返回后面还有的字节的个数
+ *				   -1 - 获取请求串长度失败
+ *				   -2 - 请求包长度格式错误
+\*****************************************************************/
+int
+GetReqString( int sockfd, char *rcv_buf, int len )
+{
+	char	pack_str[MAXBUFSIZE+1];
+	memset( pack_str, 0x00, sizeof(pack_str) );
+
+	if( RecvData( sockfd, pack_str, len, gTimeOut, gPollCount ) != len ) {
+		EBOSSLog( gLogFile, "\n[获取请求串失败]\n" );
+		return( -1 );
+	}
+
+	memcpy( rcv_buf, pack_str, len );
+
+	return( len );
+}
+
+/*****************************************************************\
+ *	函 数 名	:	AllIsDigit
+ *	函数功能	:	判断字符串是否是纯数字
+ *				 如:	"-020" 不是
+ *				 		"020" 是
+ *
+ *	输入参数	:	char *str	-- 字符串
+ *	返回值		:
+ *				    0 - 代表是纯数字
+ *				   -1 - 不是纯数字
+\*****************************************************************/
+int
+AllIsDigit( const char *i_str )
+{
+	if( i_str==NULL || strlen(i_str)==0 ) {
+		return( 0 );
+	}
+
+	int	len = strlen(i_str);
+
+	for( int i=0; i<len; i++ ) {
+		if( !isdigit(i_str[i]) ) {
+			return( -1 );
+		}
+	}
+
+	return( 0 );
+}
+
+/***********************************************************************\
+ *	函 数 名	:	KillCldPids
+ *	函数功能	:	主监听进程退出时要保证所有的同步子进程全部正常退出，
+ *							暂时不考虑异步子进程，异步子进程可以随便连
+ *
+ *	输入参数	:	int semid -- 信号量集标识ID
+ *					int shmid -- 同步控制共享内存标识ID
+ *	输出参数	:	无
+ *	返回值		:
+ *				    0 - 成功杀死了所有的子进程
+ *				   -1 - attach 共享内存失败
+ *				   -2 - 锁信号失败
+ *				   -3 - 解锁信号失败
+\***********************************************************************/
+int
+KillCldPids( int semid, int shmid )
+{
+	char	*shm_addr=NULL;
+	pid_t	*child_pid=NULL;
+
+	shm_addr = (char *)shmat( shmid, 0, 0 );
+	if( shm_addr==(char*)SHM_FAILED ) {
+		EBOSSLog( gLogFile,
+			"\n[主监听进程退出前，要通过控制共享内存来向同步子进程发送退出信号，但是获取共享内存失败]\n" );
+		return( -1 );
+	}
+
+	child_pid = (pid_t*)(shm_addr+sizeof(int));
+
+	if( LockSem(semid,1)<0 ) {
+		EBOSSLog( gLogFile, "\n[FILE=%s LINE=%d][ 对同步进程控制共享内存上锁失败 ]\n", _FL_ );
+		return( -2 );
+	}
+
+	for( int i=0; i<gMaxProcNum; i++ ) {
+		if( child_pid[i] > 0 ) {
+			kill( child_pid[i], SIGTERM );
+			DelayMS(200);
+		}
+	}
+
+	if( UnLockSem(semid,1)<0 ) {
+		EBOSSLog( gLogFile, "[FILE=%s LINE=%d][ 对同步进程控制共享内存解锁失败 ]\n", _FL_ );
+		return( -3 );
+	}
+
+	sleep( 5 );
+
+	int ret=0;
+	int retall=0;
+
+	while( 1 )
+	{
+		ret = 1;
+		retall = 1;
+
+		if( LockSem(semid,1)<0 ) {
+			EBOSSLog( gLogFile, "[FILE=%s LINE=%d][ 对同步进程控制共享内存上锁失败 ]\n", _FL_ );
+			return( -2 );
+		}
+
+		for( int i=0; i<gMaxProcNum; i++ ) {
+			if( child_pid[i] > 0 ) {
+				BOSSLog( gLogFile, "[ Child[%d]=[%d] ]\n", i, child_pid[i] );
+				ret = kill( child_pid[i], 0 );
+				retall = retall*ret;
+			}
+		}
+
+		if( UnLockSem(semid,1)<0 ) {
+			EBOSSLog( gLogFile, "\n[FILE=%s LINE=%d][ 对同步进程控制共享内存解锁失败 ]\n", _FL_ );
+			return( -3 );
+		}
+
+		if( retall != 0 ) {
+			break;
+		}
+		else {
+			sleep(1);
+			BOSSLog( gLogFile, "[ killing child process ... ]\n" );
+			continue;
+		}
+	}
+
+	shmdt( shm_addr );
+	return( 0 );
+}
+
+/***********************************************************************\
+ *	函 数 名	:	IncreaseChild
+ *	函数功能	:	控制 FORK 的同步子进程的数量不能超过最大限制
+ *						没超限的话，则增加同步子进程信息到共享内存
+ *
+ *	输入参数	:	int semid	-- 信号量集标识ID
+ *					int shmid	-- 同步控制共享内存标识ID
+ *					int max		-- 同步子进程的最大个数
+ *					pid_t pid	-- 需要增加的子进程的进程号
+ *	输出参数	:	无
+ *	返回值		:
+ *				    0 - 增加成功
+ *				   -1 - 获取共享内存出错
+ *				   -2 - 对同步进程控制共享内存上锁失败
+ *				   -3 - 对同步进程控制共享内存解锁失败
+ *				   -4 - 子进程个数已经到了最大限制，不能再增加了
+\***********************************************************************/
+int
+IncreaseChild( int semid, int shmid, int max, pid_t pid )
+{
+	char	*shm_addr=NULL;
+	int		*proc_num=NULL;
+	pid_t	*child_pid=NULL;
+	int		find_flag=0;
+
+	shm_addr = (char *)shmat( shmid, 0, 0 );
+	if( shm_addr==(char*)SHM_FAILED ) {
+		EBOSSLog( gLogFile, "[ attach 共享内存失败][errno=%d strerror(errno)=%s ]\n", errno, strerror(errno) );
+		return( -1 );
+	}
+
+	proc_num=(int*)shm_addr;
+	child_pid = (pid_t*)(proc_num+1);
+
+	if( LockSem(semid,1)<0 ) {
+		EBOSSLog( gLogFile, "\n[FILE=%s LINE=%d][ 对同步进程控制共享内存上锁失败 ]\n", _FL_ );
+		shmdt( shm_addr );
+		return( -2 );
+	}
+
+	for( int i=0; i<max; i++ ) {
+		if( child_pid[i] < 0 ) {
+			child_pid[i] = pid;
+			find_flag = 1;
+			break;
+		}
+	}
+
+	if( find_flag == 1 ) {
+		(*proc_num)++;
+	}
+
+	if( UnLockSem(semid,1)<0 ) {
+		EBOSSLog( gLogFile, "[FILE=%s LINE=%d][ 对同步进程控制共享内存解锁失败 ]\n", _FL_ );
+		shmdt( shm_addr );
+		return( -3 );
+	}
+
+	if( find_flag == 0 ) {
+		EBOSSLog( gLogFile, "[FILE=%s LINE=%d][ 子进程个数已经到了最大限制，不能再增加了 ]\n", _FL_ );
+		shmdt( shm_addr );
+		return( -4 );
+	}
+
+	shmdt( shm_addr );
+	return( 0 );
+}
+
+/*****************************************************************\
+ *	函 数 名	:	SendBackErrInfo
+ *	函数功能	:	向指定的SOCKET句柄发送字符串
+ *
+ *	输入参数	:	int		sockfd	-- socket 句柄
+ *					char	*errinfo -- 发送缓冲区
+ *
+ *	输出参数	:	无
+ *	返回值		:
+ *				    0 - 发送字符串成功
+ *				   -1 - 发送失败
+\*****************************************************************/
+int
+SendBackErrInfo( int sockfd, const char *errinfo )
+{
+	if( SendData( sockfd, errinfo, strlen(errinfo), gPollCount ) != strlen(errinfo) ) {
+		EBOSSLog( gLogFile, "\n[回送信息失败]\n" );
+		return( -1 );
+	}
+	return( 0 );
+}
+
+/*****************************************************************\
+ *	函 数 名	:	GetPackage
+ *	函数功能	:	从客户端获取请求数据包 包括报文长度和报文内容
+ *
+ *	输入参数	:	int		sockfd		-- socket 句柄
+ *					char	*recv_buff	-- 输出缓冲区地址
+ *					int		recv_len	-- 输出缓冲区的长度
+ *
+ *	输出参数	:	无
+ *	返回值		:
+ *				    0 - 发送字符串成功
+ *				   -1 - 发送失败
+\*****************************************************************/
+int
+GetPackage( int sockfd, char *recv_buff, int recv_len )
+{
+	int		ret=0;
+	char	errorinfo[256+1];
+	char	receive_buf[MAXBUFSIZE+1];
+
+	memset( errorinfo, 0x00, sizeof(errorinfo) );
+	memset( receive_buf, 0x00, sizeof(receive_buf) );
+
+	DBOSSLog( gLogFile, "\n[接收长度开始<%s>]\n", GetSysDateTime(NULL, 0, 8) );
+
+	if( ( ret=GetReqStrLen(sockfd) ) <= 0 ) {
+		EBOSSLog( gLogFile, "\n[接收长度结束<%s> 数据长度非法]\n", GetSysDateTime(NULL, 0, 8) );
+		snprintf( errorinfo, sizeof(errorinfo), "%-128s", "数据长度非法" );
+		SendBackErrInfo( sockfd, errorinfo );
+		return( -1 );
+	}
+
+	if( ret>MAXBUFSIZE ) {
+		EBOSSLog( gLogFile, "\n[FILE=%s LINE=%d][接收报文长度过长为%d]\n", _FL_, ret );
+		snprintf( errorinfo, sizeof(errorinfo), "%-128s", "发送的数据过长" );
+		SendBackErrInfo( sockfd, errorinfo );
+		return( -2 );
+	}
+
+	if( GetReqString( sockfd, receive_buf, ret ) < 0 ) {
+		snprintf( errorinfo, sizeof(errorinfo), "%-128s",
+			"获取报文内容失败，可能长度字段和实际报文内容长度不符，请检查" );
+		SendBackErrInfo( sockfd, errorinfo);
+		return( -3 );
+	}
+
+	DBOSSLog( gLogFile, "\n[接收成功，报文内容为<%s>]\n", receive_buf );
+
+	snprintf( recv_buff, recv_len, receive_buf );
+
+	return( 0 );
+}
+
+/*****************************************************************\
+ *	函 数 名	:	GetASynFlag
+ *	函数功能	:	判断此次请求是异步还是同步
+ *					只要判断前六个字符是否是 ASYN=1 即可
+ *						如果前六个字符是 ASYN=1 则视为异步请求
+ *						否则视为同步请求
+ *
+ *	输入参数	:
+ *					char	*recv_buff	-- 从客户端获取的报文串
+ *
+ *	输出参数	:	无
+ *	返回值		:
+ *				    1 - 异步请求
+ *				    0 - 同步请求
+ *				   -1 - 请求数据为空
+\*****************************************************************/
+int
+GetASynFlag( const char * recv_buff )
+{
+	if( recv_buff==NULL || strlen(recv_buff)==0 ) {
+		return( -1 );
+	}
+
+	if( strstr(recv_buff, ASYNFLAG ) != NULL ) {
+		return( 1 );
+	}
+	else {
+		return( 0 );
+
+	}
+}
+
+/****************************************************************\
+*	函数名      :      ReadCfgToBuffer
+*   函数功能    :      读工单配置文件到内存中
+*   输入参数    :      char* CfgName -- 配置文件的绝对路径
+					   CFGFILESTRUCT* pBuffer -- 指定的内存结构
+*   输出参数    :      无
+*   返回值      :      0   -- 函数执行成功
+					   -1  -- 打开文件失败
+					   -2  -- 指定内存不存在
+\***************************************************************/
+int ReadCfgToBuffer(const char* CfgName,CFGFILESTRUCT* pBuffer)
+{
+	FILE* pFile;
+	int i = 0;
+
+	if(CfgName == NULL)
+	{
+    	return -1;
+	}
+	if((pFile = fopen(CfgName,"r")) == NULL)
+	{
+		return -1;
+	}
+	if(pBuffer == NULL)
+	{
+		return -2;
+	}
+
+	pBuffer->nLineCount = 0;
+
+	for( i = 0 ; fgets(pBuffer->cBuffer[i],1024,pFile); i++)
+	{
+		(pBuffer->nLineCount)++;
+	}
+	fclose(pFile);
+	return 0;
+}
+/******************************************************************\
+*	函数名称      :      ReadCmdFromBuf
+*   函数功能      ：     从内存中读取工单指令
+*   输入参数      ：     CFGFILESTRUCT* pBuffer -- 存储工单内容的内存
+						 char* cSection --    参数类型
+						 char* cKey  --    参数名称
+*	输出参数      ：     char* cValue -- 参数值输出缓冲地址
+*   返回值        ：     0    --   函数执行成功
+						 -1   --   输入参数无效
+						 -2   --   找不到参数类型
+						 -3   --   找不到参数名称
+						 -4   --   参数值为空
+\*******************************************************************/
+int ReadCmdFromBuf(const CFGFILESTRUCT* pBuffer,const char* cSection,const char* cKey,char* cValue)
+{
+	int  bFindFlag = 0;
+	int  i = 0;
+	char cKey_Value[250];
+	char cMiddle_Value[1024];
+
+	memset(cKey_Value,0,sizeof(cKey_Value));
+	memset(cMiddle_Value,0,sizeof(cMiddle_Value));
+
+	if(pBuffer == NULL || cSection == NULL || cKey == NULL || cValue == NULL)
+	{
+		return -1;
+	}
+
+	for(i = 0 ; i < pBuffer->nLineCount ; i++)
+	{
+		if(pBuffer->cBuffer[i][0] == '#')
+    	{
+			continue;
+		}
+		if(pBuffer->cBuffer[i][0] != '[')
+		{
+			continue;
+		}
+    	if(strstr(pBuffer->cBuffer[i],cSection) == NULL)
+		{
+			continue;
+		}
+		else
+		{
+			bFindFlag = 1;
+			break;
+     	}
+	}
+	if(bFindFlag == 0)
+	{
+    	return -2;
+	}
+
+	bFindFlag = 0;
+	for(i = 0 ; i < pBuffer->nLineCount ; i++)
+	{
+		if(pBuffer->cBuffer[i][0] == '#')
+    	{
+			continue;
+		}
+		if((strstr(pBuffer->cBuffer[i],cKey)) == NULL)
+		{
+			continue;
+        }
+		else
+		{
+	    	sprintf(cKey_Value,"%s=",cKey);
+			strcpy(cMiddle_Value,pBuffer->cBuffer[i] + strlen(cKey_Value));
+			bFindFlag = 1;
+			break;
+		}
+	}
+	if(bFindFlag == 0)
+    {
+		return -3;
+	}
+	if(cMiddle_Value[0] == 0)
+	{
+		return -4;
+	}
+	strcpy(cValue,cMiddle_Value);
+	return 0;
+}
+
+/***************************************************************************\
+*	函数名称      :      CreateShm
+*	函数功能      :      为工单配置文件创建相应的共享内存
+*   输入参数      ：     key_t Key    --    共享内存的Key值
+						 int nSize    --    需要创建的内存的大小，以字节为单位
+*   输出参数      ：     无
+*   返回值        ：     共享内存的ID
+						 -1   创建共享内存失败
+\****************************************************************************/
+int CreateShm(key_t Key,int nSize)
+{
+	int nFlag        = 0;
+	int nReturnValue = 0;
+	char* cIn_Addr   = NULL;
+	char  ErrMsg[1024];
+
+	memset(ErrMsg,0,sizeof(ErrMsg));
+
+	nReturnValue = shmget(Key,nSize,IPC_CREAT|0666|IPC_SHARE32);
+	if(nReturnValue == -1)
+	{
+		sprintf(ErrMsg,"Createshm error[%s]",strerror(errno));
+		BOSSLog( gLogFile,ErrMsg );
+		return -1;
+	}
+
+	cIn_Addr = (char*)shmat(nReturnValue,0,0);
+	if(cIn_Addr == NULL)
+	{
+		sprintf(ErrMsg,"shmat error[%s]",strerror(errno));
+		BOSSLog( gLogFile,ErrMsg );
+		return -1;
+	}
+
+	nFlag = shmdt(cIn_Addr);
+	if(nFlag == -1)
+	{
+    	sprintf(ErrMsg,"shmdt error[%s]",strerror(errno));
+		BOSSLog( gLogFile,ErrMsg );
+		return -1;
+	}
+
+	return nReturnValue;
+}
+/*****************************************************************************\
+*	函数名称     ：     CreateSem
+*   函数功能     ：     创建用于同步工单内存的信号量
+*   输入参数     ：     key_t Key  --  创建信号量需要的Key值
+*	返回值       :      信号量的ID
+						-1     --     创建信号量失败
+
+*   输入参数     ：     无
+\*****************************************************************************/
+int CreateSem(key_t Key)
+{
+	int nFlag        = 0;
+	int nReturnValue = 0;
+	union semun SemaphoreUnion;
+	char  ErrMsg[1024];
+
+	memset(ErrMsg,0,sizeof(ErrMsg));
+	SemaphoreUnion.val = 1;
+
+
+	nReturnValue = semget(Key,1,IPC_CREAT|0660);
+	if(nReturnValue == -1)
+	{
+		sprintf(ErrMsg,"semget error[%s]",strerror(errno));
+		BOSSLog( gLogFile,ErrMsg );
+		return -1;
+	}
+
+	nFlag = semctl(nReturnValue,0,SETVAL,SemaphoreUnion);
+	if(nFlag < 0)
+	{
+		sprintf(ErrMsg,"semctl error[%s]",strerror(errno));
+        BOSSLog( gLogFile,ErrMsg );
+		return -1;
+	}
+
+	return nReturnValue;
+}
+/****************************************************************************\
+*	函数名称        ：        GetShm
+*   函数功能        ：        取得已存在共享内存的ID
+*   输入参数        ：        key_t Key   --  共享内存的Key
+*   输出参数        ：        int& ShmId  --  共享内存的ID
+*   返回值          ：        0    --    成功
+							  -1   --    失败
+\****************************************************************************/
+int GetShm(key_t Key,int& ShmId)
+{
+	int nReturnvalue = 0;
+	char  ErrMsg[1024];
+
+	memset(ErrMsg,0,sizeof(ErrMsg));
+
+	nReturnvalue = shmget(Key,0,0);
+	if(nReturnvalue == -1)
+	{
+		sprintf(ErrMsg,"GetShm error[%s]",strerror(errno));
+		BOSSLog(gLogFile,ErrMsg);
+    	return -1;
+	}
+
+	ShmId = nReturnvalue;
+	return 0;
+}
+/***************************************************************************\
+*	函数名称      ：        GetSem
+*   函数功能      ：        取得已存在信号量的ID
+*   输入参数      ：        key_t Key  --   信号量的Key值
+*   输出参数      ：        int& SemId --    信号量的ID
+*   返回值        ：        0   --   成功
+							-1  --   失败
+\****************************************************************************/
+int GetSem(key_t Key,int& SemId)
+{
+	int nReturnvalue = 0;
+	char  ErrMsg[1024];
+
+	memset(ErrMsg,0,sizeof(ErrMsg));
+
+	nReturnvalue = semget(Key,0,0);
+	if(nReturnvalue == -1)
+	{
+		sprintf(ErrMsg,"GetSem error[%s]",strerror(errno));
+		BOSSLog(gLogFile,ErrMsg);
+		return -1;
+	}
+
+	SemId = nReturnvalue;
+	return 0;
+}
+/****************************************************************************\
+*   函数名称      ：      Sem_P
+*   函数功能      ：      信号量的P操作
+*   输入参数      ：      int semid   --  信号量集的ID
+						  int sem_index  --  所要操作的信号量的索引
+*   输出参数      ：      无
+*   返回值        ：      0     --    正确
+						  -1    --    失败
+\***************************************************************************/
+int Sem_P(int semid,int sem_index)
+{
+	struct sembuf sb;
+	char  ErrMsg[1024];
+
+	memset(ErrMsg,0,sizeof(ErrMsg));
+	sb.sem_num = sem_index;
+	sb.sem_op  = -1;
+	sb.sem_flg = SEM_UNDO;
+
+	if(semop(semid,&sb,1)==-1)
+	{
+		sprintf(ErrMsg,"Sem_P error[%s]",strerror(errno));
+		BOSSLog(gLogFile,ErrMsg);
+		return -1;
+	}
+	return 0;
+}
+/****************************************************************************\
+*   函数名称      ：      Sem_V
+*   函数功能      ：      信号量的V操作
+*   输入参数      ：      int semid   --  信号量集的ID
+                          int sem_index --  所要操作的信号量的索引
+*   输出参数      ：      无
+*   返回值        ：      0     --    正确
+						  -1    --    失败
+\***************************************************************************/
+int Sem_V(int semid,int sem_index)
+{
+	struct sembuf sb;
+	char  ErrMsg[1024];
+
+	memset(ErrMsg,0,sizeof(ErrMsg));
+	sb.sem_num = sem_index;
+	sb.sem_op = 1;
+	sb.sem_flg = SEM_UNDO;
+
+	if(semop(semid,&sb,1)==-1)
+	{
+		sprintf(ErrMsg,"Sem_V error[%s]",strerror(errno));
+		BOSSLog(gLogFile,ErrMsg);
+		return -1;
+	}
+	return 0;
+}
+int getConfpath(char *path)                        
+{                                                           
+	int ret;                                                
+	char tmp[255];                                          
+                                                            
+	memset(tmp,0,sizeof(tmp));                              
+	                                                
+	sprintf(tmp,"%s","$ADAPTERDIR/TcpServerCfg/TcpServer.cfg"); 
+	ret=convertpath(tmp);                                   
+	if(ret==-1)                                             
+	{                                                       
+		printf("环境变量ADAPTERDIR未设置\n");               
+		return -1;                                          
+	}                                                       
+	if(ret==-2)                                             
+	{                                                       
+		printf("环境变量ADAPTERDIR设置不正确\n");           
+		return -1;                                          
+	}                                                       
+                                                            
+	memset(path,0,sizeof(path));                            
+	strcpy(path,tmp);                                       
+	return 0; 
+}  
+int convertpath(char *path)                                                                      
+{                                                    
+	char temp[255],tmp[255],out[255];                
+	char *p1=NULL,*p2=NULL;                          
+	int len;                                         
+                                                     
+	memset(temp,0,sizeof(temp));                     
+	memset(tmp,0,sizeof(tmp));                       
+	memset(out,0,sizeof(out));                       
+	p1=strchr(path,'$');                             
+	if(p1==NULL)                                     
+	{                                                
+	 return 0;                                       
+	}                                                
+	p2=strchr(path,'/');                             
+	if(p2==NULL)                                     
+	{                                                
+	  sprintf(temp,"%s",p1+1);                       
+	  memset(path,0,sizeof(path));                   
+	  if(getenv(temp)==NULL)                         
+      {                                              
+        return -1;                                   
+      }                                              
+      else                                           
+      {                                              
+       sprintf(path,"%s",getenv(temp));              
+       if(temp[0]==0)                                
+       return -2;                                    
+       else                                          
+       return 0;                                     
+      }                                              
+    }                                                
+    else                                             
+    {                                                
+    	strncpy(temp,p1+1,p2-p1-1);                  
+	   if(getenv(temp)==NULL)                        
+       {                                             
+        return -1;                                   
+       }                                             
+       else                                          
+      {                                              
+       snprintf(out,sizeof(out)-1,"%s",getenv(temp));
+       if(temp[0]==0)                                
+       return -2;                                    
+       len = strlen(out);                            
+       if(out[len-1]=='/')                           
+       out[len-1]='\0';                              
+       snprintf(tmp,sizeof(tmp)-1,"%s",p2);          
+       strcat(out,tmp);                              
+       sprintf(path,"%s",out);                       
+       return 0;                                     
+      }                                              
+    }  
+}
+int readcfg(char *cfgname,char *section,char *key,char *value)                                              
+{                                                             
+	FILE *cfgfile;                                            
+	char buff[1024];                                          
+	char section_ext[1024];                                   
+	char key_value[1024];                                     
+	int find=0;                                               
+	char value_ext[1024];                                     
+                                                              
+	if((cfgfile=fopen(cfgname,"r"))==NULL)                    
+	return -1;                                                
+                                                              
+	/*查找section*/                                           
+	sprintf(section_ext,"[%s]",section);                      
+                                                              
+	for(;fgets(buff,sizeof(buff),cfgfile);)                   
+	{                                                         
+		if(buff[0]=='#')                                      
+			continue;                                         
+		if(buff[0]!='[')                                      
+			continue;                                         
+		if(strstr(buff,section_ext)==NULL)                    
+			continue;                                         
+		else                                                  
+		{                                                     
+			find=1;                                           
+			break;                                            
+		}                                                     
+	}                                                         
+                                                              
+	if(find==0)                                               
+	{                                                         
+		fclose(cfgfile);                                      
+		return -2;                                            
+	}                                                         
+                                                              
+	/*查找key=value*/                                         
+	value_ext[0]=0;                                           
+	find=0;                                                   
+                                                              
+	for(;fgets(buff,sizeof(buff),cfgfile);)                   
+	{                                                         
+		if(buff[0]=='#')                                      
+			continue;                                         
+		if(strstr(buff,key)==NULL)                            
+			continue;                                         
+		else                                                  
+		{                                                     
+			sprintf(key_value,"%s=%%s\n",key);                
+			sscanf(buff,key_value,value_ext);                 
+			find=1;                                           
+			break;                                            
+		}                                                     
+	}                                                         
+                                                              
+	fclose(cfgfile);                                          
+	if(find==0)                                               
+		return -3;                                            
+                                                              
+	if(value_ext[0]==0)                                       
+		return -4;                                            
+	else                                                      
+	{                                                         
+		strcpy(value,value_ext);                              
+		return 1;                                             
+	}                                                         
+                                                              
+	return 0;                                                 
+}
+char * ALLTrim(char *sBuf)                                                                                                                   
+{                                                                               
+	int i, iFirstChar, iEndPos, iFirstPos;                                      
+                                                                                
+        iEndPos = iFirstChar = iFirstPos = 0;                                   
+                                                                                
+        for (i = 0; sBuf[i] != '\0'; i++)                                       
+        {                                                                       
+                if (sBuf[i] == ' '||sBuf[i]=='\n'||sBuf[i]=='\r'||sBuf[i]=='\t')
+                {                                                               
+                        if (iFirstChar == 0)                                    
+                                iFirstPos++;                                    
+                }                                                               
+                else                                                            
+                {                                                               
+                        iEndPos = i;                                            
+                        iFirstChar = 1;                                         
+                }                                                               
+        }                                                                       
+                                                                                
+        for (i = iFirstPos; i <= iEndPos; i++)                                  
+                sBuf[i-iFirstPos] = sBuf[i];                                    
+                                                                                
+        sBuf[i-iFirstPos]='\0';                                                 
+        return sBuf;                                                            
+}   
+int	Initialize(char *filepath) 
+{
+	char section[20];
+	int  result = 0;
+	char key[50];
+	char clientip[MAX_LEGALIP_COUNT*20];
+	char *pconnIp[32];	
+	
+	memset(section,0,sizeof(section));
+	memset(key,0,sizeof(key));
+	memset(clientip,0,sizeof(clientip));
+		
+	InitSignal();
+	
+	sprintf(section,"TCPSERVERCFG_1");
+	sprintf(key,"LogPath");
+	if (readcfg( filepath, section, key, logpath) < 0)
+  	{                                                   
+  		printf("Get	LogPath	 failed!\n");                                                                                                                   
+   		return	- 1;                                    
+    } 
+    ALLTrim(logpath);                                  
+    result=convertpath(logpath);                   
+    if(result==-1)                                 
+    {                                              
+    	printf("Environment does not exist!\n");   
+    	return -1;                                 
+    }                                              
+    if(result == -2)                               
+    {                                              
+    	printf("Environment not set correctly!\n");
+    	return -1;                                 
+    }     
+    
+    memset(key,0,sizeof(key));
+    sprintf(key,"IP");
+    if ((result=readcfg( filepath, section, key, IPAddress)) < 0)	
+    {
+    	if(result==-4)                                           
+    		sprintf(IPAddress,"%s","INADDR_ANY");                         
+    	else                                                     
+    	{                                                        
+    		printf("Get	IP	failed!\n");                                                         
+    		return - 2;                                          
+    	}                                                        
+    }                                                            
+    ALLTrim(IPAddress);                        
+    
+    memset(key,0,sizeof(key));
+    sprintf(key,"Port");     
+    if (readcfg( filepath, section, key, IPPort) < 0)	
+    {    
+    	printf("Get	 Port failed!\n");                       
+        return - 3;                                          
+    }                                                            
+    ALLTrim(IPPort);
+    
+    memset(key,0,sizeof(key));
+    sprintf(key,"LockFilePath");     
+    if (readcfg( filepath, section, key, LockFilePath) < 0)	
+    {    
+    	printf("Get	 LockFilePath failed!\n");                       
+        return - 3;                                          
+    }                                                            
+    ALLTrim(LockFilePath); 
+    result=convertpath(LockFilePath);                   
+    if(result==-1)                                 
+    {                                              
+    	printf("Environment does not exist!\n");   
+    	return -1;                                 
+    }                                              
+    if(result == -2)                               
+    {                                              
+    	printf("Environment not set correctly!\n");
+    	return -1;                                 
+    }
+    
+    memset(key,0,sizeof(key));
+    sprintf(key,"LegalIP");
+    if((result=readcfg(filepath,section,key,clientip))<=0)
+	{
+		sprintf(loginfo,"config--clientip flag is error,please check config!error:%d\n",result);
+		printf("loginfo=%s\n",loginfo);
+		exit(1);
+  	}
+  	ALLTrim(clientip);
+  	for(int i=0;i<MAX_LEGALIP_COUNT;i++)
+  	{
+	  	pconnIp[i] = acconnip[i];
+	  	memset(pconnIp[i],0,sizeof(pconnIp[i]));
+	}  
+  	memset(acconnip,0,sizeof(acconnip));
+  	ipcount = GetStringNumber(clientip,pconnIp);
+  	for(i=0; i<ipcount; i++)
+  	{
+  		printf("acconnip[%d]=[%s]\n",i,acconnip[i]);
+  	}
+  	
+    
+    printf("logpath = [%s]\n",logpath);
+    printf("IPAddress = [%s]\n",IPAddress);
+	printf("IPPort = [%s]\n",IPPort);  
+	printf("LockFilePath = [%s]\n",LockFilePath);  
+    return 0;                                                
+}   
+int LogIt( char *sBuff,char *head)                                                                                                                                              
+{                                                                                                                                 
+	FILE *logFile=NULL;                                                                                                           
+	char fileName[255];                                                                                                           
+	int Pid=0;                                                                                                                    
+	struct timeval tpstart;                                                                                                       
+                                                                                                                                  
+	Pid=getpid();                                                                                                                 
+	memset(fileName,0,sizeof(fileName));                                                                                          
+                                                                                                                                  
+	time_t nowTime;                                                                                                               
+	struct tm LocalTime;                                                                                                          
+                                                                                                                                  
+	nowTime=time(NULL);                                                                                                           
+	memcpy(&LocalTime,localtime(&nowTime),sizeof(struct tm));                                                                     
+	sprintf(fileName,"%s%04d%02d%02d.log",head,LocalTime.tm_year+1900,LocalTime.tm_mon+1,LocalTime.tm_mday);    
+	
+                 
+                                                                                                                                  
+	logFile=fopen(fileName,"ab+");                                                                                                
+	if(logFile==NULL)                                                                                                             
+	{                                                                                                                             
+	  return -1;                                                                                                                  
+	}                                                                                                                             
+	gettimeofday(&tpstart,NULL);                                                                                                  
+	fprintf(logFile,"%02d.%02d.%02d.%06ld:%d:%s\n",LocalTime.tm_hour,LocalTime.tm_min,LocalTime.tm_sec,tpstart.tv_usec,Pid,sBuff);
+	fclose(logFile);                                                                                                              
+	return 0;                                                                                                                     
+}  
+int LockFile(char* filename)
+{
+    FILE *fd;
+    char pidstr[10];
+    pid_t pid;
+    int mayLock = -1;
+
+    fd = fopen(filename,"r");		/*打开一个已经存在的文件*/
+    if(fd != NULL)      			/*标志文件存在*/
+    {
+        fscanf(fd,"%s",pidstr);		/*将FD指向的文件中的PID读到PIDSTR中*/
+        fclose(fd);
+        pid = atoi(pidstr);
+        if (pid < 2)        		/*不是有效的用户进程ID*/
+            mayLock = 1;
+        else
+        {
+            if (kill(pid,0) < 0)    /*检测进程有效性*/
+            {
+                if (errno == ESRCH)	/*进程失效*/
+                    mayLock = 1;
+                else            	/*执行错误*/
+                    mayLock = -1;
+            }
+            else                    /*进程处于活动中*/
+                mayLock = 0;
+        }
+    }
+    else
+    {
+        if (errno == ENOENT || errno == EBADF)      /*标志文件不存在，没有活动进程*/
+            mayLock = 1;
+        else
+            mayLock = -1;
+    }   /* fd != NULL */
+
+    if (mayLock == 1)
+    {
+        fd = fopen(filename,"w");
+        if (fd == NULL)
+        {
+            mayLock = -1;
+        }
+        fprintf(fd,"%d",getpid());
+        fclose(fd);
+    }
+
+    return mayLock;
+}
+int	InitServerSocket(int *socketfd,	char *ip, char *port)
+{
+	int	handleofsocket;
+	int	reuseaddr =	1, keepalive = 1;
+
+	/*//建立连接*/
+	struct sockaddr_in addr;
+	handleofsocket = socket(AF_INET, SOCK_STREAM, 0);
+	if (handleofsocket == -1)
+	{
+		*socketfd =	errno;
+		return -1;
+	}
+	if (setsockopt(handleofsocket, SOL_SOCKET, SO_REUSEADDR, &reuseaddr, sizeof(reuseaddr))	== -1)
+	{
+		*socketfd =	errno;
+		close(handleofsocket);
+		return -1;
+	}
+	if (setsockopt(handleofsocket, SOL_SOCKET, SO_REUSEPORT, &reuseaddr, sizeof(reuseaddr))	== -1)
+	{
+		*socketfd =	errno;
+		close(handleofsocket);
+		return -1;
+	}
+	memset((char	*) &addr,0, sizeof(addr));
+	addr.sin_family	= AF_INET;
+	if(ip==NULL||strlen(ip)==0||strcmp(ip,"INADDR_ANY")==0)
+	addr.sin_addr.s_addr=htonl(INADDR_ANY);
+	else
+	{
+		addr.sin_addr.s_addr = inet_addr(ip);
+	}
+
+	addr.sin_port =	htons((unsigned	short)atoi(port));
+	if ( bind(handleofsocket,reinterpret_cast<struct sockaddr *>(&addr),sizeof(addr))	== -1)
+	{
+		*socketfd =	errno;
+		close(handleofsocket);
+		return -1;
+	}
+
+	if (listen(handleofsocket,BACKLOG) == -1)
+	{
+		*socketfd =	errno;
+		close(handleofsocket);
+		return -1;
+	}
+	*socketfd =	handleofsocket;
+
+	printf("InitServerSocket success\n");
+	return 0;
+}
+void InitSignal()
+{
+	struct sigaction act, oact;
+
+	sigemptyset(&act.sa_mask);
+	act.sa_handler = sig_int;
+	act.sa_flags = 0;
+	sigaction(SIGINT, &act,	&oact);
+	sigaction(SIGTERM, &act,&oact);
+	sigaction(SIGQUIT, &act,&oact);
+
+	act.sa_handler = SIG_IGN;
+  	sigemptyset(&act.sa_mask);
+  	act.sa_flags = 0;
+  	sigaction(SIGHUP, &act,&oact);
+  	sigaction(SIGPIPE, &act,&oact);
+
+  	act.sa_handler = TimeOutAlarm;
+  	sigemptyset(&act.sa_mask);
+  	act.sa_flags = 0;
+  	sigaction(SIGALRM, &act,&oact);
+
+  	act.sa_handler = sig_chld;
+  	sigemptyset(&act.sa_mask);
+  	act.sa_flags = 0;
+  	sigaction(SIGCHLD, &act,&oact);
+}
+void sig_int(int signal_type)
+{
+	MainQuitFlag=1;
+	printf("SIGNAL quit=1\n");
+}
+void TimeOutAlarm(int sig)
+{
+	sprintf(loginfo,"--系统处理超时--");
+	LogIt(loginfo,HEAD);
+}
+int GetStringNumber(char* string_buf, char** arrString)
+{
+	int 	i,ilen;
+	char   	result_buf[MAX_LEGALIP_COUNT*20];
+	char * 	string_flag;	
+	char *tempString[MAX_LEGALIP_COUNT];
+	
+	i=0;
+	
+	memset(result_buf,'\0',strlen(string_buf));
+	memcpy(result_buf,string_buf,strlen(string_buf));
+	//printf("string_buf=[%s]\n",string_buf);
+	
+	/*根据 ‘|’ 依次循环取出string*/
+	while((string_flag=strchr(string_buf,'|')) != NULL)
+	{
+		ilen = string_flag-string_buf;
+		//printf("result_buf=[%s][%d]\n",result_buf,ilen);
+		result_buf[ilen]='\0';
+		//printf("result_buf=[%s][%d]\n",result_buf,ilen);
+		
+		strcpy(arrString[i],result_buf);		
+		/*指针下移一位，去掉'|'*/
+		string_flag=string_flag + 1;
+		memcpy(result_buf,string_flag,strlen(string_flag));
+		result_buf[strlen(string_flag)]='\0';
+		memcpy(string_buf,result_buf,strlen(result_buf));	
+		string_buf[strlen(result_buf)]='\0';
+		//printf("arrString[%d]=[%s]\n",i,arrString[i]);
+		i+=1;		
+	}	
+	strcpy(arrString[i],string_buf);
+	i+=1;
+	printf("arrString=[%s],number=[%d]\n",arrString[i-1],i);
+	
+	return i;
+}
+void sig_chld(int signal_type)
+{
+	pid_t pid;
+	int	status;
+
+	/* WNOHANG								  */
+	/*	 means to return immediately if	no child is	there to be	waited for.	*/
+	/*	 pid is	the	child process which	exit				  */
+	/*#ifdef _DEBUG*/
+	printf("child exit\n");
+	/*#endif*/
+	while (	(pid = waitpid(-1,&status, WNOHANG)) > 0)
+	{
+		sprintf(loginfo,"child process <%d>	exit!",pid);
+		LogIt(loginfo,HEAD);
+	}
+}
+void sig_int1(int signal_type)
+{
+	sonquit = 1;
+	printf("SIGNAL sonquit=1\n");
+}
+void sig_chld1(int signal_type)
+{
+	pid_t pid;
+	int	status;
+	/*#ifdef _DEBUG*/
+	printf("sonchild exit\n");
+	/*#endif*/
+	while (	(pid = waitpid(-1,&status, WNOHANG)) > 0)
+	{
+		sprintf(loginfo,"sonchild process <%d>	exit!",pid);
+		LogIt(loginfo,HEAD);
+	}
+}
+int RecvResultOnHP(int socketfd, char *resultstr,int length,int limit)
+{
+    char *recvbuff=NULL;
+    int numbytes=0,i=0;
+
+	int iRecvSucFlag = 0;
+	int ret;
+	fd_set readfds;
+
+	if(length>0)
+	{
+		recvbuff=(char *)malloc(sizeof(char)*(length+1));
+		if(recvbuff==NULL)
+		return -1;
+	}
+	else
+		return -1;
+
+    memset(recvbuff,0,sizeof(char)*(length+1));
+    memset(resultstr,0,length);
+
+	/*ret = bSelect (socketfd, &readfds, NULL, NULL, limit);
+	if(ret == 0)
+		return -3;
+	else if(ret < 0)
+		return -4;*/
+
+  	/*printf("limit=[%d]\n",limit);
+  	sigaction(SIGALRM,&act,&oact);*/
+
+  	/*alarm(limit);*/
+	numbytes=recv(socketfd,recvbuff,length,0);
+	/*alarm(0);*/
+	/*sigaction(SIGALRM,&oact,NULL);*/
+	printf("numbytes=[%d]\n",numbytes);
+
+	if (numbytes == 0)
+	{
+		return 0;
+		if (numbytes == 0)
+		{
+			free(recvbuff);
+			recvbuff=NULL;
+			perror("-5 recv error:");
+			return -5;
+		}
+		if (errno == EAGAIN )
+		{
+			/*printf("Recv failed[%d][%s]!\n",errno,strerror(errno));*/
+			free(recvbuff);
+			recvbuff=NULL;
+			return -9;
+		}
+		if (errno == EBADF || errno == ESRCH || errno == ENOTCONN || errno == ENOTSOCK || errno == EPIPE)
+		{
+			free(recvbuff);
+			recvbuff=NULL;
+			perror("-6 recv error:");
+			return -6;
+		}
+		if (errno == EINTR)
+		{
+			free(recvbuff);
+			recvbuff=NULL;
+			perror("-7 recv error:");
+			return -7;
+		}
+		else
+		{
+			printf("Recv failed[%d][%s]!\n",errno,strerror(errno));
+			free(recvbuff);
+			recvbuff=NULL;
+			return -8;
+		}
+	}
+	if (numbytes < 0)
+	{
+		return -1;
+	}
+    
+    for(i=0;i<numbytes;i++)
+	{
+		/*printf("[%02x] ",recvbuff[i]);
+		if(i%20 == 0)
+			printf("\n");*/
+		if (recvbuff[i] == 0)
+           /*	recvbuff[i] = '\n'*/;
+        else
+        	iRecvSucFlag++;   	
+	}
+	
+	if(iRecvSucFlag <= 0)
+	{
+		printf("client send error\n");
+		return -9;
+	}	
+	if (numbytes >= length)
+   	{
+		memcpy(resultstr,recvbuff,length-1);
+		resultstr[length-1]='\0';
+	}
+	else
+	{
+		/*strcpy(resultstr,recvbuff);*/
+		memcpy(resultstr,recvbuff,numbytes);
+		resultstr[numbytes]='\0';
+	}
+	free(recvbuff);
+	recvbuff=NULL;
+    return numbytes;
+}
+int bSelect (
+	int socketfd,
+	struct fd_set  *readList,
+	struct fd_set  *writeList,
+	struct fd_set  *exceptList,
+	int timeOut
+)
+{
+	struct timeval tv;
+	int ret;
+
+	FD_ZERO( readList);
+	FD_SET( socketfd, readList);
+	//FD_SET( 0, sockset);
+	tv.tv_sec = timeOut;
+	tv.tv_usec = 0;
+
+   	if ( (ret = select (socketfd + 1,readList,writeList,exceptList,&tv)) == -1)
+   	{
+      	#ifdef _DEBUG
+      	perror("select failed");
+      	#endif
+      	return -1;
+   	}
+   	else if (ret == 0)
+    {
+    	#ifdef _DEBUG
+      	perror("select timeout");
+      	printf("pid=[%d]\n",getpid());
+      	#endif
+    	return 0;
+    }
+    else
+    {
+    	if( FD_ISSET(socketfd,readList))
+    	{
+    		#ifdef _DEBUG
+	      	printf("select ok\n");
+	      	#endif
+	      	return 1;
+    	}
+    }
+}
+int GetTransCode(const char* recvbuff,char* transcode)
+{
+	int i = 0;
+	if(recvbuff == NULL || transcode == NULL)
+	{
+		return -1;
+	}
+	for(i = 25 ; i < 37;i++)
+	{
+		transcode[i-25] = recvbuff[i];
+	}
+	transcode[13] = '\0';
+	return 0;
+}
+int getPara(const char* buffer,char*pFlag,STRPARA* pPara)
+{
+	char temp_buf[RECV_SIZE + 1];
+	char *temp_flag = NULL;
+	int  i = 0;
+	char paraValue[1024];
+	int  ifind = 0;
+	char *find_flag = NULL;
+	int  iret = 0;
+	char *HCFlag = NULL;
+	
+	memset(paraValue,0,sizeof(paraValue));	
+	memset(temp_buf,0,sizeof(temp_buf));	
+	strcpy(temp_buf, buffer);
+	
+	temp_flag = temp_buf;	
+	i = 0;
+	do
+	{
+		memset(paraValue,0,sizeof(paraValue));
+		find_flag = strstr(temp_flag, pFlag);
+		ifind = find_flag-temp_flag;
+		
+		if(find_flag == NULL)
+		{
+			strcpy(paraValue,temp_flag);
+			iret = 1;
+		}
+		else
+		{
+			strcpy(paraValue,temp_flag);
+			paraValue[ifind] = '\0';
+		}
+		strcpy(pPara->acParaName[i],paraValue);
+		
+		if(find_flag!=NULL)
+			temp_flag = find_flag + strlen(pFlag);
+		
+		
+		i++;
+		
+		if(iret) break;
+	}while(1);
+	pPara->nParaCount = i;
+	
+	HCFlag = strstr(pPara->acParaName[i-1],"\n");
+	if(HCFlag != NULL)
+	{
+		HCFlag[0] = '\0';
+	}
+	return i;
+}
+int Create_share(key_t Key,int nSize)
+{
+	int ret        = 0;
+	int tempSemId = 0;
+
+	tempSemId = shmget(Key,nSize,IPC_CREAT|0666);
+	if(tempSemId == -1)
+	{
+		printf("CreateCfgshm error[%s][%d]!,",strerror(errno),errno);
+		return -1;
+	}
+	return tempSemId;
+}
+int CreateSEM(key_t Key)
+{
+	int SID=0;
+	SID=creat_semaphore(Key,1);
+	if(SID<0)
+	{
+		sprintf(loginfo,"Create semaphore error[%s]",strerror(errno));
+		LogIt(loginfo,HEAD);
+		return -1;
+	}
+	if(init_semaphore(SID,0,1)<0)
+	{
+		sprintf(loginfo,"Init semaphore error[%s]",strerror(errno));
+		LogIt(loginfo,HEAD);
+		return -1;
+	}
+	return SID;
+}
+int creat_semaphore(key_t keyval,int numsems)
+{
+	int sid;
+	if (!numsems)
+		return(-1);
+	if ((sid=semget(keyval,numsems,IPC_CREAT|0660))==-1)
+	{
+		return -1;
+	}
+	return(sid);
+}
+int init_semaphore(int sid,int semnum,int initval)
+{
+	int ret;
+	union semun semopts;
+	semopts.val=initval;
+	ret=semctl(sid,semnum,SETVAL,semopts);
+	return (ret);
+}
+int IncreaseChildPid(int shm,int sem,pid_t pid)
+{
+	SHAREBUFFER* pbuffer = NULL;
+	int i = 0;
+	
+	pbuffer=(SHAREBUFFER *)shmat(shm,0,0);
+	if(pbuffer==NULL)
+	{
+		sprintf(loginfo,"get shm error[%s]",strerror(errno));
+		LogIt(loginfo,HEAD);
+		return -1;
+	}
+	locksem(sem,0);
+	for(i = 0; i < MAXPROCNUMBER ; i++)
+	{
+		if(pbuffer->ProcPid[i] == -1)
+		{
+			pbuffer->ProcPid[i] = pid;
+			break;
+		}
+	}
+	(pbuffer->nProcCount)++;
+	unlocksem(sem,0);
+	shmdt(pbuffer);
+	return 0;
+	
+}
+int locksem(int sid,int member)
+{
+	int ret;
+	struct sembuf sem_lock;/*={member,-1,SEM_UNDO}	*/
+	memset(&sem_lock,0,sizeof(struct sembuf));
+	//if (member<0||member>MAXSEMNUM)
+	if (member<0)
+		return (-2);
+	sem_lock.sem_num=member;
+	sem_lock.sem_op=-1;
+	sem_lock.sem_flg=SEM_UNDO;
+	ret=semop(sid,&sem_lock,1);
+	return (ret);
+}
+int unlocksem(int sid, int member)
+{
+	int ret;/*semval*/
+	struct sembuf sem_unlock;/*={member,1,SEM_UNDO};*/
+	memset(&sem_unlock,0,sizeof(struct sembuf));
+	//if (member <0||member>MAXSEMNUM)
+	if (member <0)
+		return (-2);
+	sem_unlock.sem_num=member;
+	sem_unlock.sem_op=1;
+	sem_unlock.sem_flg=SEM_UNDO;
+	ret=semop(sid,&sem_unlock,1);
+	return (ret);
+}
+int decreaseChildPid(int shm,int sem,pid_t pid)
+{
+	SHAREBUFFER* pbuffer = NULL;
+	int i = 0;
+	
+	pbuffer=(SHAREBUFFER *)shmat(shm,0,0);
+	if(pbuffer==NULL)
+	{
+		sprintf(loginfo,"get shm error[%s]",strerror(errno));
+		LogIt(loginfo,HEAD);
+		return -1;
+	}
+	locksem(sem,0);
+	for(i = 0; i < MAXPROCNUMBER ; i++)
+	{
+		if(pbuffer->ProcPid[i] == pid)
+		{
+			pbuffer->ProcPid[i] = -1;
+			break;
+		}
+	}
+	(pbuffer->nProcCount)--;
+	unlocksem(sem,0);
+	shmdt(pbuffer);
+	return 0;
+}
+void Killsonpid(int shm,int sem)
+{
+	int i=0;
+	int ret1=1,ret2=1;
+	
+	pid_t *Child=NULL;
+	SHAREBUFFER *Addr=NULL;
+
+	Addr=(SHAREBUFFER *)shmat(shm,0,0);
+	if(Addr==NULL)
+	{
+		sprintf(loginfo,"in Killsonpid,get shm error[%s]",strerror(errno));
+		LogIt(loginfo,HEAD);
+		return ;
+	}
+
+	locksem(sem,0);
+	for(i=0;i<MAXPROCNUMBER;i++)
+	{
+		if(Addr->ProcPid[i]>0)
+		{
+			kill(Addr->ProcPid[i],SIGTERM);
+			sleep(1);
+		}
+	}
+	unlocksem(sem,0);
+	while(1)
+	{
+		ret1=1;
+		ret2=1;
+		locksem(sem,0);
+		for(i=0;i<MAXPROCNUMBER;i++)
+		{
+			if(Addr->ProcPid[i]>0)
+			{
+				printf("Addr->ProcPid[%d]=[%d]\n",i,Addr->ProcPid[i]);
+				ret2=kill(Addr->ProcPid[i],0);
+				ret1=ret1*ret2;
+			}
+		}
+		unlocksem(sem,0);
+		if(ret1!=0)
+		{
+			break;
+		}
+		else
+		{
+			sleep(1);
+			printf("In killSonPid...\n");
+			continue;
+		}
+	}
+	shmdt(Addr);
+}                                                                                                                             
+
+/*
+ *功能:将第三方的查询参数，转化成BOSS调用tuxedo的输入形式
+ *作者:王良 
+ *日期:2008年4月18日
+ *输入:
+ *输出:
+ */
+ 
+int changeParaToTuxedoInput(struct str_PARA *pPara, int iQueryType,struct tagTuxedoCall *pTuxedoCall){
+	int	iReturn = -1;
+	switch(iQueryType){
+		case 1000:/*当前话费总额查询*/
+			printf("当前话费总额查询\n");
+			printf("pPara->nParaCount=[%d]\n",pPara->nParaCount);
+			printf("pPara->acParaName0=[%s]\n",pPara->acParaName[4]);
+			printf("pPara->acParaName1=[%s]\n",pPara->acParaName[5]);
+			
+			strcpy(pTuxedoCall->chServName,"s1861AllBillQry");
+			pTuxedoCall->iInputNum = 2;
+			pTuxedoCall->iOutputNum = 20;
+			strcpy(pTuxedoCall->chInputValue[0],pPara->acParaName[4]);
+			strcpy(pTuxedoCall->chInputValue[1],pPara->acParaName[5]);
+
+			iReturn = 0;
+			break;
+		default:
+			break;
+	}
+	return iReturn;
+}
+
+/*
+ *功能:调用tuxedo服务
+ *作者:王良 
+ *日期:2008年4月18日
+ *输入:
+ *输出:
+ */
+void doProcess(struct str_PARA *pStrucPara, int iQueryType){
+	char	chWsnAddr[128];		/*tuxedo wsl 地址及端口配制信息*/
+	struct tagTuxedoCall m_tuxedocall;
+	
+	printf("call callTuxedoServer begin...\n");
+	
+	memset(chWsnAddr, 0, sizeof(chWsnAddr));
+	sprintf(chWsnAddr,"%s",getenv("WSNADDR"));
+	printf("chWsnAddr=[%s]\n",chWsnAddr);
+	putenv(chWsnAddr);
+
+  memset(&m_tuxedocall, 0, sizeof(struct tagTuxedoCall));
+  
+  printf("pStrucPara=[%d]\n",pStrucPara->nParaCount);
+  	
+  	
+	changeParaToTuxedoInput(pStrucPara,iQueryType,&m_tuxedocall);
+	
+	printf("m_tuxedocall chServName=[%s]\n",m_tuxedocall.chServName);
+	printf("m_tuxedocall iInputNum=[%d]\n",m_tuxedocall.iInputNum);
+	printf("m_tuxedocall iOutputNum=[%d]\n",m_tuxedocall.iOutputNum);
+	printf("m_tuxedocall chInputValue0=[%s]\n",m_tuxedocall.chInputValue[0]);
+	printf("m_tuxedocall chInputValue1=[%s]\n",m_tuxedocall.chInputValue[1]);
+	
+	callTuxedoServer(&m_tuxedocall);
+			
+	printf("call callTuxedoServer end...\n");
+}
+
+int callTuxedoServer(struct tagTuxedoCall *pTuxedoCall){
+	static FBFR32  *send_fb;
+	static FBFR32  *receive_fb;
+	int		iInputNum = 0;
+	
+	printf("pTuxedoCall-> chServName=[%s]\n",pTuxedoCall->chServName);
+	printf("pTuxedoCall-> iInputNum=[%d]\n",pTuxedoCall->iInputNum);
+	printf("pTuxedoCall-> iOutputNum=[%d]\n",pTuxedoCall->iOutputNum);
+	printf("pTuxedoCall-> chInputValue0=[%s]\n",pTuxedoCall->chInputValue[0]);
+	printf("pTuxedoCall-> chInputValue1=[%s]\n",pTuxedoCall->chInputValue[1]);
+	
+	iInputNum = pTuxedoCall->iInputNum;
+
+
+/*
+ send_fb=(FBFR32 *)tpalloc(FMLTYPE32,NULL,(FLDLEN32)(iInputNum*50));
+    if(send_fb==(FBFR32 *)NULL) {
+		printf("FBFR32 send_fb tpalloc failed in snd_rcv_parms32()",\
+			__FILE__,__LINE__);
+      	tpterm();
+      	return -1;
+    }
+
+
+	if (tpinit((TPINIT *) NULL) == -1) {
+	    printf("Tpinit failed!\n", __FILE__, __LINE__);
+        tpfree((char *)send_fb);
+        tpterm();
+	    return -2;
+	}
+*/
+
+}

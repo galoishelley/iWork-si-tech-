@@ -1,0 +1,162 @@
+connect to OFFON success
+TIME:2012/02/27 09:30:53
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         9a2012011900000020120120000000[272:122]
+TIME:2012/02/27 09:30:54
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/02/27 09:30:54
+
+INSERT to db succ 8913915650|13900000000!
+TIME:2012/02/27 09:30:54
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         9g2012011900000020120120000000[272:122]
+TIME:2012/02/27 09:30:54
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/02/27 09:30:54
+
+INSERT to db succ 8913915651|13900000000!
+TIME:2012/02/27 09:30:54
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13944869316         9d807402903[272:103]
+TIME:2012/02/27 09:30:54
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00002                                                                                                                                                                                              [272]
+TIME:2012/02/27 09:30:54
+
+INSERT to db succ 8913917801|13944869316!
+TIME:2012/02/27 09:30:54
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13944869316         9d807402903[272:103]
+TIME:2012/02/27 09:30:54
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00002                                                                                                                                                                                              [272]
+TIME:2012/02/27 09:30:54
+
+INSERT to db succ 8913917802|13944869316!
+TIME:2012/02/27 09:30:54
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13944869316         9d807402903[272:103]
+TIME:2012/02/27 09:30:54
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00002                                                                                                                                                                                              [272]
+TIME:2012/02/27 09:30:54
+
+INSERT to db succ 8913917813|13944869316!
+TIME:2012/02/27 09:30:54
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13944869316         9a9999990000000000[272:110]
+TIME:2012/02/27 09:30:54
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00002                                                                                                                                                                                              [272]
+TIME:2012/02/27 09:30:54
+
+INSERT to db succ 8913917816|13944869316!
+TIME:2012/02/27 09:30:54
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13944869316         9d807402903[272:103]
+TIME:2012/02/27 09:30:54
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00002                                                                                                                                                                                              [272]
+TIME:2012/02/27 09:30:54
+
+INSERT to db succ 8913917817|13944869316!
+TIME:2012/02/27 09:30:54
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13944869316         9a9999990000000000[272:110]
+TIME:2012/02/27 09:30:54
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00002                                                                                                                                                                                              [272]
+TIME:2012/02/27 09:30:54
+
+INSERT to db succ 8913921675|13944869316!
+TIME:2012/02/27 09:30:54
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13944869316         9a9999990000000000[272:110]
+TIME:2012/02/27 09:30:54
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00002                                                                                                                                                                                              [272]
+TIME:2012/02/27 09:30:54
+
+INSERT to db succ 8913921676|13944869316!
+TIME:2012/02/27 09:30:54
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13944869316         9d807402903[272:103]
+TIME:2012/02/27 09:30:54
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00002                                                                                                                                                                                              [272]
+TIME:2012/02/27 09:30:54
+
+INSERT to db succ 8913921677|13944869316!
+TIME:2012/02/27 09:30:54
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13944869316         9d807402903[272:103]
+TIME:2012/02/27 09:30:54
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00002                                                                                                                                                                                              [272]
+TIME:2012/02/27 09:30:54
+
+INSERT to db succ 8913921684|13944869316!
+TIME:2012/02/27 09:30:54
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13844820310         9d807402003[272:103]
+TIME:2012/02/27 09:30:54
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00002                                                                                                                                                                                              [272]
+TIME:2012/02/27 09:30:54
+
+INSERT to db succ 8913923666|13844820310!
+TIME:2012/02/27 09:30:54
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13843400613         999999990000000000[272:110]
+TIME:2012/02/27 09:30:54
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/02/27 09:30:55
+
+INSERT to db succ 8913925649|13843400613!
+TIME:2012/02/27 09:30:55
+
+process is killed
+TIME:2012/02/27 09:31:22
+
+connect to OFFON success
+TIME:2012/02/27 15:11:00
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         992012022600000020120227000000[272:122]
+TIME:2012/02/27 15:11:01
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00000 DATA=0                                                                                                                                                                                       [272]
+TIME:2012/02/27 15:11:11
+
+INSERT to db succ 8913925662|13900000000!
+TIME:2012/02/27 15:11:11
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         992012022600000020120227000000[272:122]
+TIME:2012/02/27 15:11:11
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00000 DATA=0                                                                                                                                                                                       [272]
+TIME:2012/02/27 15:11:20
+
+INSERT to db succ 8913925663|13900000000!
+TIME:2012/02/27 15:11:20
+
+process is killed
+TIME:2012/02/27 15:11:34
+
+connect to OFFON success
+TIME:2012/02/27 15:29:16
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         992012020200000020120203000000[272:122]
+TIME:2012/02/27 15:29:16
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00000 DATA=4832                                                                                                                                                                                    [272]
+TIME:2012/02/27 15:29:25
+
+INSERT to db succ 8913925665|13900000000!
+TIME:2012/02/27 15:29:25
+
+process is killed
+TIME:2012/02/27 15:29:35
+

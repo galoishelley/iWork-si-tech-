@@ -1,0 +1,51 @@
+connect to OFFON success
+TIME:2012/02/29 16:46:25
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         992012022700000020120228000000[272:122]
+TIME:2012/02/29 16:46:25
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/02/29 16:46:25
+
+INSERT to db succ 8913927632|13900000000!
+TIME:2012/02/29 16:46:25
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         9a2012022700000020120228000000[272:122]
+TIME:2012/02/29 16:46:25
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/02/29 16:46:25
+
+INSERT to db succ 8913927633|13900000000!
+TIME:2012/02/29 16:46:25
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         9b2012022700000020120228000000[272:122]
+TIME:2012/02/29 16:46:25
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/02/29 16:46:25
+
+INSERT to db succ 8913927634|13900000000!
+TIME:2012/02/29 16:46:25
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         9d2012022700000020120228000000[272:122]
+TIME:2012/02/29 16:46:25
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00000 DATA=0                                                                                                                                                                                       [272]
+TIME:2012/02/29 16:46:29
+
+INSERT to db succ 8913927635|13900000000!
+TIME:2012/02/29 16:46:29
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         9g2012022700000020120228000000[272:122]
+TIME:2012/02/29 16:46:29
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/02/29 16:46:30
+
+INSERT to db succ 8913927636|13900000000!
+TIME:2012/02/29 16:46:30
+
+process is killed
+TIME:2012/02/29 16:46:42
+

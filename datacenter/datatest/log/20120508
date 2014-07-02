@@ -1,0 +1,156 @@
+connect to OFFON success
+TIME:2012/05/08 15:22:35
+
+SND:`BD`0KT:DXJLB       jifee     jifee                                     13944139757         07[272:94]
+TIME:2012/05/08 15:22:35
+
+connect to OFFON success
+TIME:2012/05/08 15:29:54
+
+SND:`BD`0KT:DXJLB       jifee     jifee                                     13944139757         07[272:94]
+TIME:2012/05/08 15:29:54
+
+connect to OFFON success
+TIME:2012/05/08 15:36:15
+
+SND:`BD`0KT:DXJLB       jifee     jifee                                     13944139757         0107[272:96]
+TIME:2012/05/08 15:36:15
+
+connect to OFFON success
+TIME:2012/05/08 15:42:36
+
+SND:`BD`0KT:DXJLB       jifee     jifee                                     13944139757         0107[272:96]
+TIME:2012/05/08 15:42:36
+
+connect to OFFON success
+TIME:2012/05/08 15:44:00
+
+SND:`BD`0KT:DXJLB       jifee     jifee                                     13944139757         0107[272:96]
+TIME:2012/05/08 15:44:00
+
+connect to OFFON success
+TIME:2012/05/08 15:45:04
+
+SND:`BD`0KT:DXJLB       jifee     jifee                                     13944139757         0107[272:96]
+TIME:2012/05/08 15:45:04
+
+connect to OFFON success
+TIME:2012/05/08 15:49:40
+
+SND:`BD`0KT:DXJLB       jifee     jifee                                     13944139757         0107[272:96]
+TIME:2012/05/08 15:49:40
+
+connect to OFFON success
+TIME:2012/05/08 15:54:16
+
+SND:`BD`0KT:DXJLB       jifee     jifee                                     13944139757         0107[272:96]
+TIME:2012/05/08 15:54:16
+
+RCV:`BD`1KT:DXJLB       smsclub   SmsCb500                                  RETN=00000 [272]
+TIME:2012/05/08 15:54:17
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/05/08 15:54:17
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2012/05/08 15:54:17
+
+====EXEC SQL ERROR END
+TIME:2012/05/08 15:54:17
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/05/08 15:54:17
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2012/05/08 15:54:17
+
+====EXEC SQL ERROR END
+TIME:2012/05/08 15:54:17
+
+write to db fail! 111 sqlstmt=[INSERT INTO backdatacenterzi VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')],retry......
+TIME:2012/05/08 15:54:17
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/05/08 15:54:46
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2012/05/08 15:54:46
+
+====EXEC SQL ERROR END
+TIME:2012/05/08 15:54:46
+
+write to db fail! 111 sqlstmt=[INSERT INTO backdatacenterzi VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')]
+TIME:2012/05/08 15:54:46
+
+SND:`BD`0QX:DXJLB       jifee     jifee                                     13944139757         04[272:94]
+TIME:2012/05/08 15:54:46
+
+RCV:`BD`1QX:DXJLB       smsclub   SmsCb500                                  RETN=00000 [272]
+TIME:2012/05/08 15:54:46
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/05/08 15:54:46
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2012/05/08 15:54:46
+
+====EXEC SQL ERROR END
+TIME:2012/05/08 15:54:46
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/05/08 15:54:46
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2012/05/08 15:54:46
+
+====EXEC SQL ERROR END
+TIME:2012/05/08 15:54:46
+
+write to db fail! 111 sqlstmt=[INSERT INTO backdatacenterzi VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')],retry......
+TIME:2012/05/08 15:54:46
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/05/08 15:55:16
+
+====sqlca.sqlcode=[-942],sqlca.sqlerrm.sqlerrmc=[ORA-00942: table or view does not exist
+                              ]
+TIME:2012/05/08 15:55:16
+
+====EXEC SQL ERROR END
+TIME:2012/05/08 15:55:16
+
+write to db fail! 111 sqlstmt=[INSERT INTO backdatacenterzi VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')]
+TIME:2012/05/08 15:55:16
+
+process is killed
+TIME:2012/05/08 15:55:23
+
+connect to OFFON success
+TIME:2012/05/08 15:56:02
+
+SND:`BD`0KT:DXJLB       jifee     jifee                                     13944139757         0107[272:96]
+TIME:2012/05/08 15:56:58
+
+RCV:`BD`1KT:DXJLB       smsclub   SmsCb500                                  RETN=00000 [272]
+TIME:2012/05/08 15:56:58
+
+INSERT to db succ 8914007613|13944139757!
+TIME:2012/05/08 15:56:58
+
+SND:`BD`0QX:DXJLB       jifee     jifee                                     13944139757         04[272:94]
+TIME:2012/05/08 15:57:52
+
+RCV:`BD`1QX:DXJLB       smsclub   SmsCb500                                  RETN=00000 [272]
+TIME:2012/05/08 15:57:52
+
+INSERT to db succ 8914007614|13944139757!
+TIME:2012/05/08 15:57:52
+
+process is killed
+TIME:2012/05/08 16:26:30
+

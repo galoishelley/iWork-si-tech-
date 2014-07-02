@@ -1,0 +1,42 @@
+connect to OFFON success
+TIME:2012/06/15 16:02:53
+
+SND:`BD`0KT:DXJLB       jifee     jifee                                     13944869316         0108[272:96]
+TIME:2012/06/15 16:02:53
+
+RCV:`BD`1KT:DXJLB       smsclub   SmsCb500                                  RETN=00000 [272]
+TIME:2012/06/15 16:02:54
+
+INSERT to db succ 8914015636|13944869316!
+TIME:2012/06/15 16:02:54
+
+SND:`BD`0QX:DXJLB       jifee     jifee                                     13944869316         08[272:94]
+TIME:2012/06/15 16:02:54
+
+RCV:`BD`1QX:DXJLB       smsclub   SmsCb500                                  RETN=00000 [272]
+TIME:2012/06/15 16:02:54
+
+INSERT to db succ 8914015639|13944869316!
+TIME:2012/06/15 16:02:54
+
+SND:`BD`0KT:DXJLB       jifee     jifee                                     13944869316         0108[272:96]
+TIME:2012/06/15 16:02:54
+
+RCV:`BD`1KT:DXJLB       smsclub   SmsCb500                                  RETN=00000 [272]
+TIME:2012/06/15 16:02:54
+
+INSERT to db succ 8914015640|13944869316!
+TIME:2012/06/15 16:02:54
+
+SND:`BD`0QX:DXJLB       jifee     jifee                                     13944869316         08[272:94]
+TIME:2012/06/15 16:02:54
+
+RCV:`BD`1QX:DXJLB       smsclub   SmsCb500                                  RETN=00000 [272]
+TIME:2012/06/15 16:02:54
+
+INSERT to db succ 8914015643|13944869316!
+TIME:2012/06/15 16:02:54
+
+process is killed
+TIME:2012/06/15 16:03:37
+

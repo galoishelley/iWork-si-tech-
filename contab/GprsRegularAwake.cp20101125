@@ -1,0 +1,795 @@
+/*@@ 
+ *@name         GprsRegularAwake  
+ *@description      gprs优惠11，21定期提醒
+ *@author       
+ *@created        2009.11.25
+ *@Copyright      (c) SI-TECH Corporation 2004. All Rights Reserved.
+ *@usage:       GprsRegularAwake 
+ *               
+ */
+
+#include "global.h"
+#include "debug.h"
+#include "pubdb.h"
+#include<sys/socket.h>
+#include<netinet/in.h> 
+
+#define SQLERRMSG sqlca.sqlerrm.sqlerrmc
+#define OK      0
+#define SQLROWS   sqlca.sqlerrd[2]
+
+EXEC SQL INCLUDE SQLCA;
+
+char userName[MAX_NAME_LEN+1];
+char userPass[MAX_PASS_LEN+1];
+
+EXEC SQL BEGIN DECLARE SECTION;
+  char 	beginTime[MAX_DATETIME_LEN+1];
+  int 	flag=0;
+	char	vModNum[1+1];
+	char	vProcNo[1+1];
+EXEC SQL END DECLARE SECTION;
+
+#define init(a)   memset(a,0,sizeof(a))
+
+int SendMsg(char *iphone_no)
+{ 
+  EXEC SQL BEGIN DECLARE SECTION;
+    char phone_no[15+1];
+  EXEC SQL END DECLARE SECTION;
+  init(phone_no);
+  strcpy(phone_no,iphone_no);
+  Trim(phone_no);
+  
+  EXEC SQL INSERT INTO wCommonShortMsgtx(COMMAND_ID,login_accept, 
+             msg_level , phone_no , msg  , order_code , 
+             back_code , dx_op_code , login_no, op_time) 
+      select SMSG_SEQUENCE.nextval,sMaxSysAccept.nextval,100,phone_no,
+              send_msg,0,0,'8110','system',sysdate from wgeneratemsg
+              where phone_no=:phone_no;
+  if(SQLCODE!=0)
+  {
+    printf("插入wCommonShortMsgtx错误[%d]",SQLCODE);
+    return -1;
+  }
+  
+  EXEC SQL INSERT INTO wgeneratemsghis(phone_no,send_msg,op_time,delete_time) 
+          select phone_no,send_msg,op_time,sysdate from wgeneratemsg 
+          where phone_no=:phone_no;
+  if(SQLCODE!=0)
+  {
+    printf("插入wgeneratemsghis错误[%d]",SQLCODE);
+    return -2;
+  }
+  
+  EXEC SQL delete from wgeneratemsg where phone_no=:phone_no;
+  if(SQLCODE!=0)
+  {
+    printf("删除wgeneratemsg错误[%d]",SQLCODE);
+    return -3;
+  }  
+  return 0;
+}
+
+int GenerateData(char *iphone_no)
+{
+  char  retMsg[256];
+  char  retCode[6+1];
+  EXEC SQL BEGIN DECLARE SECTION;
+    char  dd[2+1];
+    char  hour[2+1];
+    char  minute[2+1];
+    char  mode_code[8+1];
+    char  mode_name[30+1];
+    char  iPhoneNo[15+1];
+    int   sockfd, nbytes,i;
+    char  send_buf[1024];
+    char  recv_buf[1024];
+    struct  sockaddr_in srvaddr;      
+    char  s_version[17];
+    char  s_phoneNo[13];
+    int   s_month=0;
+    char  s_style[2];
+    char  s_reserv[17+1];
+    int   s_num=0;
+    char  recv_num[3];
+    char  s_status;
+    char  recv_head[32+1];
+    char  recv_body[1024];
+    char  recv_node[20][33];
+    char  send_msg[255+1];
+    char  send_msg1[255+1];
+	char  send_msgA[1][255+1];
+    char  buffer[32];
+    char  s_favCode[20][5];
+    int   s_sumfav[20];
+    int   s_curfav[20];
+    float   s_curfavsum=0;
+    float   s_sumfavsum=0;
+    float   s_remainfavsum=0;
+    float	s_totalcurfav=0;			
+	float	s_totalsumfav=0;
+	int		Num_Flag=0;
+    int   modenum=0;
+    char  s_unit[20][12];
+    char  s_opertype[20][64];
+    char  s_favtype[20][64];
+    char  iMonth[6+1];
+    char  i_ipaddr[15+1];
+    char  i_iPort[8+1];
+    char  vTotaldate[8+1];
+    long  id_no=0;
+    char  belong_code[7+1]; 
+  EXEC SQL END DECLARE SECTION;
+  init(send_msg);
+  init(send_msg1);
+  init(dd);
+  init(hour);
+  init(minute);
+  init(mode_code);
+  init(mode_name);
+  init(belong_code);
+  init(retCode);
+  memset(vTotaldate,0,sizeof(vTotaldate));
+  memset(s_unit,0,sizeof(s_unit));
+  memset(s_opertype,0,sizeof(s_opertype));
+  memset(s_favtype,0,sizeof(s_favtype));
+  memset(send_buf,0,sizeof(send_buf));
+  memset(recv_buf,0,sizeof(recv_buf));
+  memset(&srvaddr,0,sizeof(srvaddr));
+  memset(s_version,0,sizeof(s_version));
+  memset(s_phoneNo,0,sizeof(s_phoneNo));
+  memset(s_style,0,sizeof(s_style));
+  memset(recv_head,0,sizeof(recv_head));
+  memset(recv_num,0,sizeof(recv_num));
+  memset(recv_node,0,sizeof(recv_node));
+  memset(buffer,0,sizeof(buffer));
+  memset(s_favCode,0,sizeof(s_favCode));
+  memset(iMonth,0,sizeof(iMonth));
+  memset(i_ipaddr,0,sizeof(i_ipaddr));
+  memset(i_iPort,0,sizeof(i_iPort));
+  memset(iPhoneNo,0,sizeof(iPhoneNo));
+  memset(send_msgA,0,sizeof(send_msgA));
+  
+  strcpy(iPhoneNo,iphone_no);
+  strcpy(retCode,"000000");
+  Trim(iPhoneNo);
+  EXEC SQL select to_char(sysdate,'yyyymm'),to_char(sysdate,'yyyymmdd'),to_char(sysdate,'dd'),to_char(sysdate,'hh24'),to_char(sysdate,'mi')
+      into :iMonth,:vTotaldate,:dd,:hour,:minute
+      from dual;
+  if(SQLCODE!=0)
+  {
+    printf("查询系统时间失败,[%d]\n",SQLCODE);
+    return -1;
+  }
+  s_curfavsum=0;
+  
+  EXEC SQL select id_no,belong_code
+          into :id_no,:belong_code
+          from dcustmsg 
+          where phone_no=:iPhoneNo;
+  if(SQLCODE!=0)
+  {
+    printf("查询dcustmsg失败,[%d]\n",SQLCODE);
+    return -2;
+  }
+  
+  strcpy(s_version,"iBoss1.8");
+  strcpy(s_phoneNo,iPhoneNo);
+  strcpy(s_style,"3");
+  memset(s_reserv,' ',sizeof(s_reserv));
+  sprintf(send_buf,"%-16s%-15s%-6.6s%1s%-17s",s_version,s_phoneNo,iMonth,s_style,s_reserv);
+  printf("send_buf[%s]\n",send_buf);
+  if((sockfd=socket(AF_INET,SOCK_STREAM,0))==-1)
+  {
+    printf("Create socket error!\n");
+    return -3;
+  }
+  
+  EXEC SQL select ip_addr,'8889'
+      into :i_ipaddr,:i_iPort
+      from sphonecomm 
+      where phone_head=substr(:s_phoneNo,1,7)
+        and query_type='10';
+  if(SQLCODE!=0)
+  {
+    printf("sphonecomm SQLCODE[%d] \n",SQLCODE);
+    return -4;
+  }
+    
+  srvaddr.sin_family=AF_INET;
+  srvaddr.sin_port=htons(atoi(i_iPort));
+  srvaddr.sin_addr.s_addr=inet_addr(i_ipaddr);
+  
+  if(connect(sockfd,(struct sockaddr *)&srvaddr,sizeof(struct sockaddr))==-1)
+  {
+    printf("Connect server error!\n");
+    printf("errno[%d]strerror(errno)[%s]\n",errno,strerror(errno));
+    return -5;
+  }
+  write(sockfd,send_buf,strlen(send_buf));
+  
+  if ((nbytes=read(sockfd,recv_buf,1000))== -1)
+  {
+    printf("Receive data error!\n");
+    return -6;
+  }
+  close(sockfd);
+  
+  recv_buf[nbytes]='\0';
+  printf("recv[%s]\n",recv_buf);
+  memset(s_version,0,sizeof(s_version));
+  memcpy(s_version,recv_buf,16);
+  memcpy(recv_head,recv_buf+16,39);
+  s_status=recv_head[21];
+  memcpy(recv_num,recv_head+22,2);
+  s_num=atoi(recv_num);
+  printf("s_status[%c]返回条数s_num[%d]\n",s_status,s_num);
+
+  printf("套餐代码|总赠送|当前赠送|剩余赠送|赠送单位|业务类别|优惠类别\n");
+	/* 
+  switch(s_status)
+  {
+    case '1':
+        strcpy(recv_body,recv_buf+55);
+        for(i=0;i<s_num;i++)
+        {
+          memcpy(recv_node[i],recv_body+i*32,32);
+          memcpy(s_favCode,recv_node[i],4);
+          memset(buffer,0,sizeof(buffer));
+          memcpy(buffer,recv_node[i]+4,10);
+          s_sumfav=atoi(buffer);
+          memset(buffer,0,sizeof(buffer));
+          memcpy(buffer,recv_node[i]+14,10);
+          s_curfav=atoi(buffer);
+          memset(s_unit,0,sizeof(s_unit));
+          memset(s_opertype,0,sizeof(s_opertype));
+          memset(s_favtype,0,sizeof(s_favtype));
+          if(recv_node[i][24]=='1') {
+            if(recv_node[i][25]=='3')
+              strcpy(s_unit,"K");
+            else
+              strcpy(s_unit,"条");
+          }
+          else if(recv_node[i][24]=='2')
+            strcpy(s_unit,"6秒");
+          else if(recv_node[i][24]=='3')
+            strcpy(s_unit,"分钟");
+          else if(recv_node[i][24]=='4')
+            strcpy(s_unit,"K");
+          else if(recv_node[i][24]=='5')
+            strcpy(s_unit,"厘");
+          else
+            sprintf(s_unit,"未定义%c",recv_node[i][24]);
+          
+          if(recv_node[i][25]=='0')
+            strcpy(s_opertype,"所有业务");
+          else if(recv_node[i][25]=='1')
+            strcpy(s_opertype,"语音业务");
+          else if(recv_node[i][25]=='2')
+            strcpy(s_opertype,"短信业务");
+          else if(recv_node[i][25]=='3')
+            strcpy(s_opertype,"GPRS业务");
+          else if(recv_node[i][25]=='4')
+            strcpy(s_opertype,"梦网业务");
+          else if(recv_node[i][25]=='5')
+            strcpy(s_opertype,"WLAN业务");
+          else if(recv_node[i][25]=='6')
+            strcpy(s_opertype,"彩信业务");
+          else if(recv_node[i][25]=='7')
+            strcpy(s_opertype,"GPRS业务");
+          else
+            sprintf(s_opertype,"未定义类型%c",recv_node[i][25]);
+            
+          if(recv_node[i][26]=='1')
+            strcpy(s_favtype,"基本通话优惠分钟数");
+          else if(recv_node[i][26]=='2')
+            strcpy(s_favtype,"本地通话优惠分钟数");
+          else if(recv_node[i][26]=='3')
+            strcpy(s_favtype,"漫游通话优惠分钟数");
+          else if(recv_node[i][26]=='4')
+            strcpy(s_favtype,"长途通话优惠分钟数");
+          else if(recv_node[i][26]=='5')
+            strcpy(s_favtype,"短信优惠条数");
+          else if(recv_node[i][26]=='6')
+            strcpy(s_favtype,"GPRS优惠流量");
+          else if(recv_node[i][26]=='7')
+            strcpy(s_favtype,"WLAN优惠分钟数");
+          else if(recv_node[i][26]=='8')
+            strcpy(s_favtype,"彩信优惠条数");
+          else
+            sprintf(s_favtype,"未定义类型%c",recv_node[i][26]);
+                
+          printf("%s|%d|%d|%d|%s|%s|%s\n",s_favCode,s_sumfav,((s_curfav>s_sumfav)?s_sumfav:s_curfav),((s_sumfav-s_curfav)<0?0:(s_sumfav-s_curfav)),s_unit,s_opertype,s_favtype);
+          printf("s_curfav[%d]\n",s_curfav);
+          s_curfavsum=s_curfavsum+s_curfav;
+          s_sumfavsum=s_sumfavsum+s_sumfav;
+          printf("s_curfavsum[%f]\n",s_curfavsum);
+          printf("s_sumfavsum[%f]\n",s_sumfavsum);
+        }
+        modenum=s_num;
+        if(strcmp(s_favCode,"0000")==0)
+            modenum=0;
+        break;
+    case '2':
+        printf("[%s]用户没有优惠!\n",s_phoneNo);
+        strcpy(retCode,"811001");
+        break;
+    case '7':
+        printf("[%s]请求非法!\n",s_phoneNo);
+        strcpy(retCode,"811002");
+        break;
+    case '8':
+        printf("[%s]通讯包错误!\n",s_phoneNo);
+        strcpy(retCode,"811003");
+        break;
+    case '9':
+        printf("[%s]处理错误!\n",s_phoneNo);
+        strcpy(retCode,"811004");
+        break;   
+    default:
+        break;      
+  }
+  
+  s_remainfavsum=s_sumfavsum-s_curfavsum;
+  printf("s_remainfavsum[%f]\n",s_remainfavsum);
+  */
+  switch(s_status)
+	{
+		case '1':
+				strcpy(recv_body,recv_buf+55);
+				for(i=0;i<s_num;i++)
+				{
+					memcpy(recv_node[i],recv_body+i*32,32);
+					memcpy(s_favCode[i],recv_node[i],4);
+					memset(buffer,0,sizeof(buffer));
+					memcpy(buffer,recv_node[i]+4,10);
+					s_sumfav[i]=atoi(buffer);
+					memset(buffer,0,sizeof(buffer));
+					memcpy(buffer,recv_node[i]+14,10);
+					s_curfav[i]=atoi(buffer);
+					memset(s_unit[i],0,sizeof(s_unit[i]));
+					memset(s_opertype[i],0,sizeof(s_opertype[i]));
+					memset(s_favtype[i],0,sizeof(s_favtype[i]));
+					if(recv_node[i][24]=='1') 
+					{
+						if(recv_node[i][25]=='3')
+							strcpy(s_unit[i],"K");
+						else
+							strcpy(s_unit[i],"条");
+					}
+					else 
+						if(recv_node[i][24]=='2')
+						strcpy(s_unit[i],"6秒");
+					else 
+						if(recv_node[i][24]=='3')
+						strcpy(s_unit[i],"分钟");
+					else 
+						if(recv_node[i][24]=='4')
+						strcpy(s_unit[i],"K");
+					else 
+						if(recv_node[i][24]=='5')
+						strcpy(s_unit[i],"厘");
+					else
+						sprintf(s_unit[i],"未定义%c",recv_node[i][24]);
+					
+					if(recv_node[i][25]=='0')
+						strcpy(s_opertype[i],"所有业务");
+					else if(recv_node[i][25]=='1')
+						strcpy(s_opertype[i],"语音");
+					else if(recv_node[i][25]=='2')
+						strcpy(s_opertype[i],"短信");
+					else if(recv_node[i][25]=='3')
+						strcpy(s_opertype[i],"GPRS");
+					else if(recv_node[i][25]=='4')
+						strcpy(s_opertype[i],"梦网");
+					else if(recv_node[i][25]=='5')
+						strcpy(s_opertype[i],"WLAN");
+					else if(recv_node[i][25]=='6')
+						strcpy(s_opertype[i],"彩信");
+					else
+						sprintf(s_opertype[i],"未定义类型%c",recv_node[i][25]);
+						
+					if(recv_node[i][26]=='1')
+						strcpy(s_favtype[i],"基本通话优惠分钟数");
+					else 
+					  if(recv_node[i][26]=='2')
+						strcpy(s_favtype[i],"本地通话优惠分钟数");
+					else 
+						if(recv_node[i][26]=='3')
+						strcpy(s_favtype[i],"漫游通话优惠分钟数");
+					else 
+						if(recv_node[i][26]=='4')
+						strcpy(s_favtype[i],"长途通话优惠分钟数");
+					else if(recv_node[i][26]=='5')
+						strcpy(s_favtype[i],"短信优惠条数");
+					else 
+						if(recv_node[i][26]=='6')
+						strcpy(s_favtype[i],"GPRS优惠流量");
+					else 
+						if(recv_node[i][26]=='7')
+						strcpy(s_favtype[i],"WLAN优惠分钟数");
+					else 
+					if(recv_node[i][26]=='8')
+						strcpy(s_favtype[i],"彩信优惠条数");
+					else if(recv_node[i][26]=='A')
+					  strcpy(s_favtype[i],"GPRS省内优惠");
+					else if(recv_node[i][26]=='B')
+					  strcpy(s_favtype[i],"GPRS省际优惠");	
+					else if(recv_node[i][26]=='C')
+					  strcpy(s_favtype[i],"GPRS国内优惠");	
+					else if(recv_node[i][26]=='D')
+					  strcpy(s_favtype[i],"GPRS国际优惠");						  					  	
+					else
+						sprintf(s_favtype[i],"未定义类型%c",recv_node[i][26]);
+						
+				  printf("---recv_body[%s]----\n",recv_body);			
+					printf("%s|%d|%d|%d|%s|%s|%s\n",s_favCode[i],s_sumfav[i],((s_curfav[i]>s_sumfav[i])?s_sumfav[i]:s_curfav[i]),
+						    ((s_sumfav[i]-s_curfav[i])<0?0:(s_sumfav[i]-s_curfav[i])),s_unit[i],s_opertype[i],s_favtype[i]);
+    			
+    				s_totalcurfav=s_totalcurfav+s_curfav[i];
+					s_totalsumfav=s_totalsumfav+s_sumfav[i];
+					
+					printf("[%d]总赠送值  s_totalsumfav[%f]\n",i,s_totalsumfav);
+					printf("[%d]当前赠送值s_totalcurfav[%f]\n",i,s_totalcurfav);
+				}
+				modenum=s_num;
+				if(strcmp(s_favCode[i],"0000")==0)
+						modenum=0;
+				break;
+		case '2':
+				printf("[%s]用户没有优惠!\n",s_phoneNo);
+				strcpy(retCode,"811001");
+				break;
+		case '7':
+	    	printf("[%s]请求非法!\n",s_phoneNo);
+	    	strcpy(retCode,"811002");
+	   		break;
+		case '8':
+	    	printf("[%s]通讯包错误!\n",s_phoneNo);
+	    	strcpy(retCode,"811003");
+	   		break;
+		case '9':
+	    	printf("[%s]处理错误!\n",s_phoneNo);
+	    	strcpy(retCode,"811004");
+	    	break;   
+		default:
+	    	break;		
+	}
+	
+	/*majha增加，判断是否有多个GPRS代码*/
+	for(i=1;i<s_num;i++)
+	{
+		if(strcmp(s_favCode[0],s_favCode[i])!=0)
+		{
+			/*存在多个GPRS代码*/
+			printf("-------存在多个GPRS代码[%d]-----------\n",i);
+			Num_Flag=1;
+			break;
+		}
+		else
+		{
+			Num_Flag=0;
+			printf("-------存在一个GPRS代码[%d]-----------\n",i);
+		}
+	}
+	
+	/*组合MSG*/
+	for(i=0;i<s_num;i++)
+	{
+		if(strcmp(s_favCode[i],"\0")==0)  break;
+		if (recv_node[i][25]=='3')
+		{
+			printf("s_num[%d]\n",i);
+			/*只有一个GPRS代码，区分省内省外*/
+			if(Num_Flag==0)
+			{
+				s_curfavsum=0;
+				s_curfavsum=s_curfavsum+s_curfav[i];
+				
+				s_sumfavsum=0;
+				s_sumfavsum=s_sumfavsum+s_sumfav[i];
+				
+				printf("s_sumfavsum[%f]\n",s_sumfavsum);
+				printf("s_curfavsum[%f]\n",s_curfavsum);
+				
+				
+				if(recv_node[i][26]=='A')
+				{	
+					sprintf(send_msgA[i]," GPRS省内优惠共有%.2fM,已经使用%.2fM",s_sumfavsum/1024,s_curfavsum/1024);
+				}	
+				if(recv_node[i][26]=='B')
+				{	
+					sprintf(send_msgA[i]," GPRS省际优惠共有%.2fM,已经使用%.2fM",s_sumfavsum/1024,s_curfavsum/1024);
+				}	
+				if(recv_node[i][26]=='C')
+				{	
+					sprintf(send_msgA[i]," GPRS国内优惠共有%.2fM,已经使用%.2fM",s_sumfavsum/1024,s_curfavsum/1024);
+				}	
+				if(recv_node[i][26]=='D')
+				{	
+					sprintf(send_msgA[i]," GPRS国际优惠共有%.2fM,已经使用%.2fM",s_sumfavsum/1024,s_curfavsum/1024);
+				}	
+			}
+			else if (Num_Flag==1)
+			{
+				sprintf(send_msg1," GPRS流量共有%.2fM,已经使用%.2fM",s_totalsumfav/1024,s_totalcurfav/1024);
+				break;
+			}
+		}	
+		strcat(send_msg1,send_msgA[i]);
+	}
+	printf("send_msg1 %s\n",send_msg1);
+	
+  if(modenum==0)
+    sprintf(send_msg,"尊敬的客户,您本月并未选择移动数据流量套餐,截至%s日%s时%s分,使用的流量有%.2fM.发送117到10086,可开通,取消流量提醒功能或主动查询流量.",dd,hour,minute,s_curfavsum/1024);
+  else if(modenum==1)
+  {
+    init(mode_code);
+    EXEC SQL select mode_code
+          into :mode_code
+          from dbillcustdetail
+          where id_no=:id_no
+          and detail_code=:s_favCode[0]
+          and begin_time<sysdate
+          and end_time>sysdate
+          and rownum<2;
+    if(SQLCODE!=0)
+    {
+      strcpy(retCode,"811015");
+      printf("查询dbillcustdetail错误![%d]",SQLCODE);
+    }
+    
+    init(mode_name);
+    EXEC SQL select mode_name
+        into :mode_name
+        from sbillmodecode
+        where region_code=substr(:belong_code,1,2)
+        and mode_code=:mode_code;
+    if(SQLCODE!=0)
+    {
+      strcpy(retCode,"811016");
+      printf("查询sbillmodecode错误![%d]",SQLCODE);
+    }
+    Trim(mode_name);
+    sprintf(send_msg,"尊敬的客户,截至%s日%s时%s分,您本月'%s' %s",dd,hour,minute,mode_name,send_msg1);
+    /*sprintf(send_msg,"尊敬的客户,您本月'%s'套餐移动数据流量共有%.2fM,截至%s日%s时%s分,剩余流量还有%.2fM.发送117到10086,可开通,取消流量提醒功能或主动查询流量.",mode_name,s_sumfavsum/1024,dd,hour,minute,s_remainfavsum/1024);*/
+  }
+  else if(modenum>1)
+  	sprintf(send_msg,"尊敬的客户,截至%s日%s时%s分,您本月移动数据流量为 %s",dd,hour,minute,send_msg1);
+    /*sprintf(send_msg,"尊敬的客户,您本月移动数据流量共有%.2fM,截至%s日%s时%s分,剩余流量还有%.2fM.发送117到10086,可开通,取消流量提醒功能或主动查询流量.",s_sumfavsum/1024,dd,hour,minute,s_remainfavsum/1024);*/
+    
+  EXEC SQL INSERT INTO wgeneratemsg(phone_no,send_msg,op_time) 
+      values(:iPhoneNo,:send_msg,sysdate);
+  if(SQLCODE!=0)
+  {
+    strcpy(retCode,"811025");
+    printf("插入wCommonShortMsgtx错误[%d]",SQLCODE);
+  }
+  if(strcmp(retCode,"000000")!=0)
+  {
+  	printf("GenerateData retCode=[%s]\n",retCode);
+    return -7;
+  }
+  return 0;
+}
+
+int GprsRegularAwake(TProgram* program)
+{
+  int i=0,retCode=0;
+  EXEC SQL BEGIN DECLARE SECTION; 
+    char  phone_no[15+1];
+    int		vCount=0;
+    char	sql_sel[1024];
+  EXEC SQL END DECLARE SECTION; 
+  init(phone_no);
+
+  if (program->dbConnNames.useDbConnNum == 0)
+  {
+    return -1;
+  }
+
+  if (dbLogin(&program->dbConnNames.dbConn[0]) != 0)
+  {
+    DBUG_PRINT(("CC1000:连接数据库失败！"));
+    return -1;
+  }
+  /**生成提醒数据**/
+  if(flag==0)
+  {
+    /**数据导入  D--->T表,只有进程号为0的进程考虑数据导入，其它进程不考虑**/
+		vCount=0;
+		EXEC SQL select count(*) into :vCount
+    		from tGprsAwakeMsg
+    		where mod(substr(phone_no,11,1),:vModNum)=:vProcNo;
+ 		if(SQLCODE!=0)
+  	{
+  			DBUG_PRINT(("Select Table tGprsAwakeMsg Data Error ,SQLCODE=[%d]\n",SQLCODE));
+        return -1;
+   	}
+  	if(vCount == 0)
+  	{
+  			EXEC SQL insert into tgprsawakemsg(accept_no,id_no,phone_no,login_no,op_time)
+        		select accept_no,id_no,phone_no,login_no,op_time 
+       			from dgprsawakemsg
+       			where mod(substr(phone_no,11,1),:vModNum)=:vProcNo;
+      	if(SQLCODE!=0)
+      	{
+       			DBUG_PRINT(("提取表dgprsawakemsg数据异常,SQLCODE=[%d]\n",SQLCODE));
+        		EXEC SQL rollback;
+          	return -1;
+       	}
+       	EXEC SQL commit;     
+   	}     
+    
+    memset(sql_sel,0x0,sizeof(sql_sel));
+    sprintf(sql_sel,"select phone_No from tGprsAwakeMsg where mod(substr(phone_No,11,1),:v1)=:v2 and rownum <=100");  
+
+    
+    while(1)
+    {
+   	  printf("begin open sel_cmd SQLCODE=[%d][%s][%s]\n",SQLCODE,vModNum,vProcNo);
+	  EXEC SQL prepare sqlsel_001 from :sql_sel;
+      EXEC SQL DECLARE sel_cmd CURSOR FOR sqlsel_001;
+      EXEC SQL open  sel_cmd using :vModNum,:vProcNo;
+      if(SQLCODE!=0)
+      {
+        DBUG_PRINT(("Open Cursor sqlsel_001 error![%d]\n",SQLCODE));
+        EXEC SQL close sel_cmd;
+        return(-1);
+      }
+      
+      while(1)
+      {
+        memset(phone_no,0x0,sizeof(phone_no));
+        EXEC SQL fetch sel_cmd  into :phone_no;
+          
+        if(SQLCODE != 0 && SQLCODE != 1403)
+        {
+          DBUG_PRINT(("Fetch  sel_cmd error![%d]\n",SQLCODE));
+          EXEC SQL close sel_cmd; 
+          EXEC SQL commit;
+          return(-1);
+        }
+        if(SQLCODE == 1403)
+        {
+          /**判断T表是否仍存在未发送数据**/
+          EXEC SQL select count(*) into :vCount 
+            from tGprsAwakeMsg
+            where mod(substr(phone_No,11,1),:vModNum)=:vProcNo;
+          if(SQLCODE !=0)
+          {
+            DBUG_PRINT(("Check Table tGprsAwakeMsg Data Erroe ![%d]\n",SQLCODE));
+            EXEC SQL close sel_cmd; 
+            EXEC SQL commit;
+            return(-1);
+          }
+          
+          if(vCount == 0)
+          {
+            DBUG_PRINT(("Table tGprsAwakeMsg Data OK ![%d][%d]\n",SQLCODE,vCount)); 
+            EXEC SQL close sel_cmd; 
+            EXEC SQL commit;
+            return 0;           
+          }else{
+            DBUG_PRINT(("Table tGprsAwakeMsg Data Num [%d] !\n",vCount));
+            EXEC SQL close sel_cmd;
+            break;
+          }
+        }
+        
+        Trim(phone_no);
+        printf("+++++Deal phone_no[%s] begin+++++\n",phone_no);
+        retCode=GenerateData(phone_no);
+        if(retCode<0)
+        {
+            printf("+++++Deal phone_no Error [%s][%d] +++++\n",phone_no,retCode);
+            EXEC SQL rollback; 
+            printf("+++++Insert Table  wGprsAwakeMsg_Err Begin +++++\n"); 
+            EXEC SQL insert into wGprsAwakeMsg_Err(phone_no,op_time,retcode)
+            values(:phone_no,sysdate,:retCode);
+     				if(SQLCODE !=0 )
+        		{
+            	printf("+++++Insert Table  wGprsAwakeMsg_Err Error [%s][%d]+++++\n",phone_no,SQLCODE);
+            	EXEC SQL rollback;  
+        		} 
+        }
+        
+        /** Begin Delete Data **/
+        EXEC SQL delete from tGprsAwakeMsg where phone_no =:phone_no;
+        if(SQLCODE !=0 )
+        {
+            printf("+++++Del phone_no Error [%s][%d]+++++\n",phone_no,SQLCODE);
+            EXEC SQL rollback;  
+        } 
+          
+        EXEC SQL COMMIT;
+        
+        printf("+++++Deal phone_no [%s]SQLCODE=[%d] end+++++\n",phone_no,SQLCODE);
+        if(retCode<0)
+        {
+			EXEC SQL close sel_cmd;
+        	break;
+        }
+        
+      }
+      sleep(2);
+      EXEC SQL close sel_cmd;
+    }
+  }
+  
+  if(flag==1)
+  { 
+    EXEC SQL declare cur304802 cursor for
+        select phone_no
+        from wgeneratemsg;
+    EXEC SQL open cur304802;
+    for(i=0;;)
+    {
+      init(phone_no);
+      EXEC SQL fetch cur304802 into :phone_no;
+      if(SQLCODE!=0) 
+      {
+        DBUG_PRINT(("wgeneratemsg cur304801[%d]\n",SQLCODE));
+        break;
+      }
+      Trim(phone_no);
+      printf("+++++deal phone_no[%s] begin+++++\n",phone_no);
+      vCount=SendMsg(phone_no);
+      if(vCount<0)
+      {
+        EXEC SQL rollback;  
+        continue;
+      }
+      EXEC SQL COMMIT;
+      printf("+++++deal phone_no[%s] end+++++\n",phone_no);
+    }
+    EXEC SQL CLOSE cur304802;
+  }
+  
+  dbClose();  
+  return 0;
+}
+
+int main(int argc, char **argv)
+{
+  TProgram program;
+  int i=0;
+  
+  if (argc!=4)
+  {
+    DBUG_PRINT(("Usage:GprsRegularAwake flag[0:生成数据 1:发送短信] 1[进程数量] 0[进程号]\n"));
+    DBUG_PRINT((" GprsRegularAwake,argc=[%d]\n",argc));
+    exit(0);
+  }
+
+  memset(programName, 0, sizeof(programName));
+  strcpy(programName, "GprsRegularAwake");
+  initXml();
+  if (getProgram(&program, "GprsRegularAwake") != 0)
+  {
+    fprintf(stderr, "getProgram GprsRegularAwake error\n");
+    destroyXml();
+    exit(0);
+  }
+
+  strcpy(beginTime, getTime());
+  flag=atoi(argv[1]);
+  memset(vModNum,0x0,sizeof(vModNum));
+  memset(vProcNo,0x0,sizeof(vProcNo));
+	strcpy(vModNum,   argv[2]);
+  strcpy(vProcNo,   argv[3]);
+  
+  DBUG_PRINT(("程序以开始运行时间：[%s]\n",beginTime));
+  DBUG_PRINT(("GprsRegularAwake \n"));
+  if(GprsRegularAwake(&program)!= 0)
+  {
+    DBUG_PRINT(("GprsRegularAwake运行失败!\n"));
+    exit(0);
+  }
+  
+  /*必须在数据库事物完成之后做此操作，否则会coredump*/
+  destroyXml(); 
+  DBUG_PRINT(("程序结束运行时间：[%s]\n", getTime()));
+  return 0;
+}

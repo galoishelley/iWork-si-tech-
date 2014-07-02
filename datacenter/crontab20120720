@@ -1,0 +1,3 @@
+00,05,10,15,20,25,30,35,40,45,50,55 * * * *   /iboss1/work/zhangwmNG/iccsvr/crontab/bin/Bboss.sh  >  /dev/null
+25 17 * * *   ksh /iboss1/work/Ac_jl/wangdp/demand_src/shell/bak.sh  >  /dev/null
+0 1 * * *   ksh /iboss1/work/yinzx/hwftp/datadeal/deal/Exec_Jd.sh  >  /dev/null

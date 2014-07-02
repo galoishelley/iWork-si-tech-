@@ -1,0 +1,100 @@
+#!/bin/sh
+
+.SUFFIXES:.cp .dc .cc .cpp .c .o
+##proc后缀声明
+#####################################
+HOMEDIR=$(HOME)
+PUBDIR=$(WORKDIR)/public
+ORADIR=$(ORACLE_HOME)
+TUXBINDIR=$(WORKDIR)/bin
+FRAMEWORKDIR=$(WORKDIR)/framewk_new
+##主要目录说明
+## PUBDIR:公共函数代码目录
+## ORADIR:ORACLE HOME目录
+## TUXBINDIR:TUXEDO服务执行程序目录
+## FRAMEWORKDIR C++公共函数目录
+#####################################
+
+ORAINCL = $(ORADIR)/precomp/public
+ORAINCLCLOB = $(ORADIR)/rdbms/demo
+ORAINCLCLOBPUB = $(ORADIR)/rdbms/public
+ORALIBS = -L$(ORADIR)/lib -lclntsh
+TUXINCL = $(TUXDIR)/include
+TUXLIBS = -L$(TUXDIR)/lib -ltux -lfml32 
+PUBINCL = $(PUBDIR)/include
+DYNAMICLIBDIR = $(WORKDIR)/DynamicLib
+
+PUBLIBS = -L$(PUBDIR)/lib \
+		-lbosspub \
+		-lShortMsg -lPubOrder -ldes \
+		-lcontact -lDBServer -lprodparam \
+		-lacctquery -lquerybill \
+		-ldetailbill -lcli500002 \
+		-lDesMac -lLG_bus -lcrypto \
+		-lcallServer \
+		-lcallFourAClient \
+		-lWSECP \
+		-lColaresDes \
+		-lgsoap -lcurl -llua -lcallLRWServer\
+
+
+OTHERINCL = -I$(PUBDIR)/contact/include \
+			-I$(PUBDIR)/WebService/puPp/include \
+			-I$(PUBDIR)/LG_bus/include
+OTHERLIBS = -lm 
+
+
+##头文件、链接库目录说明
+## PUBDIR:公共函数代码目录
+## ORADIR:ORACLE HOME目录
+## TUXBINDIR:TUXEDO服务目录
+#####################################
+
+INCLUDES = -I$(ORAINCL) -I$(ORAINCLCLOB) -I$(ORAINCLCLOBPUB) -I$(TUXINCL) -I$(PUBINCL) $(OTHERINCL) $(CUSTOMS_HEAD) 
+#PROCINCLUDES = $(INCLUDES:-I%=include=%) 
+PROCINCLUDES = `echo $(INCLUDES) | sed 's/-I/ include=/g'`
+LIBS = $(ORALIBS) $(PUBLIBS) $(OTHERLIBS) $(CUSTOMS_LIB)
+
+##编译时头文件、链接库目录说明
+## INCLUDES:头文件串
+## PROCINCLUDES:proc头文件串
+## LIBS:链接库串
+#####################################
+
+PRECOMPFLAGS = define=WITH_NOEMPTYSTRUCT DYNAMIC=ANSI $(DBPARAMETER) sqlcheck=full parse=full LINE=TRUE 
+PROCFLAGS = $(PROCINCLUDES) $(PRECOMPFLAGS)
+##proc命令参数串
+##DBPARAMETER:编译时引用数据库连接串
+##PRECOMPFLAGS:其他编译参数
+#####################################
+
+CC=cc +DD64 -g -DWITH_NOEMPTYSTRUCT
+PRECOMP=$(ORADIR)/bin/proc
+PUBLOGUTIL=$(WORKDIR)/utils/pubLogUtil
+SRVBEACOMP=$(TUXDIR)/bin/buildserver -v -l "$(LIBS)"
+CLIBEACOMP=$(TUXDIR)/bin/buildclient -v -l "$(LIBS)"
+##主要编译命令
+#####################################
+
+_ALL:
+	@echo $(REMIND_MSG)
+#PROC编译规则定义
+.cp.c:
+	$(PRECOMP) $(PROCFLAGS) $<
+	$(PUBLOGUTIL) $(<:.cp=.c)
+.cp.o:
+	$(PRECOMP) $(PROCFLAGS) $<
+	$(PUBLOGUTIL) $(<:.cp=.c)
+	$(CC) $(INCLUDES) -c -g $(<:.cp=.c)
+.c.o:
+	$(CC) $(INCLUDES) -c -g $<
+
+#C语言编译规则, .dc是c文件的转义后缀，防止make clean时被删除
+.dc.c:
+	@cp $< $@
+
+clean:
+	-rm -f *.o
+	-rm -f *.lis
+	-@echo ".c文件不用此命令删除，防止误删源文件，请手动删除，部分目录可以使用make cls进行清理"
+#rm -f *.c

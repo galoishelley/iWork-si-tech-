@@ -1,0 +1,2005 @@
+#!/bin/sh
+.SUFFIXES:.cp
+
+PUBDIR=/iboss1/run/public
+#ORADIR=/oracle/app/oracle/product/9.2.0
+ORADIR=/ora10g/app/oracle/product/10.2.0
+WORKDIR=.
+BINDIR=$(WORKDIR)/bin
+
+ORAINCL = $(ORADIR)/precomp/public
+#ORALIBS = $(ORADIR)/lib -lnsslb9 -lcore9 -lnls9 -lunls9 -lpthread -lxml9 -lxsd9 -lclntsh -lncrypt9
+ORALIBS = $(ORADIR)/lib -lnsslb10 -lcore10 -lnls10 -lunls10 -lpthread -lxml10  -lclntsh -lncrypt10
+#RALIBS = $(ORADIR)/lib  -lcore9 -lnls9 -lunls9 -lpthread -lxml9 -lxsd9 -lclntsh -lncrypt9
+RALIBS = $(ORADIR)/lib  -lcore10 -lnls10 -lunls10 -lpthread -lxml10 -lclntsh -lncrypt10
+XDKINCL = $(ORADIR)/xdk/include
+TUXINCL	= $(TUXDIR)/include
+#PUBINCL = $(PUBDIR)/include
+#PUBLIBS = $(PUBDIR)/lib  -lamdpub -lDesMac -lbosspub -lDesMac -lacctquery -lquerybill -ldetailbill -lcli500002 -lDBServer -lPubOrder -lLG_bus
+#PUBLIBS = $(PUBDIR)/lib  -lamdpub -lDesMac -lbosspub -lDesMac -lquerybill -ldetailbill -lcli500002 -lDBServer
+#PUBLIBS = $(PUBDIR)/lib  -lPubOrder -lbosspub -lDesMac -lquerybill -ldetailbill -lcli500002 -lDBServer
+##20100916PUBLIBS=$(PUBDIR)/lib -lbosspub -lPubOrder -lLG_bus -lacctquery  -lquerybill -ldetailbill -lcli500002 -lDesMac -lftpfunc64 -lDBServer
+#PUBLIBS=$(PUBDIR)/lib -lPubOrder -lLG_bus -lacctquery  -lquerybill -ldetailbill -lcli500002 -lDesMac -lftpfunc64 -lDBServer
+#PUBLIBS = $(PUBDIR)/lib -lbosspub -lPubOrder -lcontact -lDesMac -lacctquery -lquerybill -ldetailbill -lcli500002 -lDBServer -lprodparam  -lcallServer -lLG_bus -lcallFourAserver -ldes -lcallKMServer -L$(PUBCURLDIR)/lib/curl -lcurl
+##PUBLIBS = $(PUBDIR)/lib -lDesMac -lShortMsg -lbosspub -lPubOrder -lcontact -lDesMac -lacctquery -lquerybill -ldetailbill -lcli500002 -lDBServer -lprodparam  -lcallServer -lLG_bus -ldes -L$(PUBCURLDIR)/lib/curl -lcurl -llua
+PUBLIBS = $(PUBDIR)/lib -lbosspub -lShortMsg -lPubOrder -lcontact -lDesMac -lacctquery -lquerybill -ldetailbill -lcli500002 -lDBServer -lprodparam  -lcallServer -lLG_bus -ldes -llua  -lcrypto -lcurl
+LIBPATH = $(WORKDIR)/lib -lftpfunc64 #-ldescomm
+WORKINCL = $(WORKDIR)/include
+#TUXLIBS = ${TUXDIR}/lib -ltux -lbuft -lfml -lgw -lwsc -lwsh -ltrpc -lgpnet -lfml32 -lengine -lpthread -lcl -lnsl
+TUXLIBS = ${TUXDIR}/lib -ltux -lbuft -lfml -lwsc -lwsh -ltrpc -lgpnet -lfml32 -lengine -lpthread -lcl -lnsl
+SYSLIBS = /lib
+USRLIBS = /usr/lib
+
+#INCLUDE = -I$(ORAINCL) -I$(XDKINCL) -I$(PUBINCL) -I$(WORKINCL) -I$(TUXINCL)
+INCLUDE = -I$(ORAINCL) -I$(XDKINCL) -I$(WORKINCL) -I$(TUXINCL)
+
+#PROCFLAGS = include=$(ORAINCL) include=$(XDKINCL) include=$(PUBINCL) include=$(TUXINCL) include=$(WORKINCL)  DYNAMIC=ANSI USERID=dbcustadm/dbcustadm0703@boss181 sqlcheck=SEMANTICS parse=FULL
+#PROCFLAGS = include=$(ORAINCL) include=$(XDKINCL) include=$(WORKINCL) include=$(TUXINCL)  DYNAMIC=ANSI USERID=dbcustadm/abc123@ngcustdb sqlcheck=SEMANTICS parse=FULL LINE=TRUE
+PROCFLAGS = include=$(ORAINCL) include=$(XDKINCL) include=$(WORKINCL) include=$(TUXINCL)  DYNAMIC=ANSI USERID=dbchange/dbu0i9o8-.@ngcustdb sqlcheck=SEMANTICS parse=FULL LINE=TRUE
+#PROCFLAGS = include=$(ORAINCL) include=$(XDKINCL) include=$(WORKINCL) include=$(TUXINCL)  DYNAMIC=ANSI USERID=query/abc123@thcust2 sqlcheck=SEMANTICS parse=FULL LINE=TRUE
+
+#CC=cc +DD64 +DA2.0W +DS2.0
+CC=cc +DD64
+PRECOMP=$(ORADIR)/bin/proc DYNAMIC=ANSI parse=FULL define=__STDC__ define=_PA_RISC2_0
+#PUBLOGUTIL=pubLogUtil
+PUBLOGUTIL=/iboss1/run/utils/pubLogUtil
+LIBS=-lm -lcl -L$(ORALIBS) -L$(PUBLIBS) -L$(LIBPATH)  -L$(SYSLIBS) -L$(USRLIBS) -L$(TUXLIBS)
+
+ALLPROG= eCred BillExpire creditCompute markCompute yearMarkCompute xsdtest wBillSmChg usrStatUp eOrderCheck FamillyMode ModeSm sTermPresent BillMother getImsi LogNoPassAwake CheckUser ReOpenJ romateWriteCard crontabIAGW crontabIAGWRecvPrc ControlShortMsg BillDay  sFtpreFee AdcBill SendWorkno DealAdcSign DealIagwSign testMark DcsDataFile eDcsDataFilej DingwUserAdd ReOpenjMark
+#PUBOBJ=debug.o pubDataOrder.o   globalFunc.o pubdb.o
+#PUBOBJ=debug.o globalFunc.o pubdb.o pubDataOrder.o
+PUBOBJ=debug.o globalFunc.o pubdb.o 
+#PUBOBJ_CJ=debug.o globalFunc.o  pubDataOrder.o
+#PUBH=include/debug.h include/global.h include/pubdb.h include/province.h include/boss_srv.h include/publicsrv.h
+PUBH=include/debug.h include/global.h include/pubdb.h include/province.h
+all:$(ALLPROG)
+
+
+ApnBatchDealOBJ=ApnBatchDeal.o $(PUBOBJ)
+ApnBatchDeal:$(ApnBatchDealOBJ) $(PUBH)
+	$(CC) $(INCLUDE) -o $(BINDIR)/$@ $(ApnBatchDealOBJ) $(LIBS)
+	rm -f ApnBatchDeal.c
+
+DealIagwOrderOBJ=DealIagwOrder.o $(PUBOBJ) pubFunc.o
+DealIagwOrder:$(DealIagwOrderOBJ) $(PUBH)
+	$(CC) $(INCLUDE) -o $(BINDIR)/$@ $(DealIagwOrderOBJ) $(LIBS)
+	rm -f DealIagwOrder.c
+
+RModeKeppDealOBJ=RModeKeppDeal.o $(PUBOBJ)  pubBill.o
+RModeKeppDeal:$(RModeKeppDealOBJ) $(PUBH)
+	$(CC) $(INCLUDE) -o $(BINDIR)/$@ $(RModeKeppDealOBJ) $(LIBS)
+	rm -f RModeKeppDeal.c
+
+RTmpMusicBoxDealOBJ=RTmpMusicBoxDeal.o $(PUBOBJ)
+RTmpMusicBoxDeal:$(RTmpMusicBoxDealOBJ) $(PUBH)
+	$(CC) $(INCLUDE) -o $(BINDIR)/$@ $(RTmpMusicBoxDealOBJ) $(LIBS)
+	rm -f RTmpMusicBoxDeal.c
+
+YD_Cust_OUTOBJ=YD_Cust_OUT.o $(PUBOBJ)       
+YD_Cust_OUT:$(YD_Cust_OUTOBJ) $(PUBH)
+	$(CC) $(INCLUDE) -o $(BINDIR)/$@ $(YD_Cust_OUTOBJ) $(LIBS)
+	rm -f YD_Cust_OUT.c
+
+IuserCmdSndOBJ=IuserCmdSnd.o $(PUBOBJ)
+IuserCmdSnd:$(IuserCmdSndOBJ) $(PUBH)
+	$(CC) $(INCLUDE) -o $(BINDIR)/$@ $(IuserCmdSndOBJ) $(LIBS)
+	rm -f IuserCmdSnd.c
+
+rtStopPubCrmOBJ=rtStopPubCrm.o $(PUBOBJ)
+rtStopPubCrm:$(rtStopPubCrmOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(rtStopPubCrmOBJ) $(LIBS)
+
+dispatchcreditOBJ=dispatchcredit.o $(PUBOBJ)
+dispatchcredit:$(dispatchcreditOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(dispatchcreditOBJ) $(LIBS)
+
+SynAuditMsgBOBJ=SynAuditMsgB.o $(PUBOBJ)
+SynAuditMsgB:$(SynAuditMsgBOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SynAuditMsgBOBJ) $(LIBS)
+
+SynAuditMsgCOBJ=SynAuditMsgC.o $(PUBOBJ)
+SynAuditMsgC:$(SynAuditMsgCOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SynAuditMsgCOBJ) $(LIBS)
+
+UserStateMblgOBJ=UserStateMblg.o $(PUBOBJ)
+UserStateMblg:$(UserStateMblgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateMblgOBJ) $(LIBS)
+	
+UserStateBmptOBJ=UserStateBmpt.o $(PUBOBJ)
+UserStateBmpt:$(UserStateBmptOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateBmptOBJ) $(LIBS)
+
+UpMblgBizChgOBJ=UpMblgBizChg.o $(PUBOBJ)
+UpMblgBizChg:$(UpMblgBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpMblgBizChgOBJ) $(LIBS)
+
+NuserStopCrmOBJ=NuserStopCrm.o $(PUBOBJ)
+NuserStopCrm:$(NuserStopCrmOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(NuserStopCrmOBJ) $(LIBS)
+
+RSatisfySendOBJ=RSatisfySend.o $(PUBOBJ)
+RSatisfySend:$(RSatisfySendOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RSatisfySendOBJ) $(LIBS)
+
+RCustFuncDealOBJ=RCustFuncDeal.o $(PUBOBJ)
+RCustFuncDeal:$(RCustFuncDealOBJ) $(PUBH)
+	$(CC) $(INCLUDE) -o $(BINDIR)/$@ $(RCustFuncDealOBJ) $(LIBS)
+
+RMonthFuncCancelOBJ=RMonthFuncCancel.o $(PUBOBJ)
+RMonthFuncCancel:$(RMonthFuncCancelOBJ) $(PUBH)
+	$(CC) $(INCLUDE) -o $(BINDIR)/$@ $(RMonthFuncCancelOBJ) $(LIBS)
+	rm -f RMonthFuncCancel.c
+
+ReceveryPhoneNoOBJ=ReceveryPhoneNo.o $(PUBOBJ)
+ReceveryPhoneNo:$(ReceveryPhoneNoOBJ) $(PUBH)
+	$(CC) $(INCLUDE) -o $(BINDIR)/$@ $(ReceveryPhoneNoOBJ) $(LIBS)
+	rm -f ReceveryPhoneNo.c
+
+rbtmusicboxdealOBJ=rbtmusicboxdeal.o $(PUBOBJ)
+rbtmusicboxdeal:$(rbtmusicboxdealOBJ) $(PUBH)
+	$(CC) $(INCLUDE) -o $(BINDIR)/$@ $(rbtmusicboxdealOBJ) $(LIBS)
+	rm -f rbtmusicboxdeal.c
+
+Syn4AMsgOBJ=Syn4AMsg.o $(PUBOBJ)
+Syn4AMsg:$(Syn4AMsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(Syn4AMsgOBJ) $(LIBS)
+
+##用户IMSI文件上传
+BlackListMsgNewOBJ=BlackListMsgNew.o $(PUBOBJ) pubFunc.o
+BlackListMsgNew:$(BlackListMsgNewOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BlackListMsgNewOBJ) $(LIBS)
+
+
+####基金计算程序
+FundComputeOBJ=FundCompute.o  pubFunc.o  $(PUBOBJ)
+FundCompute:$(FundComputeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(FundComputeOBJ) $(LIBS)
+
+####到期基金清理程序
+CleanExpireFundOBJ=CleanExpireFund.o  $(PUBOBJ) pubBill.o pubFunc.o
+CleanExpireFund:$(CleanExpireFundOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CleanExpireFundOBJ) $(LIBS)
+
+####预约套餐生效当日提醒
+wConfirmShorMsgOBJ=wConfirmShorMsg.o $(PUBOBJ)
+wConfirmShorMsg:$(wConfirmShorMsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(wConfirmShorMsgOBJ) $(LIBS)
+
+####二次确认超时未回复用户和外呼超时用户处理调度功能
+tCrmRemindFlagOBJ=tCrmRemindFlag.o $(PUBOBJ)
+tCrmRemindFlag:$(tCrmRemindFlagOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(tCrmRemindFlagOBJ) $(LIBS)
+
+####二次确认铃音盒处理调度功能
+CaiLing_CHECK_INOBJ=CaiLing_CHECK_IN.o $(PUBOBJ)
+CaiLing_CHECK_IN:$(CaiLing_CHECK_INOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CaiLing_CHECK_INOBJ) $(LIBS)
+
+############电子商务平台对账文件出库(ZHCY)
+ELECCOMM_CHECK_OUTOBJ=ELECCOMM_CHECK_OUT.o $(PUBOBJ)
+ELECCOMM_CHECK_OUT:$(ELECCOMM_CHECK_OUTOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ELECCOMM_CHECK_OUTOBJ) $(LIBS)
+
+############电子商务平台对账文件入库(ZHCY)
+ELECCOMM_CHECK_INOBJ=ELECCOMM_CHECK_IN.o $(PUBOBJ)
+ELECCOMM_CHECK_IN:$(ELECCOMM_CHECK_INOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ELECCOMM_CHECK_INOBJ) $(LIBS)
+
+GetRoamPhoneOBJ=GetRoamPhone.o $(PUBOBJ)
+GetRoamPhone:$(GetRoamPhoneOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(GetRoamPhoneOBJ) $(LIBS)
+
+DealPubAdcOBJ=DealPubAdc.o $(PUBOBJ) pubBill.o pubFunc.o
+DealPubAdc:$(DealPubAdcOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealPubAdcOBJ) $(LIBS)
+
+ResImeiInsertOBJ=ResImeiInsert.o $(PUBOBJ)
+ResImeiInsert:$(ResImeiInsertOBJ) $(PUBH)
+	$(CC) $(INCLUDE) -o $(BINDIR)/$@ $(ResImeiInsertOBJ) $(LIBS)
+	rm -f ResImeiInsert.c
+
+DealPhoneReserveOBJ=DealPhoneReserve.o debug.o globalFunc.o pubdb.o
+DealPhoneReserve:$(DealPhoneReserveOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealPhoneReserveOBJ) $(LIBS)
+
+RRubbishDealOBJ=RRubbishDeal.o $(PUBOBJ)
+RRubbishDeal:$(RRubbishDealOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RRubbishDealOBJ) $(LIBS)
+	rm -f RRubbishDeal.c
+
+##用户IMSI文件上传
+getImsiOBJ=getImsi.o debug.o globalFunc.o pubdb.o
+getImsi:$(getImsiOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(getImsiOBJ) $(LIBS)
+
+##
+getPointOBJ=getPoint.o debug.o globalFunc.o pubdb.o
+getPoint:$(getPointOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(getPointOBJ) $(LIBS)
+###兑换Q币风雷点卡
+RQgameOBJ=RQgame.o debug.o globalFunc.o pubdb.o
+RQgame:$(RQgameOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RQgameOBJ) $(LIBS)
+
+RQgameChkOBJ=RQgameChk.o debug.o globalFunc.o pubdb.o
+RQgameChk:$(RQgameChkOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RQgameChkOBJ) $(LIBS)
+
+ResCardInsertOBJ=ResCardInsert.o debug.o globalFunc.o pubdb.o
+ResCardInsert:$(ResCardInsertOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ResCardInsertOBJ) $(LIBS)
+
+AddGnFavourOBJ=AddGnFavour.o $(PUBOBJ) pubBill.o pubFunc.o
+AddGnFavour:$(AddGnFavourOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(AddGnFavourOBJ) $(LIBS)
+
+SpCheckOBJ=SpCheck.o $(PUBOBJ) pubBill.o pubFunc.o
+SpCheck:$(SpCheckOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SpCheckOBJ) $(LIBS)
+
+###兑换Q币风雷点卡
+##
+getCostOBJ=getCost.o debug.o globalFunc.o pubdb.o
+getCost:$(getCostOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(getCostOBJ) $(LIBS)
+##轻轨行
+SIMpassInfoFtpOBJ=SIMpassInfoFtp.o debug.o globalFunc.o pubdb.o
+SIMpassInfoFtp:$(SIMpassInfoFtpOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SIMpassInfoFtpOBJ) $(LIBS)
+
+##取消套餐gn220001 gn220112
+RCancleModeOBJ=RCancleMode.o pubBill.o $(PUBOBJ)
+RCancleMode:$(RCancleModeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RCancleModeOBJ) $(LIBS)
+##
+##2取消套餐gn220001 gn220112
+RRemoveModeOBJ=RRemoveMode.o pubBill.o $(PUBOBJ)
+RRemoveMode:$(RRemoveModeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RRemoveModeOBJ) $(LIBS)
+##
+
+##轻轨行报表展现
+MobpusRptFtpOBJ=MobpusRptFtp.o debug.o globalFunc.o pubdb.o
+MobpusRptFtp:$(MobpusRptFtpOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(MobpusRptFtpOBJ) $(LIBS)
+
+ROutCustomerOBJ=ROutCustomer.o debug.o globalFunc.o pubdb.o
+ROutCustomer:$(ROutCustomerOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ROutCustomerOBJ) $(LIBS)
+
+ROutActionOBJ=ROutAction.o debug.o globalFunc.o pubdb.o
+ROutAction:$(ROutActionOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ROutActionOBJ) $(LIBS)
+
+##10086营销黑名单同步文件需求
+GetBlackAwakeOBJ=GetBlackAwake.o debug.o globalFunc.o pubdb.o
+GetBlackAwake:$(GetBlackAwakeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(GetBlackAwakeOBJ) $(LIBS)
+
+SpBizCheckOBJ=SpBizCheck.o $(PUBOBJ) pubBill.o pubFunc.o
+SpBizCheck:$(SpBizCheckOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SpBizCheckOBJ) $(LIBS)
+
+dBbossOrderOBJ=dBbossOrder.o debug.o globalFunc.o pubdb.o pubBill.o pubBbossFunc.o
+dBbossOrder:$(dBbossOrderOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(dBbossOrderOBJ) $(LIBS)
+
+DBbossSignOBJ=DBbossSign.o debug.o globalFunc.o pubdb.o pubBill.o
+DBbossSign:$(DBbossSignOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DBbossSignOBJ) $(LIBS)
+
+dBbossSignFileOBJ=dBbossSignFile.o debug.o globalFunc.o pubdb.o pubBill.o
+dBbossSignFile:$(dBbossSignFileOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(dBbossSignFileOBJ) $(LIBS)
+##
+
+##农信通轮询退订
+AgricultConceOBJ=AgricultConce.o debug.o globalFunc.o pubdb.o
+AgricultConce:$(AgricultConceOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(AgricultConceOBJ) $(LIBS)
+
+##
+
+##套餐到期提醒
+RemindModemsgOBJ=RemindModemsg.o debug.o globalFunc.o pubdb.o
+RemindModemsg:$(RemindModemsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RemindModemsgOBJ) $(LIBS)
+
+##
+
+#############UserStatUpload##########
+UserStatUploadOBJ=UserStatUpload.o $(PUBOBJ)
+UserStatUpload:$(UserStatUploadOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStatUploadOBJ) $(LIBS)
+##
+getCheckPointOBJ=getCheckPoint.o debug.o globalFunc.o pubdb.o
+getCheckPoint:$(getCheckPointOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(getCheckPointOBJ) $(LIBS)
+
+##
+getCheckCostOBJ=getCheckCost.o debug.o globalFunc.o pubdb.o
+getCheckCost:$(getCheckCostOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(getCheckCostOBJ) $(LIBS)
+
+##
+putRMFileOBJ=putRMFile.o debug.o globalFunc.o pubdb.o
+putRMFile:$(putRMFileOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(putRMFileOBJ) $(LIBS)
+
+##
+DcsDataFileOBJ=DcsDataFile.o debug.o globalFunc.o pubdb.o
+DcsDataFile:$(DcsDataFileOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DcsDataFileOBJ) $(LIBS)
+
+####电子商务系统产品信息同步
+simCardFTPOBJ=simCardFTP.o $(PUBOBJ)
+simCardFTP:$(simCardFTPOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(simCardFTPOBJ) $(LIBS)
+
+############自动开通139邮箱、飞信功能(ZHCY 2008-12-20)
+ROPEN_139MAIL_FLYMSGOBJ=ROPEN_139MAIL_FLYMSG.o $(PUBOBJ) pubFunc.o
+ROPEN_139MAIL_FLYMSG:$(ROPEN_139MAIL_FLYMSGOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ROPEN_139MAIL_FLYMSGOBJ) $(LIBS)
+
+##
+eDcsDataFilejOBJ=eDcsDataFilej.o debug.o globalFunc.o pubdb.o
+eDcsDataFilej:$(eDcsDataFilejOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(eDcsDataFilejOBJ) $(LIBS)
+
+##根据用户订购关系和时间限制及短信格式生成短信
+buildShortMsgOBJ=buildShortMsg.o debug.o globalFunc.o pubdb.o       #$(PUBOBJ)
+buildShortMsg:$(buildShortMsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(buildShortMsgOBJ) $(LIBS)
+
+##导入集团总机文件
+readGetwayfileOBJ=readGetwayfile.o ##$(PUBOBJ)
+readGetwayfile:$(readGetwayfileOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(readGetwayfileOBJ) $(LIBS)
+##导出操作日志文件
+exportLogOBJ=exportLog.o $(PUBOBJ)
+exportLog:$(exportLogOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(exportLogOBJ) $(LIBS)
+##音乐盒
+SendMusicBagUserOBJ=SendMusicBagUser.o $(PUBOBJ)
+SendMusicBagUser:$(SendMusicBagUserOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SendMusicBagUserOBJ) $(LIBS)
+#批量处理短信
+ControlShortMsgOBJ=ControlShortMsg.o $(PUBOBJ)
+ControlShortMsg:$(ControlShortMsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ControlShortMsgOBJ) $(LIBS)
+####随e行数据同步
+eCredOBJ=eCred.o $(PUBOBJ)
+eCred:$(eCredOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(eCredOBJ) $(LIBS)
+####定购关系对帐
+eOrderCheckOBJ=eOrderCheck.o $(PUBOBJ)
+eOrderCheck:$(eOrderCheckOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(eOrderCheckOBJ) $(LIBS)
+####BAM发送指令接口程序
+bamscmdOBJ=bamscmd.o $(PUBOBJ)
+bamscmd:$(bamscmdOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(bamscmdOBJ) $(LIBS)
+####数据卡、营销包资费到期
+BillExpireOBJ=BillExpire.o $(PUBOBJ) pubBill.o pubFunc.o
+BillExpire:$(BillExpireOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BillExpireOBJ) $(LIBS)
+
+####买手机赠送用户自己的话费
+QueryServerOBJ=QueryServer.o $(PUBOBJ)
+QueryServer:$(QueryServerOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(QueryServerOBJ) $(LIBS)
+
+#########################
+DtermiNalOrderOBJ=DtermiNalOrder.o $(PUBOBJ) sTermPub.o pubFunc.o
+DtermiNalOrder:$(DtermiNalOrderOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DtermiNalOrderOBJ) $(LIBS)
+
+RI908EOrderOBJ=RI908EOrder.o $(PUBOBJ) pubFunc.o
+RI908EOrder:$(RI908EOrderOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RI908EOrderOBJ) $(LIBS)
+
+####################################
+dTermbindmodeOprOBJ=dTermbindmodeOpr.o $(PUBOBJ) pubBill.o
+dTermbindmodeOpr:$(dTermbindmodeOprOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(dTermbindmodeOprOBJ) $(LIBS)
+
+####买手机赠送用户自己的话费
+R1860ScoKetOBJ=R1860ScoKet.o $(PUBOBJ)
+R1860ScoKet:$(R1860ScoKetOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(R1860ScoKetOBJ) $(LIBS)
+
+####无线pos对帐
+PosPointCheckOBJ=PosPointCheck.o $(PUBOBJ)
+PosPointCheck:$(PosPointCheckOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(PosPointCheckOBJ) $(LIBS)
+
+####gprs门限提醒
+GprsAwakeOBJ=GprsAwake.o $(PUBOBJ)
+GprsAwake:$(GprsAwakeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(GprsAwakeOBJ) $(LIBS)
+
+GprsRegularAwakeOBJ=GprsRegularAwake.o $(PUBOBJ)
+GprsRegularAwake:$(GprsRegularAwakeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(GprsRegularAwakeOBJ) $(LIBS)
+
+####门票预定 后台实效更新
+UpdateTicketOBJ=UpdateTicket.o $(PUBOBJ) pubFunc.o
+UpdateTicket:$(UpdateTicketOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpdateTicketOBJ) $(LIBS)
+
+SxtGrpdealOBJ=SxtGrpdeal.o $(PUBOBJ)
+SxtGrpdeal:$(SxtGrpdealOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SxtGrpdealOBJ) $(LIBS)
+
+####中信建投
+SendOutSideFeeOBJ=SendOutSideFee.o $(PUBOBJ)
+SendOutSideFee:$(SendOutSideFeeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SendOutSideFeeOBJ) $(LIBS)
+
+####全曲下载送正版CD活动兑奖入库
+GetChangeCdOBJ=GetChangeCd.o pubFunc.o $(PUBOBJ)
+GetChangeCd:$(GetChangeCdOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(GetChangeCdOBJ) $(LIBS)
+
+####07年全球通体验客户下线积分清零
+CleanMarkPointOBJ=CleanMarkPoint.o $(PUBOBJ)
+CleanMarkPoint:$(CleanMarkPointOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CleanMarkPointOBJ) $(LIBS)
+
+####07年用户积分清零
+CleanMarkPoint07OBJ=CleanMarkPoint07.o include13.o $(PUBOBJ)
+CleanMarkPoint07:$(CleanMarkPoint07OBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CleanMarkPoint07OBJ) $(LIBS)
+
+####07年用户积分移植
+TransMarkPoint07OBJ=TransMarkPoint07.o  include13.o $(PUBOBJ)
+TransMarkPoint07:$(TransMarkPoint07OBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(TransMarkPoint07OBJ) $(LIBS)
+
+####07年用户积分移植
+AddMarkPoint07OBJ=AddMarkPoint07.o  include13.o $(PUBOBJ)
+AddMarkPoint07:$(AddMarkPoint07OBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(AddMarkPoint07OBJ) $(LIBS)
+
+####神州行大客户积分清零
+CleanHnMarkPointOBJ=CleanHnMarkPoint.o $(PUBOBJ)
+CleanHnMarkPoint:$(CleanHnMarkPointOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CleanHnMarkPointOBJ) $(LIBS)
+
+####08年全球通体验客户动态下线
+UnGotoneExpOBJ=UnGotoneExp.o $(PUBOBJ)
+UnGotoneExp:$(UnGotoneExpOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UnGotoneExpOBJ) $(LIBS)
+
+####子母卡优惠
+TmpCancleRbtOBJ=TmpCancleRbt.o $(PUBOBJ) pubFunc.o
+TmpCancleRbt:$(TmpCancleRbtOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(TmpCancleRbtOBJ) $(LIBS)
+
+####子母卡优惠
+BillMotherOBJ=BillMother.o $(PUBOBJ) pubBill.o pubFunc.o
+BillMother:$(BillMotherOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BillMotherOBJ) $(LIBS)
+
+####子母卡优惠补丁
+BillMoBudingOBJ=BillMoBuding.o $(PUBOBJ) pubBill.o
+BillMoBuding:$(BillMoBudingOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BillMoBudingOBJ) $(LIBS)
+
+####ipt后台主号码销户自动取消
+IptCancelOBJ=IptCancel.o $(PUBOBJ) pubBill.o
+IptCancel:$(IptCancelOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(IptCancelOBJ) $(LIBS)
+
+####来电提醒申请或取消
+ChangeModeOBJ=ChangeMode.o $(PUBOBJ) pubBill.o pubFunc.o
+ChangeMode:$(ChangeModeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ChangeModeOBJ) $(LIBS)
+
+####工号信息同步
+SendWorknoOBJ=SendWorkno.o $(PUBOBJ) pubBill.o
+SendWorkno:$(SendWorknoOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SendWorknoOBJ) $(LIBS)
+
+####预拆预销彩铃功能取消
+CanUserJIClOBJ=CanUserJICl.o pubFunc.o $(PUBOBJ)
+CanUserJICl:$(CanUserJIClOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CanUserJIClOBJ) $(LIBS)
+
+####套餐到期提醒
+ModeNoAnserOBJ=ModeNoAnser.o $(PUBOBJ)
+ModeNoAnser:$(ModeNoAnserOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ModeNoAnserOBJ) $(LIBS)
+
+
+####20071229黑名单
+BlackListMsgOBJ=BlackListMsg.o $(PUBOBJ) pubFunc.o
+BlackListMsg:$(BlackListMsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BlackListMsgOBJ) $(LIBS)
+
+BlackListFtpBackOBJ=BlackListFtpBack.o $(PUBOBJ)
+BlackListFtpBack:$(BlackListFtpBackOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BlackListFtpBackOBJ) $(LIBS)
+
+####20071229黑名单
+BlackListSuspenseDHOBJ=BlackListSuspenseDH.o $(PUBOBJ)
+BlackListSuspenseDH:$(BlackListSuspenseDHOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BlackListSuspenseDHOBJ) $(LIBS)
+
+####20080121黑名单
+BlackListCreateDXOBJ=BlackListCreateDX.o $(PUBOBJ)
+BlackListCreateDX:$(BlackListCreateDXOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BlackListCreateDXOBJ) $(LIBS)
+
+####套餐到期提醒
+DingwUserAddOBJ=DingwUserAdd.o $(PUBOBJ) pubFunc.o
+DingwUserAdd:$(DingwUserAddOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DingwUserAddOBJ) $(LIBS)
+
+####套餐到期提醒
+DnewIngwDealOBJ=DnewIngwDeal.o $(PUBOBJ)
+DnewIngwDeal:$(DnewIngwDealOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DnewIngwDealOBJ) $(LIBS)
+
+####套餐到期提醒
+DingwUserDeleteOBJ=DingwUserDelete.o $(PUBOBJ)
+DingwUserDelete:$(DingwUserDeleteOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DingwUserDeleteOBJ) $(LIBS)
+
+####套餐到期提醒
+DingwGenerateFileOBJ=DingwGenerateFile.o $(PUBOBJ)
+DingwGenerateFile:$(DingwGenerateFileOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DingwGenerateFileOBJ) $(LIBS)
+
+####幸福家庭每月消费信息统计
+HappyFamilyConsumeOBJ=HappyFamilyConsume.o $(PUBOBJ)
+HappyFamilyConsume:$(HappyFamilyConsumeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(HappyFamilyConsumeOBJ) $(LIBS)
+
+####终端绑定Imei提醒
+TermImeiBindAwakeOBJ=TermImeiBindAwake.o $(PUBOBJ)
+TermImeiBindAwake:$(TermImeiBindAwakeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(TermImeiBindAwakeOBJ) $(LIBS)
+
+####套餐到期提醒
+ModeRemindOBJ=ModeRemind.o $(PUBOBJ) pubFunc.o
+ModeRemind:$(ModeRemindOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ModeRemindOBJ) $(LIBS)
+
+####冲值信息同步
+SynChWpayOBJ=SynChWpay.o $(PUBOBJ)
+SynChWpay:$(SynChWpayOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SynChWpayOBJ) $(LIBS)
+
+####冲值信息同步
+dealMASECBusiOBJ=dealMASECBusi.o $(PUBOBJ)
+dealMASECBusi:$(dealMASECBusiOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(dealMASECBusiOBJ) $(LIBS)
+
+DealAdcSiInfoOBJ=DealAdcSiInfo.o $(PUBOBJ)
+DealAdcSiInfo:$(DealAdcSiInfoOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealAdcSiInfoOBJ) $(LIBS)
+
+DealAdcSiBusiOBJ=DealAdcSiBusi.o $(PUBOBJ)
+DealAdcSiBusi:$(DealAdcSiBusiOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealAdcSiBusiOBJ) $(LIBS)
+
+DealMarkOBJ=DealMark.o $(PUBOBJ)
+DealMark:$(DealMarkOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealMarkOBJ) $(LIBS)
+
+CheckMarkPoint1OBJ=CheckMarkPoint1.o $(PUBOBJ)
+CheckMarkPoint1:$(CheckMarkPoint1OBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CheckMarkPoint1OBJ) $(LIBS)
+
+CheckMarkPointOBJ=CheckMarkPoint.o $(PUBOBJ)
+CheckMarkPoint:$(CheckMarkPointOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CheckMarkPointOBJ) $(LIBS)
+
+CleanYearMarkOBJ=CleanYearMark.o $(PUBOBJ)
+CleanYearMark:$(CleanYearMarkOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CleanYearMarkOBJ) $(LIBS)
+
+YearMarkQueryOBJ=YearMarkQuery.o $(PUBOBJ)
+YearMarkQuery:$(YearMarkQueryOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(YearMarkQueryOBJ) $(LIBS)
+
+####冲值信息同步
+dealMASECInfoOBJ=dealMASECInfo.o $(PUBOBJ)
+dealMASECInfo:$(dealMASECInfoOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(dealMASECInfoOBJ) $(LIBS)
+
+####冲值信息同步
+dealMASSignOBJ=dealMASSign.o $(PUBOBJ) pubBill.o pubFunc.o
+dealMASSign:$(dealMASSignOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(dealMASSignOBJ) $(LIBS)
+
+dMotiveMebModeOBJ=dMotiveMebMode.o $(PUBOBJ) pubBill.o
+dMotiveMebMode:$(dMotiveMebModeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(dMotiveMebModeOBJ) $(LIBS)
+
+DealMasRespOBJ=DealMasResp.o $(PUBOBJ) pubFunc.o pubBill.o
+DealMasResp:$(DealMasRespOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealMasRespOBJ) $(LIBS)
+
+DodgrpCancellationOBJ=DodgrpCancellation.o $(PUBOBJ) pubBill.o pubFunc.o
+DodgrpCancellation:$(DodgrpCancellationOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DodgrpCancellationOBJ) $(LIBS)
+
+DealPubAdcOBJ=DealPubAdc.o $(PUBOBJ) pubBill.o pubFunc.o
+DealPubAdc:$(DealPubAdcOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealPubAdcOBJ) $(LIBS)
+
+DealPubAdcCfmOBJ=DealPubAdcCfm.o $(PUBOBJ) pubBill.o
+DealPubAdcCfm:$(DealPubAdcCfmOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealPubAdcCfmOBJ) $(LIBS)
+
+DealAdcFileOBJ=DealAdcFile.o $(PUBOBJ) pubBill.o pubFunc.o
+DealAdcFile:$(DealAdcFileOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealAdcFileOBJ) $(LIBS)
+
+DealAdcFileCfmOBJ=DealAdcFileCfm.o $(PUBOBJ) pubBill.o
+DealAdcFileCfm:$(DealAdcFileCfmOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealAdcFileCfmOBJ) $(LIBS)
+
+####冲值信息同步
+dealMASSignRBOBJ=dealMASSignRB.o $(PUBOBJ)
+dealMASSignRB:$(dealMASSignRBOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(dealMASSignRBOBJ) $(LIBS)
+
+####生成用户余额文件
+DcustPreFeeFileOBJ=DcustPreFeeFile.o $(PUBOBJ)
+DcustPreFeeFile:$(DcustPreFeeFileOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DcustPreFeeFileOBJ) $(LIBS)
+
+####生成用户余额文件
+DcustSpBillpreFeeOBJ=DcustSpBillpreFee.o $(PUBOBJ)
+DcustSpBillpreFee:$(DcustSpBillpreFeeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DcustSpBillpreFeeOBJ) $(LIBS)
+
+####FTP手机钱包退费文件
+sFtpreFeeOBJ=sFtpreFee.o $(PUBOBJ) pubBill.o
+sFtpreFee:$(sFtpreFeeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(sFtpreFeeOBJ) $(LIBS)
+
+
+####特服申请或取消
+ExpireFuncOBJ=ExpireFunc.o $(PUBOBJ) pubBill.o pubFunc.o
+ExpireFunc:$(ExpireFuncOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ExpireFuncOBJ) $(LIBS)
+
+####入网发密码提醒短信
+dcustpasswdawakeOBJ=dcustpasswdawake.o $(PUBOBJ)
+dcustpasswdawake:$(dcustpasswdawakeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(dcustpasswdawakeOBJ) $(LIBS)
+
+####彩铃套餐特福功能取消
+CaiLingModeFuncEndOBJ=CaiLingModeFuncEnd.o pubFunc.o $(PUBOBJ)
+CaiLingModeFuncEnd:$(CaiLingModeFuncEndOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CaiLingModeFuncEndOBJ) $(LIBS)
+
+####套餐办理数量计数
+BillModeNumOBJ=BillModeNum.o $(PUBOBJ)
+BillModeNum:$(BillModeNumOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BillModeNumOBJ) $(LIBS)
+
+####幸福家庭用户发送短信提醒
+ExpireAwokeOBJ=ExpireAwoke.o $(PUBOBJ)
+ExpireAwoke:$(ExpireAwokeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ExpireAwokeOBJ) $(LIBS)
+
+####全网农信通用户状态变更
+dRinpOrderInfoCfmOBJ=dRinpOrderInfoCfm.o $(PUBOBJ)
+dRinpOrderInfoCfm:$(dRinpOrderInfoCfmOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(dRinpOrderInfoCfmOBJ) $(LIBS)
+
+####彩铃
+SendCailmsgOBJ=SendCailmsg.o $(PUBOBJ) pubFunc.o
+SendCailmsg:$(SendCailmsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SendCailmsgOBJ) $(LIBS) -lbosspub
+
+####一元产品
+ModeYycpSendOBJ=ModeYycpSend.o pubFunc.o $(PUBOBJ)
+ModeYycpSend:$(ModeYycpSendOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ModeYycpSendOBJ) $(LIBS)
+
+####彩铃
+CailSendSmapOBJ=CailSendSmap.o $(PUBOBJ)
+CailSendSmap:$(CailSendSmapOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CailSendSmapOBJ) $(LIBS)
+
+####测试
+testMarkOBJ=testMark.o $(PUBOBJ)
+testMark:$(testMarkOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(testMarkOBJ) $(LIBS)
+
+####对符合条件数据每天定时申请/取消套餐
+BillDayOBJ=BillDay.o $(PUBOBJ) pubBill.o
+BillDay:$(BillDayOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BillDayOBJ) $(LIBS)
+
+####预约优良号码的处理
+DealGoodPhoneOBJ=DealGoodPhone.o $(PUBOBJ)
+DealGoodPhone:$(DealGoodPhoneOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealGoodPhoneOBJ) $(LIBS)
+
+####吉林集团行业应用网关
+crontabIAGWOBJ=crontabIAGW.o $(PUBOBJ) pubBill.o
+crontabIAGW:$(crontabIAGWOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(crontabIAGWOBJ) $(LIBS)
+
+crontabIAGWRecvPrcOBJ=crontabIAGWRecvPrc.o $(PUBOBJ) pubBill.o
+crontabIAGWRecvPrc:$(crontabIAGWRecvPrcOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(crontabIAGWRecvPrcOBJ) $(LIBS)
+
+####温馨家园
+FamilyModeOBJ=FamilyMode.o $(PUBOBJ) pubBill.o
+FamilyMode:$(FamilyModeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(FamilyModeOBJ) $(LIBS)
+####ModeSm
+ModeSmOBJ=ModeSm.o $(PUBOBJ)
+ModeSm:$(ModeSmOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ModeSmOBJ) $(LIBS)
+
+parseUnlOBJ=parseUnl.o $(PUBOBJ)
+parseUnl:$(parseUnlOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(parseUnlOBJ) $(LIBS)
+
+UnlCardSaleOBJ=UnlCardSale.o $(PUBOBJ)
+UnlCardSale:$(UnlCardSaleOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UnlCardSaleOBJ) $(LIBS)
+
+####ExpireMode
+ExpireModeOBJ=ExpireMode.o $(PUBOBJ)
+ExpireMode:$(ExpireModeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ExpireModeOBJ) $(LIBS)
+####买手机赠话费
+PresentOBJ=Present.o $(PUBOBJ) include13.o pubFunc.o
+Present:$(PresentOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(PresentOBJ) $(LIBS)
+
+####买手机赠话费
+scNoStopPhoneOBJ=scNoStopPhone.o $(PUBOBJ) include13.o
+scNoStopPhone:$(scNoStopPhoneOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(scNoStopPhoneOBJ) $(LIBS)
+
+####买手机赠话费绑定imei补丁
+Present1345budingOBJ=Present1345buding.o $(PUBOBJ) include13.o
+Present1345buding:$(Present1345budingOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(Present1345budingOBJ) $(LIBS)
+
+####买手机赠送用户自己的话费
+sTermPresentOBJ=sTermPresent.o $(PUBOBJ) sTermPub.o pubFunc.o
+sTermPresent:$(sTermPresentOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(sTermPresentOBJ) $(LIBS)
+
+sTermbindmonthOBJ=sTermbindmonth.o $(PUBOBJ) sTermPub.o
+sTermbindmonth:$(sTermbindmonthOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(sTermbindmonthOBJ) $(LIBS)
+
+####密码唤醒赠送话费
+PassWdAwakePreOBJ=PassWdAwakePre.o $(PUBOBJ) sTermPub.o
+PassWdAwakePre:$(PassWdAwakePreOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(PassWdAwakePreOBJ) $(LIBS)
+
+####买手机赠送用户自己的话费buding
+sTermPresentbudingOBJ=sTermPresentbuding.o $(PUBOBJ) sTermPub.o pubFunc.o
+sTermPresentbuding:$(sTermPresentbudingOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(sTermPresentbudingOBJ) $(LIBS)
+
+####买手机赠送用户自己的话费
+ModeCodePrePayOBJ=ModeCodePrePay.o $(PUBOBJ) sTermPub.o pubFunc.o
+ModeCodePrePay:$(ModeCodePrePayOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ModeCodePrePayOBJ) $(LIBS)
+
+DgiveJLNewsFavOBJ=DgiveJLNewsFav.o $(PUBOBJ) sTermPub.o
+DgiveJLNewsFav:$(DgiveJLNewsFavOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DgiveJLNewsFavOBJ) $(LIBS)
+
+####省内一点支付的定额支付程序
+FixPayOBJ=FixPay.o $(PUBOBJ) PubPayFee.o pubFunc.o
+FixPay:$(FixPayOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(FixPayOBJ) $(LIBS)
+
+####省内一点支付的全额支付程序
+AutoPayOBJ=AutoPay.o $(PUBOBJ) PubPayFee.o
+AutoPay:$(AutoPayOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(AutoPayOBJ) $(LIBS)
+
+####买手机赠送用户自己的话费
+sTermSendMsgOBJ=sTermSendMsg.o $(PUBOBJ)
+sTermSendMsg:$(sTermSendMsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(sTermSendMsgOBJ) $(LIBS)
+####买手机赠话费
+PresentYearOBJ=PresentYear.o $(PUBOBJ) include13.o
+PresentYear:$(PresentYearOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(PresentYearOBJ) $(LIBS)
+
+####季度回馈
+SeasonPresentOBJ=SeasonPresent.o $(PUBOBJ) include13.o pubFunc.o
+SeasonPresent:$(SeasonPresentOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SeasonPresentOBJ) $(LIBS)
+####预销恢复
+ReOpenJOBJ=ReOpenJ.o $(PUBOBJ) pubBill.o pubFunc.o
+ReOpenJ:$(ReOpenJOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReOpenJOBJ) $(INCLUDE) $(LIBS)
+####预销恢复积分处理
+ReOpenjMarkOBJ=ReOpenjMark.o $(PUBOBJ)
+ReOpenjMark:$(ReOpenjMarkOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReOpenjMarkOBJ) $(INCLUDE) $(LIBS)
+####工号密码到期提醒
+LogNoPassAwakeOBJ=LogNoPassAwake.o $(PUBOBJ)
+LogNoPassAwake:$(LogNoPassAwakeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(LogNoPassAwakeOBJ) $(LIBS)
+####实名登记到期确认
+CheckUserOBJ=CheckUser.o $(PUBOBJ) pubFunc.o
+CheckUser:$(CheckUserOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CheckUserOBJ) $(LIBS)
+####月结品牌互转程序
+wBillSmChgOBJ=wBillSmChg.o $(PUBOBJ) pubFunc.o
+wBillSmChg:$(wBillSmChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(wBillSmChgOBJ) $(LIBS)
+####UpDateLoginMsg
+UpDateLoginMsgOBJ=UpDateLoginMsg.o $(PUBOBJ)
+UpDateLoginMsg:$(UpDateLoginMsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpDateLoginMsgOBJ) $(LIBS)
+####用户信用度计算
+creditComputeOBJ=creditCompute.o $(PUBOBJ) pubFunc.o
+creditCompute:$(creditComputeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(creditComputeOBJ) $(LIBS)
+
+####用户积分计算
+markComputeOBJ=markCompute.o $(PUBOBJ)
+markCompute:$(markComputeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(markComputeOBJ) $(LIBS)
+
+####年度积分计算
+yearMarkComputeOBJ=yearMarkCompute.o $(PUBOBJ) pubFunc.o
+yearMarkCompute:$(yearMarkComputeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(yearMarkComputeOBJ) $(LIBS)
+
+###配置文件校检程序
+xsdtestOBJ=xsdtest.o $(PUBOBJ)
+xsdtest:$(xsdtestOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(xsdtestOBJ) $(LIBS)
+
+###用户状态文件上传
+usrStatUpOBJ=usrStatUp.o $(PUBOBJ)
+usrStatUp:$(usrStatUpOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(usrStatUpOBJ) $(LIBS)
+###预退定重发
+ReSendPreOrderOBJ=ReSendPreOrder.o $(PUBOBJ)
+ReSendPreOrder:$(ReSendPreOrderOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReSendPreOrderOBJ) $(LIBS)
+
+###手机钱包退定重发
+ReSendCashOrderOBJ=ReSendCashOrder.o $(PUBOBJ)
+ReSendCashOrder:$(ReSendCashOrderOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReSendCashOrderOBJ) $(LIBS)
+###手机钱包回缴款
+ReSendCashOBJ=ReSendCash.o $(PUBOBJ)
+ReSendCash:$(ReSendCashOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReSendCashOBJ) $(LIBS)
+
+#一级BOSS月结
+OnebossMonBalaOBJ=OnebossMonBala.o $(PUBOBJ)
+OnebossMonBala:$(OnebossMonBalaOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(OnebossMonBalaOBJ) $(LIBS)
+
+usrCashUpOBJ=usrCashUp.o $(PUBOBJ)
+usrCashUp:$(usrCashUpOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(usrCashUpOBJ) $(LIBS)
+
+RTmpDealOBJ=RTmpDeal.o $(PUBOBJ)
+RTmpDeal:$(RTmpDealOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RTmpDealOBJ) $(LIBS)
+
+usrCardUpOBJ=usrCardUp.o $(PUBOBJ)
+usrCardUp:$(usrCardUpOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(usrCardUpOBJ) $(LIBS)
+
+RMiscOrderCheckOBJ=RMiscOrderCheck.o $(PUBOBJ)
+RMiscOrderCheck:$(RMiscOrderCheckOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RMiscOrderCheckOBJ) $(LIBS)
+
+ImsiLoadOBJ=ImsiLoad.o $(PUBOBJ)
+ImsiLoad:$(ImsiLoadOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ImsiLoadOBJ) $(LIBS)
+
+eProcOBJ=eProc.o $(PUBOBJ)
+eProc:$(eProcOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(eProcOBJ) $(LIBS)
+
+RSatisfyDispatchOBJ=RSatisfyDispatch.o $(PUBOBJ)
+RSatisfyDispatch:$(RSatisfyDispatchOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RSatisfyDispatchOBJ) $(LIBS)
+
+dispatchComputeOBJ=dispatchCompute.o $(PUBOBJ)
+dispatchCompute:$(dispatchComputeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(dispatchComputeOBJ) $(LIBS)
+
+
+markBeforeOBJ=markBefore.o $(PUBOBJ)
+markBefore:$(markBeforeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(markBeforeOBJ) $(LIBS)
+
+markBeforeCleanOBJ=markBeforeClean.o $(PUBOBJ)
+markBeforeClean:$(markBeforeCleanOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(markBeforeCleanOBJ) $(LIBS)
+
+markTakeOutOBJ=markTakeOut.o $(PUBOBJ)
+markTakeOut:$(markTakeOutOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(markTakeOutOBJ) $(LIBS)
+
+markTakeSmOutOBJ=markTakeSmOut.o $(PUBOBJ)
+markTakeSmOut:$(markTakeSmOutOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(markTakeSmOutOBJ) $(LIBS)
+
+####实明制预登记自动确认
+DengJiOBJ=DengJi.o $(PUBOBJ)
+DengJi:$(DengJiOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DengJiOBJ) $(LIBS)
+
+####更换手机的SIM卡登记
+ChangeSimidOBJ=ChangeSimid.o $(PUBOBJ)
+ChangeSimid:$(ChangeSimidOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ChangeSimidOBJ) $(LIBS)
+
+####msicfeeawokemsg
+msicfeeawokemsgOBJ=msicfeeawokemsg.o $(PUBOBJ) pubCrontab.o
+msicfeeawokemsg:$(msicfeeawokemsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(msicfeeawokemsgOBJ) $(LIBS)
+
+####远程写卡
+romateWriteCardOBJ=romateWriteCard.o $(PUBOBJ)
+romateWriteCard:$(romateWriteCardOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(romateWriteCardOBJ) $(LIBS)
+
+####垃圾短信受理
+DMTCMSGOBJ=DMTCMSG.o $(PUBOBJ)
+DMTCMSG:$(DMTCMSGOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DMTCMSGOBJ) $(LIBS)
+
+####
+PhoneOrderOBJ=PhoneOrder.o $(PUBOBJ)
+PhoneOrder:$(PhoneOrderOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(PhoneOrderOBJ) $(LIBS)
+
+####同步wBaseFavChg
+TBwBaseFavChgPromOBJ=TBwBaseFavChgProm.o $(PUBOBJ)
+TBwBaseFavChgProm:$(TBwBaseFavChgPromOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(TBwBaseFavChgPromOBJ) $(LIBS)
+##########ADC
+AdcBillOBJ=AdcBill.o $(PUBOBJ)
+AdcBill:$(AdcBillOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(AdcBillOBJ) $(LIBS)
+
+DealAdcSignOBJ=DealAdcSign.o $(PUBOBJ)
+DealAdcSign:$(DealAdcSignOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealAdcSignOBJ) $(LIBS)
+
+DealIagwSignOBJ=DealIagwSign.o $(PUBOBJ) pubFunc.o
+DealIagwSign:$(DealIagwSignOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealIagwSignOBJ) $(LIBS)
+
+ReSendRoamConfirmOBJ=ReSendRoamConfirm.o $(PUBOBJ)
+ReSendRoamConfirm:$(ReSendRoamConfirmOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReSendRoamConfirmOBJ) $(LIBS)
+
+ReSendBossRspOBJ=ReSendBossRsp.o $(PUBOBJ)
+ReSendBossRsp:$(ReSendBossRspOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReSendBossRspOBJ) $(LIBS)
+
+ReSendBossReqOBJ=ReSendBossReq.o $(PUBOBJ)
+ReSendBossReq:$(ReSendBossReqOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReSendBossReqOBJ) $(LIBS)
+
+ReSendChoiceReqOBJ=ReSendChoiceReq.o $(PUBOBJ)
+ReSendChoiceReq:$(ReSendChoiceReqOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReSendChoiceReqOBJ) $(LIBS)
+ReSendChoiceRspOBJ=ReSendChoiceRsp.o $(PUBOBJ)
+ReSendChoiceRsp:$(ReSendChoiceRspOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReSendChoiceRspOBJ) $(LIBS)
+
+
+upImpsBizChgOBJ=upImpsBizChg.o $(PUBOBJ)
+upImpsBizChg:$(upImpsBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(upImpsBizChgOBJ) $(LIBS)
+
+ReCashDepositOBJ=ReCashDeposit.o $(PUBOBJ)
+ReCashDeposit:$(ReCashDepositOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReCashDepositOBJ) $(LIBS)
+	
+	
+UpNfcpBizChgOBJ=UpNfcpBizChg.o $(PUBOBJ)
+UpNfcpBizChg:$(UpNfcpBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpNfcpBizChgOBJ) $(LIBS)
+	
+UserStateNfcpOBJ=UserStateNfcp.o $(PUBOBJ)
+UserStateNfcp:$(UserStateNfcpOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateNfcpOBJ) $(LIBS)
+	
+############################
+
+############VIP体验用户话费对账出库文件
+VIP_TELFEE_CHECK_OUTOBJ=VIP_TELFEE_CHECK_OUT.o $(PUBOBJ)
+VIP_TELFEE_CHECK_OUT:$(VIP_TELFEE_CHECK_OUTOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(VIP_TELFEE_CHECK_OUTOBJ) $(LIBS)
+
+############吉邻客话费对账出库文件
+BOCO_TELFEE_CHECK_OUTOBJ=BOCO_TELFEE_CHECK_OUT.o $(PUBOBJ)
+BOCO_TELFEE_CHECK_OUT:$(BOCO_TELFEE_CHECK_OUTOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BOCO_TELFEE_CHECK_OUTOBJ) $(LIBS)
+
+############手机福彩话费对账出库文件
+IWGR_TELFEE_CHECK_OUTOBJ=IWGR_TELFEE_CHECK_OUT.o $(PUBOBJ)
+IWGR_TELFEE_CHECK_OUT:$(IWGR_TELFEE_CHECK_OUTOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(IWGR_TELFEE_CHECK_OUTOBJ) $(LIBS)
+
+############VIP体验用户积分对账出库文件
+VIP_POINTS_CHECK_OUTOBJ=VIP_POINTS_CHECK_OUT.o $(PUBOBJ)
+VIP_POINTS_CHECK_OUT:$(VIP_POINTS_CHECK_OUTOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(VIP_POINTS_CHECK_OUTOBJ) $(LIBS)
+
+############吉邻客积分对账出库文件
+BOCO_POINTS_CHECK_OUTOBJ=BOCO_POINTS_CHECK_OUT.o $(PUBOBJ)
+BOCO_POINTS_CHECK_OUT:$(BOCO_POINTS_CHECK_OUTOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BOCO_POINTS_CHECK_OUTOBJ) $(LIBS)
+
+############手机福彩积分对账出库文件
+IWGR_POINTS_CHECK_OUTOBJ=IWGR_POINTS_CHECK_OUT.o $(PUBOBJ)
+IWGR_POINTS_CHECK_OUT:$(IWGR_POINTS_CHECK_OUTOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(IWGR_POINTS_CHECK_OUTOBJ) $(LIBS)
+
+############VIP体验用户积分对账入库文件
+VIP_POINTS_CHECK_INOBJ=VIP_POINTS_CHECK_IN.o $(PUBOBJ)
+VIP_POINTS_CHECK_IN:$(VIP_POINTS_CHECK_INOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(VIP_POINTS_CHECK_INOBJ) $(LIBS)
+
+############VIP体验用户话费对账入库文件
+VIP_TELFEE_CHECK_INOBJ=VIP_TELFEE_CHECK_IN.o $(PUBOBJ)
+VIP_TELFEE_CHECK_IN:$(VIP_TELFEE_CHECK_INOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(VIP_TELFEE_CHECK_INOBJ) $(LIBS)
+
+############东北证券文件入库(ZHCY)
+InputDBOBJ=InputDB.o $(PUBOBJ)
+InputDB:$(InputDBOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(InputDBOBJ) $(LIBS)
+
+############东北证券文件出库(ZHCY)
+OutputDBOBJ=OutputDB.o $(PUBOBJ)
+OutputDB:$(OutputDBOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(OutputDBOBJ) $(LIBS)
+
+############轻轨行工号信息同步文件出库(ZHCY)
+DLOGINMSG_OUTOBJ=DLOGINMSG_OUT.o $(PUBOBJ)
+DLOGINMSG_OUT:$(DLOGINMSG_OUTOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DLOGINMSG_OUTOBJ) $(LIBS)
+
+############轻轨行行政树节点信息同步文件出库(ZHCY)
+DCHNGROUPINFO_OUTOBJ=DCHNGROUPINFO_OUT.o $(PUBOBJ)
+DCHNGROUPINFO_OUT:$(DCHNGROUPINFO_OUTOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DCHNGROUPINFO_OUTOBJ) $(LIBS)
+
+############轻轨行组织机构编码信息同步文件出库(ZHCY)
+DCHNGROUPMSG_OUTOBJ=DCHNGROUPMSG_OUT.o $(PUBOBJ)
+DCHNGROUPMSG_OUT:$(DCHNGROUPMSG_OUTOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DCHNGROUPMSG_OUTOBJ) $(LIBS)
+
+############轻轨行话费对账文件出库(ZHCY)
+LIGHT_RAIL_CHECK_OUTOBJ=LIGHT_RAIL_CHECK_OUT.o $(PUBOBJ)
+LIGHT_RAIL_CHECK_OUT:$(LIGHT_RAIL_CHECK_OUTOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(LIGHT_RAIL_CHECK_OUTOBJ) $(LIBS)
+
+############轻轨行话费对账文件入库(ZHCY)
+LIGHT_RAIL_CHECK_INOBJ=LIGHT_RAIL_CHECK_IN.o $(PUBOBJ)
+LIGHT_RAIL_CHECK_IN:$(LIGHT_RAIL_CHECK_INOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(LIGHT_RAIL_CHECK_INOBJ) $(LIBS)
+
+############轻轨行手机销户文同步文件出库(ZHCY)
+logout_userOBJ=logout_user.o $(PUBOBJ)
+logout_user:$(logout_userOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(logout_userOBJ) $(LIBS)
+
+############派单 手机回缴款(ZHCY)
+PhoneEPRePayOBJ=PhoneEPRePay.o $(PUBOBJ)
+PhoneEPRePay:$(PhoneEPRePayOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(PhoneEPRePayOBJ) $(LIBS)
+
+############手机游戏前台界面展现文件入库(ZHCY 2008-12-05)
+PhoneGameDeposit_INOBJ=PhoneGameDeposit_IN.o $(PUBOBJ)
+PhoneGameDeposit_IN:$(PhoneGameDeposit_INOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(PhoneGameDeposit_INOBJ) $(LIBS)
+
+PhoneGameExpends_INOBJ=PhoneGameExpends_IN.o $(PUBOBJ)
+PhoneGameExpends_IN:$(PhoneGameExpends_INOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(PhoneGameExpends_INOBJ) $(LIBS)
+
+DealMiscFileOBJ=DealMiscFile.o $(PUBOBJ) pubFunc.o
+DealMiscFile:$(DealMiscFileOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealMiscFileOBJ) $(LIBS)
+
+####20081202GPRSDOWN
+GprsDownOBJ=GprsDown.o $(PUBOBJ) pubBill.o
+GprsDown:$(GprsDownOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(GprsDownOBJ) $(LIBS)
+
+UpGprsUsingOBJ=UpGprsUsing.o $(PUBOBJ)
+UpGprsUsing:$(UpGprsUsingOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpGprsUsingOBJ) $(LIBS)
+
+UpStmmBizChgOBJ=UpStmmBizChg.o $(PUBOBJ)
+UpStmmBizChg:$(UpStmmBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpStmmBizChgOBJ) $(LIBS)
+
+UpWireBizChgOBJ=UpWireBizChg.o $(PUBOBJ)
+UpWireBizChg:$(UpWireBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpWireBizChgOBJ) $(LIBS)
+
+
+####20081211InterRoamChg
+InterRoamChgOBJ=InterRoamChg.o $(PUBOBJ)
+InterRoamChg:$(InterRoamChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(InterRoamChgOBJ) $(LIBS)
+
+
+#####复制卡
+CopyListFtpBackOBJ=CopyListFtpBack.o $(PUBOBJ)
+CopyListFtpBack:$(CopyListFtpBackOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CopyListFtpBackOBJ) $(LIBS)
+
+
+
+#############组织结构信息同步##########
+DCHNGROUPINFOOBJ=DCHNGROUPINFO.o $(PUBOBJ)
+DCHNGROUPINFO:$(DCHNGROUPINFOOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DCHNGROUPINFOOBJ) $(LIBS)
+
+#######################
+UpVshrBizChgOBJ=UpVshrBizChg.o $(PUBOBJ)
+UpVshrBizChg:$(UpVshrBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $? $(LIBS)
+#############订单信息同步##########
+
+#######################
+SyncObossOBJ=SyncOboss.o $(PUBOBJ)
+SyncOboss:$(SyncObossOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $? $(LIBS)
+#############数据同步##########
+
+OrderFormInfoSynOBJ=OrderFormInfoSyn.o $(PUBOBJ)
+OrderFormInfoSyn:$(OrderFormInfoSynOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(OrderFormInfoSynOBJ) $(LIBS)
+
+DealMuscVgopOBJ=DealMuscVgop.o $(PUBOBJ)
+DealMuscVgop:$(DealMuscVgopOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealMuscVgopOBJ) $(LIBS)
+
+SyncConInfo1258OBJ=SyncConInfo1258.o $(PUBOBJ)
+SyncConInfo1258:$(SyncConInfo1258OBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncConInfo1258OBJ) $(LIBS)
+
+SyncNoAudit1258OBJ=SyncNoAudit1258.o $(PUBOBJ)
+SyncNoAudit1258:$(SyncNoAudit1258OBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncNoAudit1258OBJ) $(LIBS)
+
+SyncProdInfo1258OBJ=SyncProdInfo1258.o $(PUBOBJ)
+SyncProdInfo1258:$(SyncProdInfo1258OBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncProdInfo1258OBJ) $(LIBS)
+
+SyncSubInfo1258OBJ=SyncSubInfo1258.o $(PUBOBJ)
+SyncSubInfo1258:$(SyncSubInfo1258OBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncSubInfo1258OBJ) $(LIBS)
+
+OneBossUsrCheckOBJ=OneBossUsrCheck.o $(PUBOBJ)
+OneBossUsrCheck:$(OneBossUsrCheckOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(OneBossUsrCheckOBJ) $(LIBS)
+
+####上网本赠话费
+NetCardPresentOBJ=NetCardPresent.o $(PUBOBJ) include13.o
+NetCardPresent:$(NetCardPresentOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(NetCardPresentOBJ) $(LIBS)
+
+NetCardPresentMonthOBJ=NetCardPresentMonth.o $(PUBOBJ) include13.o
+NetCardPresentMonth:$(NetCardPresentMonthOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(NetCardPresentMonthOBJ) $(LIBS)
+
+UserStateMboxOBJ=UserStateMbox.o $(PUBOBJ)
+UserStateMbox:$(UserStateMboxOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateMboxOBJ) $(LIBS)
+
+UserStateVmxpOBJ=UserStateVmxp.o $(PUBOBJ)
+UserStateVmxp:$(UserStateVmxpOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateVmxpOBJ) $(LIBS)
+
+ReSendOrderSyncErrOBJ=ReSendOrderSyncErr.o $(PUBOBJ)
+ReSendOrderSyncErr:$(ReSendOrderSyncErrOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReSendOrderSyncErrOBJ) $(LIBS)
+
+UserStateReadOBJ=UserStateRead.o $(PUBOBJ)
+UserStateRead:$(UserStateReadOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateReadOBJ) $(LIBS)
+
+UserStateStmmOBJ=UserStateStmm.o $(PUBOBJ)
+UserStateStmm:$(UserStateStmmOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateStmmOBJ) $(LIBS)
+
+
+UserStateMrbtOBJ=UserStateMrbt.o $(PUBOBJ)
+UserStateMrbt:$(UserStateMrbtOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateMrbtOBJ) $(LIBS)
+
+SyncUserOrderNewOBJ=SyncUserOrderNew.o $(PUBOBJ)
+SyncUserOrderNew:$(SyncUserOrderNewOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncUserOrderNewOBJ) $(LIBS)
+
+UserMarkOrderOBJ=UserMarkOrder.o $(PUBOBJ)
+UserMarkOrder:$(UserMarkOrderOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserMarkOrderOBJ) $(LIBS)
+
+UserEmarkOrderOBJ=UserEmarkOrder.o $(PUBOBJ)
+UserEmarkOrder:$(UserEmarkOrderOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserEmarkOrderOBJ) $(LIBS)
+
+############## 幸福家庭拆网补丁程序 #############
+RHappyFamilyOBJ=RHappyFamily.o $(PUBOBJ)
+RHappyFamily:$(RHappyFamilyOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RHappyFamilyOBJ) $(LIBS)
+
+############# 回铃音用户属性补丁程序 ############
+RCustTypeRingOBJ=RCustTypeRing.o $(PUBOBJ)
+RCustTypeRing:$(RCustTypeRingOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RCustTypeRingOBJ) $(LIBS)
+
+############# 回铃音用户属性补丁程序 ############
+RHappyFamilyPhotoOBJ=RHappyFamilyPhoto.o $(PUBOBJ)
+RHappyFamilyPhoto:$(RHappyFamilyPhotoOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RHappyFamilyPhotoOBJ) $(LIBS)
+
+############## 两城一家 非常假期 #############
+TwoCityWriteFileOBJ=TwoCityWriteFile.o $(PUBOBJ)
+TwoCityWriteFile:$(TwoCityWriteFileOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(TwoCityWriteFileOBJ) $(LIBS)
+
+TwoCityErrFileOBJ=TwoCityErrFile.o $(PUBOBJ)
+TwoCityErrFile:$(TwoCityErrFileOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(TwoCityErrFileOBJ) $(LIBS)
+############## 弱密码处理 #############
+DealPasswordOBJ=DealPassword.o include13.o $(PUBOBJ)
+DealPassword:$(DealPasswordOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealPasswordOBJ) $(LIBS)
+
+CleanPasswdtimesOBJ=CleanPasswdtimes.o  $(PUBOBJ)
+CleanPasswdtimes:$(CleanPasswdtimesOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CleanPasswdtimesOBJ) $(LIBS)
+
+DealInnetPasswdOBJ=DealInnetPasswd.o  $(PUBOBJ)
+DealInnetPasswd:$(DealInnetPasswdOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealInnetPasswdOBJ) $(LIBS)
+
+############## 清理表程序 #############
+CleanBillCustDetailOBJ=CleanBillCustDetail.o $(PUBOBJ)
+CleanBillCustDetail:$(CleanBillCustDetailOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CleanBillCustDetailOBJ) $(LIBS)
+
+CleanCustImeiMsgDetailOBJ=CleanCustImeiMsgDetail.o $(PUBOBJ)
+CleanCustImeiMsgDetail:$(CleanCustImeiMsgDetailOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CleanCustImeiMsgDetailOBJ) $(LIBS)
+
+CleanCustPresentOBJ=CleanCustPresent.o $(PUBOBJ)
+CleanCustPresent:$(CleanCustPresentOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CleanCustPresentOBJ) $(LIBS)
+
+CleanTermPresentOBJ=CleanTermPresent.o $(PUBOBJ)
+CleanTermPresent:$(CleanTermPresentOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CleanTermPresentOBJ) $(LIBS)
+
+fetch_boss_statOBJ=fetch_boss_stat.o $(PUBOBJ)
+fetch_boss_stat:$(fetch_boss_statOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(fetch_boss_statOBJ) $(LIBS)
+
+upStatToAllOBJ=upStatToAll.o $(PUBOBJ)
+upStatToAll:$(upStatToAllOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(upStatToAllOBJ) $(LIBS)
+
+BatchSendUserStateOBJ=BatchSendUserState.o $(PUBOBJ)
+BatchSendUserState:$(BatchSendUserStateOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BatchSendUserStateOBJ) $(LIBS)
+
+usrmcastestOBJ=usrmcastest.o $(PUBOBJ)
+usrmcastest:$(usrmcastestOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(usrmcastestOBJ) $(LIBS)
+
+FetchFeeBossOBJ=FetchFeeBoss.o $(PUBOBJ)
+FetchFeeBoss:$(FetchFeeBossOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(FetchFeeBossOBJ) $(LIBS)
+
+tCrmRemindFlagOBJ=tCrmRemindFlag.o $(PUBOBJ)
+tCrmRemindFlag:$(tCrmRemindFlagOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(tCrmRemindFlagOBJ) $(LIBS)
+
+UpMgisBizChgOBJ=UpMgisBizChg.o $(PUBOBJ)
+UpMgisBizChg:$(UpMgisBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpMgisBizChgOBJ) $(LIBS)
+
+RwriteCardOBJ=RwriteCard.o $(PUBOBJ)
+RwriteCard:$(RwriteCardOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RwriteCardOBJ) $(LIBS)
+
+ReSendMuscChgOBJ=ReSendMuscChg.o $(PUBOBJ)
+ReSendMuscChg:$(ReSendMuscChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReSendMuscChgOBJ) $(LIBS)
+
+ReSendMuscOrderOBJ=ReSendMuscOrder.o $(PUBOBJ)
+ReSendMuscOrder:$(ReSendMuscOrderOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReSendMuscOrderOBJ) $(LIBS)
+
+DealNiapChgRstOBJ=DealNiapChgRst.o $(PUBOBJ)
+DealNiapChgRst:$(DealNiapChgRstOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealNiapChgRstOBJ) $(LIBS)
+
+ReSendOnDataOBJ=ReSendOnData.o $(PUBOBJ)
+ReSendOnData:$(ReSendOnDataOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReSendOnDataOBJ) $(LIBS)
+
+SynDsmpStateOBJ=SynDsmpState.o $(PUBOBJ)
+SynDsmpState:$(SynDsmpStateOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SynDsmpStateOBJ) $(LIBS)
+
+####gprs流量提醒
+GprsFlowAwakeOBJ=GprsFlowAwake.o $(PUBOBJ)
+GprsFlowAwake:$(GprsFlowAwakeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(GprsFlowAwakeOBJ) $(LIBS)
+
+OneBossSmsgTxOBJ=OneBossSmsgTx.o $(PUBOBJ)
+OneBossSmsgTx:$(OneBossSmsgTxOBJ) $(PUBH) $(CLIBEACOMP)
+	$(CC) -o $(BINDIR)/$@ $(OneBossSmsgTxOBJ) $(LIBS)
+
+
+BatchDsmpOrderSyncOBJ=BatchDsmpOrderSync.o $(PUBOBJ)
+BatchDsmpOrderSync:$(BatchDsmpOrderSyncOBJ) $(PUBH) $(CLIBEACOMP)
+	$(CC) -o $(BINDIR)/$@ $(BatchDsmpOrderSyncOBJ) $(LIBS)
+
+UserStatChangeOBJ=UserStatChange.o $(PUBOBJ)
+UserStatChange:$(UserStatChangeOBJ)
+	$(CC) -o $(BINDIR)/$@ $? $(LIBS)
+	cp $(BINDIR)/$@  $(WORKDIR)/$@
+
+UserOrderSndOBJ=UserOrderSnd.o $(PUBOBJ)
+UserOrderSnd:$(UserOrderSndOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserOrderSndOBJ) $(LIBS)
+
+UserStatOrderOBJ=UserStatOrder.o $(PUBOBJ)
+UserStatOrder:$(UserStatOrderOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStatOrderOBJ) $(LIBS)
+
+DealMboxOrderOBJ=DealMboxOrder.o $(PUBOBJ)
+DealMboxOrder:$(DealMboxOrderOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealMboxOrderOBJ) $(LIBS)
+
+DealMboxBatchOBJ=DealMboxBatch.o $(PUBOBJ)
+DealMboxBatch:$(DealMboxBatchOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealMboxBatchOBJ) $(LIBS)
+
+UpMboxBizBatchOBJ=UpMboxBizBatch.o $(PUBOBJ)
+UpMboxBizBatch:$(UpMboxBizBatchOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpMboxBizBatchOBJ) $(LIBS)
+
+DealCmmbOrderOBJ=DealCmmbOrder.o $(PUBOBJ)
+DealCmmbOrder:$(DealCmmbOrderOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealCmmbOrderOBJ) $(LIBS)
+
+DealCmmbChgRstOBJ=DealCmmbChgRst.o $(PUBOBJ)
+DealCmmbChgRst:$(DealCmmbChgRstOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealCmmbChgRstOBJ) $(LIBS)
+
+UserStateCmmbOBJ=UserStateCmmb.o $(PUBOBJ)
+UserStateCmmb:$(UserStateCmmbOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateCmmbOBJ) $(LIBS)
+
+UpCmmbBizChgOBJ=UpCmmbBizChg.o $(PUBOBJ)
+UpCmmbBizChg:$(UpCmmbBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpCmmbBizChgOBJ) $(LIBS)
+
+UserStateImpsOBJ=UserStateImps.o $(PUBOBJ)
+UserStateImps:$(UserStateImpsOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateImpsOBJ) $(LIBS)
+
+DealImpsOrderOBJ=DealImpsOrder.o $(PUBOBJ)
+DealImpsOrder:$(DealImpsOrderOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealImpsOrderOBJ) $(LIBS)
+
+DealMuscOrderOBJ=DealMuscOrder.o $(PUBOBJ)
+DealMuscOrder:$(DealMuscOrderOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealMuscOrderOBJ) $(LIBS)
+
+UpImpsBizChgOBJ=UpImpsBizChg.o $(PUBOBJ)
+UpImpsBizChg:$(UpImpsBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpImpsBizChgOBJ) $(LIBS)
+
+DealReadOrderOBJ=DealReadOrder.o $(PUBOBJ)
+DealReadOrder:$(DealReadOrderOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealReadOrderOBJ) $(LIBS)
+
+ReSendMpayOpenOBJ=ReSendMpayOpen.o $(PUBOBJ)
+ReSendMpayOpen:$(ReSendMpayOpenOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReSendMpayOpenOBJ) $(LIBS)
+
+SyncMcasOrderOBJ=SyncMcasOrder.o $(PUBOBJ)
+SyncMcasOrder:$(SyncMcasOrderOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncMcasOrderOBJ) $(LIBS)
+
+SyncMcasStatOBJ=SyncMcasStat.o $(PUBOBJ)
+SyncMcasStat:$(SyncMcasStatOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncMcasStatOBJ) $(LIBS)
+
+DealCallChgRstOBJ=DealCallChgRst.o $(PUBOBJ)
+DealCallChgRst:$(DealCallChgRstOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealCallChgRstOBJ) $(LIBS)
+
+UserStateCallOBJ=UserStateCall.o $(PUBOBJ)
+UserStateCall:$(UserStateCallOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateCallOBJ) $(LIBS)
+
+UpCallBizChgOBJ=UpCallBizChg.o $(PUBOBJ)
+UpCallBizChg:$(UpCallBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpCallBizChgOBJ) $(LIBS)
+
+UpMrbtBizChgOBJ=UpMrbtBizChg.o $(PUBOBJ)
+UpMrbtBizChg:$(UpMrbtBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpMrbtBizChgOBJ) $(LIBS)
+
+DealVcpChgRstOBJ=DealVcpChgRst.o $(PUBOBJ)
+DealVcpChgRst:$(DealVcpChgRstOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealVcpChgRstOBJ) $(LIBS)
+
+UserStateVcpOBJ=UserStateVcp.o $(PUBOBJ)
+UserStateVcp:$(UserStateVcpOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateVcpOBJ) $(LIBS)
+
+UpVcpBizChgOBJ=UpVcpBizChg.o $(PUBOBJ)
+UpVcpBizChg:$(UpVcpBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpVcpBizChgOBJ) $(LIBS)
+
+CmgpOrderCfmOBJ=CmgpOrderCfm.o $(PUBOBJ)
+CmgpOrderCfm:$(CmgpOrderCfmOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CmgpOrderCfmOBJ) $(LIBS)
+
+MrbtOrderCfmOBJ=MrbtOrderCfm.o $(PUBOBJ)
+MrbtOrderCfm:$(MrbtOrderCfmOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(MrbtOrderCfmOBJ) $(LIBS)
+
+NiapOrderCfmOBJ=NiapOrderCfm.o $(PUBOBJ)
+NiapOrderCfm:$(NiapOrderCfmOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(NiapOrderCfmOBJ) $(LIBS)
+
+MdopOrderCfmOBJ=MdopOrderCfm.o $(PUBOBJ)
+MdopOrderCfm:$(MdopOrderCfmOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(MdopOrderCfmOBJ) $(LIBS)
+
+UserStateCmgpOBJ=UserStateCmgp.o $(PUBOBJ)
+UserStateCmgp:$(UserStateCmgpOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateCmgpOBJ) $(LIBS)
+
+UpCmgpBizChgOBJ=UpCmgpBizChg.o $(PUBOBJ)
+UpCmgpBizChg:$(UpCmgpBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpCmgpBizChgOBJ) $(LIBS)
+
+MuscOrderCfmOBJ=MuscOrderCfm.o $(PUBOBJ)
+MuscOrderCfm:$(MuscOrderCfmOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(MuscOrderCfmOBJ) $(LIBS)
+
+UserStateMuscOBJ=UserStateMusc.o $(PUBOBJ)
+UserStateMusc:$(UserStateMuscOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateMuscOBJ) $(LIBS)
+
+UpMuscBizChgOBJ=UpMuscBizChg.o $(PUBOBJ)
+UpMuscBizChg:$(UpMuscBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpMuscBizChgOBJ) $(LIBS)
+
+UserSmsgMdenOBJ=UserSmsgMden.o $(PUBOBJ)
+UserSmsgMden:$(UserSmsgMdenOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserSmsgMdenOBJ) $(LIBS)
+
+NgBossStatChgOBJ=NgBossStatChg.o $(PUBOBJ)
+NgBossStatChg:$(NgBossStatChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(NgBossStatChgOBJ) $(LIBS)
+
+DsmpOrderSyncFaildedOBJ=DsmpOrderSyncFailded.o $(PUBOBJ)
+DsmpOrderSyncFailded:$(DsmpOrderSyncFaildedOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DsmpOrderSyncFaildedOBJ) $(LIBS)
+
+BatchOrderChgOBJ=BatchOrderChg.o $(PUBOBJ)
+BatchOrderChg:$(BatchOrderChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BatchOrderChgOBJ) $(LIBS)
+
+SyncUserOrderNewOBJ=SyncUserOrderNew.o $(PUBOBJ)
+SyncUserOrderNew:$(SyncUserOrderNewOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncUserOrderNewOBJ) $(LIBS)
+
+BatchOrderDealOBJ=BatchOrderDeal.o $(PUBOBJ)
+BatchOrderDeal:$(BatchOrderDealOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BatchOrderDealOBJ) $(LIBS)
+
+SyncObossConOBJ=SyncObossCon.o $(PUBOBJ)
+SyncObossCon:$(SyncObossConOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncObossConOBJ) $(LIBS)
+
+SyncObossDeadOBJ=SyncObossDead.o $(PUBOBJ)
+SyncObossDead:$(SyncObossDeadOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncObossDeadOBJ) $(LIBS)
+
+FuncRollbackOBJ=FuncRollback.o $(PUBOBJ)
+FuncRollback:$(FuncRollbackOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(FuncRollbackOBJ) $(LIBS)
+
+BatchVasOrderSyncOBJ=BatchVasOrderSync.o $(PUBOBJ)
+BatchVasOrderSync:$(BatchVasOrderSyncOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BatchVasOrderSyncOBJ) $(LIBS)
+
+SyncVasOrderQryOBJ=SyncVasOrderQry.o $(PUBOBJ)
+SyncVasOrderQry:$(SyncVasOrderQryOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncVasOrderQryOBJ) $(LIBS)
+
+SyncObossDocAddOBJ=SyncObossDocAdd.o $(PUBOBJ)
+SyncObossDocAdd:$(SyncObossDocAddOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncObossDocAddOBJ) $(LIBS)
+
+SyncObossDocOBJ=SyncObossDoc.o $(PUBOBJ)
+SyncObossDoc:$(SyncObossDocOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncObossDocOBJ) $(LIBS)
+
+SyncObossMarkOBJ=SyncObossMark.o $(PUBOBJ)
+SyncObossMark:$(SyncObossMarkOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncObossMarkOBJ) $(LIBS)
+
+SyncObossHighOBJ=SyncObossHigh.o $(PUBOBJ)
+SyncObossHigh:$(SyncObossHighOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncObossHighOBJ) $(LIBS)
+
+SyncSpInfoOBJ=SyncSpInfo.o $(PUBOBJ)
+SyncSpInfo:$(SyncSpInfoOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncSpInfoOBJ) $(LIBS)
+
+SyncSpInfoOldOBJ=SyncSpInfoOld.o $(PUBOBJ)
+SyncSpInfoOld:$(SyncSpInfoOldOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncSpInfoOldOBJ) $(LIBS)
+
+SyncSpBizInfoOldOBJ=SyncSpBizInfoOld.o $(PUBOBJ)
+SyncSpBizInfoOld:$(SyncSpBizInfoOldOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncSpBizInfoOldOBJ) $(LIBS)
+
+SyncSpBizInfoOBJ=SyncSpBizInfo.o $(PUBOBJ)
+SyncSpBizInfo:$(SyncSpBizInfoOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncSpBizInfoOBJ) $(LIBS)
+
+UserStatePimmOBJ=UserStatePimm.o $(PUBOBJ)
+UserStatePimm:$(UserStatePimmOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStatePimmOBJ) $(LIBS)
+
+UserStateNiapOBJ=UserStateNiap.o $(PUBOBJ)
+UserStateNiap:$(UserStateNiapOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateNiapOBJ) $(LIBS)
+
+UserStateMgisOBJ=UserStateMgis.o $(PUBOBJ)
+UserStateMgis:$(UserStateMgisOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateMgisOBJ) $(LIBS)
+
+UserStateMrbtOBJ=UserStateMrbt.o $(PUBOBJ)
+UserStateMrbt:$(UserStateMrbtOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateMrbtOBJ) $(LIBS)
+
+UserStateMuscBoxOBJ=UserStateMuscBox.o $(PUBOBJ)
+UserStateMuscBox:$(UserStateMuscBoxOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateMuscBoxOBJ) $(LIBS)
+
+DelMuscBoxDataOBJ=DelMuscBoxData.o HttpConnet.o $(PUBOBJ)
+DelMuscBoxData:$(DelMuscBoxDataOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DelMuscBoxDataOBJ) $(LIBS)
+
+UpPimmBizChgOBJ=UpPimmBizChg.o $(PUBOBJ)
+UpPimmBizChg:$(UpPimmBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpPimmBizChgOBJ) $(LIBS)
+
+UpWlanBizChgOBJ=UpWlanBizChg.o $(PUBOBJ)
+UpWlanBizChg:$(UpWlanBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpWlanBizChgOBJ) $(LIBS)
+
+SyncObossMsgOBJ=SyncObossMsg.o $(PUBOBJ)
+SyncObossMsg:$(SyncObossMsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncObossMsgOBJ) $(LIBS)
+
+UpRinpBizChgOBJ=UpRinpBizChg.o $(PUBOBJ)
+UpRinpBizChg:$(UpRinpBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpRinpBizChgOBJ) $(LIBS)
+
+UserStateRinpOBJ=UserStateRinp.o $(PUBOBJ)
+UserStateRinp:$(UserStateRinpOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateRinpOBJ) $(LIBS)
+
+UpNiapBizChgOBJ=UpNiapBizChg.o $(PUBOBJ)
+UpNiapBizChg:$(UpNiapBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpNiapBizChgOBJ) $(LIBS)
+
+SendWlanPwdOBJ=SendWlanPwd.o $(PUBOBJ)
+SendWlanPwd:$(SendWlanPwdOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SendWlanPwdOBJ) $(LIBS)
+
+UpCmmbBizRstOBJ=UpCmmbBizRst.o $(PUBOBJ)
+UpCmmbBizRst:$(UpCmmbBizRstOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpCmmbBizRstOBJ) $(LIBS)
+
+UpUpmsOrderRstOBJ=UpUpmsOrderRst.o $(PUBOBJ)
+UpUpmsOrderRst:$(UpUpmsOrderRstOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpUpmsOrderRstOBJ) $(LIBS)
+
+DealMpayPayReqOBJ=DealMpayPayReq.o $(PUBOBJ)
+DealMpayPayReq:$(DealMpayPayReqOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealMpayPayReqOBJ) $(LIBS)
+
+UpMpayPayRstOBJ=UpMpayPayRst.o $(PUBOBJ)
+UpMpayPayRst:$(UpMpayPayRstOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpMpayPayRstOBJ) $(LIBS)
+
+UserStatePpocOBJ=UserStatePpoc.o $(PUBOBJ)
+UserStatePpoc:$(UserStatePpocOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStatePpocOBJ) $(LIBS)
+
+UpPpocBizChgOBJ=UpPpocBizChg.o $(PUBOBJ)
+UpPpocBizChg:$(UpPpocBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpPpocBizChgOBJ) $(LIBS)
+
+PpocOrderCfmOBJ=PpocOrderCfm.o $(PUBOBJ)
+PpocOrderCfm:$(PpocOrderCfmOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(PpocOrderCfmOBJ) $(LIBS)
+
+FetchCompareDateOBJ=FetchCompareDate.o $(PUBOBJ)
+FetchCompareDate:$(FetchCompareDateOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(FetchCompareDateOBJ) $(LIBS)
+
+GenerateComDateOBJ=GenerateComDate.o $(PUBOBJ)
+GenerateComDate:$(GenerateComDateOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(GenerateComDateOBJ) $(LIBS)
+
+GetSpInfoMsgOBJ=GetSpInfoMsg.o $(PUBOBJ)
+GetSpInfoMsg:$(GetSpInfoMsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(GetSpInfoMsgOBJ) $(LIBS)
+
+GetSpBizInfoMsgOBJ=GetSpBizInfoMsg.o $(PUBOBJ)
+GetSpBizInfoMsg:$(GetSpBizInfoMsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(GetSpBizInfoMsgOBJ) $(LIBS)
+
+DealMarkGiftMsgOBJ=DealMarkGiftMsg.o $(PUBOBJ)
+DealMarkGiftMsg:$(DealMarkGiftMsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealMarkGiftMsgOBJ) $(LIBS)
+
+DealSpInfoMsgOBJ=DealSpInfoMsg.o $(PUBOBJ)
+DealSpInfoMsg:$(DealSpInfoMsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealSpInfoMsgOBJ) $(LIBS)
+
+DealSpInfoMsgOldOBJ=DealSpInfoMsgOld.o $(PUBOBJ)
+DealSpInfoMsgOld:$(DealSpInfoMsgOldOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealSpInfoMsgOldOBJ) $(LIBS)
+
+DealSpBizInfoMsgOBJ=DealSpBizInfoMsg.o $(PUBOBJ)
+DealSpBizInfoMsg:$(DealSpBizInfoMsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealSpBizInfoMsgOBJ) $(LIBS)
+
+GprsWlanOBJ=GprsWlan.o $(PUBOBJ)
+GprsWlan:$(GprsWlanOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(GprsWlanOBJ) $(LIBS)
+
+ReSendQryMsgOBJ=ReSendQryMsg.o $(PUBOBJ)
+ReSendQryMsg:$(ReSendQryMsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ReSendQryMsgOBJ) $(LIBS)
+
+UserStatFuncTxOBJ=UserStatFuncTx.o $(PUBOBJ)
+UserStatFuncTx:$(UserStatFuncTxOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStatFuncTxOBJ) $(LIBS)
+
+CheckResModeOBJ=CheckResMode.o $(PUBOBJ)
+CheckResMode:$(CheckResModeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(CheckResModeOBJ) $(LIBS)
+
+DealResModeOBJ=DealResMode.o $(PUBOBJ)
+DealResMode:$(DealResModeOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealResModeOBJ) $(LIBS)
+
+UserStateMpayOBJ=UserStateMpay.o $(PUBOBJ)
+UserStateMpay:$(UserStateMpayOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateMpayOBJ) $(LIBS)
+
+UserStateWlanOBJ=UserStateWlan.o $(PUBOBJ)
+UserStateWlan:$(UserStateWlanOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateWlanOBJ) $(LIBS)
+
+UserStateVshrOBJ=UserStateVshr.o $(PUBOBJ)
+UserStateVshr:$(UserStateVshrOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateVshrOBJ) $(LIBS)
+
+UpMiscBizOBJ=UpMiscBiz.o $(PUBOBJ)
+UpMiscBiz:$(UpMiscBizOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpMiscBizOBJ) $(LIBS)
+
+UserStateMcspOBJ=UserStateMcsp.o $(PUBOBJ)
+UserStateMcsp:$(UserStateMcspOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateMcspOBJ) $(LIBS)
+	
+UpMcspBizChgOBJ=UpMcspBizChg.o $(PUBOBJ)
+UpMcspBizChg:$(UpMcspBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpMcspBizChgOBJ) $(INCLUDE)  $(LIBS)
+	
+SyncDsmpInfoOBJ=SyncDsmpInfo.o $(PUBOBJ)
+SyncDsmpInfo:$(SyncDsmpInfoOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncDsmpInfoOBJ) $(LIBS)
+
+UserStatDeadDataOBJ=UserStatDeadData.o $(PUBOBJ)
+UserStatDeadData:$(UserStatDeadDataOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStatDeadDataOBJ) $(LIBS)
+
+UserStateYycpOBJ=UserStateYycp.o $(PUBOBJ)
+UserStateYycp:$(UserStateYycpOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateYycpOBJ) $(LIBS)
+	
+UserStateFuncRingOBJ=UserStateFuncRing.o $(PUBOBJ)
+UserStateFuncRing:$(UserStateFuncRingOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateFuncRingOBJ) $(LIBS)
+
+DsmpPunishCheckOBJ=DsmpPunishCheck.o $(PUBOBJ)
+DsmpPunishCheck:$(DsmpPunishCheckOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DsmpPunishCheckOBJ) $(LIBS)
+
+BatchDsmpOrderMailOBJ=BatchDsmpOrderMail.o $(PUBOBJ)
+BatchDsmpOrderMail:$(BatchDsmpOrderMailOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BatchDsmpOrderMailOBJ) $(LIBS)
+
+DealFectionpOBJ=DealFectionp.o $(PUBOBJ)
+DealFectionp:$(DealFectionpOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealFectionpOBJ) $(LIBS)
+
+UpdateCmmbOBJ=UpdateCmmb.o $(PUBOBJ)
+UpdateCmmb:$(UpdateCmmbOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpdateCmmbOBJ) $(LIBS)
+
+WlanBeginFuncOBJ=WlanBeginFunc.o $(PUBOBJ)
+WlanBeginFunc:$(WlanBeginFuncOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(WlanBeginFuncOBJ) $(LIBS)
+
+WlanStopFuncOBJ=WlanStopFunc.o $(PUBOBJ)
+WlanStopFunc:$(WlanStopFuncOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(WlanStopFuncOBJ) $(LIBS)
+
+RDelCardListOBJ=RDelCardList.o $(PUBOBJ)
+RDelCardList:$(RDelCardListOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RDelCardListOBJ) $(LIBS)
+
+###########MDO###############
+MdoQryHandlingOBJ=MdoQryHandling.o $(PUBOBJ)
+MdoQryHandling:$(MdoQryHandlingOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(MdoQryHandlingOBJ) $(LIBS)
+
+UpSurfBizChgOBJ=UpSurfBizChg.o $(PUBOBJ)
+UpSurfBizChg:$(UpSurfBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpSurfBizChgOBJ) $(LIBS)
+
+UserStateSurfOBJ=UserStateSurf.o $(PUBOBJ)
+UserStateSurf:$(UserStateSurfOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateSurfOBJ) $(LIBS)
+
+BatchMcasFailReSendOBJ=BatchMcasFailReSend.o $(PUBOBJ)
+BatchMcasFailReSend:$(BatchMcasFailReSendOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BatchMcasFailReSendOBJ) $(LIBS)
+
+BatchOrderCleanQryOBJ=BatchOrderCleanQry.o $(PUBOBJ)
+BatchOrderCleanQry:$(BatchOrderCleanQryOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BatchOrderCleanQryOBJ) $(LIBS)
+
+UpMpayRealInfoOBJ=UpMpayRealInfo.o $(PUBOBJ)
+UpMpayRealInfo:$(UpMpayRealInfoOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpMpayRealInfoOBJ) $(LIBS)
+
+UserStatePpmlOBJ=UserStatePpml.o $(PUBOBJ)
+UserStatePpml:$(UserStatePpmlOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStatePpmlOBJ) $(LIBS)
+
+UpPpmlBizChgOBJ=UpPpmlBizChg.o $(PUBOBJ)
+UpPpmlBizChg:$(UpPpmlBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpPpmlBizChgOBJ) $(LIBS)
+	
+GenerateComDateNewOBJ=GenerateComDateNew.o $(PUBOBJ)
+GenerateComDateNew:$(GenerateComDateNewOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(GenerateComDateNewOBJ) $(LIBS)
+
+FetchPointDataOBJ=FetchPointData.o $(PUBOBJ)
+FetchPointData:$(FetchPointDataOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(FetchPointDataOBJ) $(LIBS)
+
+BatchOneWapOrderSyncOBJ=BatchOneWapOrderSync.o $(PUBOBJ)
+BatchOneWapOrderSync:$(BatchOneWapOrderSyncOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BatchOneWapOrderSyncOBJ) $(LIBS)
+
+DsmpOrderCheckOBJ=DsmpOrderCheck.o $(PUBOBJ)
+DsmpOrderCheck:$(DsmpOrderCheckOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DsmpOrderCheckOBJ) $(LIBS)
+	
+SyncDsmpStateReissueOBJ=SyncDsmpStateReissue.o $(PUBOBJ)
+SyncDsmpStateReissue:$(SyncDsmpStateReissueOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SyncDsmpStateReissueOBJ) $(LIBS)
+	
+UpMdopBizChgOBJ=UpMdopBizChg.o $(PUBOBJ)
+UpMdopBizChg:$(UpMdopBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpMdopBizChgOBJ) $(LIBS)
+	
+UpHscsBizChgOBJ=UpHscsBizChg.o $(PUBOBJ)
+UpHscsBizChg:$(UpHscsBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpHscsBizChgOBJ) $(LIBS)
+	
+BatchDeadFuncSyncOBJ=BatchDeadFuncSync.o $(PUBOBJ)
+BatchDeadFuncSync:$(BatchDeadFuncSyncOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BatchDeadFuncSyncOBJ) $(LIBS)
+
+FetchDsamdatOBJ=FetchDsamdat.o $(PUBOBJ)
+FetchDsamdat:$(FetchDsamdatOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(FetchDsamdatOBJ) $(LIBS)
+	
+gHarmfulInfoDealOBJ=gHarmfulInfoDeal.o $(PUBOBJ)
+gHarmfulInfoDeal:$(gHarmfulInfoDealOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(gHarmfulInfoDealOBJ) $(LIBS)
+	
+UpMtxlBizChgOBJ=UpMtxlBizChg.o $(PUBOBJ)
+UpMtxlBizChg:$(UpMtxlBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpMtxlBizChgOBJ) $(LIBS)
+	
+UserStateMtxlOBJ=UserStateMtxl.o $(PUBOBJ)
+UserStateMtxl:$(UserStateMtxlOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateMtxlOBJ) $(LIBS)
+
+UpMpayCancelMsgOBJ=UpMpayCancelMsg.o $(PUBOBJ)
+UpMpayCancelMsg:$(UpMpayCancelMsgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpMpayCancelMsgOBJ) $(LIBS)
+
+DsmpDayCheckLoadOBJ=DsmpDayCheckLoad.o $(PUBOBJ)
+DsmpDayCheckLoad:$(DsmpDayCheckLoadOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DsmpDayCheckLoadOBJ) $(LIBS)
+
+RrecoverOBJ=Rrecover.o $(PUBOBJ)
+Rrecover:$(RrecoverOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(RrecoverOBJ) $(LIBS)
+	
+UpVoipBizChgOBJ=UpVoipBizChg.o $(PUBOBJ)
+UpVoipBizChg:$(UpVoipBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpVoipBizChgOBJ) $(LIBS)
+	
+UserStateVoipOBJ=UserStateVoip.o $(PUBOBJ)
+UserStateVoip:$(UserStateVoipOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateVoipOBJ) $(LIBS)
+	
+UpVoipSimChgOBJ=UpVoipSimChg.o $(PUBOBJ)
+UpVoipSimChg:$(UpVoipSimChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpVoipSimChgOBJ) $(LIBS)
+
+UpMuscMoreBizChgOBJ=UpMuscMoreBizChg.o $(PUBOBJ)
+UpMuscMoreBizChg:$(UpMuscMoreBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpMuscMoreBizChgOBJ) $(LIBS)
+	
+UserStateMcldOBJ=UserStateMcld.o $(PUBOBJ)
+UserStateMcld:$(UserStateMcldOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UserStateMcldOBJ) $(LIBS)
+
+UpMcldBizChgOBJ=UpMcldBizChg.o $(PUBOBJ)
+UpMcldBizChg:$(UpMcldBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpMcldBizChgOBJ) $(LIBS)
+	
+UpVgopBizChgOBJ=UpVgopBizChg.o $(PUBOBJ)
+UpVgopBizChg:$(UpVgopBizChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpVgopBizChgOBJ) $(LIBS)
+	
+UpImpsReplyOBJ=UpImpsReply.o $(PUBOBJ)
+UpImpsReply:$(UpImpsReplyOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpImpsReplyOBJ) $(LIBS)
+	
+UpReadReplyOBJ=UpReadReply.o $(PUBOBJ)
+UpReadReply:$(UpReadReplyOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpReadReplyOBJ) $(LIBS)
+	
+UpImpsBizChgInfoOBJ=UpImpsBizChgInfo.o $(PUBOBJ)
+UpImpsBizChgInfo:$(UpImpsBizChgInfoOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpImpsBizChgInfoOBJ) $(LIBS)
+	
+UpReadBizChgInfoOBJ=UpReadBizChgInfo.o $(PUBOBJ)
+UpReadBizChgInfo:$(UpReadBizChgInfoOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpReadBizChgInfoOBJ) $(LIBS)
+	
+UpOds3BizInfoOBJ=UpOds3BizInfo.o $(PUBOBJ)
+UpOds3BizInfo:$(UpOds3BizInfoOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpOds3BizInfoOBJ) $(LIBS)
+
+UpRinpContentOBJ=UpRinpContent.o $(PUBOBJ)
+UpRinpContent:$(UpRinpContentOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpRinpContentOBJ) $(LIBS)
+
+UpMboxBizChgInfoOBJ=UpMboxBizChgInfo.o $(PUBOBJ)
+UpMboxBizChgInfo:$(UpMboxBizChgInfoOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpMboxBizChgInfoOBJ) $(LIBS)
+
+UpMboxReplyOBJ=UpMboxReply.o $(PUBOBJ)
+UpMboxReply:$(UpMboxReplyOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpMboxReplyOBJ) $(LIBS)
+	
+BatchDsmpOrderResendOBJ=BatchDsmpOrderResend.o $(PUBOBJ)
+BatchDsmpOrderResend:$(BatchDsmpOrderResendOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BatchDsmpOrderResendOBJ) $(LIBS)
+
+#lixiaoxin
+GrpDealDifferenceOBJ=GrpDealDifference.o $(PUBOBJ) pubFunc.o 
+GrpDealDifference:$(GrpDealDifferenceOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(GrpDealDifferenceOBJ) $(LIBS)
+
+UpCashRspOBJ=UpCashRsp.o $(PUBOBJ)
+UpCashRsp:$(UpCashRspOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(UpCashRspOBJ) $(LIBS)
+
+DealRinpFileRspOBJ=DealRinpFileRsp.o $(PUBOBJ)
+DealRinpFileRsp:$(DealRinpFileRspOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealRinpFileRspOBJ) $(LIBS)
+
+####改号业务
+ChgPhNoSendOBJ=ChgPhNoSend.o pubFunc.o $(PUBOBJ)
+ChgPhNoSend:$(ChgPhNoSendOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(ChgPhNoSendOBJ) $(LIBS)
+	
+####CRM,BOSS数据一致性
+BatchDealComDateOBJ=BatchDealComDate.o $(PUBOBJ)
+BatchDealComDate:$(BatchDealComDateOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(BatchDealComDateOBJ) $(LIBS)
+	
+####CRM,BOSS数据一致性
+FetchDiffDateOBJ=FetchDiffDate.o $(PUBOBJ)
+FetchDiffDate:$(FetchDiffDateOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(FetchDiffDateOBJ) $(LIBS)
+
+###########电子券后台发送程序
+TicketSndOBJ=TicketSnd.o $(PUBOBJ) ump_sign2x.o
+TicketSnd:$(TicketSndOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(TicketSndOBJ) $(LIBS)
+	
+###########物联网个人用户状态变更数据生成
+DealIotUserChgOBJ=DealIotUserChg.o $(PUBOBJ)
+DealIotUserChg:$(DealIotUserChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(DealIotUserChgOBJ) $(LIBS)
+	
+###########物联网个人用户状态变更数据发送至平台
+SendIotUserChgOBJ=SendIotUserChg.o $(PUBOBJ)
+SendIotUserChg:$(SendIotUserChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SendIotUserChgOBJ) $(LIBS)
+
+###########物联网个人用户状态变更数据发送至平台
+SendIotUserChgOBJ=SendIotUserChg.o $(PUBOBJ)
+SendIotUserChg:$(SendIotUserChgOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SendIotUserChgOBJ) $(LIBS)
+
+###########物联网个人用户换卡申请发送至平台
+SendIotCardNumInfoOBJ=SendIotCardNumInfo.o $(PUBOBJ)
+SendIotCardNumInfo:$(SendIotCardNumInfoOBJ) $(PUBH)
+	$(CC) -o $(BINDIR)/$@ $(SendIotCardNumInfoOBJ) $(LIBS)
+###############################################
+.cp.c: $(PUBH)
+	$(PRECOMP) $(PROCFLAGS) $<
+	$(PUBLOGUTIL) $(<:.cp=.c)
+.pc.c: $(PUBH)
+	$(PRECOMP) $(PROCFLAGS) $<
+	$(PUBLOGUTIL) $(<:.pc=.c)
+.cp.o: $(PUBH)
+	$(PRECOMP) $(PROCFLAGS) $<
+	$(PUBLOGUTIL) $(<:.cp=.c)
+	$(CC) $(INCLUDE) -c $(<:.cp=.c)
+.pc.o: $(PUBH)
+	$(PRECOMP) $(PROCFLAGS) $<
+	$(PUBLOGUTIL) $(<:.pc=.c)
+	$(CC) $(INCLUDE) -c $(<:.pc=.c)
+.c.o: $(PUBH)
+	$(CC) $(INCLUDE) -c $<
+clean:
+	rm -f *.o
+	rm -f *.lis
+	rm -f pubdb.c eCred.c eOrderCheck.c BillExpire.c CaiLing_CHECK_IN.c BatchSendUserState.c FetchFeeBoss.c tCrmRemindFlag.c CleanExpireFund.c FundCompute.c CleanExpireFund.c pubBill.c BillMother.c creditCompute.c DnewIngwDeal.c markCompute.c yearMarkCompute.c usrStatUp.c wBillSmChg.c Present.c include13.c PresentYear.c SeasonPresent.c DealPhoneReserve.c FamilyMode.c MobpusRptFtp.c ModeSm.c ExpireMode.c UpDateLoginMsg.c sTermbindmonth.c sTermPresent.c sTermPub.c buildShortMsg.c getImsi.c readGetwayfile.c LogNoPassAwake.c CheckUser.c DengJi.c ReOpenJ.c ChangeSimid.c romateWriteCard.c crontabIAGW.c crontabIAGWRecvPrc.c sTermSendMsg.c ControlShortMsg.c BillDay.c DealGoodPhone.c sFtpreFee.c msicfeeawokemsg.c AdcBill.c DealAdcSign.c DealIagwSign.c Present1345buding.c dcustpasswdawake.c TBwBaseFavChgProm.c ModeRemind.c DcustPreFeeFile.c SynChWpay.c testMark.c dealMASECBusi.c dealMASECInfo.c dealMASSign.c dealMASSignRB.c sTermPresentbuding.c QueryServer.c CaiLingModeFuncEnd.c BillModeNum.c ExpireAwoke.c dRinpOrderInfoCfm.c R1860ScoKet.c IptCancel.c DcsDataFile.c simCardFTP.c eDcsDataFilej.c DcustSpBillpreFee.c PosPointCheck.c GprsAwake.c exportLog.c bamscmd.c SendCailmsg.c CailSendSmap.c BillMoBuding.c ModeCodePrePay.c DingwUserAdd.c ModeYycpSend.c SendMusicBagUser.c HappyFamilyConsume.c eProc.c ImsiLoad.c InterRoamChg.c ROPEN_139MAIL_FLYMSG.c RSatisfySend.c CleanPasswdtimes.c Syn4AMsg.c BlackListSuspenseDX.c BlackListSuspenseDH.c BlackListFtpBack.c DingwUserDelete.c CleanMarkPoint.c CleanHnMarkPoint.c GetChangeCd.c PassWdAwakePre.c TermImeiBindAwake.c PhoneOrder.c CanUserJICl.c DMTCMSG.c DealAdcSiBusi.c DealAdcSiInfo.c SendOutSideFee.c UpdateTicket.c ReOpenjMark.c scNoStopPhone.c UnGotoneExp.c InputDB.c OutputDB.c DealMasResp.c DealPubAdc.c DealPubAdcCfm.c DealAdcFile.c DealAdcFileCfm.c DealMiscFile.c DingwGenerateFile.c dTermbindmodeOpr.c DtermiNalOrder.c markTakeSmOut.c DealMark.c CleanYearMark.c YearMarkQuery.c markBefore.c markTakeOut.c dispatchCompute.c DLOGINMSG_OUT.c DCHNGROUPINFO_OUT.c DCHNGROUPMSG_OUT.c VIP_TELFEE_CHECK_OUT.c VIP_POINTS_CHECK_OUT.c BOCO_POINTS_CHECK_OUT.c IWGR_POINTS_CHECK_OUT.c VIP_POINTS_CHECK_IN.c VIP_TELFEE_CHECK_IN.c LIGHT_RAIL_CHECK_OUT.c LIGHT_RAIL_CHECK_IN.c logout_user.c TmpCancleRbt.c PhoneEPRePay.c PhoneGameDeposit_IN.c PhoneGameExpends_IN.c AgricultConce.c RemindModemsg.c RCancleMode.c RRemoveMode.c BlackListMsg.c DCHNGROUPINFO.c dMotiveMebMode.c DodgrpCancellation.c UpVshrBizChg.c UserStateVshr.c RQgame.c RQgameChk.c UpGprsUsing.c RTmpDeal.c AddGnFavour.c pubFunc.c DgiveJLNewsFav.c dBbossOrder.c DBbossSign.c dBbossSignFile.c RHappyFamily.c RCustTypeRing.c pubDataOrder.c CleanCustPresent.c CleanBillCustDetail.c CleanTermPresent.c CleanCustImeiMsgDetail.c NuserStopCrm.c AddMarkPoint07.c DealMarkGiftMsg.c DealMarkGiftMsg.c UserStatDeadData.c usrmcastest.c BatchMcasFailReSend.c BatchOrderCleanQry.c ChgPhNoSend.c DealIotUserChg.c SendIotUserChg.c SendIotCardNumInfo.c

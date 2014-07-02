@@ -1,0 +1,93 @@
+connect to OFFON success
+TIME:2012/02/23 17:28:20
+
+INSERT to db succ 8913905588|13610792741!
+TIME:2012/02/23 17:28:21
+
+SND:`BD`0QX:SJB         jifee     jifee                                     13504412391         8074227  080[272:104]
+TIME:2012/02/23 17:28:29
+
+RCV:`BD`1QX:SJB         jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/02/23 17:28:29
+
+INSERT to db succ 8913917763|13504412391!
+TIME:2012/02/23 17:28:29
+
+SND:`BD`0KT:NXT         jifee     jifee                                     13578762996         20120206010101AJL001090108[272:118]
+TIME:2012/02/23 17:28:29
+
+RCV:`BD`1KT:NXT         jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/02/23 17:28:29
+
+INSERT to db succ 8913917776|13578762996!
+TIME:2012/02/23 17:28:29
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13943020223         0  20120206201202062012020680742602001081[272:133]
+TIME:2012/02/23 17:28:29
+
+RCV:`BD`1KT:SJB         jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/02/23 17:28:29
+
+INSERT to db succ 8913917777|13943020223!
+TIME:2012/02/23 17:28:29
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13944934313         0  20120206201202062012020680742602001081[272:133]
+TIME:2012/02/23 17:28:29
+
+RCV:`BD`1KT:SJB         jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/02/23 17:28:29
+
+INSERT to db succ 8913917783|13944934313!
+TIME:2012/02/23 17:28:29
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13596027059         0  20120209201202092012020980742602001081[272:133]
+TIME:2012/02/23 17:28:29
+
+RCV:`BD`1KT:SJB         jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/02/23 17:28:29
+
+INSERT to db succ 8913917850|13596027059!
+TIME:2012/02/23 17:28:29
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13578642093         0  20120209201202092012020980742602301081[272:133]
+TIME:2012/02/23 17:28:29
+
+RCV:`BD`1KT:SJB         jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/02/23 17:28:29
+
+INSERT to db succ 8913917852|13578642093!
+TIME:2012/02/23 17:28:29
+
+SND:`BD`0QX:NXT         jifee     jifee                                     13504412391         AJL001090408[272:104]
+TIME:2012/02/23 17:28:29
+
+RCV:`BD`1QX:NXT         jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/02/23 17:28:29
+
+INSERT to db succ 8913919613|13504412391!
+TIME:2012/02/23 17:28:29
+
+SND:`BD`0QX:NXT         jifee     jifee                                     13504412391         AJL011990C08[272:104]
+TIME:2012/02/23 17:28:29
+
+RCV:`BD`1QX:NXT         jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/02/23 17:28:29
+
+INSERT to db succ 8913919614|13504412391!
+TIME:2012/02/23 17:28:29
+
+INSERT to db succ 8913923676|13844800675!
+TIME:2012/02/23 17:28:29
+
+process is killed
+TIME:2012/02/23 17:28:34
+
+connect to OFFON success
+TIME:2012/02/23 17:40:57
+
+INSERT to db succ 8913925617|13944869316!
+TIME:2012/02/23 17:40:57
+
+process is killed
+TIME:2012/02/23 17:41:44
+

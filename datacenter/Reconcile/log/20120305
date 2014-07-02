@@ -1,0 +1,15 @@
+connect to OFFON success
+TIME:2012/03/05 10:08:24
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13756512880         9d807408005[272:103]
+TIME:2012/03/05 10:08:24
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/03/05 10:08:25
+
+INSERT to db succ 8913937631|13756512880!
+TIME:2012/03/05 10:08:25
+
+process is killed
+TIME:2012/03/05 10:08:31
+

@@ -1,0 +1,880 @@
+#include "onoff.h"
+#include "datacenter.h"
+#include <sqlca.h>
+#include <onoff.h>
+#include <db_func.h>
+
+#define	DBLOGIN		"/mdblogin.cfg"
+#define	init(a)	memset(a,	0, sizeof(a))
+#define	ENCRYPTKEY "PLMOKNIJBUHYGVTFCRDXESZAQWqazwsxedcrfvtgbyhnujmikolp1234567890~`!@#$%^&*()-_+=|\[]{}.,><?/;:"
+
+
+void LogOut();
+int GenDaemon();
+int retbackcmd();
+
+int runflag;
+char user_name[32],user_pswd[32];
+char srv_addr[32],srv_port[32];
+char time_out[32];
+char sendname[64],backname[64];
+
+EXEC SQL INCLUDE SQLCA;
+
+EXEC SQL BEGIN DECLARE SECTION;
+    char sqlstmt[512+1];
+    char tmpsql[1024+1];
+    char command_id[20+1];
+	char id_no[32];
+	char hlr_code[4];
+	char phone_no[20+1];
+	char new_phone[15+1];
+	char imsi_no[20+1];
+	char new_imsi[20+1];
+	char other_char[60+1];
+	char cmd_type[20];
+	char business_status[8];
+	char command_code[8];
+	char srv_type[32];
+	char cmd_info[200];
+	char offon_server[32];
+	char offon_user[64];
+	char offon_pswd[32];
+	char cust_pswd[32];
+	char dest_pswd[32];
+	char cust_id[32];
+	char add_no[32];
+	char cust_name[60+1];
+	char autolenflag[1+1];
+	int  ret=0;
+	/*20120117 by miaoyl begin*/ 
+	int  iTotalNum=4;   	
+	char vSpId[6+1];
+	char vServiceID[10+1];
+	char vBeginTime[17+1];
+	char vEndTime[17+1];
+	char vCommonCodeOld[2+1];
+	/*20120117 by miaoyl end*/ 
+EXEC SQL END DECLARE SECTION;
+	
+int retcode;
+int TimeOut;
+
+int isphone(phoneno)
+char *phoneno;
+{
+  int val;
+
+  if(strlen(phoneno)!=11)
+    return -1;
+
+  if(phoneno[0]!='1' || phoneno[1]!='3')
+    return -1;
+
+  val=atoi(phoneno+2);
+  if(val<500000000 || val>999999999)
+    return -1;
+
+  return 0;
+}
+
+char *delspace(char *s)
+{
+  int i;
+
+  for(i=strlen(s)-1;i>=0;i--)
+    if(s[i]==' ' || s[i]=='\t')
+      s[i]=0x0;
+    else
+      break;
+
+  return s;
+}
+
+void catchalm(sig)
+int sig;
+{
+  signal(sig,SIG_IGN);
+  TimeOut=1;
+
+  return;
+}
+
+char*	Trim(char	*S)
+{
+	int	I	=	0, i = 0,	L	=	0;
+
+	if (!strstr(S, " ")) return	S;
+	
+	L	=	strlen(S)	-	1;
+	
+	I	=	0;
+	
+	while	(	(I <=	L) &&	(S[I]	<= ' ')	&& (S[I] > 0)	)
+	{
+		I	++;
+	}
+	if (I	>	L)
+	{
+		S[0] = '\0';
+	}
+	else
+	{
+		while	(	(S[L]	<= ' ')	 &&	(S[L]	>	0	)	)
+		{
+			L	--;
+		}
+		
+		strncpy(S, S + I,	L	+	1);
+		
+		S[L	+	1	-	I] = '\0';
+	}
+	
+	return S;
+}
+
+/************************************************************************
+函数名称:	unencrypt()
+编码时间:	2010/06/29
+编码人员:	liuweib
+功能描述:	用户，账户，客户密码加解密
+输入参数:	
+输出参数:	
+返 回	值:	0	代表加密,	1	解密
+************************************************************************/
+int	unencrypt(char * vPassWd,char	*	vEnPassWd, char	*	key, char	*flag	)
+{
+	char vKey[93+1];
+	char vFlag[1+1];
+	char vPassWord[8+1];
+	char vEnPassWord[8+1];
+	char *p=NULL;
+	char *q=NULL;
+	char i=0,j=0,k=0,len=0,size=0;
+	
+	init(vKey);
+	init(vFlag);
+	init(vPassWord);
+	init(vEnPassWord);
+	strcpy(vKey,key);
+	strcpy(vPassWord,vPassWd);
+	strcpy(vFlag,flag);
+	Trim(vFlag);
+	Trim(vPassWord);
+	Trim(vKey);
+	
+	p=vKey;
+	len	=	strlen(vPassWord);
+	/*
+	printf("p=[%s]\nvKey=[%s]\nflag=[%s]\nlen=[%d]\n",p,vKey,vFlag,len);
+	printf("vPassWord=[%s]\n",vPassWord);	*/
+	if(len <=	0)
+	{
+		return -2;
+	}
+	
+	if(strcmp(vFlag,"0")==0)
+	{
+		for(i=0;i<len;i++)
+		{	
+			size =((int)vPassWord[i]-48+i+1)*(len/2+1);
+			vEnPassWord[i] = vKey[size];
+			printf("vEnPassWord[%d]=[%c]\n",i,vEnPassWord[i]);
+		}
+		vEnPassWord[len]='\0';
+		strcpy(vEnPassWd,vEnPassWord);
+		Trim(vEnPassWd);
+		printf("vEnPassWord=[%s]\n",vEnPassWord);
+	}
+	else if(strcmp(vFlag,"1")==0)
+	{
+		for(i=0;i<len;i++)
+		{	
+			q=strchr(p,vPassWord[i]);
+			if(q)
+			{
+				k=q-p;
+			}
+			else if(!q)
+			{
+				return -3;
+			}
+			vEnPassWord[i]=k/(len/2+1)-i-1+48;
+			printf("vEnPassWord[%d]=[%c]\n",i,vEnPassWord[i]);
+		}
+		vEnPassWord[len]='\0';
+		strcpy(vEnPassWd,vEnPassWord);
+		Trim(vEnPassWd);
+		printf("vEnPassWord=[%s]\n",vEnPassWord);
+	}
+	else
+	{
+		return -4;
+	}
+	
+	return 0;
+}
+
+int cmd_deal(servtype,username,userpswd,data,ip,port,timeout)
+char *servtype;
+char *username;
+char *userpswd;
+char *data;
+char *ip;
+int port;
+int timeout;
+{
+  struct sockaddr_in srv_addr;
+  int sockid;
+  char buf[DATALEN+1];
+  int ret_no;
+  struct ServMsg *info;
+
+  memset(&srv_addr,0x0,sizeof(srv_addr));
+  srv_addr.sin_family=AF_INET;
+  srv_addr.sin_addr.s_addr=inet_addr(ip);
+  srv_addr.sin_port=htons(port);
+
+  sockid=socket(AF_INET,SOCK_STREAM,0);
+  if(sockid<0)
+    return -1;
+
+  TimeOut=0;
+  signal(SIGALRM,catchalm);
+  alarm(timeout);
+  
+  if(connect(sockid,(struct sockaddr *)&srv_addr,sizeof(srv_addr))<0)
+  {
+    if(TimeOut)
+      return -100;
+    else
+      return -2;
+  }
+  
+  printf("connect OK!\n");
+
+  memset(buf,0x0,sizeof(buf));
+  info=(struct ServMsg *)buf;
+
+  memcpy(info->msgflag,MSGFLAG,4);
+  info->msgtype[0]=REQ_MSG;
+  sprintf(info->servtype,"%- 15s",servtype);
+  sprintf(info->username,"%- 10s",username);
+  sprintf(info->userpswd,"%- 10s",userpswd);
+  memcpy(info->msgno,"                ",16);
+  memcpy(info->reserved,"                ",16);
+  strcpy(info->msgbody,delspace(data));
+  
+/*
+memset(info->msgbody,' ',200);
+delspace(data);
+memcpy(info->msgbody,data,strlen(data));
+*/
+
+  printf("SND:%s[%d:%d]\n",buf,DATALEN,strlen(buf));
+  s_debug("SND:%s[%d:%d]\n",buf,DATALEN,strlen(buf));
+
+  if(writenet(sockid,buf,DATALEN)<0)
+  {
+    close(sockid);
+
+    if(TimeOut)
+      return -100;
+    else
+      return -3;
+  }
+
+  memset(buf,0x0,sizeof(buf));
+  if(readnet(sockid,buf,DATALEN)<=0)
+  {
+    close(sockid);
+
+    if(TimeOut)
+      return -100;
+    else
+      return -4;
+  }
+  printf("RCV:%s[%d]\n",buf,DATALEN);
+  s_debug("RCV:%s[%d]\n",buf,DATALEN);
+
+  signal(SIGALRM,SIG_IGN);
+  close(sockid);
+
+  if(strncmp(info->msgflag,MSGFLAG,4))
+    return -11;
+
+  if(strncmp(info->msgbody,"RETN=",5))
+    return -12;
+  	
+  /*RETN=00000;表示有订购关系*/	
+  if(strncmp(info->msgbody+5,"00000",5)==0) 
+  {	
+	  /*单业务查询接口返回 QRYORDER "QRY:ORDER"*/  
+	  if(strncmp(info->msgflag+5,QRYORDER,9)==0)
+	  		iTotalNum=1;
+	  else if(strncmp(info->msgflag+5,COLTRANS,5)==0) /*COLTRANS "COL:TRANS"*/
+	  {
+	  		if(strncmp(info->msgbody+11,COLDATA,5)==0) /*COLDATA  "DATA="*/
+	  		{
+	  			iTotalNum=atoi(info->msgbody+16);
+	  		}	
+	  }
+  }	
+  else if(atoi(info->msgbody+5)==2)
+  {
+  		/*RETN=00002;表示该操作失败*/
+  		iTotalNum=2;
+  }
+  else if(atoi(info->msgbody+5)==1)
+  {
+  	  	/*RETN=00001; 表示无订购关系*/
+  		iTotalNum=3;
+  }		
+  
+  return atoi(info->msgbody+5);
+}
+
+void mmadd(char *str,char *user,char *pswd,char *name)
+{
+	char dbuser[128],dbpswd[128],dbname[128];
+	char tmp[8];
+	int i,len;
+
+	memset(dbuser,0x0,sizeof(dbuser));
+	memset(dbpswd,0x0,sizeof(dbpswd));
+	memset(dbname,0x0,sizeof(dbname));
+
+	for(i=0,len=strlen(user);i<len;i++)
+	{
+		memset(tmp,0x0,sizeof(tmp));
+		sprintf(tmp,"%02x",user[i]-0x10);
+		strcat(dbuser,tmp);
+	}
+
+	for(i=0,len=strlen(pswd);i<len;i++)
+	{
+		memset(tmp,0x0,sizeof(tmp));
+		sprintf(tmp,"%02x",pswd[i]-0x10);
+		strcat(dbpswd,tmp);
+	}
+
+	for(i=0,len=strlen(name);i<len;i++)
+	{
+		memset(tmp,0x0,sizeof(tmp));
+		sprintf(tmp,"%02x",name[i]-0x10);
+		strcat(dbname,tmp);
+	}
+
+	sprintf(str,"mmtext%s10%s10%s\0",dbuser,dbpswd,dbname);
+
+	return;
+}
+
+void mmdel(char *str,char *user,char *pswd,char *name)
+{
+	char tmp[256],dbstr[256];
+	int i,len;
+
+	memset(dbstr,0x0,sizeof(dbstr));
+	memset(tmp,0x0,sizeof(tmp));
+	strcpy(tmp,str+6);
+
+	for(i=0,len=strlen(tmp);i<len;i+=2)
+	{
+		if(tmp[i+1]>='a')
+			dbstr[i/2]=((tmp[i]-'0')*16+(tmp[i+1]-'a'+10))+0x10;
+		else
+			dbstr[i/2]=((tmp[i]-'0')*16+(tmp[i+1]-'0'))+0x10;
+	}
+
+	sscanf(dbstr,"%s%s%s",user,pswd,name);
+
+	return;
+}
+
+int main(int argc,char **argv)
+{
+	int i,ret,num_count;
+	char retcodestr[4],flag[2],cmdstr[128],cmdpara[8],tmpstr[128];
+	time_t start,finish;
+	double elapsed_time;
+	FILE *fp;
+	int filemode;
+	char dclogin[256];
+
+	if(argc!=2)
+	{
+		printf("Usage:%s cfg_file\n\nVERSION:v1.1\n\n",argv[0]);
+		exit(1);
+	}
+
+	memset(dclogin,0x0,sizeof(dclogin));
+	strcpy(dclogin,argv[1]);
+
+	runflag=0;
+
+	/*---------------- Created stand daemon process-------------------- */
+    if (GenDaemon()<0) {
+        s_debug("Run gsmmaster fail![%s] [%d]\n",__FILE__,__LINE__);
+        printf("\nRun gsmmaster failed !!\n");
+        exit(1);
+    }
+
+	signal(SIGTERM,LogOut);
+	signal(SIGPIPE,SIG_IGN);
+	signal(SIGCLD,SIG_IGN);
+
+	memset(user_name,0x0,sizeof(user_name));
+	memset(user_pswd,0x0,sizeof(user_pswd));
+	memset(srv_addr,0x0,sizeof(srv_addr));
+	memset(srv_port,0x0,sizeof(srv_port));
+	memset(time_out,0x0,sizeof(time_out));
+	memset(offon_server,0x0,sizeof(offon_server));
+	memset(offon_user,0x0,sizeof(offon_user));
+	memset(offon_pswd,0x0,sizeof(offon_pswd));
+	memset(vSpId,0x0,sizeof(vSpId));
+	memset(vServiceID,0x0,sizeof(vServiceID));
+	memset(vBeginTime,0x0,sizeof(vBeginTime));
+	memset(vEndTime,0x0,sizeof(vEndTime));
+	memset(vCommonCodeOld,0x0,sizeof(vCommonCodeOld));
+	
+	printf("will get ETCDIR!\n");
+	printf("dclogin[0][%c]\n",dclogin[0]);
+	memset(cmdstr,0x0,sizeof(cmdstr));
+	if(dclogin[0]=='/')
+		strcpy(cmdstr,dclogin);
+	else
+		sprintf(cmdstr,"%s/%s",getenv("ETCDIR"),dclogin);
+		
+	printf("dclogin cmdstr=[%s]\n",cmdstr);
+
+	fp=fopen(cmdstr,"r");
+	if(fp==NULL)
+	{
+		s_debug("fopen(%s,r) failed\n",cmdstr);
+		exit(1);
+	}
+
+	/*
+	memset(tmpstr,0x0,sizeof(tmpstr));
+	fscanf(fp,"%s%s%s%s",tmpstr,offon_user,offon_pswd,offon_server);
+	if(strcmp(tmpstr,"OFFON"))
+	{
+		printf("configure file error\n");
+		fclose(fp);
+		exit(1);
+	}
+	*/
+
+	memset(sendname,0x0,sizeof(sendname));
+	memset(backname,0x0,sizeof(backname));
+	
+	
+	fscanf(fp,"%s%s%s%s%s%s%s",sendname,backname,user_name,user_pswd,srv_addr,srv_port,time_out);
+	fclose(fp);
+
+	memset(cmdstr,0x0,sizeof(cmdstr));
+	strcpy(cmdstr,getenv("ETCDIR"));
+	strcat(cmdstr,DBLOGIN);
+	printf("DBLOGIN cmdstr=[%s]\n",cmdstr);
+	fp=fopen(cmdstr,"r");
+	if(fp==NULL)
+	{
+		s_debug("can't open %s for read[%d]\n",cmdstr,errno);		
+		exit(1);
+	}
+
+	memset(tmpstr,0x0,sizeof(tmpstr));
+	fgets(tmpstr,sizeof(tmpstr),fp);
+
+	if(strncmp(tmpstr,"mmtext",6)==0)
+	{
+		mmdel(tmpstr,offon_user,offon_pswd,offon_server);
+	}
+	else
+	{
+		sscanf(tmpstr,"%s%s%s",offon_user,offon_pswd,offon_server);
+	}
+	fclose(fp);
+	
+	
+	EXEC SQL WHENEVER SQLERROR DO error_handler();
+	EXEC SQL WHENEVER SQLWARNING DO warning_handler();
+	EXEC SQL WHENEVER NOT FOUND CONTINUE;
+
+
+	EXEC SQL CONNECT :offon_user IDENTIFIED by :offon_pswd
+		using :offon_server;
+
+	if(SQLCODE)
+	{
+		s_debug("can't connect to OFFON \n");
+		printf("offon_user=====%s~\n",offon_user);
+		printf("offon_pswd=====%s~\n",offon_pswd);
+		printf("offon_server===%s~\n",offon_server);
+		exit(1);
+	}
+	else
+		s_debug("connect to OFFON success\n");
+
+	while(1)
+	{
+	    runflag=0;
+		memset(add_no,0x0,sizeof(add_no));
+
+	    memset(cmd_info,0,sizeof(cmd_info));
+
+
+        ret=getcommand(sendname);
+
+		printf("getcommand()===%d\n",ret);
+	    if (ret<0)
+	    {
+			s_debug("Err:3840 return %d from database\n",ret);
+			exit(1);
+	    }
+	    else if(ret==0)
+	    {
+			printf("Now no any datas in database!\n");
+			sleep(8);
+			continue;
+	    }
+		else if(ret>1)
+		{
+			ret=retbackcmd(sendname,backname);
+			sleep(8);
+			continue;
+		}
+
+		memset(cmd_type,0x0,sizeof(cmd_type));
+		memset(cmd_info,0x0,sizeof(cmd_info));
+		memset(autolenflag,0x0,sizeof(autolenflag));
+
+		strcat(command_code,business_status);
+		printf("command_code==%s[%d]\n",command_code,atoi(command_code));
+		
+		/*取得命令名称和命令体*/		
+		EXEC SQL  select cmdname,cmdinfo,autolenflag into :cmd_type,:cmd_info,:autolenflag from ccmdinfo 
+			  where cmdcode=:command_code;
+			  
+		/*做相关指令变量的替换*/  
+		if(SQLCODE==0)
+		{
+			
+			printf("cmd_type=[%s][%s]\n",cmd_type,cmd_info);			
+			if (atoi(autolenflag)==0)
+			{					 	
+			 	EXEC SQL select freplace(:cmd_info,'$1',:phone_no,'$2',:new_phone,'$3',:imsi_no,'$4',:new_imsi,'$5',:other_char) into :cmd_info from dual;		 	
+			 	printf("cmdinfo1=[%s],sqlcode=[%d]\n",cmd_info,SQLCODE);
+			}
+		 	else
+		 	{
+		 		EXEC SQL select freplace(:cmd_info,'#1',:phone_no,'#2',:new_phone,'#3',:imsi_no,'#4',:new_imsi,'#5',:other_char) into :cmd_info from dual;		 	
+			 	printf("cmdinfo2=[%s],sqlcode=[%d]\n",cmd_info,SQLCODE);
+		 	}				
+		}
+		else
+		{
+			ret=retbackcmd(sendname,backname);
+			sleep(8);
+			continue;
+		};
+
+	        runflag=1;
+
+		printf("cmd_info==%s~\n",cmd_info);
+		retcode=cmd_deal(cmd_type,user_name,user_pswd,cmd_info,srv_addr,atoi(srv_port),atoi(time_out));
+		printf("cmd_deal()==%d\n",retcode);
+
+		if(retcode==0)
+			retcode=3999;
+		else if(retcode<0)
+			break;
+		else
+			retcode+=3700;
+
+		ret=retbackcmd(sendname,backname);
+	}
+}
+
+int retbackcmd(char *sendname,char *backname)
+{
+	
+	delspace(phone_no);
+	delspace(command_code);
+	delspace(business_status);
+	delspace(new_phone);
+	delspace(imsi_no);
+	delspace(new_imsi);
+	delspace(other_char);
+	command_code[2]=0;
+	memset(tmpsql,0x0,sizeof(tmpsql));
+    sprintf(tmpsql, "UPDATE %s SET send_status='1',send_time=sysdate WHERE command_id= to_number(:v1)",sendname);
+
+    EXEC SQL PREPARE stmt FROM :tmpsql;
+    EXEC SQL EXECUTE stmt using :command_id;
+    EXEC SQL COMMIT WORK;
+
+	/* 向命令接收表中插入记录 */
+    memset(sqlstmt, 0, sizeof(sqlstmt));
+    sprintf(sqlstmt, "INSERT INTO %s VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,:v6)",backname);
+
+    EXEC SQL PREPARE stmt FROM :sqlstmt;
+    EXEC SQL EXECUTE stmt using :command_id,:hlr_code,:phone_no,:new_phone,:retcode,:iTotalNum;
+    if (SQLCODE != SQL_OK)
+    {
+		printf("sqlstmt=[%s]\n",sqlstmt);
+        runflag=0;
+
+        s_debug("write to db fail! 111 sqlstmt=[%s],retry......\n",sqlstmt);
+
+        EXEC SQL COMMIT WORK;
+
+        sleep(60);
+        EXEC SQL EXECUTE stmt using :command_id,:hlr_code,:phone_no,:command_code,:retcode,:iTotalNum;
+        if (SQLCODE != SQL_OK)
+        {
+            s_debug("write to db fail! 111 sqlstmt=[%s]\n",sqlstmt);
+
+            EXEC SQL COMMIT WORK;
+        }
+        else
+        {
+            runflag=3;
+
+            printf("INSERT to db succ %s|%s!\n",command_id,phone_no);
+            s_debug("INSERT to db succ %s|%s!\n",command_id,phone_no);
+            EXEC SQL COMMIT WORK;
+        }
+    }
+    else
+    {
+        s_debug("INSERT to db succ %s|%s!\n",command_id,phone_no);
+        EXEC SQL COMMIT WORK;
+    }
+
+    return(1);
+}
+
+/*
+int Dbclose()
+{
+        EXEC SQL DISCONNECT default;
+
+	return SQLCODE;
+}
+*/
+
+void error_handler()
+{
+	s_debug("====EXEC SQL ERROR BEGIN\n");
+	s_debug("====sqlca.sqlcode=[%d],sqlca.sqlerrm.sqlerrmc=[%s]\n",\
+              sqlca.sqlcode,sqlca.sqlerrm.sqlerrmc);
+	s_debug("====EXEC SQL ERROR END\n");
+}
+
+void warning_handler()
+{
+	s_debug("----EXEC SQL WARNING BEGIN\n");
+	s_debug("----sqlca.sqlcode=[%d],sqlca.sqlerrm.sqlerrmc=[%s]\n",\
+              sqlca.sqlcode,sqlca.sqlerrm.sqlerrmc);
+        s_debug("----EXEC SQL WARNING END\n");
+}
+
+char *delespace(char *source)
+{
+	int i,n;
+
+	n=strlen(source);
+
+	for(i=0;i<n;i++)
+	{
+		if(source[i]==' ')
+		{
+			source[i]=0x0;
+			break;
+		}
+	}
+
+	return source;
+}
+
+
+/* 取一条数据 */
+int getcommand(char *sendname)
+{
+	char vBusiness[1+1];
+	
+	memset(vBusiness, 0, sizeof(vBusiness));
+	memset(command_id, 0, sizeof(command_id));
+	memset(command_code, 0, sizeof(command_code));
+	memset(business_status,0,sizeof(business_status));
+	memset(id_no, 0, sizeof(id_no));
+	memset(phone_no, 0, sizeof(phone_no));
+	memset(hlr_code, 0, sizeof(hlr_code));
+	memset(new_phone, 0, sizeof(new_phone));
+	memset(imsi_no, 0, sizeof(imsi_no));
+	memset(new_imsi, 0, sizeof(new_imsi));
+	memset(other_char, 0, sizeof(other_char));
+	memset(vBeginTime,0x0,sizeof(vBeginTime));
+	memset(vEndTime,0x0,sizeof(vEndTime));
+
+	SQLCODE = SQL_OK;
+	
+	EXEC SQL SELECT to_char(sysdate,'yyyymmddhhmiss'),to_char(sysdate,'yyyymmddhhmiss') INTO :vBeginTime,:vEndTime FROM DUAL;
+	if (SQLCODE != 0)
+	{	
+	    return 0;
+	}
+
+	memset(tmpsql, 0, sizeof(tmpsql));
+	sprintf(tmpsql, "SELECT to_char(command_id),nvl(hlr_code,''),to_char(id_no),nvl(phone_no,''),nvl(command_code,''),nvl(business_status,''),nvl(new_phone,''),nvl(imsi_no,''),nvl(new_imsi,''),nvl(other_char,'') From %s WHERE send_status='0' ",sendname);
+
+	EXEC SQL PREPARE input_sql FROM :tmpsql;
+	EXEC SQL DECLARE CUR_cmd CURSOR FOR input_sql;
+
+	EXEC SQL OPEN CUR_cmd;
+	EXEC SQL FETCH CUR_cmd INTO :command_id,:hlr_code,:id_no,
+		:phone_no,:command_code,:business_status,:new_phone,:imsi_no,:new_imsi,:other_char;
+
+	if (SQLCODE == NO_MORE_ROWS)
+	{
+	    EXEC SQL CLOSE CUR_cmd;
+	    EXEC SQL COMMIT WORK;
+	
+	    return 0;
+	}
+	else if (SQLCODE != SQL_OK)
+	{
+        s_debug("tmpsql==[%s]\n",tmpsql);
+	    EXEC SQL CLOSE CUR_cmd;
+	    EXEC SQL COMMIT WORK;
+
+	    return -1;
+	}
+
+    EXEC SQL CLOSE CUR_cmd;
+    EXEC SQL COMMIT WORK;
+
+	delspace(command_id);
+	delspace(id_no);
+	delspace(hlr_code);
+	delspace(phone_no);
+	delspace(command_code);
+	delspace(business_status);
+	delspace(new_phone);
+	delspace(imsi_no);
+	delspace(new_imsi);
+	delspace(other_char);
+	delspace(vBusiness);
+	strcpy(vSpId,"999999");
+	strcpy(vServiceID,"0000000000");
+	
+	/*单业务查询接口*/
+	if(strcmp(command_code,"dz")==0 && strcmp(business_status,"o")==0)
+	{
+		if(strlen(imsi_no)!=0)
+		{	
+			memset(vSpId,0x0,sizeof(vSpId));
+			sprintf(vSpId,"%s",imsi_no);
+		}	
+			
+		if(strlen(new_imsi)!=0)	
+		{	
+			memset(vServiceID,0x0,sizeof(vServiceID));
+			sprintf(vServiceID,"%s",new_imsi);
+		}	
+	}
+	
+	/*增量汇总查询接口*/
+	if(strcmp(command_code,"dz")==0 && strcmp(business_status,"t")==0)/*对账*/
+	{
+		if(strlen(imsi_no)!=0)
+		{	
+			memset(vBeginTime,0x0,sizeof(vBeginTime));
+			sprintf(vBeginTime,"%s",imsi_no);
+		}
+			
+		if(strlen(new_imsi)!=0)	
+		{	
+			memset(vEndTime,0x0,sizeof(vEndTime));
+			sprintf(vEndTime,"%s",new_imsi);
+		}
+	}
+	
+	printf("vSpId=%s\n",vSpId);
+	printf("vServiceID=%s\n",vServiceID);
+	printf("vBeginTime=%s\n",vBeginTime);
+	printf("vEndTime=%s\n",vEndTime);
+
+    return 1;
+}
+
+void  IgnoreAllSignal();
+
+int
+GenDaemon()
+{
+int childpid,fd;
+int flag;
+
+	if (getppid()==1) {
+		chdir ("/");
+		umask(0);
+		IgnoreAllSignal();
+		return 0;
+	}
+	
+	IgnoreAllSignal();
+	if ((childpid = fork())<0 ) {
+		s_debug("can't fork first child %s %d\n",__FILE__,__LINE__);
+		exit(-1);
+	}
+	else
+		if (childpid > 0)
+			exit(0);
+	/*---if ((flag=setpgrp()) == -1) {
+		s_debug("set process group err %s %d\n",__FILE__,__LINE__);
+		exit(-2);
+	}----*/
+
+	IgnoreAllSignal();
+	if ((childpid = fork()) < 0) {
+		s_debug("can't fork fist child %s %d\n",__FILE__,__LINE__);
+		exit(-3);
+	}
+	else 
+		if (childpid > 0)
+			exit(0);
+
+	for (fd=3; fd<=SNOFILE;fd++)
+		close (fd);
+	
+	chdir("/");
+	umask(0);
+	IgnoreAllSignal();
+	return 0;
+}
+
+
+
+void
+IgnoreAllSignal()
+{
+struct sigaction act;
+
+	act.sa_handler = SIG_IGN;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags=0;
+	sigaction(SIGHUP,&act,NULL);
+	sigaction(SIGCHLD,&act,NULL); 
+	sigaction(SIGQUIT,&act,NULL);
+	
+	return ;
+}
+
+void LogOut(int sig)
+{
+	s_debug("process is killed\n");
+	exit(1);
+}

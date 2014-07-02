@@ -1,0 +1,78 @@
+connect to OFFON success
+TIME:2011/12/06 08:32:04
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13944869316         9g2011120100000020111205235900[272:122]
+TIME:2011/12/06 08:32:04
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2011/12/06 08:32:15
+
+INSERT to db succ 8913804585|13944869316!
+TIME:2011/12/06 08:32:15
+
+process is killed
+TIME:2011/12/06 08:32:55
+
+connect to OFFON success
+TIME:2011/12/06 09:28:00
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13944869316         9g2011120100000020111205235900[272:122]
+TIME:2011/12/06 09:29:21
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2011/12/06 09:29:21
+
+INSERT to db succ 8913804585|13944869316!
+TIME:2011/12/06 09:29:21
+
+process is killed
+TIME:2011/12/06 09:29:34
+
+connect to OFFON success
+TIME:2011/12/06 10:02:16
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13944869316         9g2011120100000020111205235900[272:122]
+TIME:2011/12/06 10:02:34
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00000 DATA=0                                                                                                                                                                                       [272]
+TIME:2011/12/06 10:02:34
+
+INSERT to db succ 8913804585|13944869316!
+TIME:2011/12/06 10:02:34
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13944869316         9g907322AJL011[272:106]
+TIME:2011/12/06 10:02:58
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2011/12/06 10:02:58
+
+INSERT to db succ 8913804585|13944869316!
+TIME:2011/12/06 10:02:59
+
+process is killed
+TIME:2011/12/06 10:03:14
+
+connect to OFFON success
+TIME:2011/12/06 10:09:39
+
+SND:`BD`0QX:NXT         jifee     jifee                                     18843102019         AJL001090102[272:104]
+TIME:2011/12/06 10:09:39
+
+RCV:`BD`1QX:NXT         jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2011/12/06 10:09:39
+
+INSERT to db succ 8913893593|18843102019!
+TIME:2011/12/06 10:09:39
+
+SND:`BD`0KT:NXT         jifee     jifee                                     18843102019         20111202010101AJL001090102[272:118]
+TIME:2011/12/06 10:09:39
+
+RCV:`BD`1KT:NXT         jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2011/12/06 10:09:39
+
+INSERT to db succ 8913893594|18843102019!
+TIME:2011/12/06 10:09:40
+
+process is killed
+TIME:2011/12/06 10:09:54
+

@@ -1,0 +1,1 @@
+aCC -o TcpServer  TcpServer.o PubFunc.o SysVar.o -L/bea/tuxedo8.1/lib -lbuft -lfml -lfml32

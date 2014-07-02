@@ -1,0 +1,925 @@
+can't open /iboss1/offon/datacenter/Reconcile/cfg/mdblogin.cfg for read[2]
+TIME:2012/01/17 09:52:54
+
+connect to OFFON success
+TIME:2012/01/17 09:54:16
+
+SND:`BD`0QRY:ORDER      reconcile reconcile                                 13944869316         9g907322AJL011[272:106]
+TIME:2012/01/17 09:55:12
+
+connect to OFFON success
+TIME:2012/01/17 10:01:12
+
+SND:`BD`0QRY:ORDER      reconcile reconcile                                 13944869316         9g907322AJL0119913[272:110]
+TIME:2012/01/17 10:01:12
+
+connect to OFFON success
+TIME:2012/01/17 10:10:06
+
+SND:`BD`0QRY:ORDER      reconcile reconcile                                 13944869316         9g907322AJL0119913[272:110]
+TIME:2012/01/17 10:10:06
+
+connect to OFFON success
+TIME:2012/01/17 10:19:28
+
+SND:`BD`0QRY:ORDER      reconcile reconcile                                 13944869316         9g907322AJL0119913[272:110]
+TIME:2012/01/17 10:19:28
+
+connect to OFFON success
+TIME:2012/01/17 10:21:25
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13944869316         9g907322AJL0119913[272:110]
+TIME:2012/01/17 10:21:25
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2012/01/17 10:21:25
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 10:21:25
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 10:21:25
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 10:21:25
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 10:21:25
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 10:21:25
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 10:21:25
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')],retry......
+TIME:2012/01/17 10:21:25
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 10:21:55
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 10:21:55
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 10:21:55
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')]
+TIME:2012/01/17 10:21:55
+
+process is killed
+TIME:2012/01/17 10:22:37
+
+connect to OFFON success
+TIME:2012/01/17 11:25:14
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0119913[272:110]
+TIME:2012/01/17 11:25:46
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2012/01/17 11:25:46
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 11:25:46
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 11:25:46
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 11:25:46
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 11:25:46
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 11:25:46
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 11:25:46
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')],retry......
+TIME:2012/01/17 11:25:46
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 11:26:16
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 11:26:16
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 11:26:16
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')]
+TIME:2012/01/17 11:26:16
+
+process is killed
+TIME:2012/01/17 11:26:28
+
+connect to OFFON success
+TIME:2012/01/17 11:30:40
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0119911[272:110]
+TIME:2012/01/17 11:30:40
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2012/01/17 11:30:40
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 11:30:40
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 11:30:40
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 11:30:40
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 11:30:40
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 11:30:40
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 11:30:40
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')],retry......
+TIME:2012/01/17 11:30:40
+
+connect to OFFON success
+TIME:2012/01/17 11:31:07
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0119901[272:110]
+TIME:2012/01/17 11:31:07
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2012/01/17 11:31:07
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 11:31:07
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 11:31:07
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 11:31:07
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 11:31:07
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 11:31:07
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 11:31:07
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')],retry......
+TIME:2012/01/17 11:31:07
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 11:31:10
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 11:31:10
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 11:31:10
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')]
+TIME:2012/01/17 11:31:10
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 11:31:37
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 11:31:37
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 11:31:37
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')]
+TIME:2012/01/17 11:31:37
+
+process is killed
+TIME:2012/01/17 11:34:16
+
+process is killed
+TIME:2012/01/17 11:34:16
+
+connect to OFFON success
+TIME:2012/01/17 11:40:56
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 11:41:12
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2012/01/17 11:41:13
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 11:41:13
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 11:41:13
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 11:41:13
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 11:41:13
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 11:41:13
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 11:41:13
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')],retry......
+TIME:2012/01/17 11:41:13
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 11:41:42
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 11:41:42
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 11:41:42
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')]
+TIME:2012/01/17 11:41:42
+
+process is killed
+TIME:2012/01/17 11:41:47
+
+connect to OFFON success
+TIME:2012/01/17 13:26:20
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 13:26:36
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 13:26:38
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 13:26:38
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 13:26:38
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 13:26:38
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 13:26:38
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 13:26:38
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 13:26:38
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')],retry......
+TIME:2012/01/17 13:26:38
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 13:27:06
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 13:27:06
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 13:27:06
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O')]
+TIME:2012/01/17 13:27:06
+
+process is killed
+TIME:2012/01/17 13:28:13
+
+connect to OFFON success
+TIME:2012/01/17 14:11:11
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 14:11:11
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 14:11:11
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 14:11:11
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 14:11:11
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 14:11:11
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 14:11:11
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 14:11:11
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 14:11:11
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O',:v6)],retry......
+TIME:2012/01/17 14:11:11
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 14:11:41
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 14:11:41
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 14:11:41
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O',:v6)]
+TIME:2012/01/17 14:11:41
+
+process is killed
+TIME:2012/01/17 14:12:13
+
+connect to OFFON success
+TIME:2012/01/17 14:14:08
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 14:14:24
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 14:14:24
+
+INSERT to db succ 8913804585|15843676120!
+TIME:2012/01/17 14:14:24
+
+process is killed
+TIME:2012/01/17 14:16:10
+
+connect to OFFON success
+TIME:2012/01/17 14:32:06
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 14:32:22
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 14:32:24
+
+INSERT to db succ 8913804585|15843676120!
+TIME:2012/01/17 14:32:24
+
+process is killed
+TIME:2012/01/17 14:32:30
+
+connect to OFFON success
+TIME:2012/01/17 14:56:25
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 14:56:25
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 14:56:26
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 14:56:26
+
+====sqlca.sqlcode=[-1480],sqlca.sqlerrm.sqlerrmc=[ORA-01480: trailing null missing from STR bind value
+                 ]
+TIME:2012/01/17 14:56:26
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 14:56:26
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O',:v6,:v7,:v8)],retry......
+TIME:2012/01/17 14:56:26
+
+process is killed
+TIME:2012/01/17 14:56:45
+
+connect to OFFON success
+TIME:2012/01/17 15:03:23
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 15:03:23
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 15:03:24
+
+INSERT to db succ 8913804585|15843676120!
+TIME:2012/01/17 15:03:24
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13944869316         9b20110623085   20110623[272:116]
+TIME:2012/01/17 15:03:24
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/01/17 15:03:24
+
+INSERT to db succ 8913804586|13944869316!
+TIME:2012/01/17 15:03:24
+
+process is killed
+TIME:2012/01/17 15:03:36
+
+connect to OFFON success
+TIME:2012/01/17 15:04:56
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 15:04:56
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 15:04:57
+
+INSERT to db succ 8913804585|15843676120!
+TIME:2012/01/17 15:04:57
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13944869316         9b20110623085   20110623[272:116]
+TIME:2012/01/17 15:04:57
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/01/17 15:04:57
+
+INSERT to db succ 8913804586|13944869316!
+TIME:2012/01/17 15:04:57
+
+process is killed
+TIME:2012/01/17 15:05:34
+
+connect to OFFON success
+TIME:2012/01/17 15:30:52
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 15:31:32
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 15:31:33
+
+INSERT to db succ 8913804585|15843676120!
+TIME:2012/01/17 15:31:33
+
+process is killed
+TIME:2012/01/17 15:31:44
+
+connect to OFFON success
+TIME:2012/01/17 15:32:53
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 15:32:53
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 15:32:53
+
+INSERT to db succ 8913804585|15843676120!
+TIME:2012/01/17 15:32:53
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13944869316         9b20110623085   20110623[272:116]
+TIME:2012/01/17 15:32:53
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/01/17 15:32:53
+
+INSERT to db succ 8913804586|13944869316!
+TIME:2012/01/17 15:32:53
+
+process is killed
+TIME:2012/01/17 15:33:04
+
+connect to OFFON success
+TIME:2012/01/17 15:35:11
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 15:35:11
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 15:35:11
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 15:35:11
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 15:35:11
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 15:35:11
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 15:35:11
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 15:35:11
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 15:35:11
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O',:v6,:v7,:v8)],retry......
+TIME:2012/01/17 15:35:11
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 15:35:41
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 15:35:41
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 15:35:41
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O',:v6,:v7,:v8)]
+TIME:2012/01/17 15:35:41
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13944869316         9b20110623085   20110623[272:116]
+TIME:2012/01/17 15:35:41
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/01/17 15:35:41
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 15:35:41
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 15:35:41
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 15:35:41
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 15:35:41
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 15:35:41
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 15:35:41
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O',:v6,:v7,:v8)],retry......
+TIME:2012/01/17 15:35:41
+
+process is killed
+TIME:2012/01/17 15:35:46
+
+connect to OFFON success
+TIME:2012/01/17 15:36:53
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 15:36:53
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 15:36:53
+
+INSERT to db succ 8913804585|15843676120!
+TIME:2012/01/17 15:36:53
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13944869316         9b20110623085   20110623[272:116]
+TIME:2012/01/17 15:36:53
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/01/17 15:36:53
+
+INSERT to db succ 8913804586|13944869316!
+TIME:2012/01/17 15:36:53
+
+process is killed
+TIME:2012/01/17 15:37:00
+
+connect to OFFON success
+TIME:2012/01/17 15:46:20
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 15:46:20
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 15:46:20
+
+INSERT to db succ 8913804585|15843676120!
+TIME:2012/01/17 15:46:20
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13944869316         9b2011062308050120120117010101[272:122]
+TIME:2012/01/17 15:46:20
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/01/17 15:46:20
+
+INSERT to db succ 8913804586|13944869316!
+TIME:2012/01/17 15:46:20
+
+process is killed
+TIME:2012/01/17 15:46:36
+
+connect to OFFON success
+TIME:2012/01/17 15:55:28
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 15:55:28
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 15:55:28
+
+INSERT to db succ 8913804585|15843676120!
+TIME:2012/01/17 15:55:28
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13944869316         9g2011062308050120120117010101[272:122]
+TIME:2012/01/17 15:55:28
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/01/17 15:55:39
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 15:55:39
+
+====sqlca.sqlcode=[-1480],sqlca.sqlerrm.sqlerrmc=[ORA-01480: trailing null missing from STR bind value
+                 ]
+TIME:2012/01/17 15:55:39
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 15:55:39
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O',:v6,:v7,:v8,:v9)],retry......
+TIME:2012/01/17 15:55:39
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 15:55:58
+
+====sqlca.sqlcode=[-1480],sqlca.sqlerrm.sqlerrmc=[ORA-01480: trailing null missing from STR bind value
+                 ]
+TIME:2012/01/17 15:55:58
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 15:55:58
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O',:v6,:v7,:v8,:v9)]
+TIME:2012/01/17 15:55:58
+
+process is killed
+TIME:2012/01/17 15:56:01
+
+connect to OFFON success
+TIME:2012/01/17 15:56:56
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676121         9g907322AJL0010902[272:110]
+TIME:2012/01/17 15:56:56
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2012/01/17 15:56:58
+
+INSERT to db succ 8913804585|15843676121!
+TIME:2012/01/17 15:56:58
+
+process is killed
+TIME:2012/01/17 15:57:10
+
+connect to OFFON success
+TIME:2012/01/17 15:57:46
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676121         9g907322AJL0010902[272:110]
+TIME:2012/01/17 15:57:46
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2012/01/17 15:57:47
+
+INSERT to db succ 8913804585|15843676121!
+TIME:2012/01/17 15:57:47
+
+process is killed
+TIME:2012/01/17 15:58:05
+
+connect to OFFON success
+TIME:2012/01/17 16:01:02
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676121         9g907322AJL0010902[272:110]
+TIME:2012/01/17 16:01:02
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2012/01/17 16:01:02
+
+INSERT to db succ 8913804585|15843676121!
+TIME:2012/01/17 16:01:02
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 16:01:02
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 16:01:02
+
+INSERT to db succ 8913804587|15843676120!
+TIME:2012/01/17 16:01:02
+
+process is killed
+TIME:2012/01/17 16:01:08
+
+connect to OFFON success
+TIME:2012/01/17 16:01:58
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676121         9g907322AJL0010902[272:110]
+TIME:2012/01/17 16:01:58
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2012/01/17 16:01:59
+
+INSERT to db succ 8913804585|15843676121!
+TIME:2012/01/17 16:01:59
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 16:01:59
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 16:01:59
+
+INSERT to db succ 8913804587|15843676120!
+TIME:2012/01/17 16:01:59
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676121         9g907322AJL0010902[272:110]
+TIME:2012/01/17 16:02:23
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2012/01/17 16:02:23
+
+INSERT to db succ 8913804585|15843676121!
+TIME:2012/01/17 16:02:23
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 16:02:23
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 16:02:23
+
+INSERT to db succ 8913804587|15843676120!
+TIME:2012/01/17 16:02:23
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676121         9g907322AJL0010902[272:110]
+TIME:2012/01/17 16:03:01
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2012/01/17 16:03:01
+
+INSERT to db succ 8913804585|15843676121!
+TIME:2012/01/17 16:03:01
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676121         9g907322AJL0010902[272:110]
+TIME:2012/01/17 16:03:31
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2012/01/17 16:03:31
+
+INSERT to db succ 8913804585|15843676121!
+TIME:2012/01/17 16:03:35
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676121         9g907322AJL0010902[272:110]
+TIME:2012/01/17 16:05:37
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2012/01/17 16:05:37
+
+INSERT to db succ 8913804585|15843676121!
+TIME:2012/01/17 16:05:44
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13944869316         9g2011062308050120120117010101[272:122]
+TIME:2012/01/17 16:05:44
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00000 DATA=1                                                                                                                                                                                       [272]
+TIME:2012/01/17 16:05:46
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 16:05:46
+
+====sqlca.sqlcode=[-1480],sqlca.sqlerrm.sqlerrmc=[ORA-01480: trailing null missing from STR bind value
+                 ]
+TIME:2012/01/17 16:05:46
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 16:05:46
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O',:v6,:v7,:v8,:v9)],retry......
+TIME:2012/01/17 16:05:46
+
+process is killed
+TIME:2012/01/17 16:06:02
+
+connect to OFFON success
+TIME:2012/01/17 16:12:40
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13944869316         9g2011062308050120120117010101[272:122]
+TIME:2012/01/17 16:12:48
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00000 DATA=1                                                                                                                                                                                       [272]
+TIME:2012/01/17 16:12:50
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 16:12:50
+
+====sqlca.sqlcode=[-1480],sqlca.sqlerrm.sqlerrmc=[ORA-01480: trailing null missing from STR bind value
+                 ]
+TIME:2012/01/17 16:12:50
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 16:12:50
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O',:v6,:v7,:v8,:v9)],retry......
+TIME:2012/01/17 16:12:50
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 16:13:18
+
+====sqlca.sqlcode=[-1480],sqlca.sqlerrm.sqlerrmc=[ORA-01480: trailing null missing from STR bind value
+                 ]
+TIME:2012/01/17 16:13:18
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 16:13:18
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O',:v6,:v7,:v8,:v9)]
+TIME:2012/01/17 16:13:18
+
+process is killed
+TIME:2012/01/17 16:13:23
+
+connect to OFFON success
+TIME:2012/01/17 16:33:44
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13944869316         9g2011062308050120120117010101[272:122]
+TIME:2012/01/17 16:33:44
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00000 DATA=1                                                                                                                                                                                       [272]
+TIME:2012/01/17 16:33:47
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 16:33:47
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 16:33:47
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 16:33:47
+
+====EXEC SQL ERROR BEGIN
+TIME:2012/01/17 16:33:47
+
+====sqlca.sqlcode=[-947],sqlca.sqlerrm.sqlerrmc=[ORA-00947: not enough values
+                                         ]
+TIME:2012/01/17 16:33:47
+
+====EXEC SQL ERROR END
+TIME:2012/01/17 16:33:47
+
+write to db fail! 111 sqlstmt=[INSERT INTO Backdatacenterdz VALUES(to_number(:v1),:v2,111,:v3,:v4,:v5,sysdate,'O',:v6,:v7,:v8,:v9)],retry......
+TIME:2012/01/17 16:33:47
+
+process is killed
+TIME:2012/01/17 16:33:57
+
+connect to OFFON success
+TIME:2012/01/17 16:38:51
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676121         9g907322AJL0010902[272:110]
+TIME:2012/01/17 16:38:51
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00001                                                                                                                                                                                              [272]
+TIME:2012/01/17 16:38:51
+
+INSERT to db succ 8913804585|15843676121!
+TIME:2012/01/17 16:38:51
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     15843676120         9g907322AJL0010901[272:110]
+TIME:2012/01/17 16:38:51
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00000                                                                                                                                                                                              [272]
+TIME:2012/01/17 16:38:51
+
+INSERT to db succ 8913804587|15843676120!
+TIME:2012/01/17 16:38:51
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13944869316         9g2011062308050120120117010101[272:122]
+TIME:2012/01/17 16:38:51
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00000 DATA=1                                                                                                                                                                                       [272]
+TIME:2012/01/17 16:38:53
+
+INSERT to db succ 8913804586|13944869316!
+TIME:2012/01/17 16:38:53
+
+process is killed
+TIME:2012/01/17 16:53:43
+

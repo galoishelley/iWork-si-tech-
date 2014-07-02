@@ -1,0 +1,337 @@
+connect to OFFON success
+TIME:2011/06/23 08:41:51
+
+====EXEC SQL ERROR BEGIN
+TIME:2011/06/23 08:42:15
+
+====sqlca.sqlcode=[-6575],sqlca.sqlerrm.sqlerrmc=[ORA-06575: Package or function FREPLACE is in an invalid state
+       ]
+TIME:2011/06/23 08:42:15
+
+====EXEC SQL ERROR END
+TIME:2011/06/23 08:42:15
+
+SND:`BD`0KT:SJB         jifee     jifee                                     $1[011520]$2[010303]$3[010808]$4[010808]$5[011919]$3[090202] $3[110101][272:143]
+TIME:2011/06/23 08:42:15
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 08:42:15
+
+INSERT to db succ 8913803822|13944869316!
+TIME:2011/06/23 08:42:15
+
+process is killed
+TIME:2011/06/23 08:42:26
+
+connect to OFFON success
+TIME:2011/06/23 09:03:00
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13944869316         0  2011062220110622201106228074260080108 1[272:134]
+TIME:2011/06/23 09:03:00
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 09:03:00
+
+INSERT to db succ 8913803822|13944869316!
+TIME:2011/06/23 09:03:00
+
+process is killed
+TIME:2011/06/23 09:03:13
+
+connect to OFFON success
+TIME:2011/06/23 09:15:33
+
+INSERT to db succ 8913803823|13944869316!
+TIME:2011/06/23 09:15:33
+
+INSERT to db succ 8913803823|13944869316!
+TIME:2011/06/23 09:16:05
+
+process is killed
+TIME:2011/06/23 09:16:41
+
+connect to OFFON success
+TIME:2011/06/23 09:19:13
+
+SND:`BD`0ZT:SJB         jifee     jifee                                     13944869316         0  2011062220110622201106228074260080108 4[272:134]
+TIME:2011/06/23 09:20:09
+
+RCV:`BD`1ZT:SJB         jifee     jifee                                     RETN=00002 [272]
+TIME:2011/06/23 09:20:09
+
+INSERT to db succ 8913803828|13944869316!
+TIME:2011/06/23 09:20:09
+
+process is killed
+TIME:2011/06/23 09:20:45
+
+connect to OFFON success
+TIME:2011/06/23 15:20:39
+
+SND:`BD`0HF:SJB         jifee     jifee                                     13504314506         0  2011062220110622201106228074260080106 5[272:134]
+TIME:2011/06/23 15:20:39
+
+RCV:`BD`1HF:SJB         jifee     jifee                                     RETN=00002 [272]
+TIME:2011/06/23 15:20:39
+
+INSERT to db succ 8913804337|13504314506!
+TIME:2011/06/23 15:20:39
+
+SND:`BD`0ZT:SJB         jifee     jifee                                     13504314506         807426008064[272:104]
+TIME:2011/06/23 15:20:39
+
+RCV:`BD`1ZT:SJB         jifee     jifee                                     RETN=00002 [272]
+TIME:2011/06/23 15:20:39
+
+INSERT to db succ 8913804336|13504314506!
+TIME:2011/06/23 15:20:39
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13504314506         0  2011062220110622201106228074260080106 1[272:134]
+TIME:2011/06/23 15:20:39
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 15:20:39
+
+INSERT to db succ 8913804335|13504314506!
+TIME:2011/06/23 15:20:39
+
+SND:`BD`0QX:SJB         jifee     jifee                                     13504314506         807426008060[272:104]
+TIME:2011/06/23 15:20:39
+
+RCV:`BD`1QX:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 15:20:39
+
+INSERT to db succ 8913804338|13504314506!
+TIME:2011/06/23 15:20:39
+
+process is killed
+TIME:2011/06/23 15:33:52
+
+connect to OFFON success
+TIME:2011/06/23 15:35:30
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13504314506         0  2011062220110622201106228074260080106 1[272:134]
+TIME:2011/06/23 15:35:30
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 15:35:30
+
+INSERT to db succ 8913804335|13504314506!
+TIME:2011/06/23 15:35:30
+
+process is killed
+TIME:2011/06/23 15:35:33
+
+connect to OFFON success
+TIME:2011/06/23 16:02:36
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13504314506         0  20110622201106222011062280742600801061[272:133]
+TIME:2011/06/23 16:02:36
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 16:02:36
+
+INSERT to db succ 8913804335|13504314506!
+TIME:2011/06/23 16:02:36
+
+process is killed
+TIME:2011/06/23 16:02:42
+
+connect to OFFON success
+TIME:2011/06/23 16:07:15
+
+SND:`BD`0ZT:SJB         jifee     jifee                                     13504314506         807426008064[272:104]
+TIME:2011/06/23 16:07:15
+
+RCV:`BD`1ZT:SJB         jifee     jifee                                     RETN=00002 [272]
+TIME:2011/06/23 16:07:15
+
+INSERT to db succ 8913804336|13504314506!
+TIME:2011/06/23 16:07:15
+
+process is killed
+TIME:2011/06/23 16:07:25
+
+connect to OFFON success
+TIME:2011/06/23 16:16:09
+
+SND:`BD`0HF:SJB         jifee     jifee                                     13504314506         0  20110622201106222011062280742600801065[272:133]
+TIME:2011/06/23 16:16:09
+
+RCV:`BD`1HF:SJB         jifee     jifee                                     RETN=00002 [272]
+TIME:2011/06/23 16:16:09
+
+INSERT to db succ 8913804337|13504314506!
+TIME:2011/06/23 16:16:09
+
+process is killed
+TIME:2011/06/23 16:16:28
+
+connect to OFFON success
+TIME:2011/06/23 16:19:17
+
+SND:`BD`0QX:SJB         jifee     jifee                                     13504314506         807426008060[272:104]
+TIME:2011/06/23 16:19:17
+
+RCV:`BD`1QX:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 16:19:17
+
+INSERT to db succ 8913804338|13504314506!
+TIME:2011/06/23 16:19:17
+
+process is killed
+TIME:2011/06/23 16:19:28
+
+connect to OFFON success
+TIME:2011/06/23 20:26:47
+
+SND:`BD`0QX:SJB         jifee     jifee                                     13944869316         807426008084[272:104]
+TIME:2011/06/23 20:26:47
+
+RCV:`BD`1QX:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 20:26:47
+
+INSERT to db succ 8913804585|13944869316!
+TIME:2011/06/23 20:26:47
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13944869316         0  20110623201106232011062380742600801085[272:133]
+TIME:2011/06/23 20:26:47
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 20:26:47
+
+INSERT to db succ 8913804586|13944869316!
+TIME:2011/06/23 20:26:47
+
+process is killed
+TIME:2011/06/23 20:27:26
+
+connect to OFFON success
+TIME:2011/06/23 20:35:24
+
+SND:`BD`0QX:SJB         jifee     jifee                                     13944869317         807422007084[272:104]
+TIME:2011/06/23 20:35:24
+
+RCV:`BD`1QX:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 20:35:24
+
+INSERT to db succ 8913804593|13944869317!
+TIME:2011/06/23 20:35:24
+
+process is killed
+TIME:2011/06/23 20:35:41
+
+connect to OFFON success
+TIME:2011/06/23 20:37:01
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13944869317         0  20110623201106232011062380742200701085[272:133]
+TIME:2011/06/23 20:37:01
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 20:37:01
+
+INSERT to db succ 8913804594|13944869317!
+TIME:2011/06/23 20:37:01
+
+process is killed
+TIME:2011/06/23 20:37:28
+
+connect to OFFON success
+TIME:2011/06/23 20:39:37
+
+SND:`BD`0QX:SJB         jifee     jifee                                     13944869317         807422007080[272:104]
+TIME:2011/06/23 20:39:37
+
+RCV:`BD`1QX:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 20:39:37
+
+INSERT to db succ 8913804599|13944869317!
+TIME:2011/06/23 20:39:37
+
+process is killed
+TIME:2011/06/23 20:39:48
+
+connect to OFFON success
+TIME:2011/06/23 20:46:14
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13944869317         0  20110623201106232011062380742200701081[272:133]
+TIME:2011/06/23 20:46:14
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 20:46:14
+
+process is killed
+TIME:2011/06/23 20:51:41
+
+connect to OFFON success
+TIME:2011/06/23 20:51:57
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13944869317         0  20110623201106232011062380742200701081[272:133]
+TIME:2011/06/23 20:51:57
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 20:51:57
+
+process is killed
+TIME:2011/06/23 20:52:32
+
+connect to OFFON success
+TIME:2011/06/23 20:52:58
+
+SND:`BD`0QX:SJB         jifee     jifee                                     13944869317         807422007084[272:104]
+TIME:2011/06/23 20:52:58
+
+RCV:`BD`1QX:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 20:52:58
+
+INSERT to db succ 8913804593|13944869317!
+TIME:2011/06/23 20:52:58
+
+process is killed
+TIME:2011/06/23 20:53:18
+
+connect to OFFON success
+TIME:2011/06/23 20:54:25
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13944869317         0  20110623201106232011062380742200701085[272:133]
+TIME:2011/06/23 20:54:25
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 20:54:25
+
+INSERT to db succ 8913804594|13944869317!
+TIME:2011/06/23 20:54:25
+
+process is killed
+TIME:2011/06/23 20:54:36
+
+connect to OFFON success
+TIME:2011/06/23 20:55:43
+
+SND:`BD`0QX:SJB         jifee     jifee                                     13944869317         807422007080[272:104]
+TIME:2011/06/23 20:55:43
+
+RCV:`BD`1QX:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 20:55:43
+
+INSERT to db succ 8913804599|13944869317!
+TIME:2011/06/23 20:55:43
+
+process is killed
+TIME:2011/06/23 20:55:58
+
+connect to OFFON success
+TIME:2011/06/23 20:57:20
+
+SND:`BD`0KT:SJB         jifee     jifee                                     13944869317         0  20110623201106232011062380741410201081[272:133]
+TIME:2011/06/23 20:57:20
+
+RCV:`BD`1KT:SJB         newspaper zsq_np                                    RETN=00000 [272]
+TIME:2011/06/23 20:57:20
+
+INSERT to db succ 8913804606|13944869317!
+TIME:2011/06/23 20:57:20
+
+process is killed
+TIME:2011/06/23 20:57:55
+

@@ -1,0 +1,30 @@
+connect to OFFON success
+TIME:2011/09/15 16:28:09
+
+SND:`BD`0KT:NXT         jifee     jifee                                     13944869317         20110915010101AJL011990302[272:118]
+TIME:2011/09/15 16:28:09
+
+RCV:`BD`1KT:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2011/09/15 16:28:09
+
+INSERT to db succ 8913862598|13944869317!
+TIME:2011/09/15 16:28:09
+
+process is killed
+TIME:2011/09/15 16:28:21
+
+connect to OFFON success
+TIME:2011/09/15 16:30:11
+
+SND:`BD`0QX:NXT         jifee     jifee                                     13944869317         AJL011990302[272:104]
+TIME:2011/09/15 16:30:11
+
+RCV:`BD`1QX:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2011/09/15 16:30:12
+
+INSERT to db succ 8913862601|13944869317!
+TIME:2011/09/15 16:30:12
+
+process is killed
+TIME:2011/09/15 16:30:23
+

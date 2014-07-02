@@ -1,0 +1,3039 @@
+connect to OFFON success
+TIME:2011/05/19 14:21:54
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 14:21:54
+
+SND:`BD`0SALES_FEEDBACK sales     sales                                     15844148106    2010081092330406                1    911[200:127]
+TIME:2011/05/19 14:21:54
+
+connect to OFFON success
+TIME:2011/05/19 14:28:59
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 14:28:59
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     15844148106    2010081092330406                1    911[200:127]
+TIME:2011/05/19 14:28:59
+
+connect to OFFON success
+TIME:2011/05/19 14:30:34
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 14:30:34
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     15844148106    2010081092330406                1    911[200:127]
+TIME:2011/05/19 14:30:34
+
+connect to OFFON success
+TIME:2011/05/19 14:33:00
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 14:33:00
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     15844148106    2010081092330406                1    911[200:127]
+TIME:2011/05/19 14:33:00
+
+connect to OFFON success
+TIME:2011/05/19 14:41:44
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 14:41:44
+
+connect to OFFON success
+TIME:2011/05/19 14:43:41
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 14:43:41
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     15844148106    2010081092330406                1    911[200:127]
+TIME:2011/05/19 14:43:41
+
+connect to OFFON success
+TIME:2011/05/19 14:51:49
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 14:51:49
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     15844148106    2010081092330406                1    911[200:127]
+TIME:2011/05/19 14:51:49
+
+connect to OFFON success
+TIME:2011/05/19 15:01:26
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:01:26
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     15844148106    2010081092330406                1    911[200:127]
+TIME:2011/05/19 15:01:26
+
+connect to OFFON success
+TIME:2011/05/19 15:02:35
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:02:35
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     15844148106    2010081092330406                1    911[127:127]
+TIME:2011/05/19 15:02:35
+
+connect to OFFON success
+TIME:2011/05/19 15:03:37
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:03:37
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     15844148106    2010081092330406                1    911[200:127]
+TIME:2011/05/19 15:03:37
+
+connect to OFFON success
+TIME:2011/05/19 15:09:37
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:09:37
+
+connect to OFFON success
+TIME:2011/05/19 15:10:41
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:10:41
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     15844148106    2010081092330406                1    911[200:127]
+TIME:2011/05/19 15:10:41
+
+connect to OFFON success
+TIME:2011/05/19 15:13:00
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:13:00
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     15844148106    2010081092330406                1    911[134:127]
+TIME:2011/05/19 15:13:00
+
+RCV:`BD`1SALES_FEEDBACK jifee     jifee                                     0[134]
+TIME:2011/05/19 15:13:00
+
+connect to OFFON success
+TIME:2011/05/19 15:14:40
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:14:40
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     15844148106    2010081092330406                1    911[134:127]
+TIME:2011/05/19 15:14:40
+
+RCV:`BD`1SALES_FEEDBACK jifee     jifee                                     0[134]
+TIME:2011/05/19 15:14:40
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     13756157113    2010081092330406                0    911[134:127]
+TIME:2011/05/19 15:14:40
+
+RCV:`BD`1SALES_FEEDBACK jifee     jifee                                     0[134]
+TIME:2011/05/19 15:14:40
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     13654314057    2010081092330406                1    911  01[134:131]
+TIME:2011/05/19 15:14:40
+
+RCV:`BD`1SALES_FEEDBACK jifee     jifee                                     0[134]
+TIME:2011/05/19 15:14:40
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     13756633333    2010081092330406                0    911  07[134:131]
+TIME:2011/05/19 15:14:40
+
+RCV:`BD`1SALES_FEEDBACK jifee     jifee                                     0[134]
+TIME:2011/05/19 15:14:40
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:14:40
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:14:40
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:14:41
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:14:41
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:14:41
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:14:41
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:14:41
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:14:41
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:14:51
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:14:51
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:14:51
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:14:51
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:14:51
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:14:51
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:14:51
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:14:51
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:14:51
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:15:01
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:15:01
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:15:01
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:15:01
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:15:01
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:15:01
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:15:01
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:15:01
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:15:01
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:15:10
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:15:10
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:15:10
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:15:10
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:15:10
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:15:10
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:15:10
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:15:10
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:15:10
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:15:20
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:15:20
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:15:20
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:15:20
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:15:20
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:15:20
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:15:20
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:15:20
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:15:20
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:15:30
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:15:30
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:15:30
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:15:30
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:15:30
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:15:30
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:15:30
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:15:30
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:15:30
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:15:40
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:15:40
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:15:40
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:15:40
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:15:40
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:15:40
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:15:40
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:15:40
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:15:40
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:15:51
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:15:51
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:15:51
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:15:51
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:15:51
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:15:51
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:15:51
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:15:51
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:15:51
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:16:01
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:16:01
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:16:01
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:16:01
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:16:01
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:16:01
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:16:01
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:16:01
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:16:01
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:16:11
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:16:11
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:16:11
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:16:11
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:16:11
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:16:11
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:16:11
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:16:11
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:16:11
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:16:21
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:16:21
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:16:21
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:16:21
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:16:21
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:16:21
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:16:21
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:16:21
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:16:21
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:16:31
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:16:31
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:16:31
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:16:31
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:16:31
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:16:31
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:16:31
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:16:31
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:16:31
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:16:41
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:16:41
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:16:41
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:16:41
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:16:41
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:16:41
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:16:41
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:16:41
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:16:41
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:16:51
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:16:51
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:16:51
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:16:51
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:16:51
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:16:51
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:16:51
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:16:51
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:16:51
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:17:01
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:17:01
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:17:01
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:17:01
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:17:01
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:17:01
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:17:01
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:17:01
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:17:01
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:17:11
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:17:11
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:17:11
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:17:11
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:17:11
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:17:11
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:17:11
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:17:11
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:17:11
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:17:21
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:17:21
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:17:21
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:17:21
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:17:21
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:17:21
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:17:21
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:17:21
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:17:21
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:17:31
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:17:31
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:17:31
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:17:31
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:17:31
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:17:31
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:17:31
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:17:31
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:17:31
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:17:41
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:17:41
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:17:41
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:17:41
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:17:41
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:17:41
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:17:41
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:17:41
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:17:41
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:17:51
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:17:51
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:17:51
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:17:51
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:17:51
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:17:51
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:17:51
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:17:51
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:17:51
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:18:01
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:18:01
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:18:01
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:18:01
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:18:01
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:18:01
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:18:01
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:18:01
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:18:01
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:18:11
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:18:11
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:18:11
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:18:11
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:18:11
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:18:11
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:18:11
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:18:11
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:18:11
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:18:21
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:18:21
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:18:21
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:18:21
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:18:21
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:18:21
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:18:21
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:18:21
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:18:21
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:18:31
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:18:31
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:18:31
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:18:31
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:18:31
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:18:31
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:18:31
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:18:31
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:18:31
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:18:41
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:18:41
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:18:41
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:18:41
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:18:41
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:18:41
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:18:41
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:18:41
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:18:41
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:18:51
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:18:51
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:18:51
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:18:51
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:18:51
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:18:51
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:18:51
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:18:51
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:18:51
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:19:01
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:19:01
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:19:01
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:19:01
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:19:01
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:19:01
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:19:01
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:19:01
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:19:01
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:19:11
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:19:11
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:19:11
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:19:11
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:19:11
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:19:11
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:19:11
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:19:11
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:19:11
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:19:21
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:19:21
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:19:21
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:19:21
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:19:21
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:19:21
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:19:21
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:19:21
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:19:21
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:19:31
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:19:31
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:19:31
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:19:31
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:19:31
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:19:31
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:19:31
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:19:31
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:19:31
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:19:41
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:19:41
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:19:41
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:19:41
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:19:41
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:19:41
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:19:41
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:19:41
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:19:41
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:19:51
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:19:51
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:19:51
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:19:51
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:19:51
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:19:51
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:19:51
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:19:51
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:19:51
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:20:01
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:20:01
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:20:01
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:20:01
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:20:01
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:20:01
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:20:01
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:20:01
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:20:01
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:20:11
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:20:11
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:20:11
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:20:11
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:20:11
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:20:11
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:20:11
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:20:11
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:20:11
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:20:21
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:20:21
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:20:21
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:20:21
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:20:21
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:20:21
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:20:21
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:20:21
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:20:21
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:20:31
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:20:32
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:20:32
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:20:32
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:20:32
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:20:32
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:20:32
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:20:32
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:20:32
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:20:42
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:20:42
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:20:42
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:20:42
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:20:42
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:20:42
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:20:42
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:20:42
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:20:42
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:20:52
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:20:52
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:20:52
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:20:52
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:20:52
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:20:52
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:20:52
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:20:52
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:20:52
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:21:02
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:21:02
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:21:02
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:21:02
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:21:02
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:21:02
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:21:02
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:21:02
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:21:02
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:21:12
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:21:12
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:21:12
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:21:12
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:21:12
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:21:12
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:21:12
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:21:12
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:21:12
+
+process is killed
+TIME:2011/05/19 15:21:15
+
+connect to OFFON success
+TIME:2011/05/19 15:48:04
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:48:04
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:48:04
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:48:04
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:48:04
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:48:04
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:48:04
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:48:04
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:48:04
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:48:04
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:48:14
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:48:14
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:48:14
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:48:14
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:48:14
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:48:14
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:48:14
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:48:14
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:48:14
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:48:24
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:48:24
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:48:24
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:48:24
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:48:24
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:48:24
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:48:24
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:48:24
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:48:24
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:48:34
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:48:34
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:48:34
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:48:34
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:48:34
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:48:34
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:48:34
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:48:34
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:48:34
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:48:44
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:48:44
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:48:44
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:48:44
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:48:44
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:48:44
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:48:44
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:48:44
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:48:44
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:48:54
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:48:54
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:48:54
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:48:54
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:48:54
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:48:54
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:48:54
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:48:54
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:48:54
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:49:04
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:49:04
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:49:04
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:49:04
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:49:04
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:49:04
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:49:04
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:49:04
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:49:04
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:49:14
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:49:14
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:49:14
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:49:14
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:49:14
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:49:14
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:49:14
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:49:14
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:49:14
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:49:24
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:49:24
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:49:24
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:49:24
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:49:24
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:49:24
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:49:24
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:49:24
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:49:24
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:49:34
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:49:34
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:49:34
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:49:34
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:49:34
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:49:34
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:49:34
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:49:34
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:49:34
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:49:44
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:49:44
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:49:44
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:49:44
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:49:44
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:49:44
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:49:44
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:49:44
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:49:44
+
+process is killed
+TIME:2011/05/19 15:49:50
+
+connect to OFFON success
+TIME:2011/05/19 15:51:24
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:51:24
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:51:24
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:51:24
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:51:24
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:51:24
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:51:24
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:51:24
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:51:24
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:51:24
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:51:44
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:51:44
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:51:44
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:51:44
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:51:44
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:51:44
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:51:44
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:51:44
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:51:44
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:52:04
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:52:04
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:52:04
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:52:04
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:52:04
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:52:04
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:52:04
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:52:04
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:52:04
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:52:24
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:52:24
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:52:24
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:52:24
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:52:24
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:52:24
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:52:24
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:52:24
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:52:24
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:52:44
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:52:44
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:52:44
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:52:44
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:52:44
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:52:44
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:52:44
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:52:44
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:52:44
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:53:04
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:53:04
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:53:04
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:53:04
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:53:04
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:53:04
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:53:04
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:53:04
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:53:04
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:53:24
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:53:24
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:53:24
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:53:24
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:53:24
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:53:24
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:53:24
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:53:24
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:53:24
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:53:44
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:53:44
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:53:44
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:53:44
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:53:44
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:53:44
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:53:44
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:53:44
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:53:44
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:54:04
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:54:04
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:54:04
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:54:04
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:54:04
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:54:04
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:54:04
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:54:04
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:54:04
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:54:24
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:54:24
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:54:24
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:54:24
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:54:24
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:54:24
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:54:24
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:54:24
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:54:24
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:54:44
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:54:44
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:54:44
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:54:44
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:54:44
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:54:44
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:54:44
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:54:44
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:54:44
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:55:04
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:55:05
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:55:05
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:55:05
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:55:05
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:55:05
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:55:05
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:55:05
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:55:05
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:55:25
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:55:25
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:55:25
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:55:25
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:55:25
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:55:25
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:55:25
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:55:25
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:55:25
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:55:45
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:55:45
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:55:45
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:55:45
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:55:45
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:55:45
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:55:45
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:55:45
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:55:45
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:56:05
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:56:05
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:56:05
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:56:05
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:56:05
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:56:05
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:56:05
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:56:05
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:56:05
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:56:25
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:56:25
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:56:25
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:56:25
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:56:25
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:56:25
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:56:25
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:56:25
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:56:25
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:56:45
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:56:45
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:56:45
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:56:45
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:56:45
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:56:45
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:56:45
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:56:45
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:56:45
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:57:05
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:57:05
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:57:05
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:57:05
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:57:05
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:57:05
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:57:05
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:57:05
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:57:05
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:57:25
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:57:25
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:57:25
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:57:25
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:57:25
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:57:25
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:57:25
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:57:25
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:57:25
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:57:45
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:57:45
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:57:45
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:57:45
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:57:45
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:57:45
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:57:45
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:57:45
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:57:45
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:58:05
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:58:05
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:58:05
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:58:05
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:58:05
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:58:05
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:58:05
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:58:05
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:58:05
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:58:25
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:58:25
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:58:25
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:58:25
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:58:25
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:58:25
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:58:25
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:58:25
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:58:25
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:58:45
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:58:45
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:58:45
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:58:45
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:58:45
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:58:45
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:58:45
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:58:45
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:58:45
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:59:05
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:59:05
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:59:05
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:59:05
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:59:05
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:59:05
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:59:05
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:59:05
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:59:05
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:59:25
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:59:25
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:59:25
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:59:25
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:59:25
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:59:25
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:59:25
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:59:25
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:59:25
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 15:59:45
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 15:59:45
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 15:59:45
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 15:59:45
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 15:59:45
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 15:59:45
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 15:59:45
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 15:59:45
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 15:59:45
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:00:05
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:00:05
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:00:05
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:00:05
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:00:05
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:00:05
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:00:05
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:00:05
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:00:05
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:00:25
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:00:25
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:00:25
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:00:25
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:00:25
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:00:25
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:00:25
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:00:25
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:00:25
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:00:45
+
+connect to OFFON success
+TIME:2011/05/19 16:02:16
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:02:16
+
+connect to OFFON success
+TIME:2011/05/19 16:03:20
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:03:20
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     15844148106    2010081092330406                1    911[134:127]
+TIME:2011/05/19 16:03:20
+
+RCV:`BD`1SALES_FEEDBACK jifee     jifee                                     0[134]
+TIME:2011/05/19 16:03:20
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     13756157113    2010081092330406                0    911[134:127]
+TIME:2011/05/19 16:03:20
+
+RCV:`BD`1SALES_FEEDBACK jifee     jifee                                     0[134]
+TIME:2011/05/19 16:03:20
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     13654314057    2010081092330406                1    911  01[134:131]
+TIME:2011/05/19 16:03:20
+
+RCV:`BD`1SALES_FEEDBACK jifee     jifee                                     0[134]
+TIME:2011/05/19 16:03:20
+
+SND:`BD`0SALES_FEEDBACK jifee     jifee                                     13756633333    2010081092330406                0    911  07[134:131]
+TIME:2011/05/19 16:03:20
+
+RCV:`BD`1SALES_FEEDBACK jifee     jifee                                     0[134]
+TIME:2011/05/19 16:03:20
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:03:20
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:03:20
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:03:20
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:03:20
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:03:20
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:03:20
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:03:20
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:03:20
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:03:40
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:03:40
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:03:40
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:03:40
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:03:40
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:03:40
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:03:40
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:03:40
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:03:40
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:03:50
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:03:50
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:03:50
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:03:50
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:03:50
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:03:50
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:03:50
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:03:50
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:03:50
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:04:10
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:04:10
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:04:10
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:04:10
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:04:10
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:04:10
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:04:10
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:04:10
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:04:10
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:04:30
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:04:30
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:04:30
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:04:30
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:04:30
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:04:30
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:04:30
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:04:30
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:04:30
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:04:50
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:04:50
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:04:50
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:04:50
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:04:50
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:04:50
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:04:50
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:04:50
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:04:50
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:05:10
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:05:10
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:05:10
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:05:10
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:05:10
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:05:10
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:05:10
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:05:10
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:05:10
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:05:30
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:05:30
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:05:30
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:05:30
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:05:30
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:05:30
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:05:30
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:05:30
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:05:30
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:05:51
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:05:51
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:05:51
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:05:51
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:05:51
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:05:51
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:05:51
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:05:51
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:05:51
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:06:11
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:06:11
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:06:11
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:06:11
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:06:11
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:06:11
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:06:11
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:06:11
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:06:11
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:06:31
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:06:31
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:06:31
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:06:31
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:06:31
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:06:31
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:06:31
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:06:31
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:06:31
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:06:51
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:06:51
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:06:51
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:06:51
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:06:51
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:06:51
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:06:51
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:06:51
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:06:51
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:07:11
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:07:11
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:07:11
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:07:11
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:07:11
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:07:11
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:07:11
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:07:11
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:07:11
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:07:31
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:07:31
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:07:31
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:07:31
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:07:31
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:07:31
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:07:31
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:07:31
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:07:31
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:07:51
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:07:51
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:07:51
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:07:51
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:07:51
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:07:51
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:07:51
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:07:51
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:07:51
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:08:11
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:08:11
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:08:11
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:08:11
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:08:11
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:08:11
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:08:11
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:08:11
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:08:11
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:08:31
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:08:31
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:08:31
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:08:31
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:08:31
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:08:31
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:08:31
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:08:31
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:08:31
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 16:08:51
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 16:08:51
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 16:08:51
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 16:08:51
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 16:08:51
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 16:08:51
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 16:08:51
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 16:08:51
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 16:08:51
+
+process is killed
+TIME:2011/05/19 16:08:55
+
+connect to OFFON success
+TIME:2011/05/19 22:14:17
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 22:14:17
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 22:14:17
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 22:14:17
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 22:14:17
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 22:14:17
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 22:14:17
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 22:14:17
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 22:14:17
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 22:14:17
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 22:14:37
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 22:14:37
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 22:14:37
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 22:14:37
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 22:14:37
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 22:14:37
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 22:14:37
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 22:14:37
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 22:14:37
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 22:14:57
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 22:14:57
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 22:14:57
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 22:14:57
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 22:14:57
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 22:14:57
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 22:14:57
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 22:14:57
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 22:14:57
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 22:15:17
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 22:15:17
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 22:15:17
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 22:15:17
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 22:15:17
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 22:15:17
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 22:15:17
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 22:15:17
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 22:15:17
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 22:15:37
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 22:15:37
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 22:15:37
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 22:15:37
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 22:15:37
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 22:15:37
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 22:15:37
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 22:15:37
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 22:15:37
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 22:15:57
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 22:15:57
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 22:15:57
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 22:15:57
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 22:15:57
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 22:15:57
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 22:15:57
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 22:15:57
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 22:15:57
+
+process is killed
+TIME:2011/05/19 22:16:07
+
+connect to OFFON success
+TIME:2011/05/19 22:17:18
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 22:17:18
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 22:17:18
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 22:17:18
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 22:17:18
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 22:17:18
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 22:17:18
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 22:17:18
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 22:17:18
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 22:17:18
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 22:17:38
+
+deal table [dSaleTaskExec_02]
+TIME:2011/05/19 22:17:38
+
+deal table [dSaleTaskExec_03]
+TIME:2011/05/19 22:17:38
+
+deal table [dSaleTaskExec_04]
+TIME:2011/05/19 22:17:38
+
+deal table [dSaleTaskExec_05]
+TIME:2011/05/19 22:17:38
+
+deal table [dSaleTaskExec_06]
+TIME:2011/05/19 22:17:38
+
+deal table [dSaleTaskExec_07]
+TIME:2011/05/19 22:17:38
+
+deal table [dSaleTaskExec_08]
+TIME:2011/05/19 22:17:38
+
+deal table [dSaleTaskExec_09]
+TIME:2011/05/19 22:17:38
+
+deal table [dSaleTaskExec_01]
+TIME:2011/05/19 22:17:58
+

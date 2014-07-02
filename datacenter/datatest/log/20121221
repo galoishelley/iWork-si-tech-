@@ -1,0 +1,73 @@
+connect to OFFON success
+TIME:2012/12/21 11:13:12
+
+INSERT to db succ 8914797668|13504412391!
+TIME:2012/12/21 11:13:12
+
+SND:`BD`0KT:NXT         jifee     jifee                                     13504412391         20121220010101AJL011990Z02[272:118]
+TIME:2012/12/21 11:13:20
+
+RCV:`BD`1KT:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/12/21 11:13:22
+
+INSERT to db succ 8914797670|13504412391!
+TIME:2012/12/21 11:13:22
+
+INSERT to db succ 8914797668|13504412391!
+TIME:2012/12/21 11:19:19
+
+SND:`BD`0KT:NXT         jifee     jifee                                     13504412391         20121220010101AJL011990Z02[272:118]
+TIME:2012/12/21 11:19:27
+
+RCV:`BD`1KT:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/12/21 11:19:27
+
+INSERT to db succ 8914797670|13504412391!
+TIME:2012/12/21 11:19:27
+
+process is killed
+TIME:2012/12/21 11:21:41
+
+connect to OFFON success
+TIME:2012/12/21 11:37:16
+
+INSERT to db succ 8914797668|13504412391!
+TIME:2012/12/21 11:37:16
+
+SND:`BD`0KT:NXT         jifee     jifee                                     13504412391         20121220010101AJL011990Z02[272:118]
+TIME:2012/12/21 11:37:24
+
+RCV:`BD`1KT:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/12/21 11:37:24
+
+INSERT to db succ 8914797670|13504412391!
+TIME:2012/12/21 11:37:24
+
+process is killed
+TIME:2012/12/21 11:38:15
+
+connect to OFFON success
+TIME:2012/12/21 13:27:32
+
+SND:`BD`0KT:WEATHER     jifee     jifee                                     13504412391         0  201212202012122020121220010101 08
+[272:129]
+TIME:2012/12/21 13:27:32
+
+RCV:`BD`1KT:WEATHER     weather   weather                                   RETN=00000 [272]
+TIME:2012/12/21 13:27:32
+
+INSERT to db succ 8914797668|13504412391!
+TIME:2012/12/21 13:27:32
+
+SND:`BD`0KT:NXT         jifee     jifee                                     13504412391         20121220010101AJL011990Z02[272:118]
+TIME:2012/12/21 13:27:32
+
+RCV:`BD`1KT:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2012/12/21 13:27:32
+
+INSERT to db succ 8914797670|13504412391!
+TIME:2012/12/21 13:27:32
+
+process is killed
+TIME:2012/12/21 13:29:31
+

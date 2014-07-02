@@ -1,0 +1,30 @@
+124002.bill2!?proc.14878.1.0: 05-29-2008: Tuxedo Version 8.1, 64-bit
+124002.bill2!?proc.14878.1.0: LIBWSC_CAT:1032: ERROR: Failed to receive expected reply
+124002.bill2!?proc.14878.1.0: LIBWSC_CAT:1013: ERROR: tpcall() get reply failed
+124006.bill2!?proc.15013.1.0: 05-29-2008: Tuxedo Version 8.1, 64-bit
+124006.bill2!?proc.15013.1.0: LIBWSC_CAT:1032: ERROR: Failed to receive expected reply
+124006.bill2!?proc.15013.1.0: LIBWSC_CAT:1013: ERROR: tpcall() get reply failed
+124007.bill2!?proc.15045.1.0: 05-29-2008: Tuxedo Version 8.1, 64-bit
+124007.bill2!?proc.15045.1.0: LIBWSC_CAT:1032: ERROR: Failed to receive expected reply
+124007.bill2!?proc.15045.1.0: LIBWSC_CAT:1013: ERROR: tpcall() get reply failed
+124017.bill2!?proc.15467.1.0: 05-29-2008: Tuxedo Version 8.1, 64-bit
+124017.bill2!?proc.15467.1.0: LIBWSC_CAT:1032: ERROR: Failed to receive expected reply
+124017.bill2!?proc.15467.1.0: LIBWSC_CAT:1013: ERROR: tpcall() get reply failed
+124837.bill2!?proc.18678.1.0: 05-29-2008: Tuxedo Version 8.1, 64-bit
+124837.bill2!?proc.18678.1.0: LIBWSC_CAT:1032: ERROR: Failed to receive expected reply
+124837.bill2!?proc.18678.1.0: LIBWSC_CAT:1013: ERROR: tpcall() get reply failed
+124841.bill2!?proc.18918.1.0: 05-29-2008: Tuxedo Version 8.1, 64-bit
+124841.bill2!?proc.18918.1.0: LIBWSC_CAT:1032: ERROR: Failed to receive expected reply
+124841.bill2!?proc.18918.1.0: LIBWSC_CAT:1013: ERROR: tpcall() get reply failed
+124848.bill2!?proc.19295.1.0: 05-29-2008: Tuxedo Version 8.1, 64-bit
+124848.bill2!?proc.19295.1.0: LIBWSC_CAT:1032: ERROR: Failed to receive expected reply
+124848.bill2!?proc.19295.1.0: LIBWSC_CAT:1013: ERROR: tpcall() get reply failed
+124850.bill2!?proc.19418.1.0: 05-29-2008: Tuxedo Version 8.1, 64-bit
+124850.bill2!?proc.19418.1.0: LIBWSC_CAT:1032: ERROR: Failed to receive expected reply
+124850.bill2!?proc.19418.1.0: LIBWSC_CAT:1515: ERROR: Did not get diffie-hellman return package
+124851.bill2!?proc.19477.1.0: 05-29-2008: Tuxedo Version 8.1, 64-bit
+124851.bill2!?proc.19477.1.0: LIBWSC_CAT:1032: ERROR: Failed to receive expected reply
+124851.bill2!?proc.19477.1.0: LIBWSC_CAT:1013: ERROR: tpcall() get reply failed
+124855.bill2!?proc.19719.1.0: 05-29-2008: Tuxedo Version 8.1, 64-bit
+124855.bill2!?proc.19719.1.0: LIBWSC_CAT:1032: ERROR: Failed to receive expected reply
+124855.bill2!?proc.19719.1.0: LIBWSC_CAT:1013: ERROR: tpcall() get reply failed

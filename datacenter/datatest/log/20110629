@@ -1,0 +1,69 @@
+connect to OFFON success
+TIME:2011/06/29 13:30:41
+
+INSERT to db succ 8913813552|13944869316!
+TIME:2011/06/29 13:30:41
+
+SND:`BD`0KT:NXT         jifee     jifee                                     13944869316         0  2011062920200101010101AJL0010901 02[272:130]
+TIME:2011/06/29 13:34:26
+
+RCV:`BD`1KT:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2011/06/29 13:34:26
+
+INSERT to db succ 8913813552|13944869316!
+TIME:2011/06/29 13:34:26
+
+process is killed
+TIME:2011/06/29 13:34:47
+
+connect to OFFON success
+TIME:2011/06/29 13:53:09
+
+SND:`BD`0KT:NXT         jifee     jifee                                     13944869317         0  2011062920200101010101AJL0010903 07[272:130]
+TIME:2011/06/29 13:53:09
+
+RCV:`BD`1KT:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2011/06/29 13:53:09
+
+process is killed
+TIME:2011/06/29 13:56:33
+
+connect to OFFON success
+TIME:2011/06/29 13:57:04
+
+SND:`BD`0KT:NXT         jifee     jifee                                     13944869317         0  2011062920200101010101AJL0010903 07[272:130]
+TIME:2011/06/29 13:57:04
+
+RCV:`BD`1KT:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2011/06/29 13:57:04
+
+INSERT to db succ 8913813613|13944869317!
+TIME:2011/06/29 13:59:09
+
+SND:`BD`0KT:NXT         jifee     jifee                                     13944869317         20110629010101AJL001090307[272:118]
+TIME:2011/06/29 14:03:42
+
+RCV:`BD`1KT:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2011/06/29 14:03:42
+
+INSERT to db succ 8913813613|13944869317!
+TIME:2011/06/29 14:03:42
+
+process is killed
+TIME:2011/06/29 14:06:57
+
+connect to OFFON success
+TIME:2011/06/29 14:12:35
+
+SND:`BD`0QX:NXT         jifee     jifee                                     13944869317         AJL001090304[272:104]
+TIME:2011/06/29 14:12:35
+
+RCV:`BD`1QX:NXT         nxt       nxt~74                                    RETN=00000 [272]
+TIME:2011/06/29 14:12:35
+
+INSERT to db succ 8913813616|13944869317!
+TIME:2011/06/29 14:12:35
+
+process is killed
+TIME:2011/06/29 14:12:40
+

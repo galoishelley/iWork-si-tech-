@@ -1,0 +1,310 @@
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 09:29:33.968|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 09:29:33.970|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 09:32:03.963|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 09:32:03.965|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 09:42:51.881|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 09:42:51.883|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 09:44:01.277|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 09:44:01.280|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+R1907.log:DEBUG_LOG|16272|pubBillEndMode|20110815 10:02:10.907|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16272|pubBillEndMode|20110815 10:02:10.909|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 10:12:59.362|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 10:12:59.365|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 10:18:46.179|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 10:18:46.182|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 10:56:24.336|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 10:56:24.339|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 11:24:06.726|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 11:24:06.729|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 11:25:18.708|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 11:25:18.711|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 11:26:13.406|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 11:26:13.409|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 11:26:32.542|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 11:26:32.544|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 11:28:26.736|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 11:28:26.739|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 13:19:03.497|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 13:19:03.499|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 13:19:42.507|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 13:19:42.509|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 13:22:01.613|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 13:22:01.615|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 13:24:51.355|publicBill.cp@pubBillEndMode@331|1000||begin to fProdCheckOpr --ctrlCode=[ZZZZ ]---
+R1907.log:DEBUG_LOG|16273|pubBillEndMode|20110815 13:24:51.357|publicBill.cp@pubBillEndMode@346|1000||end to fProdCheckOpr -----
+bak:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+bak:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+bak:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+bak:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+bak:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+bak:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+bak:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+bak:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+bak:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+bak:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+pubProdCtrl.c:int fProdCheckOpr(char *phoneNo, char *iCtrlCode, char *opCode, char *loginNo, CPRODCONDENTRY *retEntry)
+pubProdCtrl.c:    strcpy(service_name,"fProdCheckOpr");
+pubProdCtrl.c:		pubLog_Debug(_FFL_,service_name, "","+fProdCheckOpr+ phoneNo = [%s]", phoneNo);
+pubProdCtrl.c:		pubLog_Debug(_FFL_,service_name, "","+fProdCheckOpr+ iCtrlCode = [%s]", iCtrlCode);
+pubProdCtrl.c:		pubLog_Debug(_FFL_,service_name, "","+fProdCheckOpr+ opCode = [%s]", opCode);
+pubProdCtrl.c:		pubLog_Debug(_FFL_,service_name, "","+fProdCheckOpr+ loginNo = [%s]", loginNo);
+pubProdCtrl.c:      pubLog_Debug(_FFL_,service_name, "","+fProdCheckOpr+ NOT MATCH CtrlCode = [%s]", iCtrlCode);
+pubProdCtrl.c:	pubLog_Debug(_FFL_,service_name, "","fProdCheckOpr End .....");
+pubProdCtrl.cp:int fProdCheckOpr(char *phoneNo, char *iCtrlCode, char *opCode, char *loginNo, CPRODCONDENTRY *retEntry)
+pubProdCtrl.cp:    strcpy(service_name,"fProdCheckOpr");
+pubProdCtrl.cp:		pubLog_Debug(_FFL_,service_name, "","+fProdCheckOpr+ phoneNo = [%s]", phoneNo);
+pubProdCtrl.cp:		pubLog_Debug(_FFL_,service_name, "","+fProdCheckOpr+ iCtrlCode = [%s]", iCtrlCode);
+pubProdCtrl.cp:		pubLog_Debug(_FFL_,service_name, "","+fProdCheckOpr+ opCode = [%s]", opCode);
+pubProdCtrl.cp:		pubLog_Debug(_FFL_,service_name, "","+fProdCheckOpr+ loginNo = [%s]", loginNo);
+pubProdCtrl.cp:      pubLog_Debug(_FFL_,service_name, "","+fProdCheckOpr+ NOT MATCH CtrlCode = [%s]", iCtrlCode);
+pubProdCtrl.cp:	pubLog_Debug(_FFL_,service_name, "","fProdCheckOpr End .....");
+publicBill.c:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.c:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.c:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.c:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.c:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.c:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.c:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.c:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.c:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.c:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20110630:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20110630:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20110630:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20110630:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20110630:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20110630:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20110630:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20110630:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20110630:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20110630:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20110728:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20110728:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20110728:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20110728:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20110728:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20110728:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20110728:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20110728:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20110728:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20110728:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20110816:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20110816:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20110816:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20110816:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20110816:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20110816:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20110816:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20110816:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20110816:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20110816:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20110923:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20110923:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20110923:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20110923:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20110923:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20110923:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20110923:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20110923:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20110923:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20110923:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20120604:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20120604:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20120604:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20120604:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20120604:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20120604:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20120604:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20120604:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20120604:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20120604:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20120620:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20120620:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20120620:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20120620:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20120620:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20120620:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20120620:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20120620:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20120620:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20120620:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20120726:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20120726:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20120726:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20120726:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20120726:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20120726:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20120726:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20120726:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20120726:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20120726:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20120905:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20120905:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20120905:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20120905:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20120905:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20120905:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20120905:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20120905:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20120905:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20120905:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121119:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20121119:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20121119:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20121119:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121119:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121119:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121119:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20121119:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20121119:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20121119:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121123:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20121123:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20121123:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20121123:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121123:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121123:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121123:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20121123:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20121123:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20121123:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121127:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20121127:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20121127:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20121127:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121127:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121127:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121127:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20121127:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20121127:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20121127:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121127_new:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20121127_new:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20121127_new:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20121127_new:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121127_new:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121127_new:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121127_new:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20121127_new:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20121127_new:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20121127_new:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121217:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20121217:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20121217:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20121217:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121217:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121217:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp20121217:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp20121217:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp20121217:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp20121217:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp@20120827:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp@20120827:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp@20120827:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp@20120827:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp@20120827:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp@20120827:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp@20120827:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp@20120827:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp@20120827:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp@20120827:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp@20130201lixiaoxin:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp@20130201lixiaoxin:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp@20130201lixiaoxin:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp@20130201lixiaoxin:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp@20130201lixiaoxin:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp@20130201lixiaoxin:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp@20130201lixiaoxin:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp@20130201lixiaoxin:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp@20130201lixiaoxin:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp@20130201lixiaoxin:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20110701:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp_20110701:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp_20110701:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp_20110701:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20110701:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20110701:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20110701:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp_20110701:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp_20110701:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp_20110701:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20110906:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp_20110906:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp_20110906:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp_20110906:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20110906:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20110906:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20110906:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp_20110906:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp_20110906:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp_20110906:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20110913:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp_20110913:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp_20110913:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp_20110913:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20110913:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20110913:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20110913:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp_20110913:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp_20110913:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp_20110913:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20111009:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp_20111009:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp_20111009:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp_20111009:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20111009:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20111009:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20111009:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp_20111009:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp_20111009:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp_20111009:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20111115:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp_20111115:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp_20111115:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp_20111115:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20111115:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20111115:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20111115:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp_20111115:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp_20111115:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp_20111115:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20120913:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp_20120913:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp_20120913:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp_20120913:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20120913:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20120913:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cp_20120913:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cp_20120913:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cp_20120913:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cp_20120913:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cpliujj:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cpliujj:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cpliujj:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cpliujj:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cpliujj:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cpliujj:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cpliujj:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cpliujj:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cpliujj:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cpliujj:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cpmajha:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cpmajha:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cpmajha:	pubLog_Debug(_FFL_, "pubBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cpmajha:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cpmajha:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cpmajha:      if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)
+publicBill.cpmajha:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "begin to fProdCheckOpr --ctrlCode=[%s]---", vECtrlCode);
+publicBill.cpmajha:		if(fProdCheckOpr(iPhoneNo, vECtrlCode, iOpCode, iLoginNo, &fe) != 0){
+publicBill.cpmajha:	pubLog_Debug(_FFL_, "pubSladderBillEndMode", "", "end to fProdCheckOpr -----");
+publicBill.cpmajha:		if(fProdCheckOpr(iPhoneNo, vBCtrlCode, iOpCode, iLoginNo, &fe) != 0)

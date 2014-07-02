@@ -1,0 +1,3698 @@
+#Host:				JLBOSS(10.161.249.14)
+#User:				iboss1
+#Home:				/iboss1
+#FileDir:			/iboss1/run/cfg/UBBCONFIG
+
+*RESOURCES
+IPCKEY				222111
+PERM				0600
+MASTER 				JLBOSS
+MAXACCESSERS 			3000
+MAXSERVERS 			2000
+MAXSERVICES 			4000
+MAXNETGROUPS 			200
+MAXGTT 				200
+MAXCONV 			400
+SCANUNIT 			10
+SANITYSCAN 			5
+BBLQUERY 			180
+BLOCKTIME 			90
+MODEL 				SHM
+SYSTEM_ACCESS			PROTECTED,NO_OVERRIDE
+LDBAL 				Y
+OPTIONS				NO_AA
+##SECURITY			APP_PW
+*MACHINES
+
+tsas_1	LMID=JLBOSS
+	TYPE=HP
+	APPDIR="/iboss1/run/bin"
+	TUXCONFIG="/iboss1/run/cfg/tuxconfig"
+	TUXDIR="/bea/tuxedo10/tuxedo10gR3"
+	ULOGPFX="/iboss1/run/log/ULOG"
+	MAXWSCLIENTS=800
+
+
+
+*GROUPS
+OPENGRP_JLCRM1	LMID=JLBOSS	GRPNO=200
+CHGGRP_JLCRM1	LMID=JLBOSS	GRPNO=60
+PAYGRP_JLCRM1	LMID=JLBOSS	GRPNO=70
+QRYGRP_JLCRM1	LMID=JLBOSS	GRPNO=80
+CONGRP_JLCRM1	LMID=JLBOSS	GRPNO=90
+BIGGRP_JLCRM1	LMID=JLBOSS	GRPNO=100
+MNGGRP_JLCRM1	LMID=JLBOSS	GRPNO=110
+OWEGRP_JLCRM1	LMID=JLBOSS	GRPNO=120
+PUBGRP_JLCRM1	LMID=JLBOSS	GRPNO=130
+OTHERGRP_JLCRM1	LMID=JLBOSS	GRPNO=140
+ONEGRP_JLBOSS	LMID=JLBOSS	GRPNO=150
+JREPGRP_JLBOSS	LMID=JLBOSS	GRPNO=160
+JSLGRP_JLBOSS	LMID=JLBOSS	GRPNO=170
+WSLGRP_JLBOSS	LMID=JLBOSS	GRPNO=180
+WTCGRP_JLBOSS	LMID=JLBOSS	GRPNO=190 OPENINFO=NONE
+SMAPGRP_JLCRM1	LMID=JLBOSS	GRPNO=230 
+NGBODC_JLCRM1	LMID=JLBOSS	GRPNO=240 
+CALLGRP_JLCRM1	LMID=JLBOSS	GRPNO=250 
+
+*SERVERS
+
+DEFAULT:
+	CLOPT="-A "
+	RESTART=Y       GRACE=0 MAXGEN=10
+
+###############################################################
+#开户
+###############################################################
+
+#客户开户
+R1100	SRVGRP=OPENGRP_JLCRM1 SRVID=1000 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1100.log"
+
+#数据卡
+R1100Pub3	SRVGRP=OPENGRP_JLCRM1 SRVID=1100 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1100Pub3.log"
+
+#开户相关查询
+R1100pubsrv	SRVGRP=OPENGRP_JLCRM1 SRVID=1200 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1100pubsrv.log"
+
+R1100pubsrvFile	SRVGRP=OPENGRP_JLCRM1 SRVID=1150 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1100pubsrvFile.log"
+
+#一卡双号
+R1110	SRVGRP=OPENGRP_JLCRM1 SRVID=1400 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1110.log"
+
+#开户冲正
+R1121	SRVGRP=OPENGRP_JLCRM1 SRVID=1500 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1121.log"
+
+R1199	SRVGRP=MNGGRP_JLCRM1 SRVID=1420 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1199.log"
+
+#开户公用(普通、批量)
+R11_04060820	SRVGRP=OPENGRP_JLCRM1 SRVID=1300 MIN=3 MAX=5
+	CLOPT="-A -r  -o /iboss1/run/log/R11_04060820.log"
+
+R11_04060820file	SRVGRP=OPENGRP_JLCRM1 SRVID=1180 MIN=1  MAX=3
+	CLOPT="-A -r  -o /iboss1/run/log/R11_04060820file.log"
+
+#用户密码管理
+R1234Web	SRVGRP=OPENGRP_JLCRM1 SRVID=2950 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1234Web.log"
+
+#资费变更
+R1270Cfm	SRVGRP=CHGGRP_JLCRM1 SRVID=2900 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1270Cfm.log"
+
+#资费变更
+R1270Init	SRVGRP=CHGGRP_JLCRM1 SRVID=2800 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1270Init.log"
+
+#资费变更
+R1270Msg	SRVGRP=CHGGRP_JLCRM1 SRVID=2750 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1270Msg.log"
+
+#资费变更
+R1270Must	SRVGRP=CHGGRP_JLCRM1 SRVID=2850 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1270Must.log"
+
+R1271Cfm	SRVGRP=MNGGRP_JLCRM1 SRVID=1271 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1271Cfm.log"
+
+#可选资费套餐变更
+R1272	SRVGRP=CHGGRP_JLCRM1 SRVID=3000 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1272.log"
+
+#字母卡变更
+R1274	SRVGRP=CHGGRP_JLCRM1 SRVID=3050 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1274.log"
+
+#VPMN变更
+R1276	SRVGRP=CHGGRP_JLCRM1 SRVID=3100 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1276.log"
+
+#主被叫付费
+R1277	SRVGRP=CHGGRP_JLCRM1 SRVID=3150 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1277.log"
+
+#VPMN月租/租机
+R1278	SRVGRP=CHGGRP_JLCRM1 SRVID=3200 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1278.log"
+
+#营销包
+R1279	SRVGRP=CHGGRP_JLCRM1 SRVID=3250 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1279.log"
+
+R1282	SRVGRP=MNGGRP_JLCRM1 SRVID=1355 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1282.log"
+
+R1283	SRVGRP=MNGGRP_JLCRM1 SRVID=1356 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1283.log"
+
+R1286	SRVGRP=MNGGRP_JLCRM1 SRVID=1359 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1286.log"
+
+R1287	SRVGRP=MNGGRP_JLCRM1 SRVID=1370 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1287.log"
+
+R1288	SRVGRP=MNGGRP_JLCRM1 SRVID=1360 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1288.log"
+
+R1292	SRVGRP=MNGGRP_JLCRM1 SRVID=1292 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1292.log"
+
+TableMaint SRVGRP=MNGGRP_JLCRM1 SRVID=22867 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/TableMaint.log"
+
+Re452Cfm SRVGRP=MNGGRP_JLCRM1 SRVID=22869 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re452Cfm.log"
+	
+Rbmpt SRVGRP=MNGGRP_JLCRM1 SRVID=22871 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbmpt.log"
+
+Re564 SRVGRP=MNGGRP_JLCRM1 SRVID=22872 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re564.log"
+	
+
+
+
+###############################################################
+#变更
+###############################################################
+
+#资料修改
+R12_10	SRVGRP=CHGGRP_JLCRM1 SRVID=1600 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_10.log"
+
+#帐户资料修改
+R12_11	SRVGRP=CHGGRP_JLCRM1 SRVID=1650 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_11.log"
+
+#付费计划变更
+R12_12	SRVGRP=CHGGRP_JLCRM1 SRVID=1700 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_12.log"
+
+#换卡
+R12_20	SRVGRP=CHGGRP_JLCRM1 SRVID=1850 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_20.log"
+
+#租机
+R12_22	SRVGRP=CHGGRP_JLCRM1 SRVID=1900 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_22.log"
+
+#租机
+R12_23	SRVGRP=CHGGRP_JLCRM1 SRVID=1950 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_23.log"
+
+#租机
+R12_24	SRVGRP=CHGGRP_JLCRM1 SRVID=2000 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_24.log"
+
+#租机
+R12_25	SRVGRP=CHGGRP_JLCRM1 SRVID=2050 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_25.log"
+
+#一卡双号换卡
+R12_26	SRVGRP=CHGGRP_JLCRM1 SRVID=2100 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_26.log"
+
+#WLAN注册
+R12_27	SRVGRP=CHGGRP_JLCRM1 SRVID=2150 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_27.log"
+
+#详单禁查
+R12_36	SRVGRP=CHGGRP_JLCRM1 SRVID=2250 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_36.log"
+
+#过户
+R12_38	SRVGRP=CHGGRP_JLCRM1 SRVID=2300 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_38.log"
+
+R12_41	SRVGRP=MNGGRP_JLCRM1 SRVID=1241 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_41.log"
+
+#申请备卡
+R12_42	SRVGRP=CHGGRP_JLCRM1 SRVID=2400 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_42.log"
+
+#发票补打
+R12_44	SRVGRP=CHGGRP_JLCRM1 SRVID=2450 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_44.log"
+
+#强制开关机
+R12_46	SRVGRP=CHGGRP_JLCRM1 SRVID=2500 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_46.log"
+
+#HLR信息查询
+R12_48	SRVGRP=CHGGRP_JLCRM1 SRVID=2550 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_48.log"
+
+#用户属性查询
+R12_56  SRVGRP=CHGGRP_JLCRM1 SRVID=2650 MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R12_56.log"
+
+R1315	SRVGRP=PAYGRP_JLCRM1 SRVID=2680 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1315.log"
+
+#有价卡销售
+R1330	SRVGRP=PAYGRP_JLCRM1 SRVID=5300 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1330.log"
+
+#有价卡销售发票打印
+R1330Print	SRVGRP=PAYGRP_JLCRM1 SRVID=5400 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1330Print.log"
+
+R1345	SRVGRP=MNGGRP_JLCRM1 SRVID=1410 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1345.log"
+
+#长白行/神州行销售
+R1368	SRVGRP=PAYGRP_JLCRM1 SRVID=5020 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1368.log"
+
+R1390  SRVGRP=CHGGRP_JLCRM1 SRVID=11760 CONV=N  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R1390.log"
+
+R1440	SRVGRP=CONGRP_JLCRM1 SRVID=3160 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1440.log"
+
+R14_30	SRVGRP=CHGGRP_JLCRM1 SRVID=1170 CONV=N MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R14_30.log"
+
+RPubInsertCRMG	SRVGRP=CHGGRP_JLCRM1 SRVID=16870 MIN=1  MAX=1 
+	CLOPT="-A -r  -o /iboss1/run/log/RPubInsertCRMG.log"
+###############################################################
+#查询
+###############################################################
+
+#综合信息查询
+R1500	SRVGRP=QRYGRP_JLCRM1 SRVID=6400 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1500.log"
+	RQADDR="R1500_1" REPLYQ=Y
+
+R1500	SRVGRP=QRYGRP_JLCRM1 SRVID=6410 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1500.log"
+	RQADDR="R1500_2" REPLYQ=Y
+
+R1500	SRVGRP=QRYGRP_JLCRM1 SRVID=6420 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1500.log"
+	RQADDR="R1500_3" REPLYQ=Y
+
+R1500	SRVGRP=QRYGRP_JLCRM1 SRVID=6430 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1500.log"
+	RQADDR="R1500_4" REPLYQ=Y
+
+R1500	SRVGRP=QRYGRP_JLCRM1 SRVID=6440 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1500.log"
+	RQADDR="R1500_5" REPLYQ=Y
+
+#帐单查询
+R1500More	SRVGRP=QRYGRP_JLCRM1 SRVID=6450 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1500More.log"
+	RQADDR="R1500More_1" REPLYQ=Y
+
+R1500More	SRVGRP=QRYGRP_JLCRM1 SRVID=6460 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1500More.log"
+	RQADDR="R1500More_2" REPLYQ=Y
+
+R1500More	SRVGRP=QRYGRP_JLCRM1 SRVID=6470 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1500More.log"
+	RQADDR="R1500More_3" REPLYQ=Y
+
+R1500PhoneQry	SRVGRP=QRYGRP_JLCRM1 SRVID=8150 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1500PhoneQry.log"
+
+R1500Qry	SRVGRP=QRYGRP_JLCRM1 SRVID=8200 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1500Qry.log"
+
+R1500_dBillCust	SRVGRP=QRYGRP_JLCRM1 SRVID=8100 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1500_dBillCust.log"
+
+##R1501	SRVGRP=QRYGRP_JLCRM1 SRVID=6810 MIN=1	MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1501.log"
+
+#营业员操作查询
+R1507	SRVGRP=CHGGRP_JLCRM1 SRVID=6600 MIN=8   MAX=10
+	CLOPT="-A -r  -o /iboss1/run/log/R1507.log"
+
+#套餐查询
+R1508	SRVGRP=QRYGRP_JLCRM1 SRVID=6700 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1508.log"
+
+#死帐查询
+#R1520	SRVGRP=QRYGRP_JLCRM1 SRVID=6900 MIN=1   MAX=1
+#	CLOPT="-A -r  -o /iboss1/run/log/R1520.log"
+
+#开关机查询
+R1525	SRVGRP=QRYGRP_JLCRM1 SRVID=7000 MIN=1	MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1525.log"
+
+#综合信息查询
+R1550	SRVGRP=QRYGRP_JLCRM1 SRVID=7100 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1550.log"
+
+R1560	SRVGRP=QRYGRP_JLCRM1 SRVID=3480 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1560.log"
+
+R1847	SRVGRP=PAYGRP_JLCRM1 SRVID=13900 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R1847.log"
+
+R1848	SRVGRP=PAYGRP_JLCRM1 SRVID=13910 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R1848.log"
+
+R1864	SRVGRP=PAYGRP_JLCRM1 SRVID=13920 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R1864.log"
+
+Rrecordlist	SRVGRP=PAYGRP_JLCRM1 SRVID=13925 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rrecordlist.log"
+
+R1865	SRVGRP=PAYGRP_JLCRM1 SRVID=13930 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R1865.log"
+	
+RTest	SRVGRP=PAYGRP_JLCRM1 SRVID=13935 MIN=2  MAX=5
+	CLOPT="-A -r -o /iboss1/run/log/RTest.log"
+
+loginTest	SRVGRP=OPENGRP_JLCRM1 SRVID=8669 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/loginTest.log"
+
+R1901  	SRVGRP=OPENGRP_JLCRM1 SRVID=8642 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1901.log"
+
+R1902 	SRVGRP=OPENGRP_JLCRM1 SRVID=8654 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1902.log"
+
+R1907 	SRVGRP=OPENGRP_JLCRM1 SRVID=8666 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1907.log"
+
+R1014 	SRVGRP=OPENGRP_JLCRM1 SRVID=8667 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1014.log"
+	
+###############################################################
+#DSMP3.0服务
+###############################################################
+R1923DSMP	SRVGRP=CHGGRP_JLCRM1 SRVID=14000 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R1923DSMP.log"
+R1931DSMP	SRVGRP=CHGGRP_JLCRM1 SRVID=14020 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R1931DSMP.log"
+
+R1940   SRVGRP=SMAPGRP_JLCRM1 SRVID=8320  MIN=2 MAX=2
+	CLOPT="-A -r  -o /iboss1/run/log/R1940.log"
+
+R1950	SRVGRP=SMAPGRP_JLCRM1 SRVID=8390	MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1950.log"
+
+R2010DSMP	SRVGRP=CHGGRP_JLCRM1 SRVID=14040 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2010DSMP.log"
+
+R492b	SRVGRP=CHGGRP_JLCRM1 SRVID=14050 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R492b.log"
+
+R492h	SRVGRP=CHGGRP_JLCRM1 SRVID=14090 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R492h.log"
+
+R2011DSMP	SRVGRP=CHGGRP_JLCRM1 SRVID=14060 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2011DSMP.log"
+
+R2012Dsmp	SRVGRP=CHGGRP_JLCRM1 SRVID=14061 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2012Dsmp.log"
+
+R2011	SRVGRP=CHGGRP_JLCRM1 SRVID=14065 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2011.log"
+
+R2011Rsp	SRVGRP=CHGGRP_JLCRM1 SRVID=14067 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2011Rsp.log"
+
+ROBProxySrv	SRVGRP=CHGGRP_JLCRM1 SRVID=14070 MIN=2  MAX=5
+	CLOPT="-A -r -o /iboss1/run/log/ROBProxySrv.log"
+
+R2015DSMP	SRVGRP=CHGGRP_JLCRM1 SRVID=14080 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2015DSMP.log"
+
+R2015	SRVGRP=CHGGRP_JLCRM1 SRVID=14085 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2015.log"
+
+R2023	SRVGRP=PAYGRP_JLCRM1 SRVID=13160 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2023.log"
+
+R2023DSMP	SRVGRP=CHGGRP_JLCRM1 SRVID=14100 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2023DSMP.log"
+
+R2029	SRVGRP=PAYGRP_JLCRM1 SRVID=14810 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2029.log"
+
+R2031	SRVGRP=PAYGRP_JLCRM1 SRVID=13780 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2031.log"
+
+R2032DSMP	SRVGRP=CHGGRP_JLCRM1 SRVID=14450 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2032DSMP.log"
+
+R2040	SRVGRP=CHGGRP_JLCRM1 SRVID=14365 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2040.log" 
+
+R2048	SRVGRP=PAYGRP_JLCRM1 SRVID=13960 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2048.log"
+
+R2050	SRVGRP=PAYGRP_JLCRM1 SRVID=13940 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2050.log"
+
+R2098	SRVGRP=PAYGRP_JLCRM1 SRVID=15070 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2098.log" 
+
+Rread	SRVGRP=PAYGRP_JLCRM1 SRVID=15075 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rread.log" 
+
+R2222  SRVGRP=CHGGRP_JLCRM1 SRVID=3860  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R2222.log"
+
+R4276  SRVGRP=CHGGRP_JLCRM1 SRVID=3865  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R4276.log"
+
+#红名单
+R23_00	SRVGRP=MNGGRP_JLCRM1 SRVID=7700 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R23_00.log"
+
+#黑名单
+R23_01	SRVGRP=MNGGRP_JLCRM1 SRVID=7750 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R23_01.log"
+
+#信誉度修改
+R23_07	SRVGRP=MNGGRP_JLCRM1 SRVID=7800 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R23_07.log"
+
+R2419  SRVGRP=CHGGRP_JLCRM1 SRVID=3700  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R2419.log"
+
+#积分修改
+R24_17	SRVGRP=MNGGRP_JLCRM1 SRVID=7850 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R24_17.log"
+
+R24_19	SRVGRP=MNGGRP_JLCRM1 SRVID=2017 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R24_19.log"
+
+#号码入库
+R2500	SRVGRP=MNGGRP_JLCRM1 SRVID=7900 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2500.log"
+
+R2530	SRVGRP=MNGGRP_JLCRM1 SRVID=4070 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2530.log"
+
+R2531	SRVGRP=MNGGRP_JLCRM1 SRVID=4080 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2531.log"
+
+#SIM卡数据导入
+R2600	SRVGRP=MNGGRP_JLCRM1 SRVID=7950 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2600.log"
+
+R2700	SRVGRP=MNGGRP_JLCRM1 SRVID=4062 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2700.log"
+
+R2841	SRVGRP=MNGGRP_JLCRM1 SRVID=1440 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2841.log"
+
+R2931	SRVGRP=PAYGRP_JLCRM1 SRVID=13110 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2931.log"
+
+R2914Test	SRVGRP=PAYGRP_JLCRM1 SRVID=13120 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2914Test.log"
+
+R2953	SRVGRP=PAYGRP_JLCRM1 SRVID=13150 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2953.log"
+
+#取消最低消费
+R2975	SRVGRP=CHGGRP_JLCRM1 SRVID=2975 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2975.log"
+
+R29_3034  SRVGRP=CHGGRP_JLCRM1 SRVID=2930  MIN=1  MAX=1
+	CLOPT="-A -o /iboss1/run/log/R29_3034.log"
+
+R3077	SRVGRP=PAYGRP_JLCRM1 SRVID=13860 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R3077.log"
+
+#PPIP开户
+R3100   SRVGRP=SMAPGRP_JLCRM1 SRVID=8900 MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3100.log"
+
+R3138	SRVGRP=PAYGRP_JLCRM1 SRVID=13950 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R3138.log"
+
+#IP直通车开户
+R3150   SRVGRP=SMAPGRP_JLCRM1 SRVID=9100 MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3150.log"
+
+#VPMN集团开户
+R3200   SRVGRP=SMAPGRP_JLCRM1 SRVID=8000  MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R3200.log"
+
+#VPMN集团基本信息修改
+R3210	SRVGRP=SMAPGRP_JLCRM1 SRVID=8250 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R3210.log"
+
+#SMAP查询类
+R3218   SRVGRP=SMAPGRP_JLCRM1 SRVID=9200 MIN=1  MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3218.log"
+
+#VPMN网外组维护
+R3230	SRVGRP=SMAPGRP_JLCRM1 SRVID=8600 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R3230.log"
+
+#集团闭合群组维护
+R3240	SRVGRP=SMAPGRP_JLCRM1 SRVID=9750 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R3240.log"
+
+#集团话务员管理
+R3251   SRVGRP=SMAPGRP_JLCRM1 SRVID=10150 MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3251.log"
+
+#集团费率查询
+R3260   SRVGRP=SMAPGRP_JLCRM1 SRVID=8800 MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3260.log"
+
+### 集团统一信息查询
+R7480   SRVGRP=CHGGRP_JLCRM1 SRVID=22838 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R7480.log"
+	     
+R7499 SRVGRP=CHGGRP_JLCRM1 SRVID=17013  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R7499.log"        
+        
+R7528 SRVGRP=CHGGRP_JLCRM1 SRVID=17014 MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R7528.log"
+
+###############################################################
+#智能网SMAP业务
+###############################################################
+
+R34_3234   SRVGRP=SMAPGRP_JLCRM1 SRVID=8300  MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R34_3234.log"
+
+R3519	SRVGRP=SMAPGRP_JLCRM1 SRVID=8395  MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R3519.log"
+
+R3550	SRVGRP=PAYGRP_JLCRM1 SRVID=11790 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R3550.log"
+
+R359X	SRVGRP=PAYGRP_JLCRM1 SRVID=11795 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R359X.log"
+
+R35_0001   SRVGRP=SMAPGRP_JLCRM1 SRVID=8305  MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R35_0001.log"
+
+R3714	SRVGRP=PAYGRP_JLCRM1 SRVID=13250 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R3714.log"
+
+R3750  SRVGRP=CHGGRP_JLCRM1 SRVID=3600  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3750.log"
+
+R3751  SRVGRP=CHGGRP_JLCRM1 SRVID=3610  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3751.log"
+
+R3752  SRVGRP=CHGGRP_JLCRM1 SRVID=3620  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3752.log"
+
+R3753  SRVGRP=CHGGRP_JLCRM1 SRVID=3630  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3753.log"
+
+R3754  SRVGRP=CHGGRP_JLCRM1 SRVID=3640  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3754.log"
+
+R3755  SRVGRP=CHGGRP_JLCRM1 SRVID=3650  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3755.log"
+
+R3756  SRVGRP=CHGGRP_JLCRM1 SRVID=3660  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3756.log"
+
+R3757  SRVGRP=CHGGRP_JLCRM1 SRVID=3670  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3757.log"
+
+R3761  SRVGRP=CHGGRP_JLCRM1 SRVID=3720  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3761.log"
+
+R3762  SRVGRP=CHGGRP_JLCRM1 SRVID=3730  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3762.log"
+
+R3769res  SRVGRP=CHGGRP_JLCRM1 SRVID=3690  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3769res.log"
+
+R3771  SRVGRP=CHGGRP_JLCRM1 SRVID=3710  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3771.log"
+
+R3773  SRVGRP=CHGGRP_JLCRM1 SRVID=3740  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3773.log"
+
+R3774  SRVGRP=CHGGRP_JLCRM1 SRVID=3760  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3774.log"
+
+R3776  SRVGRP=CHGGRP_JLCRM1 SRVID=3750  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3776.log"
+
+R3778  SRVGRP=CHGGRP_JLCRM1 SRVID=3770  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3778.log"
+
+R3779  SRVGRP=CHGGRP_JLCRM1 SRVID=3780  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3779.log"
+
+######################################################
+#统一接触
+######################################################
+
+R37_80	SRVGRP=PUBGRP_JLCRM1 SRVID=9000 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R37_80.log"
+
+R37_81	SRVGRP=PUBGRP_JLCRM1 SRVID=9600 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R37_81.log"
+
+R37_82	SRVGRP=PUBGRP_JLCRM1 SRVID=9050 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R37_82.log"
+
+R37_83	SRVGRP=PUBGRP_JLCRM1 SRVID=9250 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R37_83.log"
+
+R37_84	SRVGRP=PUBGRP_JLCRM1 SRVID=9300 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R37_84.log"
+
+R37_85	SRVGRP=PUBGRP_JLCRM1 SRVID=9010 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R37_85.log"
+
+R37_86	SRVGRP=PUBGRP_JLCRM1 SRVID=9450 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R37_86.log"
+
+R37_89	SRVGRP=PUBGRP_JLCRM1 SRVID=9500 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R37_89.log"
+
+R4001Cfm	SRVGRP=PAYGRP_JLCRM1 SRVID=14860 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4001Cfm.log"
+
+R4027	SRVGRP=PAYGRP_JLCRM1 SRVID=14820 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4027.log"
+
+R4145Cfm	SRVGRP=PAYGRP_JLCRM1 SRVID=15040 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4145Cfm.log"
+
+Rd615		SRVGRP=PAYGRP_JLCRM1 SRVID=15010 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rd615.log"
+
+Rt001	SRVGRP=PAYGRP_JLCRM1 SRVID=15020 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rt001.log"
+
+R4148Cfm	SRVGRP=PAYGRP_JLCRM1 SRVID=15050 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4148Cfm.log" 
+
+R4146Cfm	SRVGRP=PAYGRP_JLCRM1 SRVID=15060 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4146Cfm.log" 
+
+R9167Cfm	SRVGRP=PAYGRP_JLCRM1 SRVID=15080 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9167Cfm.log" 
+
+R9168Cfm	SRVGRP=PAYGRP_JLCRM1 SRVID=15090 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9168Cfm.log" 
+
+R4150	SRVGRP=PAYGRP_JLCRM1 SRVID=15270 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4150.log"
+
+R4171   SRVGRP=PAYGRP_JLCRM1 SRVID=16910 MIN=1  MAX=1
+       CLOPT="-A -r  -o /iboss1/run/log/R4171.log"
+
+R4095   SRVGRP=PAYGRP_JLCRM1 SRVID=16915 MIN=1  MAX=1       
+       CLOPT="-A -r  -o /iboss1/run/log/R4095.log"
+
+R4096   SRVGRP=PAYGRP_JLCRM1 SRVID=16920 MIN=1  MAX=1
+       CLOPT="-A -r  -o /iboss1/run/log/R4096.log"
+
+Rreadp   SRVGRP=PAYGRP_JLCRM1 SRVID=16925 MIN=1  MAX=1
+       CLOPT="-A -r  -o /iboss1/run/log/Rreadp.log"
+
+R4207	SRVGRP=PAYGRP_JLCRM1 SRVID=13300 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4207.log"
+
+R4230DSMP	SRVGRP=CHGGRP_JLCRM1 SRVID=14120 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4230DSMP.log"
+
+R4237DSMP	SRVGRP=CHGGRP_JLCRM1 SRVID=14140 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4237DSMP.log"
+
+R4258	SRVGRP=PAYGRP_JLCRM1 SRVID=13970 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4258.log"
+
+R4303	SRVGRP=PAYGRP_JLCRM1 SRVID=13075 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4303.log"
+
+R4729	SRVGRP=PAYGRP_JLCRM1 SRVID=14750 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4729.log"
+
+R4826	SRVGRP=CHGGRP_JLCRM1 SRVID=14360 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4826.log"
+
+R4926	SRVGRP=PAYGRP_JLCRM1 SRVID=13895 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4926.log"
+
+R4931	SRVGRP=PAYGRP_JLCRM1 SRVID=13890 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4931.log"
+
+R4946	SRVGRP=PAYGRP_JLCRM1 SRVID=14940 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4946.log"
+
+R4959	SRVGRP=PAYGRP_JLCRM1 SRVID=15800 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4959.log"
+	
+RDetQry	SRVGRP=PAYGRP_JLCRM1 SRVID=15900 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RDetQry.log"	
+
+###############################################################
+#参数管理
+###############################################################
+
+#营销代码管理
+R5040	SRVGRP=QRYGRP_JLCRM1 SRVID=7200 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R5040.log"
+
+R5042	SRVGRP=QRYGRP_JLCRM1 SRVID=4280 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R5042.log"
+
+R5044	SRVGRP=MNGGRP_JLCRM1 SRVID=4010 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R5044.log"
+
+R5060	SRVGRP=QRYGRP_JLCRM1 SRVID=5060 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R5060.log"
+
+R5061   SRVGRP=QRYGRP_JLCRM1 SRVID=3585 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R5061.log"
+
+R5090	SRVGRP=OTHERGRP_JLCRM1 SRVID=13270 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R5090.log"
+
+R5121	SRVGRP=PAYGRP_JLCRM1 SRVID=11835 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R5121.log"
+
+R5122	SRVGRP=PAYGRP_JLCRM1 SRVID=11840 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R5122.log"
+
+R5123	SRVGRP=PAYGRP_JLCRM1 SRVID=11845 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R5123.log"
+
+R5142	SRVGRP=PAYGRP_JLCRM1 SRVID=13170 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R5142.log"
+
+R5160   SRVGRP=SMAPGRP_JLCRM1 SRVID=8355  MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R5160.log"
+
+R5168	SRVGRP=PAYGRP_JLCRM1 SRVID=13175 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R5168.log"
+
+R5204  SRVGRP=CHGGRP_JLCRM1 SRVID=2980  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R5204.log"
+
+R5238	SRVGRP=PAYGRP_JLCRM1 SRVID=11810 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R5238.log"
+
+R5240	SRVGRP=PAYGRP_JLCRM1 SRVID=11815 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R5240.log"
+
+R5241	SRVGRP=PAYGRP_JLCRM1 SRVID=11820 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R5241.log"
+
+R5246	SRVGRP=PAYGRP_JLCRM1 SRVID=11825 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R5246.log"
+
+R5248	SRVGRP=PAYGRP_JLCRM1 SRVID=11830 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R5248.log"
+
+R5295	SRVGRP=PAYGRP_JLCRM1 SRVID=11850 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R5295.log"
+
+R5465	SRVGRP=PAYGRP_JLCRM1 SRVID=14910 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R5465.log"
+
+R5987	SRVGRP=PAYGRP_JLCRM1 SRVID=16890 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R5987.log"
+
+R6100	SRVGRP=MNGGRP_JLCRM1 SRVID=6100 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R6100.log"
+
+R6124  SRVGRP=CHGGRP_JLCRM1 SRVID=3870  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R6124.log"
+
+R6225  SRVGRP=CHGGRP_JLCRM1 SRVID=11756 CONV=N MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R6225.log"
+
+R6279	SRVGRP=PAYGRP_JLCRM1 SRVID=13280 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R6279.log"
+
+R6279DSMP	SRVGRP=CHGGRP_JLCRM1 SRVID=14160 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R6279DSMP.log"
+
+R6300   SRVGRP=SMAPGRP_JLCRM1 SRVID=8340  MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R6300.log"
+###############################################################
+#视图查询
+###############################################################	
+R6390	SRVGRP=PAYGRP_JLCRM1 SRVID=27755 MIN=1  MAX=5
+	CLOPT="-A -r -t -o /iboss1/run/log/R6390.log"
+
+R6932	SRVGRP=PAYGRP_JLCRM1 SRVID=14920 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R6932.log"
+
+R7109	SRVGRP=MNGGRP_JLCRM1 SRVID=7910 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R7109.log"
+
+R7138	SRVGRP=PAYGRP_JLCRM1 SRVID=11800 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R7138.log"
+
+R7143	SRVGRP=PAYGRP_JLCRM1 SRVID=13790 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R7143.log"
+
+R7178	SRVGRP=PAYGRP_JLCRM1 SRVID=13130 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R7178.log"
+
+R7191	SRVGRP=PAYGRP_JLCRM1 SRVID=13810 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R7191.log"
+
+R7197	SRVGRP=PAYGRP_JLCRM1 SRVID=13140 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R7197.log"
+
+Rmpay	SRVGRP=PAYGRP_JLCRM1 SRVID=13145 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rmpay.log"
+
+###############################################################
+#欠费管理
+###############################################################
+R71_02	SRVGRP=OWEGRP_JLCRM1 SRVID=11050 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R71_02.log"
+
+R71_03	SRVGRP=OWEGRP_JLCRM1 SRVID=11100 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R71_03.log"
+
+R71_08	SRVGRP=CHGGRP_JLCRM1 SRVID=2970  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R71_08.log"
+
+R71_10	SRVGRP=OWEGRP_JLCRM1 SRVID=11350 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R71_10.log"
+
+Rbs7111	SRVGRP=OWEGRP_JLCRM1 SRVID=5775  MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs7111.log"
+
+R71_12  SRVGRP=OWEGRP_JLCRM1 SRVID=5765  MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R71_12.log"
+
+R71_13	SRVGRP=OWEGRP_JLCRM1 SRVID=5770  MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R71_13.log"
+
+R7201DSMP	SRVGRP=CHGGRP_JLCRM1 SRVID=14180 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R7201DSMP.log"
+
+R7411	SRVGRP=PAYGRP_JLCRM1 SRVID=13990 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R7411.log"
+
+R7620Init	SRVGRP=PAYGRP_JLCRM1 SRVID=14595 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R7620Init.log"
+
+R7864	SRVGRP=PAYGRP_JLCRM1 SRVID=11855 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R7864.log"
+
+R7952	SRVGRP=OPENGRP_JLCRM1 SRVID=1550 CONV=N MIN=1	MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R7952.log"
+
+R8001	SRVGRP=PAYGRP_JLCRM1 SRVID=14671 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8001.log"
+
+R8021	SRVGRP=OTHERGRP_JLCRM1 SRVID=13240 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R8021.log"
+
+R8026	SRVGRP=OTHERGRP_JLCRM1 SRVID=13250 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R8026.log"
+
+R8054	SRVGRP=OTHERGRP_JLCRM1 SRVID=13260 MIN=1   MAX=1 
+	CLOPT="-A -r  -o /iboss1/run/log/R8054.log"
+
+###############################################################
+#专线
+###############################################################
+R8100   SRVGRP=CHGGRP_JLCRM1 SRVID=11400 CONV=N MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R8100.log"
+
+R8101   SRVGRP=CHGGRP_JLCRM1 SRVID=11450 CONV=N MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R8101.log"
+
+R8102   SRVGRP=CHGGRP_JLCRM1 SRVID=11500 CONV=N MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R8102.log"
+
+R8103	SRVGRP=PAYGRP_JLCRM1 SRVID=13230 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8103.log"
+
+R8104   SRVGRP=CHGGRP_JLCRM1 SRVID=11550 CONV=N MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R8104.log"
+
+R8107	SRVGRP=CHGGRP_JLCRM1 SRVID=4558 CONV=N MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R8107.log"
+
+R8112   SRVGRP=CHGGRP_JLCRM1 SRVID=11600 CONV=N MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R8112.log"
+
+R8116   SRVGRP=CHGGRP_JLCRM1 SRVID=11650 CONV=N MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R8116.log"
+
+R8118   SRVGRP=CHGGRP_JLCRM1 SRVID=11700 CONV=N MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R8118.log"
+
+R8124	SRVGRP=PAYGRP_JLCRM1 SRVID=13090 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8124.log"
+
+R8130   SRVGRP=QRYGRP_JLCRM1 SRVID=8130 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R8130.log"
+
+R8170	SRVGRP=PAYGRP_JLCRM1 SRVID=13050 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8170.log"
+
+R8171	SRVGRP=PAYGRP_JLCRM1 SRVID=13060 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8171.log"
+
+R8175	SRVGRP=PAYGRP_JLCRM1 SRVID=13720 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8175.log"
+
+R8178	SRVGRP=PAYGRP_JLCRM1 SRVID=13270 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8178.log"
+
+R8182	SRVGRP=PAYGRP_JLCRM1 SRVID=13240 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8182.log"
+
+R81_17  SRVGRP=CHGGRP_JLCRM1 SRVID=11750 CONV=N MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R81_17.log"
+
+R8295	SRVGRP=PAYGRP_JLCRM1 SRVID=13690 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8295.log"
+
+R8298	SRVGRP=PAYGRP_JLCRM1 SRVID=13460 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8298.log"
+
+R8309	SRVGRP=PAYGRP_JLCRM1 SRVID=13650 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8309.log"
+
+Re878	SRVGRP=PAYGRP_JLCRM1 SRVID=25555 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Re878.log"
+
+Re976	SRVGRP=PAYGRP_JLCRM1 SRVID=25554 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Re976.log"
+
+Rg263	SRVGRP=PAYGRP_JLCRM1 SRVID=25551 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rg263.log"
+
+Rg496	SRVGRP=PAYGRP_JLCRM1 SRVID=25540 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rg496.log"
+
+Rg706	SRVGRP=PAYGRP_JLCRM1 SRVID=25530 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rg706.log"
+
+Rg399	SRVGRP=PAYGRP_JLCRM1 SRVID=25541 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rg399.log"
+
+Rg119	SRVGRP=PAYGRP_JLCRM1 SRVID=25552 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rg119.log"
+
+RChgPnoStateQry	SRVGRP=PAYGRP_JLCRM1 SRVID=25550 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RChgPnoStateQry.log"
+
+ROYaExchange	SRVGRP=PAYGRP_JLCRM1 SRVID=25553 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/ROYaExchange.log"
+	
+R8372	SRVGRP=PAYGRP_JLCRM1 SRVID=13651 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8372.log"
+	
+R8381	SRVGRP=PAYGRP_JLCRM1 SRVID=13653 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8381.log"
+	
+R8373	SRVGRP=PAYGRP_JLCRM1 SRVID=13652 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8373.log"
+
+R8524	SRVGRP=PAYGRP_JLCRM1 SRVID=14905 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8524.log"
+
+R9104	SRVGRP=CHGGRP_JLCRM1 SRVID=14200 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9104.log"
+
+R9106	SRVGRP=CHGGRP_JLCRM1 SRVID=14220 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9106.log"
+
+R9107	SRVGRP=CHGGRP_JLCRM1 SRVID=14240 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9107.log"
+
+R9108	SRVGRP=CHGGRP_JLCRM1 SRVID=14260 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9108.log"
+
+R9109	SRVGRP=PAYGRP_JLCRM1 SRVID=13870 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9109.log"
+
+R9110	SRVGRP=PAYGRP_JLCRM1 SRVID=13880 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9110.log"
+
+R9125	SRVGRP=CHGGRP_JLCRM1 SRVID=14300 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9125.log"
+
+R9127	SRVGRP=CHGGRP_JLCRM1 SRVID=14320 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9127.log"
+
+R9127SMS	SRVGRP=CHGGRP_JLCRM1 SRVID=14340 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9127SMS.log"
+
+R9113	SRVGRP=CHGGRP_JLCRM1 SRVID=14350 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9113.log"
+
+R9310_card	SRVGRP=PAYGRP_JLCRM1 SRVID=14565 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9310_card.log"
+
+RBatchDeal	SRVGRP=PAYGRP_JLCRM1 SRVID=14605 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RBatchDeal.log"
+
+RCheckTwoLogin	SRVGRP=PAYGRP_JLCRM1 SRVID=14700 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RCheckTwoLogin.log"
+
+RCustIndex	SRVGRP=PAYGRP_JLCRM1 SRVID=13520 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RCustIndex.log"
+
+RDESKey	SRVGRP=PAYGRP_JLCRM1 SRVID=13700 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RDESKey.log"
+
+RDynsql	SRVGRP=PAYGRP_JLCRM1 SRVID=11805 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RDynsql.log"
+
+RE_NetCard	SRVGRP=PAYGRP_JLCRM1 SRVID=13985 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RE_NetCard.log"
+
+RElecCommSrv	SRVGRP=PAYGRP_JLCRM1 SRVID=14980 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RElecCommSrv.log"
+
+#######隐性资费##########################
+RElecPwd	SRVGRP=PAYGRP_JLCRM1 SRVID=14895 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RElecPwd.log"
+
+REsopCheck	SRVGRP=PAYGRP_JLCRM1 SRVID=15340 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/REsopCheck.log"
+
+REsopExit	SRVGRP=PAYGRP_JLCRM1 SRVID=15350 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/REsopExit.log"
+
+REsopFunc	SRVGRP=PAYGRP_JLCRM1 SRVID=15330 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/REsopFunc.log"
+
+REsopGetRegion	SRVGRP=PAYGRP_JLCRM1 SRVID=15360 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/REsopGetRegion.log"
+
+REsopLogin	SRVGRP=PAYGRP_JLCRM1 SRVID=15320 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/REsopLogin.log"
+
+REsopOpLog	SRVGRP=PAYGRP_JLCRM1 SRVID=15310 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/REsopOpLog.log"
+
+REsopRole	SRVGRP=PAYGRP_JLCRM1 SRVID=15300 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/REsopRole.log"
+
+REsopWorkNo	SRVGRP=PAYGRP_JLCRM1 SRVID=15290 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/REsopWorkNo.log"
+
+RGetErrWo	SRVGRP=PAYGRP_JLCRM1 SRVID=13450 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RGetErrWo.log"
+
+RGetEsopFunc	SRVGRP=PAYGRP_JLCRM1 SRVID=15280 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RGetEsopFunc.log"
+
+RGetFlow SRVGRP=PAYGRP_JLCRM1 SRVID=13340 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RGetFlow.log"
+
+RGetTask SRVGRP=PAYGRP_JLCRM1 SRVID=13310 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RGetTask.log"
+
+RGetTaskBomc SRVGRP=PAYGRP_JLCRM1 SRVID=13311 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RGetTaskBomc.log"
+
+RGetWAParamPage	SRVGRP=PAYGRP_JLCRM1 SRVID=13370 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RGetWAParamPage.log"
+
+RGetWorkData	SRVGRP=PUBGRP_JLCRM1 SRVID=12050 MIN=20 MAX=20
+	CLOPT="-A -r  -o /iboss1/run/log/RGetWorkData.log"
+
+RGetWorkDataNew	SRVGRP=PAYGRP_JLCRM1 SRVID=13580 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RGetWorkDataNew.log"
+
+RGrpCancel	SRVGRP=SMAPGRP_JLCRM1 SRVID=9310  MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGrpCancel.log"
+
+RIagwCfm	SRVGRP=PAYGRP_JLCRM1 SRVID=13680 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RIagwCfm.log"
+
+#RIMS   SRVGRP=OPENGRP_JLCRM1 SRVID=13691 MIN=1  MAX=1
+#        CLOPT="-A -r  -o /iboss1/run/log/RIMS.log"
+###############################################################
+#客服整合服务
+###############################################################
+RK005	SRVGRP=PAYGRP_JLCRM1 SRVID=12600 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK005.log"
+
+RK006	SRVGRP=PAYGRP_JLCRM1 SRVID=12610 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK006.log"
+
+RK025	SRVGRP=PAYGRP_JLCRM1 SRVID=12780 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK025.log"
+
+RK026	SRVGRP=PAYGRP_JLCRM1 SRVID=12785 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK026.log"
+
+RK029	SRVGRP=PAYGRP_JLCRM1 SRVID=12730 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK029.log"
+
+RK039	SRVGRP=PAYGRP_JLCRM1 SRVID=12790 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK039.log"
+
+RK042	SRVGRP=PAYGRP_JLCRM1 SRVID=12720 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK042.log"
+
+RK083InsertNew	SRVGRP=PAYGRP_JLCRM1 SRVID=12850 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK083InsertNew.log"
+
+RK083Note	SRVGRP=PAYGRP_JLCRM1 SRVID=12715 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK083Note.log"
+
+RK096	SRVGRP=PAYGRP_JLCRM1 SRVID=12650 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK096.log"
+
+RK120	SRVGRP=PAYGRP_JLCRM1 SRVID=12710 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK120.log"
+
+RK151Modify	SRVGRP=PAYGRP_JLCRM1 SRVID=12760 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK151Modify.log"
+
+RK151new	SRVGRP=PAYGRP_JLCRM1 SRVID=12740 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK151new.log"
+
+RK152	SRVGRP=PAYGRP_JLCRM1 SRVID=12700 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK152.log"
+
+RK160	SRVGRP=PAYGRP_JLCRM1 SRVID=12690 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK160.log"
+
+RK203	SRVGRP=PAYGRP_JLCRM1 SRVID=12670 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK203.log"
+
+RK230	SRVGRP=PAYGRP_JLCRM1 SRVID=12685 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK230.log"
+
+RK280	SRVGRP=PAYGRP_JLCRM1 SRVID=12680 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK280.log"
+
+RK290	SRVGRP=PAYGRP_JLCRM1 SRVID=12660 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK290.log"
+
+RK400getSerial	SRVGRP=PAYGRP_JLCRM1 SRVID=12840 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK400getSerial.log"
+
+RK410	SRVGRP=PAYGRP_JLCRM1 SRVID=12655 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RK410.log"
+
+RKF280Select	SRVGRP=PAYGRP_JLCRM1 SRVID=12860 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RKF280Select.log"
+
+RKFComering	SRVGRP=PAYGRP_JLCRM1 SRVID=12645 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RKFComering.log"
+
+RKFErrOp	SRVGRP=PAYGRP_JLCRM1 SRVID=12640 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RKFErrOp.log"
+
+RKFModify	SRVGRP=PAYGRP_JLCRM1 SRVID=12820 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RKFModify.log"
+
+RKFRecordLogin	SRVGRP=PAYGRP_JLCRM1 SRVID=12620 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RKFRecordLogin.log"
+
+RKGetWorkData	SRVGRP=PAYGRP_JLCRM1 SRVID=12865 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RKGetWorkData.log"
+
+RKfPope	SRVGRP=PAYGRP_JLCRM1 SRVID=13725 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RKfPope.log" 
+
+RKFModifyNew	SRVGRP=PAYGRP_JLCRM1 SRVID=15600 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RKFModifyNew.log"
+
+RKFModifyMulNew	SRVGRP=PAYGRP_JLCRM1 SRVID=15620 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RKFModifyMulNew.log"
+
+RKFInsBatch	SRVGRP=PAYGRP_JLCRM1 SRVID=15621 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RKFInsBatch.log"
+
+###############################################################
+RLightRailWeb	SRVGRP=PAYGRP_JLCRM1 SRVID=14760 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RLightRailWeb.log"
+
+RLoginCheck	SRVGRP=PUBGRP_JLCRM1 SRVID=12000 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RLoginCheck.log"
+
+RLoginMsg	SRVGRP=OTHERGRP_JLCRM1 SRVID=13220 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RLoginMsg.log"
+
+RLoginCheckEosp	SRVGRP=PAYGRP_JLCRM1 SRVID=15470 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RLoginCheckEosp.log"
+
+RMiniSrv	SRVGRP=PAYGRP_JLCRM1 SRVID=13840 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RMiniSrv.log"
+
+RNetTpcall	SRVGRP=PAYGRP_JLCRM1 SRVID=13987 MIN=2	MAX=3
+	CLOPT="-A -r -o /iboss1/run/log/RNetTpcall.log"
+
+ROrderQry	SRVGRP=PAYGRP_JLCRM1 SRVID=13660 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/ROrderQry.log"
+
+RPhoneQry	SRVGRP=QRYGRP_JLCRM1 SRVID=11900 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPhoneQry.log"
+	RQADDR="RPhoneQry" REPLYQ=Y
+
+###############################################################
+#公共服务
+###############################################################
+RPowerSrv	SRVGRP=PUBGRP_JLCRM1 SRVID=12090 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPowerSrv.log"
+
+RProdComb	SRVGRP=SMAPGRP_JLCRM1 SRVID=8398  MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RProdComb.log"
+
+RProdDir   SRVGRP=SMAPGRP_JLCRM1 SRVID=8330  MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RProdDir.log"
+
+#可选资费套餐变更新加
+RProduct	SRVGRP=CHGGRP_JLCRM1 SRVID=3500 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RProduct.log"
+
+RPrompt	SRVGRP=PAYGRP_JLCRM1 SRVID=13440 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RPrompt.log"
+
+RPubInsertCRMA	SRVGRP=PAYGRP_JLCRM1 SRVID=16810 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPubInsertCRMA.log"
+
+RPubInsertCRMB	SRVGRP=PAYGRP_JLCRM1 SRVID=16820 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPubInsertCRMB.log"
+
+RPubInsertCRMC	SRVGRP=PAYGRP_JLCRM1 SRVID=16830 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPubInsertCRMC.log"
+
+RPubInsertCRMD	SRVGRP=PAYGRP_JLCRM1 SRVID=16840 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPubInsertCRMD.log"
+
+RPubInsertCRME	SRVGRP=PAYGRP_JLCRM1 SRVID=16850 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPubInsertCRME.log"
+
+
+RPopInsertCRME	SRVGRP=PAYGRP_JLCRM1 SRVID=16851 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPopInsertCRME.log"
+	
+RPubInsertCRMF	SRVGRP=PAYGRP_JLCRM1 SRVID=16860 MIN=1  MAX=1 
+	CLOPT="-A -r  -o /iboss1/run/log/RPubInsertCRMF.log"
+
+RPubInsertCRMG	SRVGRP=PAYGRP_JLCRM1 SRVID=16870 MIN=1  MAX=1 
+	CLOPT="-A -r  -o /iboss1/run/log/RPubInsertCRMG.log"
+
+RPubMultiSel	SRVGRP=PUBGRP_JLCRM1 SRVID=12200 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPubMultiSel.log"
+
+RPubProcCfm	SRVGRP=PUBGRP_JLCRM1 SRVID=12250 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPubProcCfm.log"
+
+RPubProdOne   SRVGRP=SMAPGRP_JLCRM1 SRVID=8310  MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPubProdOne.log"
+
+RPubQuery32	SRVGRP=PUBGRP_JLCRM1 SRVID=12100 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPubQuery32.log"
+
+RPubSelect	SRVGRP=PUBGRP_JLCRM1 SRVID=12150 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPubSelect.log"
+
+RPubSelect	SRVGRP=QRYGRP_JLCRM1 SRVID=14400 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPubSelect.log"
+
+RPubSelect32	SRVGRP=PUBGRP_JLCRM1 SRVID=12175 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPubSelect32.log"
+
+RPubServices	SRVGRP=PUBGRP_JLCRM1 SRVID=12400 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPubServices.log"
+
+RPubWebRptGen	SRVGRP=PUBGRP_JLCRM1 SRVID=12450 CONV=Y MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPubWebRptGen.log"
+	RQADDR="RPubWebRptGen"
+
+RQrySIECMSG   SRVGRP=SMAPGRP_JLCRM1 SRVID=8350  MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RQrySIECMSG.log"
+
+RRecMode	SRVGRP=PAYGRP_JLCRM1 SRVID=14890 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RRecMode.log"
+
+RRecWA	SRVGRP=PAYGRP_JLCRM1 SRVID=13410 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RRecWA.log"
+
+RRecordFile	SRVGRP=PAYGRP_JLCRM1 SRVID=12800 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RRecordFile.log"
+
+RSaleQuery	SRVGRP=PAYGRP_JLCRM1 SRVID=14830 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RSaleQuery.log"
+
+RSaleQueryPop	SRVGRP=PAYGRP_JLCRM1 SRVID=14831 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RSaleQueryPop.log"	
+	
+RPassCallNew	SRVGRP=PAYGRP_JLCRM1 SRVID=14832 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RPassCallNew.log"	
+
+RSetWAObj	SRVGRP=PAYGRP_JLCRM1 SRVID=13390 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RSetWAObj.log"
+
+RSpanInnet	SRVGRP=PAYGRP_JLCRM1 SRVID=14575 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RSpanInnet.log"
+
+RSpanReserve	SRVGRP=PAYGRP_JLCRM1 SRVID=14585 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RSpanReserve.log"
+
+RTermPrep	SRVGRP=PAYGRP_JLCRM1 SRVID=15065 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RTermPrep.log"
+
+RTux	SRVGRP=PAYGRP_JLCRM1 SRVID=13430 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RTux.log"
+
+RUnifyView	SRVGRP=QRYGRP_JLCRM1 SRVID=11860 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RUnifyView.log"
+	RQADDR="RUnifyView_1" REPLYQ=Y
+
+RUnifyView	SRVGRP=QRYGRP_JLCRM1 SRVID=11880 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RUnifyView.log"
+	RQADDR="RUnifyView_2" REPLYQ=Y
+
+RUserPwdChck	SRVGRP=PAYGRP_JLCRM1 SRVID=13730 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RUserPwdChck.log"
+
+#工号管理
+RWorkNo	SRVGRP=OTHERGRP_JLCRM1 SRVID=13000 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RWorkNo.log"
+
+RloginIndex	SRVGRP=PAYGRP_JLCRM1 SRVID=13550 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RloginIndex.log" 
+
+Rmrbt	SRVGRP=PAYGRP_JLCRM1 SRVID=14555 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rmrbt.log"
+
+Rnetcardcheck	SRVGRP=PAYGRP_JLCRM1 SRVID=13980 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rnetcardcheck.log"
+
+Rv2cp	SRVGRP=PAYGRP_JLCRM1 SRVID=14525 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rv2cp.log"
+
+Rvmxp	SRVGRP=PAYGRP_JLCRM1 SRVID=14545 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rvmxp.log"
+
+Rvshr	SRVGRP=PAYGRP_JLCRM1 SRVID=14535 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rvshr.log"
+
+Rblby	SRVGRP=PAYGRP_JLCRM1 SRVID=14540 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rblby.log"
+
+SCUSTQRY  SRVGRP=QRYGRP_JLCRM1 SRVID=5095 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/SCUSTQRY.log"
+
+ScoketTest	SRVGRP=CHGGRP_JLCRM1 SRVID=1960 MIN=1	MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/ScoketTest.log"
+
+RQryGrpToSale	SRVGRP=PAYGRP_JLCRM1 SRVID=16700 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RQryGrpToSale.log"
+
+RIdcParChange	SRVGRP=PAYGRP_JLCRM1 SRVID=16710 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RIdcParChange.log"
+
+RreleaseMsg	SRVGRP=PAYGRP_JLCRM1 SRVID=16720 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RreleaseMsg.log"
+
+R8102_new	SRVGRP=PAYGRP_JLCRM1 SRVID=16730 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R8102_new.log"
+
+R8101_new	SRVGRP=PAYGRP_JLCRM1 SRVID=16740 MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R8101_new.log"
+
+R8100_new	SRVGRP=PAYGRP_JLCRM1 SRVID=16750 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R8100_new.log"
+
+R9189	SRVGRP=CHGGRP_JLCRM1 SRVID=16460 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9189.log"
+
+R9190	SRVGRP=CHGGRP_JLCRM1 SRVID=16470 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9190.log"
+
+R9192	SRVGRP=CHGGRP_JLCRM1 SRVID=16475 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9192.log"
+
+###############################################################
+TlsPubMultiSelCrm	SRVGRP=CHGGRP_JLCRM1 SRVID=16450 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/TlsPubMultiSelCrm.log"
+
+###############################################################
+#CRM提供业务工单服务
+###############################################################
+RGotoDownFee	SRVGRP=NGBODC_JLCRM1 SRVID=20000 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGotoDownFee.log"
+
+RGotoJ	SRVGRP=NGBODC_JLCRM1 SRVID=20050 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGotoJ.log"
+
+RGotob	SRVGRP=NGBODC_JLCRM1 SRVID=20100 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGotob.log"
+
+RGoStop	SRVGRP=NGBODC_JLCRM1 SRVID=20150 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGoStop.log"
+
+RTestCardStop	SRVGRP=NGBODC_JLCRM1 SRVID=20200 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RTestCardStop.log"
+
+RUpdateExpire	SRVGRP=NGBODC_JLCRM1 SRVID=20250 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RUpdateExpire.log"
+
+RUpdatePostFlag	SRVGRP=NGBODC_JLCRM1 SRVID=20300 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RUpdatePostFlag.log"
+
+Rbs1300	SRVGRP=NGBODC_JLCRM1 SRVID=20400 MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs1300.log"
+
+Rbs1300CfmBatch	SRVGRP=NGBODC_JLCRM1 SRVID=20460 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs1300CfmBatch.log"
+
+Rbs1310	SRVGRP=NGBODC_JLCRM1 SRVID=20500 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rbs1310.log"
+
+Rbs1321	SRVGRP=NGBODC_JLCRM1 SRVID=20550 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs1321.log"
+
+Rbs1322	SRVGRP=NGBODC_JLCRM1 SRVID=20600 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs1322.log"
+
+Rbs1326	SRVGRP=NGBODC_JLCRM1 SRVID=20650 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs1326.log"
+
+Rbs1341	SRVGRP=NGBODC_JLCRM1 SRVID=20700 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs1341.log"
+
+Rbs1342	SRVGRP=NGBODC_JLCRM1 SRVID=20750 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs1342.log"
+
+Rbs1	SRVGRP=NGBODC_JLCRM1 SRVID=20752 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs1.log"
+
+Rbs1349	SRVGRP=NGBODC_JLCRM1 SRVID=20800 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs1349.log"
+
+Rbs1354	SRVGRP=NGBODC_JLCRM1 SRVID=20850 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs1354.log"
+
+Rbs1356	SRVGRP=NGBODC_JLCRM1 SRVID=20900 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs1356.log"
+
+Rbs1364	SRVGRP=NGBODC_JLCRM1 SRVID=20950 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs1364.log"
+
+Rbs1380	SRVGRP=NGBODC_JLCRM1 SRVID=21050 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs1380.log"
+
+Rbs1410	SRVGRP=NGBODC_JLCRM1 SRVID=21100 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs1410.log"
+
+Rbs18611CC	SRVGRP=NGBODC_JLCRM1 SRVID=21150 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs18611CC.log"
+
+Rbs18611GP	SRVGRP=NGBODC_JLCRM1 SRVID=21200 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs18611GP.log"
+
+Rbs1880	SRVGRP=NGBODC_JLCRM1 SRVID=21250 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs1880.log"
+
+Rbs1881	SRVGRP=NGBODC_JLCRM1 SRVID=21300 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs1881.log"
+
+Rbs8774	SRVGRP=NGBODC_JLCRM1 SRVID=21350 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs8774.log"
+
+Rbs_GoStop	SRVGRP=NGBODC_JLCRM1 SRVID=21400 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbs_GoStop.log"
+
+Rbs_s1493Cfm	SRVGRP=NGBODC_JLCRM1 SRVID=21450 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rbs_s1493Cfm.log"
+
+Rbs_s1494GetBackMsg	SRVGRP=NGBODC_JLCRM1 SRVID=21500 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rbs_s1494GetBackMsg.log"
+
+Rbssdep1300	SRVGRP=NGBODC_JLCRM1 SRVID=21550 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbssdep1300.log"
+
+Rbssdep1302	SRVGRP=NGBODC_JLCRM1 SRVID=21600 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbssdep1302.log"
+
+Rbssdep1303	SRVGRP=NGBODC_JLCRM1 SRVID=21650 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbssdep1303.log"
+
+RbsPhoneCost	SRVGRP=NGBODC_JLCRM1 SRVID=21700 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RbsPhoneCost.log"
+
+Rbs2059	SRVGRP=NGBODC_JLCRM1 SRVID=21710 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rbs2059.log"
+
+Rcard	SRVGRP=NGBODC_JLCRM1 SRVID=21712 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rcard.log"
+
+Rbodc_GoGrpStop SRVGRP=NGBODC_JLCRM1 SRVID=21713 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rbodc_GoGrpStop.log"
+	
+R1922 SRVGRP=NGBODC_JLCRM1 SRVID=21714 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R1922.log"
+###############################################################
+
+###############################################################
+#前台与接口共用服务
+###############################################################
+#TlsPubSelCrm	SRVGRP=PAYGRP_JLCRM1 SRVID=22847 MIN=1  MAX=1
+#	CLOPT="-A -r -o /iboss1/run/log/TlsPubSelCrm.log"
+
+R1109   SRVGRP=QRYGRP_JLCRM1 SRVID=22000 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1109.log"
+
+R1185	SRVGRP=PUBGRP_JLCRM1 SRVID=22005 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1185.log"
+
+R1197	SRVGRP=MNGGRP_JLCRM1 SRVID=22010 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1197.log"
+
+R1250res  SRVGRP=CHGGRP_JLCRM1 SRVID=22020  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R1250res.log"
+
+#综合变更
+R12_13	SRVGRP=CHGGRP_JLCRM1 SRVID=22030 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_13.log"
+
+#特服变更
+R12_19	SRVGRP=CHGGRP_JLCRM1 SRVID=22050 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_19.log"
+
+#用户密码管理
+R12_34	SRVGRP=CHGGRP_JLCRM1 SRVID=22060 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_34.log"
+
+#呼叫转移
+R12_40	SRVGRP=CHGGRP_JLCRM1 SRVID=22070 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_40.log"
+
+#长白行有效期延长
+R12_58  SRVGRP=CHGGRP_JLCRM1 SRVID=22080 MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R12_58.log"
+
+R1308	SRVGRP=PAYGRP_JLCRM1 SRVID=22090 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1308.log"
+
+Rzwm_1218tmp	SRVGRP=PAYGRP_JLCRM1 SRVID=22091 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rzwm_1218tmp.log"
+
+R1388	SRVGRP=PAYGRP_JLCRM1 SRVID=2670 MIN=1	MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1388.log"
+
+R1448  SRVGRP=CHGGRP_JLCRM1 SRVID=22100  MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R1448.log"
+
+R1712	SRVGRP=PAYGRP_JLCRM1 SRVID=22110 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R1712.log"
+
+R1861DetQryAccCrm	SRVGRP=CHGGRP_JLCRM1 SRVID=22120 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R1861DetQryAccCrm.log"
+
+R1861Pub	SRVGRP=PAYGRP_JLCRM1 SRVID=22130 MIN=5  MAX=10
+	CLOPT="-A -r -o /iboss1/run/log/R1861Pub.log"
+
+R2030	SRVGRP=PAYGRP_JLCRM1 SRVID=22140 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2030.log"
+
+R2038	SRVGRP=PAYGRP_JLCRM1 SRVID=22150 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2038.log"
+
+R2038Cfm	SRVGRP=PAYGRP_JLCRM1 SRVID=22155 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2038Cfm.log"
+
+R2947Cfm	SRVGRP=PAYGRP_JLCRM1 SRVID=22157 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2947Cfm.log"
+
+R2158	SRVGRP=PAYGRP_JLCRM1 SRVID=22160 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2158.log"
+
+R2404	SRVGRP=PAYGRP_JLCRM1 SRVID=22170 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2404.log"
+
+R2419DX	SRVGRP=PAYGRP_JLCRM1 SRVID=22180 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2419DX.log"
+
+R2519	SRVGRP=PAYGRP_JLCRM1 SRVID=22190 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2519.log"
+
+R2590	SRVGRP=MNGGRP_JLCRM1 SRVID=22200 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2590.log"
+
+R2995	SRVGRP=MNGGRP_JLCRM1 SRVID=22201 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2995.log"
+
+R1267	SRVGRP=MNGGRP_JLCRM1 SRVID=22202 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1267.log"
+
+R9193	SRVGRP=MNGGRP_JLCRM1 SRVID=22250 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R9193.log"
+
+R3000	SRVGRP=PAYGRP_JLCRM1 SRVID=22220 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R3000.log"
+
+R3002	SRVGRP=PAYGRP_JLCRM1 SRVID=22240 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R3002.log"
+
+R3715   SRVGRP=PAYGRP_JLCRM1 SRVID=13260 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R3715.log"
+
+#iUser业务
+R3330   SRVGRP=SMAPGRP_JLCRM1 SRVID=22260 MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3330.log"
+	
+R3330Test   SRVGRP=SMAPGRP_JLCRM1 SRVID=22261 MIN=1   MAX=1
+	CLOPT="-A -o /iboss1/run/log/R3330Test.log"
+
+R4127	SRVGRP=PAYGRP_JLCRM1 SRVID=22280 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4127.log"
+
+R6227	SRVGRP=CHGGRP_JLCRM1 SRVID=22290  MIN=1  MAX=1
+	CLOPT="-A -o /iboss1/run/log/R6227.log"
+
+R6232	SRVGRP=MNGGRP_JLCRM1 SRVID=22310 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R6232.log"
+
+R6233	SRVGRP=MNGGRP_JLCRM1 SRVID=22320 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R6233.log"
+
+RGPRSRECORD	SRVGRP=MNGGRP_JLCRM1 SRVID=22325 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGPRSRECORD.log"
+
+R8153	SRVGRP=PAYGRP_JLCRM1 SRVID=22330 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8153.log"
+
+R8159	SRVGRP=PAYGRP_JLCRM1 SRVID=22340 MIN=1   MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8159.log"
+
+R8177	SRVGRP=PAYGRP_JLCRM1 SRVID=22350 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8177.log"
+
+R9123	SRVGRP=CHGGRP_JLCRM1 SRVID=22360 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9123.log"
+
+R9311	SRVGRP=PAYGRP_JLCRM1 SRVID=22370 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9311.log"
+
+RElecCommOpen	SRVGRP=PAYGRP_JLCRM1 SRVID=22380 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RElecCommOpen.log"
+
+REndCntt	SRVGRP=OTHERGRP_JLCRM1 SRVID=22390 MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/REndCntt.log"
+
+RGetGroupTree	SRVGRP=PAYGRP_JLCRM1 SRVID=22430 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RGetGroupTree.log"
+
+RInitCntt	SRVGRP=OTHERGRP_JLCRM1 SRVID=22450 MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RInitCntt.log"
+
+RInitWO	SRVGRP=PAYGRP_JLCRM1 SRVID=22480 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RInitWO.log"
+
+RNetCard	SRVGRP=PAYGRP_JLCRM1 SRVID=22490 MIN=2	MAX=2
+	CLOPT="-A -r -o /iboss1/run/log/RNetCard.log"
+
+ROnceCntt	SRVGRP=OTHERGRP_JLCRM1 SRVID=22500 MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/ROnceCntt.log"
+
+RPhoneReserve	SRVGRP=PAYGRP_JLCRM1 SRVID=22530 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RPhoneReserve.log"
+
+RQryCntt	SRVGRP=OTHERGRP_JLCRM1 SRVID=22540 MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RQryCntt.log"
+
+RQryCnttInfo	SRVGRP=OTHERGRP_JLCRM1 SRVID=22570 MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RQryCnttInfo.log"
+
+RQryCnttOpr	SRVGRP=OTHERGRP_JLCRM1 SRVID=22600 MIN=1  MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RQryCnttOpr.log"
+
+RRefCnttInfo	SRVGRP=OTHERGRP_JLCRM1 SRVID=22630 MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RRefCnttInfo.log"
+
+RSatisfyInterface	SRVGRP=PAYGRP_JLCRM1 SRVID=22660 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RSatisfyInterface.log"
+
+RUpCnttInfo	SRVGRP=OTHERGRP_JLCRM1 SRVID=22670 MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RUpCnttInfo.log"
+
+RUpdateCntt	SRVGRP=OTHERGRP_JLCRM1 SRVID=22700 MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RUpdateCntt.log"
+
+RrandPwd	SRVGRP=PAYGRP_JLCRM1 SRVID=22730 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RrandPwd.log"
+
+R4186	SRVGRP=PAYGRP_JLCRM1 SRVID=22740 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4186.log"
+
+R4984	SRVGRP=PAYGRP_JLCRM1 SRVID=22750 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4984.log"
+
+R54321	SRVGRP=PAYGRP_JLCRM1 SRVID=29999 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R54321.log"
+
+R2052Cfm	SRVGRP=PAYGRP_JLCRM1 SRVID=22770 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2052Cfm.log"
+
+R2052	SRVGRP=PAYGRP_JLCRM1 SRVID=22790 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2052.log"
+
+R4453	SRVGRP=PAYGRP_JLCRM1 SRVID=22780 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4453.log"
+	
+R1013	SRVGRP=PAYGRP_JLCRM1 SRVID=22783 MIN=3  MAX=5
+	CLOPT="-A -r -o /iboss1/run/log/R1013.log"
+	
+R1860Pub    SRVGRP=PAYGRP_JLCRM1 SRVID=22890 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss3/run/log/R1860Pub.log"
+
+####应急系统   
+
+R1300ComEM	SRVGRP=PAYGRP_JLCRM1 SRVID=22800 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R1300ComEM.log"
+
+R1300ReWrite	SRVGRP=PAYGRP_JLCRM1 SRVID=22805 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R1300ReWrite.log"
+
+R02OpenEM	SRVGRP=PAYGRP_JLCRM1 SRVID=22810 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R02OpenEM.log"
+
+RLoginDBCheck	SRVGRP=PAYGRP_JLCRM1 SRVID=22815 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RLoginDBCheck.log"
+
+ROrderEMQry	SRVGRP=PAYGRP_JLCRM1 SRVID=22820 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/ROrderEMQry.log"
+
+RloginIndex_EM	SRVGRP=PAYGRP_JLCRM1 SRVID=22825 MIN=1 MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RloginIndex_EM.log"
+
+TlsPubSelCrm_EM	SRVGRP=PAYGRP_JLCRM1 SRVID=22830 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/TlsPubSelCrm_EM.log"
+
+RLoginOutEM	SRVGRP=PAYGRP_JLCRM1 SRVID=22835 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RLoginOutEM.log"
+
+R6198Qry	SRVGRP=PAYGRP_JLCRM1 SRVID=22840 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R6198Qry.log"
+
+RLongSelCrm	SRVGRP=PAYGRP_JLCRM1 SRVID=22845 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RLongSelCrm.log"
+
+R4973	SRVGRP=PAYGRP_JLCRM1 SRVID=22860 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4973.log"
+
+RPcrmd	SRVGRP=PAYGRP_JLCRM1 SRVID=22870 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RPcrmd.log"
+
+#RTlsPubSelHis	SRVGRP=PAYGRP_JLCRM1 SRVID=22880 MIN=1  MAX=1 
+#	CLOPT="-A -r -o /iboss1/run/log/RTlsPubSelHis.log"
+
+RRetailRatify	SRVGRP=PAYGRP_JLCRM1 SRVID=22760 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RRetailRatify.log"
+	
+RCustMsgDead	SRVGRP=PAYGRP_JLCRM1 SRVID=22882 MIN=1  MAX=1 
+	CLOPT="-A -r -o /iboss1/run/log/RCustMsgDead.log"
+#################################################################
+###纯接口服务
+#################################################################
+R1000	SRVGRP=CALLGRP_JLCRM1 SRVID=23000 MIN=1	MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1000.log"
+
+R1001	SRVGRP=CALLGRP_JLCRM1 SRVID=23005 CONV=Y	MIN=1  MAX=1 REPLYQ=Y
+	CLOPT="-A -r  -o /iboss1/run/log/R1001.log"
+	RQADDR="R1001"
+
+###普通查询
+R1860	SRVGRP=CALLGRP_JLCRM1 SRVID=23010 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1860.log"
+
+###帐单查询
+R1861	SRVGRP=CALLGRP_JLCRM1 SRVID=23040 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1861.log"
+
+###分层接入
+R18610	SRVGRP=CALLGRP_JLCRM1 SRVID=23070 MIN=1  MAX=1 
+	CLOPT="-A -r  -o /iboss1/run/log/R18610.log"
+
+R186101	SRVGRP=CALLGRP_JLCRM1 SRVID=23110 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R186101.log"
+
+R1861SmFee	SRVGRP=CHGGRP_JLCRM1 SRVID=23150 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1861SmFee.log"
+
+R1937New	SRVGRP=CALLGRP_JLCRM1 SRVID=23170 MIN=1	MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1937New.log"
+
+R1937	SRVGRP=CALLGRP_JLCRM1 SRVID=23190 MIN=1	MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1937.log"
+
+R1937Rsp	SRVGRP=CALLGRP_JLCRM1 SRVID=23195 MIN=1	MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1937Rsp.log"
+
+R1964	SRVGRP=CALLGRP_JLCRM1 SRVID=23180 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R1964.log"
+
+R2159	SRVGRP=CALLGRP_JLCRM1 SRVID=23200 MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2159.log"
+
+R2159Cfm	SRVGRP=CALLGRP_JLCRM1 SRVID=23205 MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2159Cfm.log"
+
+R2550   SRVGRP=CALLGRP_JLCRM1 SRVID=23210 CONV=Y
+        CLOPT="-A -o /iboss1/run/log/R2550.log"
+        RQADDR="R2550" MIN=1 MAX=1 REPLYQ=Y
+
+R2976	SRVGRP=CALLGRP_JLCRM1 SRVID=23220 MIN=1 MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2976.log"
+
+R3740	SRVGRP=CALLGRP_JLCRM1 SRVID=23240 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R3740.log"
+
+R4299	SRVGRP=CHGGRP_JLCRM1 SRVID=23250 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4299.log"
+
+R5206	SRVGRP=CHGGRP_JLCRM1 SRVID=23270 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R5206.log"
+
+R5202	SRVGRP=CHGGRP_JLCRM1 SRVID=23275 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R5202.log"
+
+###短信查询帐单
+R6013	SRVGRP=CALLGRP_JLCRM1 SRVID=23280 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R6013.log"
+
+R8346	SRVGRP=CHGGRP_JLCRM1	SRVID=23290	MIN=1	MAX=1
+		CLOPT="-A -r  -o /iboss1/run/log/R8346.log"
+
+R9131	SRVGRP=CALLGRP_JLCRM1 SRVID=23300 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9131.log"
+
+R9204Qry	SRVGRP=CALLGRP_JLCRM1 SRVID=23310 MIN=1	MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R9204Qry.log"
+	
+RChAgentQry SRVGRP=CALLGRP_JLCRM1 SRVID=22873 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RChAgentQry.log"
+
+RAgriOrder	SRVGRP=CHGGRP_JLCRM1 SRVID=23320 MIN=1	MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RAgriOrder.log"
+
+RAutoTermSIM	SRVGRP=CALLGRP_JLCRM1 SRVID=23330 MIN=1	MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RAutoTermSIM.log"
+
+RBusinessQry	SRVGRP=CALLGRP_JLCRM1 SRVID=23340 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RBusinessQry.log"
+
+RCallProbus	SRVGRP=CHGGRP_JLCRM1 SRVID=23360 MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RCallProbus.log"
+
+RChnScore  SRVGRP=CHGGRP_JLCRM1 SRVID=23370 MIN=1   MAX=1
+       CLOPT="-A -r  -o /iboss1/run/log/RChnScore.log"
+
+RDmcsServer	SRVGRP=CALLGRP_JLCRM1 SRVID=23380 MIN=1	MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RDmcsServer.log" 
+
+REcquery	SRVGRP=CALLGRP_JLCRM1 SRVID=23390 MIN=1	MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/REcquery.log"
+
+RHotShortMsg	SRVGRP=CHGGRP_JLCRM1	SRVID=23400	MIN=1	MAX=1
+		CLOPT="-A -r  -o /iboss1/run/log/RHotShortMsg.log"
+
+###投诉工单处理
+RNetInform	SRVGRP=CALLGRP_JLCRM1 SRVID=23410 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RNetInform.log"
+
+RPubPasswdCheck	SRVGRP=CALLGRP_JLCRM1 SRVID=23420 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RPubPasswdCheck.log"
+
+RQryPhoneNo	SRVGRP=CALLGRP_JLCRM1 SRVID=23430 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RQryPhoneNo.log"
+
+RQueryForOta	SRVGRP=CALLGRP_JLCRM1 SRVID=23440 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RQueryForOta.log"
+
+RRbtDeal	SRVGRP=CALLGRP_JLCRM1 SRVID=23450 MIN=1	MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RRbtDeal.log" 
+
+RRegionQry	SRVGRP=CALLGRP_JLCRM1 SRVID=23460 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RRegionQry.log" 
+
+RSaleForSelf	SRVGRP=CHGGRP_JLCRM1 SRVID=23470 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RSaleForSelf.log"
+
+RScoreQry  SRVGRP=CHGGRP_JLCRM1 SRVID=23480 CONV=Y MIN=1   MAX=1   REPLYQ=Y
+	CLOPT="-A -r  -o /iboss1/run/log/RScoreQry.log"
+	RQADDR="RScoreQry"
+
+RSurround	SRVGRP=CALLGRP_JLCRM1 SRVID=23490 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RSurround.log"
+
+RTerQry	SRVGRP=CALLGRP_JLCRM1 SRVID=23500 MIN=1	MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RTerQry.log"
+
+RUNLockPhoneNo	SRVGRP=CALLGRP_JLCRM1 SRVID=23510 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RUNLockPhoneNo.log"
+
+R4455	SRVGRP=CALLGRP_JLCRM1 SRVID=23515 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4455.log"
+
+R4526	SRVGRP=CALLGRP_JLCRM1 SRVID=23516 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4526.log"
+
+###家庭业务begin
+R6393	SRVGRP=CALLGRP_JLCRM1 SRVID=23517 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R6393.log"
+
+R6390FundHis	SRVGRP=CALLGRP_JLCRM1 SRVID=23518 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R6390FundHis.log"
+
+R6390	SRVGRP=CALLGRP_JLCRM1 SRVID=23519 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R6390.log"
+
+R6391	SRVGRP=CALLGRP_JLCRM1 SRVID=23521 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R6391.log"
+	
+R6392	SRVGRP=CALLGRP_JLCRM1 SRVID=23522 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R6392.log"
+
+R6385	SRVGRP=CALLGRP_JLCRM1 SRVID=23523 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R6385.log"
+
+R6386	SRVGRP=CALLGRP_JLCRM1 SRVID=23524 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R6386.log"
+	
+R6387	SRVGRP=CALLGRP_JLCRM1 SRVID=23525 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R6387.log"
+	
+R6388	SRVGRP=CALLGRP_JLCRM1 SRVID=23526 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R6388.log"
+
+R6389	SRVGRP=CALLGRP_JLCRM1 SRVID=23527 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R6389.log"
+
+R1500ModeQry	SRVGRP=CALLGRP_JLCRM1 SRVID=23528 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R1500ModeQry.log"
+	
+Rb794	SRVGRP=CALLGRP_JLCRM1 SRVID=23529 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rb794.log"	
+	
+RFamilyElec	SRVGRP=CALLGRP_JLCRM1 SRVID=23533 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RFamilyElec.log"	
+	
+
+###家庭业务end
+
+R9397	SRVGRP=CALLGRP_JLCRM1 SRVID=23532 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9397.log"	
+	
+R9398	SRVGRP=CALLGRP_JLCRM1 SRVID=23531 MIN=1 	
+	CLOPT="-A -r -o /iboss1/run/log/R9398.log"	
+	
+###网站发送短信
+RWebSndMsg	SRVGRP=CHGGRP_JLCRM1	SRVID=23520	MIN=1	MAX=1
+		CLOPT="-A -r  -o /iboss1/run/log/RWebSndMsg.log"
+
+R1860Test    SRVGRP=CALLGRP_JLCRM1 SRVID=23530 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1860Test.log"
+
+R6281	SRVGRP=CALLGRP_JLCRM1 SRVID=23540 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R6281.log"
+
+R6283	SRVGRP=CALLGRP_JLCRM1 SRVID=23560 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R6283.log"
+	
+R4280	SRVGRP=CALLGRP_JLCRM1 SRVID=23580 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4280.log"
+
+RqryConTail	SRVGRP=CALLGRP_JLCRM1 SRVID=23581 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RqryConTail.log"
+
+Rbodb_8159Cfm	SRVGRP=CALLGRP_JLCRM1 SRVID=23582 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbodb_8159Cfm.log"
+
+Rbodb_8159SmQry	SRVGRP=CALLGRP_JLCRM1 SRVID=23583 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbodb_8159SmQry.log"
+
+R4467 SRVGRP=CALLGRP_JLCRM1 SRVID=23585 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4467.log"
+	
+R4849 SRVGRP=CALLGRP_JLCRM1 SRVID=23586 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4849.log"
+
+R6354 SRVGRP=CALLGRP_JLCRM1 SRVID=23588 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R6354.log"
+
+RBlackNumLimit SRVGRP=CALLGRP_JLCRM1 SRVID=23590 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RBlackNumLimit.log"
+
+R4475DSMP SRVGRP=CALLGRP_JLCRM1 SRVID=23591 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4475DSMP.log"
+
+Rbbis SRVGRP=CALLGRP_JLCRM1 SRVID=23593 MIN=1  MAX=1     
+	CLOPT="-A -r  -o /iboss1/run/log/Rbbis.log" 
+
+Rcall SRVGRP=CALLGRP_JLCRM1 SRVID=23595 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rcall.log"
+	
+R4289 SRVGRP=CALLGRP_JLCRM1 SRVID=23596 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4289.log"
+
+R4291 SRVGRP=CALLGRP_JLCRM1 SRVID=23597 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4291.log"	
+
+RPubUserMsgList	SRVGRP=CALLGRP_JLCRM1 SRVID=23598 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RPubUserMsgList.log"
+	
+RPubCustCheck	SRVGRP=CALLGRP_JLCRM1 SRVID=23599 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RPubCustCheck.log"	
+	
+### 手机支付积分操作，属于接口，临时移植
+R3740    SRVGRP=CALLGRP_JLCRM1 SRVID=23550 MIN=1  MAX=1
+	 CLOPT="-A -r  -o /iboss1/run/log/R3740.log"
+
+#TlsPubSelCrm	SRVGRP=PAYGRP_JLCRM1 SRVID=23570 MIN=1  MAX=1
+#	CLOPT="-A -r -o /iboss1/run/log/TlsPubSelCrm.log"
+
+TlsPubSelHis	SRVGRP=PAYGRP_JLCRM1 SRVID=23571 MIN=1  MAX=1 
+	CLOPT="-A -r -o /iboss1/run/log/TlsPubSelHis.log"
+        
+#TlsPubSelCrm    SRVGRP=PAYGRP_JLCRM1 SRVID=23650 MIN=1  MAX=1
+#        CLOPT="-A -r -o /iboss1/run/log/TlsPubSelCrm.log"
+
+#TlsPubSelCrm    SRVGRP=PAYGRP_JLCRM1 SRVID=23750 MIN=1  MAX=1
+#        CLOPT="-A -r -o /iboss1/run/log/TlsPubSelCrm.log"
+
+R18601 SRVGRP=CALLGRP_JLCRM1 SRVID=23751 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R18601.log"
+
+RGprsFavourQry SRVGRP=CALLGRP_JLCRM1 SRVID=23802 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGprsFavourQry.log"	
+	
+### 提示信息库 
+RPrintData SRVGRP=CALLGRP_JLCRM1 SRVID=23752 MIN=20  MAX=25
+	CLOPT="-A -r  -o /iboss1/run/log/RPrintData.log"
+	
+RKMSConn SRVGRP=CALLGRP_JLCRM1 SRVID=23777 MIN=20  MAX=25
+	CLOPT="-A -r  -o /iboss1/run/log/RKMSConn.log"
+
+R1920 SRVGRP=CALLGRP_JLCRM1 SRVID=23810 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1920.log"
+
+R1923 SRVGRP=CALLGRP_JLCRM1 SRVID=23815 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1923.log"
+
+R6431 SRVGRP=CALLGRP_JLCRM1 SRVID=23820 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R6431.log"
+
+Rmbox SRVGRP=CALLGRP_JLCRM1 SRVID=23825 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rmbox.log"
+
+Rcmmb SRVGRP=CALLGRP_JLCRM1 SRVID=23830 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rcmmb.log"
+
+Rpimm SRVGRP=CALLGRP_JLCRM1 SRVID=23835 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rpimm.log"
+
+Rwlan SRVGRP=CALLGRP_JLCRM1 SRVID=23840 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rwlan.log"
+
+Rb503 SRVGRP=CALLGRP_JLCRM1 SRVID=23841 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rb503.log"
+
+Rb548 SRVGRP=CALLGRP_JLCRM1 SRVID=23842 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rb548.log"
+
+Rb872Dsmp SRVGRP=CALLGRP_JLCRM1 SRVID=23851 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rb872Dsmp.log"
+
+Rb574 SRVGRP=CALLGRP_JLCRM1 SRVID=23843 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rb574.log"
+
+Rb926 SRVGRP=CALLGRP_JLCRM1 SRVID=23852 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rb926.log"
+
+Rb927 SRVGRP=CALLGRP_JLCRM1 SRVID=23853 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rb927.log"
+
+R9191 SRVGRP=CALLGRP_JLCRM1 SRVID=23845 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R9191.log"
+
+R4249 SRVGRP=CALLGRP_JLCRM1 SRVID=23846 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4249.log"
+
+R2012 SRVGRP=CALLGRP_JLCRM1 SRVID=23847 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2012.log"
+
+R2026 SRVGRP=CALLGRP_JLCRM1 SRVID=23848 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2026.log"
+
+R2013 SRVGRP=CALLGRP_JLCRM1 SRVID=23849 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2013.log"
+
+Rniap SRVGRP=CALLGRP_JLCRM1 SRVID=23850 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rniap.log"
+
+R1861DetQry	SRVGRP=CHGGRP_JLCRM1 SRVID=22825 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R1861DetQry.log"
+
+R4495	SRVGRP=CHGGRP_JLCRM1 SRVID=22834 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4495.log"
+	
+### 圈子掌门人
+R8347	SRVGRP=CHGGRP_JLCRM1 SRVID=22831 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8347.log"
+
+R8347_test	SRVGRP=CHGGRP_JLCRM1 SRVID=22826 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R8347_test.log"
+
+RTokenCheck   SRVGRP=CHGGRP_JLCRM1 SRVID=22836 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RTokenCheck.log"
+
+RCreatLogin   SRVGRP=CHGGRP_JLCRM1 SRVID=22837 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RCreatLogin.log"
+
+	
+### 知识库数据同步
+RKmOrder   SRVGRP=CHGGRP_JLCRM1 SRVID=22839 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RKmOrder.log"
+
+R6392   SRVGRP=CHGGRP_JLCRM1 SRVID=22852 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R6392.log"
+
+R6391   SRVGRP=CHGGRP_JLCRM1 SRVID=22853 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R6391.log"
+	
+	
+R4255   SRVGRP=CHGGRP_JLCRM1 SRVID=22954 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4255.log"
+	
+	
+	
+
+	
+	
+RPubProcCrm   SRVGRP=CHGGRP_JLCRM1 SRVID=22976 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RPubProcCrm.log"
+	
+	
+RCheckTermPW	SRVGRP=CHGGRP_JLCRM1 SRVID=22981 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RCheckTermPW.log"
+R4240Cfm	SRVGRP=CHGGRP_JLCRM1 SRVID=22990 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R4240Cfm.log"
+R1101	SRVGRP=CHGGRP_JLCRM1 SRVID=22832 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R1101.log"
+	
+R22_101214	SRVGRP=CHGGRP_JLCRM1 SRVID=22833 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R22_101214.log"
+
+ROrderQryDll	SRVGRP=CHGGRP_JLCRM1 SRVID=22840 CONV=Y MIN=5 MAX=10 REPLYQ=Y
+		CLOPT="-A -o /iboss1/run/log/ROrderQryDll.log"
+		RQADDR="ROrderQryDll"
+
+Rimps	SRVGRP=CHGGRP_JLCRM1 SRVID=22850 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rimps.log"
+
+R9882	SRVGRP=CHGGRP_JLCRM1 SRVID=22851 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R9882.log"
+R494x	SRVGRP=CHGGRP_JLCRM1 SRVID=22854 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R494x.log"
+
+Rmail   SRVGRP=CHGGRP_JLCRM1 SRVID=22900 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rmail.log"
+
+Rcmgp	SRVGRP=CHGGRP_JLCRM1 SRVID=22910 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rcmgp.log"
+
+Rmusc	SRVGRP=CHGGRP_JLCRM1 SRVID=22920 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rmusc.log"
+
+Rmgis	SRVGRP=CHGGRP_JLCRM1 SRVID=22930 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rmgis.log"
+
+######################################################
+###R9192	SRVGRP=CHGGRP_JLCRM1 SRVID=22854 MIN=1  MAX=1
+###	CLOPT="-A -r -o /iboss1/run/log/R9192.log"
+#######################################################
+
+R1300Cfm   SRVGRP=PAYGRP_JLCRM1 SRVID=22855 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R1300Cfm.log"
+
+RAdminit   SRVGRP=MNGGRP_JLCRM1 SRVID=22856 CONV=N MIN=1   MAX=1
+	 CLOPT="-A -r  -o /iboss1/run/log/RAdminit.log"
+
+RfamilypubQry SRVGRP=MNGGRP_JLCRM1 SRVID=24000 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RfamilypubQry.log"
+
+R9405 SRVGRP=MNGGRP_JLCRM1 SRVID=22857 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R9405.log"
+	
+	
+###############################################################
+#用户需求管理
+###############################################################
+RHallQuest SRVGRP=MNGGRP_JLCRM1 SRVID=24001 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RHallQuest.log"
+
+ROutChannelQuest SRVGRP=MNGGRP_JLCRM1 SRVID=24002 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/ROutChannelQuest.log"
+
+RSMSHallSvr SRVGRP=MNGGRP_JLCRM1 SRVID=24003 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RSMSHallSvr.log"
+
+###############################################################	
+RStaffAttrInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24004 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RStaffAttrInfo.log"
+	
+RClectInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24005 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RClectInfo.log"
+	
+RSalaryInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24006 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RSalaryInfo.log"
+
+
+RDevMag SRVGRP=MNGGRP_JLCRM1 SRVID=24007 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RDevMag.log"
+RSftUpInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24008 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RSftUpInfo.log"
+RSftVsInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24009 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RSftVsInfo.log"
+
+RTrainInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24010 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RTrainInfo.log"
+RArchInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24011 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RArchInfo.log" 
+
+RPositStafInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24012 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPositStafInfo.log" 			    
+ 
+RPositionInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24013 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPositionInfo.log" 	       
+
+RStaffInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24014 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RStaffInfo.log" 	
+
+R7201 SRVGRP=MNGGRP_JLCRM1 SRVID=24015 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R7201.log"
+
+R422a	SRVGRP=MNGGRP_JLCRM1 SRVID=24026 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R422a.log"
+
+R422aCfm	SRVGRP=MNGGRP_JLCRM1 SRVID=24027 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R422aCfm.log"
+
+
+R1018 SRVGRP=MNGGRP_JLCRM1 SRVID=24016 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1018.log"
+	
+R1017 SRVGRP=MNGGRP_JLCRM1 SRVID=24017 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1017.log"
+
+Rstmm SRVGRP=MNGGRP_JLCRM1 SRVID=24018 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rstmm.log"
+
+Rgddp SRVGRP=MNGGRP_JLCRM1 SRVID=24019 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rgddp.log"
+
+Rcash SRVGRP=MNGGRP_JLCRM1 SRVID=24020 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rcash.log"
+
+RWebUsr SRVGRP=MNGGRP_JLCRM1 SRVID=24021 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RWebUsr.log"
+	
+
+RIvrModeQry SRVGRP=MNGGRP_JLCRM1 SRVID=24022 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RIvrModeQry.log"
+RIvrSendSMsg SRVGRP=MNGGRP_JLCRM1 SRVID=24023 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RIvrSendSMsg.log"
+
+R6279Rsp SRVGRP=MNGGRP_JLCRM1 SRVID=24024 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R6279Rsp.log"
+
+R6688 SRVGRP=MNGGRP_JLCRM1 SRVID=24025 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R6688.log"
+	
+Rb054 SRVGRP=MNGGRP_JLCRM1 SRVID=24028 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rb054.log"
+	
+RGrpCustProAttr SRVGRP=MNGGRP_JLCRM1 SRVID=24029 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGrpCustProAttr.log"
+
+RGrpProdInfoInter SRVGRP=MNGGRP_JLCRM1 SRVID=24030 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGrpProdInfoInter.log"
+
+
+RArchInfo   SRVGRP=CHGGRP_JLCRM1 SRVID=24031 MIN=1   MAX=1
+	CLOPT="-A -o /ngcrm1/run/log/RArchInfo.log"
+	
+RClectInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24032 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RClectInfo.log"
+	
+RDevMag SRVGRP=MNGGRP_JLCRM1 SRVID=24033 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RDevMag.log"
+	
+RPositionInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24034 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPositionInfo.log" 	
+	
+RPositStafInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24035 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPositStafInfo.log" 	
+	
+RSalaryInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24036 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RSalaryInfo.log"
+	
+RSftUpInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24037 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RSftUpInfo.log"
+	
+RSftVsInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24038 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RSftVsInfo.log"
+	
+RStaffAttrInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24039 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RStaffAttrInfo.log"
+	
+RStaffInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24040 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RStaffInfo.log" 	
+
+RTrainInfo SRVGRP=MNGGRP_JLCRM1 SRVID=24041 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RTrainInfo.log"
+
+
+R4276 SRVGRP=MNGGRP_JLCRM1 SRVID=24042 CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/R4276.log"
+        
+RGrpCustProAttr	SRVGRP=MNGGRP_JLCRM1 SRVID=24043 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGrpCustProAttr.log"
+	
+RGrpProdInfoInter	SRVGRP=MNGGRP_JLCRM1 SRVID=24044 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGrpProdInfoInter.log"
+
+RGrpUserDeal	SRVGRP=MNGGRP_JLCRM1 SRVID=24045 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGrpUserDeal.log"
+
+
+
+R12_19D SRVGRP=MNGGRP_JLCRM1 SRVID=24046 MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/R12_19D.log"
+        
+RSMSTemplConfig	SRVGRP=MNGGRP_JLCRM1 SRVID=24047 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RSMSTemplConfig.log"
+	
+RBusiChnlRela	SRVGRP=MNGGRP_JLCRM1 SRVID=24048 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RBusiChnlRela.log"
+	
+RChnOrders	SRVGRP=MNGGRP_JLCRM1 SRVID=24049 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RChnOrders.log"
+
+Rhitegg      SRVGRP=MNGGRP_JLCRM1 SRVID=24050 MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/Rhitegg.log"
+
+Rrinp      SRVGRP=MNGGRP_JLCRM1 SRVID=24052 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rrinp.log"
+
+ROpControl SRVGRP=MNGGRP_JLCRM1 SRVID=24053 CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /ngcrm1/run/log/ROpControl.log"
+        
+Rb455 SRVGRP=MNGGRP_JLCRM1 SRVID=24056 CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/Rb455.log"
+
+RB496 SRVGRP=MNGGRP_JLCRM1 SRVID=24058 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RB496.log"	
+
+R2280 SRVGRP=MNGGRP_JLCRM1 SRVID=24060 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2280.log"
+
+RPushSndMsg SRVGRP=MNGGRP_JLCRM1 SRVID=24061 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPushSndMsg.log"
+
+Rb550	SRVGRP=MNGGRP_JLCRM1 SRVID=24062 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rb550.log"
+	
+Rb057	SRVGRP=MNGGRP_JLCRM1 SRVID=24063 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rb057.log"
+
+RUsrInfoChk	SRVGRP=MNGGRP_JLCRM1 SRVID=24064 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RUsrInfoChk.log"
+
+RIntPrint	 SRVGRP=MNGGRP_JLCRM1 SRVID=24066 CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/RIntPrint.log"
+
+RIccidQry     SRVGRP=MNGGRP_JLCRM1 SRVID=24067 CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/RIccidQry.log"
+        
+Rb570     SRVGRP=MNGGRP_JLCRM1 SRVID=24068 CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/Rb570.log"        
+
+Rb593     SRVGRP=MNGGRP_JLCRM1 SRVID=24069 CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/Rb593.log"
+
+Rb621	SRVGRP=MNGGRP_JLCRM1 SRVID=24070 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rb621.log"
+
+Rb570Cfm     SRVGRP=MNGGRP_JLCRM1 SRVID=24071 CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/Rb570Cfm.log"        
+
+RGrpPubQry     SRVGRP=MNGGRP_JLCRM1 SRVID=24072 CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/RGrpPubQry.log"  
+        
+RGrpCaseQry     SRVGRP=MNGGRP_JLCRM1 SRVID=24073 CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/RGrpCaseQry.log"  
+
+
+Rb752     SRVGRP=MNGGRP_JLCRM1 SRVID=24074 CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/Rb752.log"
+
+Rb615	SRVGRP=MNGGRP_JLCRM1 SRVID=24075 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rb615.log"
+Rb614	SRVGRP=MNGGRP_JLCRM1 SRVID=24076 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rb614.log"
+
+
+R2025	SRVGRP=MNGGRP_JLCRM1 SRVID=24077 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2025.log"
+
+R9903DSMP	SRVGRP=MNGGRP_JLCRM1 SRVID=24078 CONV=N MIN=1   MAX=1
+		CLOPT="-A -r  -o /iboss1/run/log/R9903DSMP.log"
+
+
+Rppoc       SRVGRP=MNGGRP_JLCRM1 SRVID=24079 CONV=N MIN=1   MAX=1
+                CLOPT="-A -r  -o /iboss1/run/log/Rppoc.log"
+
+Rb798 SRVGRP=MNGGRP_JLCRM1 SRVID=24080 CONV=N MIN=1   MAX=1
+                CLOPT="-A -r  -o /iboss1/run/log/Rb798.log"
+
+RBillPrintQry SRVGRP=MNGGRP_JLCRM1 SRVID=24081 CONV=N MIN=1   MAX=1
+                CLOPT="-A -r  -o /iboss1/run/log/RBillPrintQry.log"
+
+R1197Cfm SRVGRP=MNGGRP_JLCRM1 SRVID=24082 CONV=N MIN=1   MAX=1
+                CLOPT="-A -r  -o /iboss1/run/log/R1197Cfm.log"
+
+R6393Cfm SRVGRP=MNGGRP_JLCRM1 SRVID=25082 CONV=N MIN=1   MAX=1
+                CLOPT="-A -r  -o /iboss1/run/log/R6393Cfm.log"
+
+Rb861 SRVGRP=MNGGRP_JLCRM1 SRVID=24083 CONV=N MIN=1   MAX=2
+                CLOPT="-A -r  -o /iboss1/run/log/Rb861.log"
+
+RclLoginCheck	SRVGRP=MNGGRP_JLCRM1 SRVID=24085 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RclLoginCheck.log"
+	
+Rb879	SRVGRP=MNGGRP_JLCRM1 SRVID=24086 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rb879.log"
+
+Rb873	SRVGRP=MNGGRP_JLCRM1 SRVID=24087 CONV=N MIN=1   MAX=2
+                CLOPT="-A -r  -o /iboss1/run/log/Rb873.log"
+               
+Rb904	SRVGRP=MNGGRP_JLCRM1 SRVID=24089 CONV=N MIN=1   MAX=2
+                CLOPT="-A -r  -o /iboss1/run/log/Rb904.log"
+                
+Rb910	SRVGRP=MNGGRP_JLCRM1 SRVID=24091 CONV=N MIN=1   MAX=1
+                CLOPT="-A -r  -o /iboss1/run/log/Rb910.log"
+
+R4204	SRVGRP=MNGGRP_JLCRM1 SRVID=24092 CONV=N MIN=1   MAX=2
+                CLOPT="-A -r  -o /iboss1/run/log/R4204.log"
+                
+bodc_GoGrpStop	SRVGRP=MNGGRP_JLCRM1 SRVID=24094 CONV=N MIN=1   MAX=2
+                CLOPT="-A -r  -o /iboss1/run/log/bodc_GoGrpStop.log"
+                
+REmDBChange	SRVGRP=MNGGRP_JLCRM1 SRVID=24096 CONV=N MIN=1   MAX=2
+                CLOPT="-A -r  -o /iboss1/run/log/REmDBChange.log"
+                
+TlsPubSelCrm	SRVGRP=PAYGRP_JLCRM1 SRVID=24098 MIN=10  MAX=50
+	CLOPT="-A -r -o /iboss1/run/log/TlsPubSelCrm.log"
+
+RECcustinfo	SRVGRP=PAYGRP_JLCRM1 SRVID=24149 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RECcustinfo.log"
+
+R2177	SRVGRP=PAYGRP_JLCRM1 SRVID=24150 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/R2177.log"
+
+Rb986   SRVGRP=PAYGRP_JLCRM1 SRVID=24151 MIN=1  MAX=1
+        CLOPT="-A -r -o /iboss1/run/log/Rb986.log"
+
+RSimPro   SRVGRP=PAYGRP_JLCRM1 SRVID=24152 MIN=1  MAX=1
+        CLOPT="-A -r -o /iboss1/run/log/RSimPro.log"        
+
+RWideOnOff   SRVGRP=PAYGRP_JLCRM1 SRVID=24153 MIN=1  MAX=1
+        CLOPT="-A -r -o /iboss1/run/log/RWideOnOff.log"
+
+R4991  SRVGRP=PAYGRP_JLCRM1 SRVID=24154 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4991.log"
+
+R4980  SRVGRP=PAYGRP_JLCRM1 SRVID=24155 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4980.log"
+
+R4875  SRVGRP=PAYGRP_JLCRM1 SRVID=24156 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4875.log"
+
+R4876  SRVGRP=PAYGRP_JLCRM1 SRVID=24157 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4876.log"
+
+R4978  SRVGRP=PAYGRP_JLCRM1 SRVID=24158 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4978.log"
+
+R4981  SRVGRP=PAYGRP_JLCRM1 SRVID=24159 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4981.log"
+
+Rb591  SRVGRP=PAYGRP_JLCRM1 SRVID=24160 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rb591.log"
+
+Rb538  SRVGRP=PAYGRP_JLCRM1 SRVID=24161 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rb538.log"
+
+R4977  SRVGRP=PAYGRP_JLCRM1 SRVID=24162 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4977.log"
+
+RPBOSSRec  SRVGRP=PAYGRP_JLCRM1 SRVID=24163 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPBOSSRec.log"
+
+RBackOrderDeal  SRVGRP=PAYGRP_JLCRM1 SRVID=24164 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RBackOrderDeal.log"
+
+R6493	SRVGRP=PAYGRP_JLCRM1 SRVID=24165 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R6493.log"
+
+Rb952	SRVGRP=PAYGRP_JLCRM1 SRVID=24166 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rb952.log"
+ 
+Rd006	SRVGRP=PAYGRP_JLCRM1 SRVID=24167 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd006.log"
+
+RAllCntt	SRVGRP=PAYGRP_JLCRM1 SRVID=24168 MIN=1    MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/RAllCntt.log"
+
+Rb992	SRVGRP=PAYGRP_JLCRM1 SRVID=24170 MIN=1    MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/Rb992.log"
+
+RESOPTask	SRVGRP=PAYGRP_JLCRM1 SRVID=24171 MIN=1    MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/RESOPTask.log"
+ 
+Rd018	SRVGRP=PAYGRP_JLCRM1 SRVID=24172 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd018.log"       
+
+Rd019   SRVGRP=PAYGRP_JLCRM1 SRVID=24173 MIN=1    MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/Rd019.log"
+        
+Rd020	SRVGRP=PAYGRP_JLCRM1 SRVID=24194 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd020.log"
+
+Rd505	SRVGRP=PAYGRP_JLCRM1 SRVID=24195 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd505.log"
+
+Rd140	SRVGRP=PAYGRP_JLCRM1 SRVID=24174 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd140.log"
+	
+Rd135	SRVGRP=PAYGRP_JLCRM1 SRVID=24175 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd135.log"
+	
+Rd143	SRVGRP=PAYGRP_JLCRM1 SRVID=24185 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd143.log"
+	
+Rd138	SRVGRP=PAYGRP_JLCRM1 SRVID=24176 MIN=1    MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd138.log"
+	
+RMdop   SRVGRP=PAYGRP_JLCRM1 SRVID=24181 MIN=1    MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/RMdop.log"
+ 
+Rd205Dsmp   SRVGRP=PAYGRP_JLCRM1 SRVID=24182 MIN=1    MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/Rd205Dsmp.log"
+
+R427bRsp   SRVGRP=PAYGRP_JLCRM1 SRVID=24183 MIN=1    MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/R427bRsp.log"
+ 
+
+RHscs   SRVGRP=PAYGRP_JLCRM1 SRVID=24178 MIN=1    MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/RHscs.log"
+
+Rd079Dsmp	SRVGRP=PAYGRP_JLCRM1 SRVID=24179 MIN=1    MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/Rd079Dsmp.log"
+
+R4251Rsp	SRVGRP=PAYGRP_JLCRM1 SRVID=24180 MIN=1    MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/R4251Rsp.log"
+
+RLoginNoCheck	SRVGRP=PAYGRP_JLCRM1 SRVID=24177 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RLoginNoCheck.log"		
+
+Rd094	SRVGRP=PAYGRP_JLCRM1 SRVID=24184 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd094.log"
+
+Rmcsp	SRVGRP=PAYGRP_JLCRM1 SRVID=24186 CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/Rmcsp.log"
+        
+REsopBassRegion	SRVGRP=PAYGRP_JLCRM1 SRVID=24187 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/REsopBassRegion.log"		
+	
+REsopGetBassFunc	SRVGRP=PAYGRP_JLCRM1 SRVID=24188 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/REsopGetBassFunc.log"		
+	
+REsopCheckWorkNo	SRVGRP=PAYGRP_JLCRM1 SRVID=24189 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/REsopCheckWorkNo.log"	
+	
+REsopBassService	SRVGRP=PAYGRP_JLCRM1 SRVID=24190 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/REsopBassService.log"	        
+
+R4229Cfm	SRVGRP=PAYGRP_JLCRM1 SRVID=24191 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4229Cfm.log"	        
+
+RMarkQry	SRVGRP=PAYGRP_JLCRM1 SRVID=24193 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RMarkQry.log"	        
+
+Rd019Query	SRVGRP=PAYGRP_JLCRM1 SRVID=24192 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd019Query.log"
+
+RSpeedCard	SRVGRP=PAYGRP_JLCRM1 SRVID=24196 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RSpeedCard.log"
+	
+RDataReCfm	SRVGRP=PAYGRP_JLCRM1 SRVID=24197 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RDataReCfm.log"
+
+RTest	SRVGRP=PAYGRP_JLCRM1 SRVID=24198 CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/RTest.log"
+
+R12_19Data	SRVGRP=PAYGRP_JLCRM1 SRVID=24199 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R12_19Data.log"
+
+Rpila  SRVGRP=PAYGRP_JLCRM1 SRVID=24200  CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/Rpila.log"
+
+RIvrSndMsg  SRVGRP=PAYGRP_JLCRM1 SRVID=24205  CONV=N MIN=2   MAX=5
+        CLOPT="-A -r  -o /iboss1/run/log/RIvrSndMsg.log"
+
+R1550_HisQry  SRVGRP=PAYGRP_JLCRM1 SRVID=24210  CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/R1550_HisQry.log"
+
+Rb101  SRVGRP=PAYGRP_JLCRM1 SRVID=24215  CONV=N MIN=2   MAX=5
+        CLOPT="-A -r  -o /iboss1/run/log/Rb101.log"
+        
+R3005  SRVGRP=PAYGRP_JLCRM1 SRVID=24225  CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/R3005.log"
+
+Rd305  SRVGRP=PAYGRP_JLCRM1 SRVID=24226  CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/Rd305.log"
+        
+REsopBassKPI	SRVGRP=PAYGRP_JLCRM1 SRVID=24227 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/REsopBassKPI.log"
+	
+REsopBassJX	SRVGRP=PAYGRP_JLCRM1 SRVID=24228 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/REsopBassJX.log"	
+
+REsopBassHEAL	SRVGRP=PAYGRP_JLCRM1 SRVID=24229 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/REsopBassHEAL.log"	
+	
+REsopBassALE	SRVGRP=PAYGRP_JLCRM1 SRVID=24230 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/REsopBassALE.log"
+
+sTESTPUBLICBILL	SRVGRP=PAYGRP_JLCRM1 SRVID=24231 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/sTESTPUBLICBILL.log"
+	
+	
+R3005_01  SRVGRP=PAYGRP_JLCRM1 SRVID=24232  CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/R3005_01.log"
+
+RURMSInform  SRVGRP=PAYGRP_JLCRM1 SRVID=24233  CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/RURMSInform.log"
+
+Rd325	SRVGRP=PAYGRP_JLCRM1 SRVID=24234  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd325.log"
+
+Rd322	SRVGRP=PAYGRP_JLCRM1 SRVID=24236  CONV=N MIN=1   MAX=2
+	CLOPT="-A -r  -o /iboss1/run/log/Rd322.log"
+
+Rd328	SRVGRP=PAYGRP_JLCRM1 SRVID=24238  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd328.log"
+
+RPubCard	SRVGRP=PAYGRP_JLCRM1 SRVID=24239  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPubCard.log"
+
+Rd470	SRVGRP=PAYGRP_JLCRM1 SRVID=24240  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd470.log"
+
+RQuery_info SRVGRP=PAYGRP_JLCRM1 SRVID=24243  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RQuery_info.log"
+
+Rd550 SRVGRP=PAYGRP_JLCRM1 SRVID=24244  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd550.log"
+
+R422p SRVGRP=PAYGRP_JLCRM1 SRVID=24245  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R422p.log"
+
+RFamVpmnMsg	SRVGRP=PAYGRP_JLCRM1 SRVID=24246  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RFamVpmnMsg.log"
+	
+Yzservice	SRVGRP=PAYGRP_JLCRM1 SRVID=24247  CONV=N MIN=1   MAX=3
+	CLOPT="-A -r  -o /iboss1/run/log/Yzservice.log"
+
+RVasOrderQry	 SRVGRP=PAYGRP_JLCRM1 SRVID=24255  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RVasOrderQry.log"
+
+Rd310	SRVGRP=PAYGRP_JLCRM1 SRVID=24256  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd310.log"
+
+RVasOrderCfm	 SRVGRP=PAYGRP_JLCRM1 SRVID=24260  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RVasOrderCfm.log"
+
+RGetGrpMarkInfo SRVGRP=PAYGRP_JLCRM1 SRVID=24265  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGetGrpMarkInfo.log"
+
+RIMS SRVGRP=PAYGRP_JLCRM1 SRVID=24266 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RIMS.log"
+	
+R1270Inter	SRVGRP=CHGGRP_JLCRM1 SRVID=24267 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1270Inter.log"
+
+RSysRunLevel	SRVGRP=CHGGRP_JLCRM1 SRVID=24268 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RSysRunLevel.log"
+
+R95012	SRVGRP=CHGGRP_JLCRM1 SRVID=24269 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R95012.log"
+
+RwebVpmn1 SRVGRP=CHGGRP_JLCRM1 SRVID=24469 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RwebVpmn1.log"
+
+RGrpWebCR1 SRVGRP=CHGGRP_JLCRM1 SRVID=24471 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGrpWebCR1.log"
+
+RG3statusmod	SRVGRP=CHGGRP_JLCRM1 SRVID=24263 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RG3statusmod.log"
+	
+RMOPList	SRVGRP=CHGGRP_JLCRM1 SRVID=24270 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RMOPList.log"
+
+ROP	SRVGRP=CHGGRP_JLCRM1 SRVID=24271 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/ROP.log"
+
+R3077Q SRVGRP=CHGGRP_JLCRM1 SRVID=24272 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R3077Q.log"
+
+R1219Q SRVGRP=CHGGRP_JLCRM1 SRVID=24273 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1219Q.log"
+
+R471a SRVGRP=CHGGRP_JLCRM1 SRVID=24274 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R471a.log"
+
+RT015 SRVGRP=CHGGRP_JLCRM1 SRVID=24275 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RT015.log"
+	
+Rt006 SRVGRP=CHGGRP_JLCRM1 SRVID=24276 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rt006.log"
+	
+RTelDeal SRVGRP=CHGGRP_JLCRM1 SRVID=24277 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RTelDeal.log"	
+
+ROrderIvr SRVGRP=CHGGRP_JLCRM1 SRVID=24278 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/ROrderIvr.log"	
+
+R2010 SRVGRP=CHGGRP_JLCRM1 SRVID=24279 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2010.log"
+
+RCollageNetMsg	SRVGRP=CHGGRP_JLCRM1 SRVID=24280 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RCollageNetMsg.log"
+
+R4276DSMP	SRVGRP=CHGGRP_JLCRM1 SRVID=24285 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4276DSMP.log"
+
+RTlsPubSelHis  SRVGRP=PAYGRP_JLCRM1 SRVID=24290 MIN=10  MAX=10
+	CLOPT="-A -r -o /iboss1/run/log/RTlsPubSelHis.log"
+
+R1931 SRVGRP=PAYGRP_JLCRM1 SRVID=24300 MIN=10  MAX=10
+	CLOPT="-A -r -o /iboss1/run/log/R1931.log"
+
+RGetSWorkData SRVGRP=PAYGRP_JLCRM1 SRVID=24313 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RGetSWorkData.log"
+
+Rd891 SRVGRP=PAYGRP_JLCRM1 SRVID=24315 MIN=1  MAX=3
+	CLOPT="-A -r -o /iboss1/run/log/Rd891.log"
+
+Rd924 SRVGRP=PAYGRP_JLCRM1 SRVID=24320 MIN=1  MAX=3
+	CLOPT="-A -r -o /iboss1/run/log/Rd924.log"
+
+RCredit SRVGRP=PAYGRP_JLCRM1 SRVID=24325 MIN=1  MAX=3
+	CLOPT="-A -r -o /iboss1/run/log/RCredit.log"
+
+Rd924DSMP SRVGRP=PAYGRP_JLCRM1 SRVID=24330 MIN=1  MAX=3
+	CLOPT="-A -r -o /iboss1/run/log/Rd924DSMP.log"
+
+Rd924ReCfm SRVGRP=PAYGRP_JLCRM1 SRVID=24335 MIN=1  MAX=3
+	CLOPT="-A -r -o /iboss1/run/log/Rd924ReCfm.log"
+RElecPhone SRVGRP=PAYGRP_JLCRM1 SRVID=24338 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RElecPhone.log"
+
+Rd947 SRVGRP=PAYGRP_JLCRM1 SRVID=24339 MIN=1  MAX=1
+        CLOPT="-A -r -o /iboss1/run/log/Rd947.log"
+
+Rd947Cfm SRVGRP=PAYGRP_JLCRM1 SRVID=24340 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rd947Cfm.log"
+	
+Re030 SRVGRP=PAYGRP_JLCRM1 SRVID=24341 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Re030.log"
+
+RE050 SRVGRP=PAYGRP_JLCRM1 SRVID=24342 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RE050.log"
+
+REmOprQry SRVGRP=PAYGRP_JLCRM1 SRVID=24343 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/REmOprQry.log"
+
+
+Re059	SRVGRP=PAYGRP_JLCRM1 SRVID=24344 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Re059.log"
+	
+Re097	SRVGRP=PAYGRP_JLCRM1 SRVID=24345 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Re097.log"
+
+Re071	SRVGRP=PAYGRP_JLCRM1 SRVID=24346 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Re071.log"
+
+RColaExchange	SRVGRP=PAYGRP_JLCRM1 SRVID=24347 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RColaExchange.log"
+
+RCardStateQry	SRVGRP=PAYGRP_JLCRM1 SRVID=24348 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RCardStateQry.log"
+Rsjcl	SRVGRP=PAYGRP_JLCRM1 SRVID=24349 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rsjcl.log"
+
+RAlertCount	SRVGRP=NGBODC_JLCRM1 SRVID=24104 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RAlertCount.log"
+	
+Re166	SRVGRP=NGBODC_JLCRM1 SRVID=24107 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re166.log"
+	
+RGetGrpInfo	SRVGRP=NGBODC_JLCRM1 SRVID=24109 MIN=2   MAX=2
+	CLOPT="-A -r  -o /iboss1/run/log/RGetGrpInfo.log"	
+	
+R9166DSMP	SRVGRP=NGBODC_JLCRM1 SRVID=24112 MIN=1   MAX=2
+	CLOPT="-A -r  -o /iboss1/run/log/RGetGrpInfo.log"	
+
+Re227	SRVGRP=NGBODC_JLCRM1 SRVID=24114 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re227.log"	
+
+Re235	SRVGRP=NGBODC_JLCRM1 SRVID=24116 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re235.log"  
+	
+RGetVpmnInfo	SRVGRP=NGBODC_JLCRM1 SRVID=24118 MIN=2   MAX=3
+	CLOPT="-A -r  -o /iboss1/run/log/RGetVpmnInfo.log"  
+	
+RG3OPGetInfo	SRVGRP=NGBODC_JLCRM1 SRVID=24124 MIN=2   MAX=3
+	CLOPT="-A -r  -o /iboss1/run/log/RG3OPGetInfo.log" 
+
+R1292Query	SRVGRP=NGBODC_JLCRM1 SRVID=24128 MIN=1   MAX=3
+	CLOPT="-A -r  -o /iboss1/run/log/R1292Query.log"
+
+Re252	SRVGRP=NGBODC_JLCRM1 SRVID=24135 MIN=1   MAX=3
+	CLOPT="-A -r  -o /iboss1/run/log/Re252.log"
+
+RSimInfoQry	SRVGRP=NGBODC_JLCRM1 SRVID=24138 MIN=1   MAX=3
+	CLOPT="-A -r  -o /iboss1/run/log/RSimInfoQry.log"
+
+RpayCard	SRVGRP=NGBODC_JLCRM1 SRVID=24148 MIN=1   MAX=3
+	CLOPT="-A -r  -o /iboss1/run/log/RpayCard.log"
+
+Re273	SRVGRP=NGBODC_JLCRM1 SRVID=24351 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re273.log"
+	
+	
+Re308	SRVGRP=NGBODC_JLCRM1 SRVID=24355 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re308.log"
+	
+#####xubp add 20130424####
+RClientCheck	SRVGRP=NGBODC_JLCRM1 SRVID=24777  MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RClientCheck.log"
+	
+RUserIdenCheck	SRVGRP=NGBODC_JLCRM1 SRVID=24778  MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RUserIdenCheck.log"
+	
+RPerinfoQry	SRVGRP=NGBODC_JLCRM1 SRVID=24779  MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPerinfoQry.log"
+	
+ROrderBusiQry	SRVGRP=NGBODC_JLCRM1 SRVID=24780  MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/ROrderBusiQry.log"
+	
+RPukQry	SRVGRP=NGBODC_JLCRM1 SRVID=24781  MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPukQry.log"
+	
+RCallChange	SRVGRP=NGBODC_JLCRM1 SRVID=24782  MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RCallChange.log"
+	
+RGprsCfm	SRVGRP=NGBODC_JLCRM1 SRVID=24783  MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGprsCfm.log"
+	
+RSimbakActive	SRVGRP=NGBODC_JLCRM1 SRVID=24784  MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RSimbakActive.log"
+	
+ROffOn	SRVGRP=NGBODC_JLCRM1 SRVID=24785  MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/ROffOn.log"
+	
+RInterlong	SRVGRP=NGBODC_JLCRM1 SRVID=24786  MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RInterlong.log"
+	
+RInterRoam	SRVGRP=NGBODC_JLCRM1 SRVID=24787  MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RInterRoam.log"
+	
+RInterRoamDay	SRVGRP=NGBODC_JLCRM1 SRVID=24788  MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RInterRoamDay.log"
+	
+RMarketingQry	SRVGRP=NGBODC_JLCRM1 SRVID=24789  MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RMarketingQry.log"
+	
+REchgCardQry	SRVGRP=NGBODC_JLCRM1 SRVID=24790  MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/REchgCardQry.log"
+####wanghao##
+Rd930	SRVGRP=NGBODC_JLCRM1 SRVID=24352 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd930.log"
+	
+#####chendx add 201110920####
+RGrpMebQry SRVGRP=NGBODC_JLCRM1 SRVID=24353 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGrpMebQry.log"
+	
+#####chendx add 20111121####
+Re432 SRVGRP=NGBODC_JLCRM1 SRVID=24350 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re432.log"
+	
+#####wanghle#####
+Rwhltest SRVGRP=NGBODC_JLCRM1 SRVID=24354 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rwhltest.log"
+
+Re340 SRVGRP=NGBODC_JLCRM1 SRVID=24356 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re340.log"
+
+ReserveBizmsg	SRVGRP=NGBODC_JLCRM1 SRVID=24357 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/ReserveBizmsg.log"
+
+RVpmnAwake SRVGRP=NGBODC_JLCRM1 SRVID=24358 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RVpmnAwake.log"
+
+Re344 SRVGRP=NGBODC_JLCRM1 SRVID=24359 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re344.log"
+
+Re381	SRVGRP=NGBODC_JLCRM1 SRVID=24360 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re381.log"
+
+RBankPay SRVGRP=NGBODC_JLCRM1 SRVID=24361 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RBankPay.log"
+	
+Re377 SRVGRP=NGBODC_JLCRM1 SRVID=24363 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re377.log"
+	
+Re383 SRVGRP=NGBODC_JLCRM1 SRVID=24364 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re383.log"
+
+Re408 SRVGRP=NGBODC_JLCRM1 SRVID=24365 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re408.log"
+
+Re306 SRVGRP=NGBODC_JLCRM1 SRVID=24366 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re306.log"
+	
+R1286Qry	SRVGRP=NGBODC_JLCRM1 SRVID=24542 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1286Qry.log"
+	
+Re442	SRVGRP=NGBODC_JLCRM1 SRVID=24544 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re442.log"
+
+TuxDemoEmer	SRVGRP=NGBODC_JLCRM1 SRVID=24367 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/TuxDemoEmer.log"
+
+RTrashMsg	SRVGRP=NGBODC_JLCRM1 SRVID=24368 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RTrashMsg.log"
+
+Re473	SRVGRP=NGBODC_JLCRM1 SRVID=24369 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re473.log"
+
+Re482	SRVGRP=NGBODC_JLCRM1 SRVID=24370 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re482.log"
+###4A金库式管理接口
+R4ABank	SRVGRP=NGBODC_JLCRM1 SRVID=24371 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4ABank.log"
+
+Rmblg	SRVGRP=NGBODC_JLCRM1 SRVID=24372 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rmblg.log"
+
+ROprPtla	SRVGRP=CALLGRP_JLCRM1 SRVID=24373 CONV=Y  MIN=1  MAX=1 REPLYQ=Y
+	CLOPT="-A -r  -o /iboss1/run/log/ROprPtla.log"
+
+#R4255Snd	SRVGRP=NGBODC_JLCRM1 SRVID=24374 MIN=1   MAX=1
+#	CLOPT="-A -r  -o /iboss1/run/log/R4255Snd.log"
+
+#R4258Snd	SRVGRP=NGBODC_JLCRM1 SRVID=24375 MIN=1   MAX=1
+#	CLOPT="-A -r  -o /iboss1/run/log/R4258Snd.log"
+
+RGetUserInfo	SRVGRP=NGBODC_JLCRM1 SRVID=24376 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGetUserInfo.log"
+
+RGetCallInfo	SRVGRP=NGBODC_JLCRM1 SRVID=24377 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGetCallInfo.log"
+
+RGetWorkDataNew	SRVGRP=NGBODC_JLCRM1 SRVID=24378 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGetWorkDataNew.log"
+
+REmailEChannel	SRVGRP=NGBODC_JLCRM1 SRVID=24379 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/REmailEChannel.log"
+
+Reconcile  SRVGRP=NGBODC_JLCRM1 SRVID=24380 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Reconcile.log"
+
+Re581	SRVGRP=NGBODC_JLCRM1 SRVID=24381 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re581.log"
+
+Rsurf   SRVGRP=NGBODC_JLCRM1 SRVID=24382 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rsurf.log"
+
+Re570   SRVGRP=NGBODC_JLCRM1 SRVID=24383 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re570.log"
+
+Re589   SRVGRP=NGBODC_JLCRM1 SRVID=24384 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re589.log"
+
+R1152Cfm	SRVGRP=NGBODC_JLCRM1 SRVID=24386 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1152Cfm.log"
+###chendx 20120210@crm3.5 模块评分服务
+ROpGrade	SRVGRP=NGBODC_JLCRM1 SRVID=24387 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/ROpGrade.log"
+	
+Re608	SRVGRP=NGBODC_JLCRM1 SRVID=24388 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re608.log"
+
+REModeQry	SRVGRP=NGBODC_JLCRM1 SRVID=24389 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/REModeQry.log"
+	
+RMpayCon	SRVGRP=NGBODC_JLCRM1 SRVID=24391 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RMpayCon.log"
+	
+Re615	SRVGRP=NGBODC_JLCRM1 SRVID=24393 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re615.log"
+
+Rbodb_s1213Cfm	SRVGRP=NGBODC_JLCRM1 SRVID=24396 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rbodb_s1213Cfm.log"	
+	
+RCHighChk	SRVGRP=NGBODC_JLCRM1 SRVID=24397 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RCHighChk.log"
+
+RPopMode	SRVGRP=NGBODC_JLCRM1 SRVID=24398 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPopMode.log"
+
+Re658	SRVGRP=NGBODC_JLCRM1 SRVID=24399 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re658.log"
+
+Rppml	SRVGRP=NGBODC_JLCRM1 SRVID=24400 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rppml.log"
+
+Re672	SRVGRP=NGBODC_JLCRM1 SRVID=24402 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re672.log"
+
+Re673	SRVGRP=NGBODC_JLCRM1 SRVID=24408 MIN=1	MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re673.log"
+
+R1270WebModChg	SRVGRP=NGBODC_JLCRM1 SRVID=24403 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1270WebModChg.log"
+	
+Re674	SRVGRP=NGBODC_JLCRM1 SRVID=24406 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re674.log"
+	
+R4180	SRVGRP=NGBODC_JLCRM1 SRVID=24405 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R4180.log"
+	
+Re696order	SRVGRP=NGBODC_JLCRM1 SRVID=24443 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re696order.log"
+	
+Re695	SRVGRP=NGBODC_JLCRM1 SRVID=24453 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re695.log"
+
+Re696	SRVGRP=NGBODC_JLCRM1 SRVID=24455 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re696.log"
+	
+Re692	SRVGRP=NGBODC_JLCRM1 SRVID=24459 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re692.log"
+	
+Rppmlc	SRVGRP=NGBODC_JLCRM1 SRVID=24461 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rppmlc.log"
+
+RAlertResult	SRVGRP=NGBODC_JLCRM1 SRVID=24499 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RAlertResult.log"
+	
+RGetGrpByMem	SRVGRP=NGBODC_JLCRM1 SRVID=24559 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGetGrpByMem.log"
+	
+RGetFamMem	SRVGRP=NGBODC_JLCRM1 SRVID=24560 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGetFamMem.log"
+	
+RGetPreOrder	SRVGRP=NGBODC_JLCRM1 SRVID=24561 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RGetPreOrder.log"
+	
+Re968	SRVGRP=NGBODC_JLCRM1 SRVID=24761 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re968.log"
+	
+Rg217	SRVGRP=NGBODC_JLCRM1 SRVID=24771  MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rg217.log"
+
+######zhangjb0228 积分查询###############
+R1430_1	SRVGRP=NGBODC_JLCRM1 SRVID=24401 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1430_1.log"		
+
+R422fCfm SRVGRP=NGBODC_JLCRM1 SRVID=24410 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R422fCfm.log"		
+
+Rmboxp SRVGRP=NGBODC_JLCRM1 SRVID=24411 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rmboxp.log"
+
+Rbodb_R1250res  SRVGRP=NGBODC_JLCRM1 SRVID=24412 MIN=1 MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rbodb_R1250res.log"
+
+Re733  SRVGRP=NGBODC_JLCRM1 SRVID=24413 MIN=1 MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Re733.log"
+
+Re739 SRVGRP=NGBODC_JLCRM1 SRVID=24414  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Re739.log"
+	
+Re741 SRVGRP=NGBODC_JLCRM1 SRVID=24415  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Re741.log"
+
+Re747 SRVGRP=NGBODC_JLCRM1 SRVID=24416  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Re747.log"	
+
+Re763 SRVGRP=NGBODC_JLCRM1 SRVID=24421  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Re763.log"
+
+Re733GoTn SRVGRP=NGBODC_JLCRM1 SRVID=24419  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Re733GoTn.log"	
+	
+Re733Dsmp SRVGRP=NGBODC_JLCRM1 SRVID=24420  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Re733Dsmp.log"	
+
+RGrpUserCheck SRVGRP=NGBODC_JLCRM1 SRVID=24430  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RGrpUserCheck.log"	
+
+RNetCare SRVGRP=NGBODC_JLCRM1 SRVID=24432  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RNetCare.log"
+
+R1395	SRVGRP=NGBODC_JLCRM1 SRVID=24433  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/R1395.log"
+
+RPukLotter SRVGRP=NGBODC_JLCRM1 SRVID=24434  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RPukLotter.log"
+
+RMsgQryISDB SRVGRP=NGBODC_JLCRM1 SRVID=24436  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RMsgQryISDB.log"
+
+Re815 SRVGRP=NGBODC_JLCRM1 SRVID=24435  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Re815.log"
+
+Re882 SRVGRP=NGBODC_JLCRM1 SRVID=24462  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Re882.log"
+
+RBizReqCfm SRVGRP=NGBODC_JLCRM1 SRVID=24465  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RBizReqCfm.log"
+###############################################################
+#jiangpenga测试
+###############################################################
+
+testjp01 SRVGRP=NGBODC_JLCRM1 SRVID=24417  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/testjp01.log"
+
+testjp02 SRVGRP=NGBODC_JLCRM1 SRVID=24418  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/testjp02.log"
+	
+testjp03 SRVGRP=NGBODC_JLCRM1 SRVID=24422  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/testjp03.log"
+	
+###############################################################
+#集团网厅账号预约接口
+###############################################################
+RGrpRsvnMsg SRVGRP=NGBODC_JLCRM1 SRVID=24431  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RGrpRsvnMsg.log"	
+	
+RGrpWebVpmn SRVGRP=NGBODC_JLCRM1 SRVID=24437  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RGrpWebVpmn.log"	
+
+
+
+DmktNet SRVGRP=NGBODC_JLCRM1 SRVID=24438  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/DmktNet.log"
+	
+
+Re859 SRVGRP=NGBODC_JLCRM1 SRVID=24439  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Re859.log"
+
+
+RGrpWebMail SRVGRP=NGBODC_JLCRM1 SRVID=24440  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/RGrpWebMail.log"
+
+RGrpWebCR SRVGRP=NGBODC_JLCRM1 SRVID=24441  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/RGrpWebCR.log"
+
+RGrpWebCustInfo SRVGRP=NGBODC_JLCRM1 SRVID=24442  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/RGrpWebCustInfo.log"
+
+RAcctCycle SRVGRP=NGBODC_JLCRM1 SRVID=24543  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/RAcctCycle.log"
+
+Re212 SRVGRP=NGBODC_JLCRM1 SRVID=24545  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Re212.log"
+
+Re923	SRVGRP=NGBODC_JLCRM1 SRVID=24551  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Re923.log"
+
+#lixiaoxin   getmessage#
+getmessage SRVGRP=NGBODC_JLCRM1 SRVID=24546  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/getmessage.log"
+#lixiaoxin RGrpIdcDeal#
+RGrpIdcDeal SRVGRP=NGBODC_JLCRM1 SRVID=24548  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/RGrpIdcDeal.log"
+
+Re928 SRVGRP=NGBODC_JLCRM1 SRVID=24980  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Re928.log"
+RivrOrder SRVGRP=NGBODC_JLCRM1 SRVID=24550  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/RivrOrder.log"
+#lixiaoxin Rg024#
+Rg024 SRVGRP=NGBODC_JLCRM1 SRVID=24565  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg024.log"        
+#lixiaoxin Re969#
+Re969 SRVGRP=NGBODC_JLCRM1 SRVID=24568  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Re969.log"       
+#lixiaoxin Rg265#
+Rg265 SRVGRP=NGBODC_JLCRM1 SRVID=24597  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg265.log"
+#lixiaoxin Rg296#
+Rg296 SRVGRP=NGBODC_JLCRM1 SRVID=24604  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg296.log"
+#lixiaoxin RGrpWebCheck#
+RGrpWebCheck SRVGRP=NGBODC_JLCRM1 SRVID=24605  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/RGrpWebCheck.log"
+#lixiaoxin Rg328#
+Rg328 SRVGRP=NGBODC_JLCRM1 SRVID=24609  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg328.log"
+#lixiaoxin RSqspGrp2890#
+RSqspGrp2890 SRVGRP=NGBODC_JLCRM1 SRVID=24612  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/RSqspGrp2890.log"
+        
+#lixiaoxin Rg464#
+Rg464 SRVGRP=NGBODC_JLCRM1 SRVID=24625  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg464.log"
+        
+#lixiaoxin Rg567#
+Rg567 SRVGRP=NGBODC_JLCRM1 SRVID=24635  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg567.log"
+        
+Rg030 SRVGRP=NGBODC_JLCRM1 SRVID=24566  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg030.log"
+
+RpilaBill	SRVGRP=PAYGRP_JLCRM1 SRVID=24551  CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/RpilaBill.log"
+
+R5142Rsp	SRVGRP=PAYGRP_JLCRM1 SRVID=24553  CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/R5142Rsp.log"
+
+Re932	SRVGRP=PAYGRP_JLCRM1 SRVID=24555  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re932.log"
+
+Rmtxl	SRVGRP=PAYGRP_JLCRM1 SRVID=24556  CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/Rmtxl.log"
+
+RSaleQryPopNew   SRVGRP=PAYGRP_JLCRM1 SRVID=24557  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RSaleQryPopNew.log"
+ 
+RPubChnCheck	SRVGRP=PAYGRP_JLCRM1 SRVID=24558  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RPubChnCheck.log"
+	
+RpilaSecond	SRVGRP=PAYGRP_JLCRM1 SRVID=24559  CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/RpilaSecond.log"
+
+RpilaBillSecond	SRVGRP=PAYGRP_JLCRM1 SRVID=24560  CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/RpilaBillSecond.log"
+
+RCheckCust	SRVGRP=PAYGRP_JLCRM1 SRVID=24562  CONV=N MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/RCheckCust.log"
+ 
+Re987	SRVGRP=PAYGRP_JLCRM1 SRVID=24563  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re987.log"     
+ 
+Re965	SRVGRP=PAYGRP_JLCRM1 SRVID=24564  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re965.log"
+
+Rg054	SRVGRP=PAYGRP_JLCRM1 SRVID=24567  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rg054.log"
+
+R2052Proxy	SRVGRP=PAYGRP_JLCRM1 SRVID=24565  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2052Proxy.log"
+
+Rd141	SRVGRP=PAYGRP_JLCRM1 SRVID=24569  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rd141.log"
+ 
+Rg080	SRVGRP=PAYGRP_JLCRM1 SRVID=24570  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rg080.log"
+
+Rg081	SRVGRP=PAYGRP_JLCRM1 SRVID=24571  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rg081.log"   
+	
+RWebDelivery	SRVGRP=CHGGRP_JLCRM1 SRVID=24572 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RWebDelivery.log" 
+
+R2014	SRVGRP=NGBODC_JLCRM1 SRVID=24573 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R2014.log" 
+
+Rg082	SRVGRP=PAYGRP_JLCRM1 SRVID=24574  CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rg082.log"
+	
+RWebUsrSms SRVGRP=MNGGRP_JLCRM1 SRVID=24575 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RWebUsrSms.log"
+
+R1500ReserveQry	SRVGRP=MNGGRP_JLCRM1 SRVID=24576 CONV=N MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R1500ReserveQry.log"
+
+Rg128 SRVGRP=NGBODC_JLCRM1 SRVID=24577 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rg128.log"
+
+Re906 SRVGRP=NGBODC_JLCRM1 SRVID=24578 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Re906.log"
+
+Rg152 SRVGRP=NGBODC_JLCRM1 SRVID=24579 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rg152.log"
+	
+Rg162 SRVGRP=NGBODC_JLCRM1 SRVID=24580 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rg162.log"
+	
+ROneWebMode SRVGRP=NGBODC_JLCRM1 SRVID=24581  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/ROneWebMode.log"
+	
+Rg178 SRVGRP=NGBODC_JLCRM1 SRVID=24582  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg178.log"
+
+Rg203	SRVGRP=NGBODC_JLCRM1 SRVID=24583  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg203.log"
+
+Rg112	SRVGRP=NGBODC_JLCRM1 SRVID=24584  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg112.log"
+
+
+Rbodb_2310Cfm   SRVGRP=NGBODC_JLCRM1 SRVID=24585  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rbodb_2310Cfm.log"
+
+Rg211   SRVGRP=NGBODC_JLCRM1 SRVID=24586  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg211.log"
+
+Rg212   SRVGRP=NGBODC_JLCRM1 SRVID=24587  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg212.log"
+
+Rg204	SRVGRP=NGBODC_JLCRM1 SRVID=24588  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg204.log"
+
+Rg205   SRVGRP=NGBODC_JLCRM1 SRVID=24589  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg205.log"
+
+Rg227	SRVGRP=NGBODC_JLCRM1 SRVID=24590  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg227.log"
+        
+Rg169	SRVGRP=NGBODC_JLCRM1 SRVID=24591  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg169.log"
+        
+Rmcld	SRVGRP=NGBODC_JLCRM1 SRVID=24592  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rmcld.log"
+
+Rg228   SRVGRP=NGBODC_JLCRM1 SRVID=24593  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg228.log"
+
+Rzztest	SRVGRP=NGBODC_JLCRM1 SRVID=24594  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rzztest.log"
+
+Rg206	SRVGRP=NGBODC_JLCRM1 SRVID=24595  MIN=1   MAX=2
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg206.log"
+	
+Rg270	SRVGRP=NGBODC_JLCRM1 SRVID=24598  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg270.log"
+
+Rg271   SRVGRP=NGBODC_JLCRM1 SRVID=24599  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg271.log"
+
+Rg272Res SRVGRP=NGBODC_JLCRM1 SRVID=24600  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg272Res.log"
+
+Rmuscp SRVGRP=NGBODC_JLCRM1 SRVID=24601  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rmuscp.log"
+	
+Rg024Cfm SRVGRP=NGBODC_JLCRM1 SRVID=24602  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg024Cfm.log"
+
+RE518Ex	SRVGRP=NGBODC_JLCRM1 SRVID=24606  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RE518Ex.log"
+
+Rg333	SRVGRP=NGBODC_JLCRM1 SRVID=24607  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg333.log"
+
+Rg330	SRVGRP=NGBODC_JLCRM1 SRVID=24608  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg330.log"
+	
+Rg360	SRVGRP=NGBODC_JLCRM1 SRVID=24613  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg360.log"
+	
+Rbp01	SRVGRP=NGBODC_JLCRM1 SRVID=24615  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rbp01.log"
+	
+ReSendFunc SRVGRP=NGBODC_JLCRM1 SRVID=24610  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/ReSendFunc.log"
+
+Rimpsp SRVGRP=NGBODC_JLCRM1 SRVID=24611  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rimpsp.log"
+
+Rbodb_BankCredit SRVGRP=NGBODC_JLCRM1 SRVID=24614  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rbodb_BankCredit.log"
+	
+Rg411 SRVGRP=NGBODC_JLCRM1 SRVID=24616  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg411.log"
+
+Rg410 SRVGRP=NGBODC_JLCRM1 SRVID=24617  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg410.log"
+	
+Rg432 SRVGRP=NGBODC_JLCRM1 SRVID=24618  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg432.log"
+
+RWebDeliveryOpen	SRVGRP=NGBODC_JLCRM1 SRVID=24619  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RWebDeliveryOpen.log"
+
+RbsDelivery	SRVGRP=NGBODC_JLCRM1 SRVID=24620  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RbsDelivery.log"
+	
+RNfcpRsp SRVGRP=NGBODC_JLCRM1 SRVID=24623  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RNfcpRsp.log"
+	
+Rg434 SRVGRP=NGBODC_JLCRM1 SRVID=24624  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg434.log"
+
+Rg466 SRVGRP=NGBODC_JLCRM1 SRVID=24626  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg466.log"
+        
+Rg425 SRVGRP=NGBODC_JLCRM1 SRVID=24627  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg425.log"
+
+Rg509 SRVGRP=NGBODC_JLCRM1 SRVID=24681  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg509.log"
+ 
+RqryConvertFlag	SRVGRP=NGBODC_JLCRM1 SRVID=24682  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RqryConvertFlag.log"
+	
+Rg593	SRVGRP=NGBODC_JLCRM1 SRVID=24683  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg593.log"
+
+R422eCfm	SRVGRP=NGBODC_JLCRM1 SRVID=24684  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/R422eCfm.log"
+       
+Rreserve	SRVGRP=NGBODC_JLCRM1 SRVID=24685  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rreserve.log"
+       
+##物联网lugy begin##
+Rg300 SRVGRP=NGBODC_JLCRM1 SRVID=24603  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg300.log"
+	
+Rg301 SRVGRP=NGBODC_JLCRM1 SRVID=24628  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg301.log"
+        
+Rg302 SRVGRP=NGBODC_JLCRM1 SRVID=24629  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg302.log"
+        
+Rg303 SRVGRP=NGBODC_JLCRM1 SRVID=24630  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg303.log"
+        
+Rg304 SRVGRP=NGBODC_JLCRM1 SRVID=24631  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg304.log" 
+
+RIotBalanceQryRsp SRVGRP=NGBODC_JLCRM1 SRVID=24632  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RIotBalanceQryRsp.log"
+
+Rg535 SRVGRP=NGBODC_JLCRM1 SRVID=24633  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg535.log"
+
+RIotCardNumInfoRsp SRVGRP=NGBODC_JLCRM1 SRVID=24621  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RIotCardNumInfoRsp.log"
+
+Rg589 SRVGRP=NGBODC_JLCRM1 SRVID=24636  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg589.log"
+
+RIotOrdInfoRsp SRVGRP=NGBODC_JLCRM1 SRVID=24634  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RIotOrdInfoRsp.log"
+	
+RIotGrpOrderBizInfo SRVGRP=NGBODC_JLCRM1 SRVID=24639  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RIotGrpOrderBizInfo.log"
+
+Rg601	SRVGRP=NGBODC_JLCRM1 SRVID=24640  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg601.log"
+
+
+##物联网lugy end##
+
+
+#####聚汇好友需求 liyyc begin#####
+
+Rg669	SRVGRP=CALLGRP_JLCRM1 SRVID=25000 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rg669.log"
+
+RGroupMemberAgree	SRVGRP=CALLGRP_JLCRM1 SRVID=25001 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RGroupMemberAgree.log"
+
+Rg670	SRVGRP=CALLGRP_JLCRM1 SRVID=25002 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rg670.log"
+
+Rg739	SRVGRP=CALLGRP_JLCRM1 SRVID=25003 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rg739.log"
+
+Rg672	SRVGRP=CALLGRP_JLCRM1 SRVID=25004 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/Rg672.log"
+
+RGroupMasterAgree	SRVGRP=CALLGRP_JLCRM1 SRVID=25005 MIN=1  MAX=1
+	CLOPT="-A -r -o /iboss1/run/log/RGroupMasterAgree.log"
+
+#####聚汇好友需求 liyyc end#####
+
+
+RBbossOrdCheck	SRVGRP=NGBODC_JLCRM1 SRVID=24642 MIN=1 MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/RBbossOrdCheck.log"
+
+Rg534 SRVGRP=NGBODC_JLCRM1 SRVID=26557  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg534.log"
+	
+
+Rg506 SRVGRP=NGBODC_JLCRM1 SRVID=24800  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg506.log"
+
+Re024	SRVGRP=NGBODC_JLCRM1 SRVID=24801  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Re024.log"
+	
+RSynIotgrpRsp  SRVGRP=CHGGRP_JLCRM1 SRVID=26558 MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/RSynIotgrpRsp.log"
+        
+Rg572  SRVGRP=CHGGRP_JLCRM1 SRVID=26560 MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg572.log"
+        
+Rg568  SRVGRP=CHGGRP_JLCRM1 SRVID=26569 MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rg568.log"
+        
+RIotPubSrv  SRVGRP=CHGGRP_JLCRM1 SRVID=26561 MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/RIotPubSrv.log"
+        
+Rd506  SRVGRP=CHGGRP_JLCRM1 SRVID=26562 MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rd506.log"
+  
+Rd514  SRVGRP=CHGGRP_JLCRM1 SRVID=26563 MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rd514.log"
+        
+Rd515  SRVGRP=CHGGRP_JLCRM1 SRVID=26564 MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rd515.log"
+        
+Rd507  SRVGRP=CHGGRP_JLCRM1 SRVID=26565 MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/Rd507.log"
+ 
+Rg652	SRVGRP=CHGGRP_JLCRM1 SRVID=26566 MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg652.log"
+	
+Rg653	SRVGRP=CHGGRP_JLCRM1 SRVID=26567 MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg653.log"
+   
+Rg676 SRVGRP=NGBODC_JLCRM1 SRVID=26568  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg676.log"
+   
+Rg677 SRVGRP=NGBODC_JLCRM1 SRVID=26570  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg677.log"
+   
+Rg668 SRVGRP=NGBODC_JLCRM1 SRVID=26571  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg668.log"
+   
+Rg391 SRVGRP=NGBODC_JLCRM1 SRVID=26572  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg391.log"
+            
+Rg654	SRVGRP=NGBODC_JLCRM1 SRVID=26569  MIN=1   MAX=1
+	CLOPT="-A -r -t -o /iboss1/run/log/Rg654.log"
+
+R18610  SRVGRP=CALLGRP_JLCRM1 SRVID=26550 MIN=1  MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/R18610.log -s s1861UsrTypeQry_w:s1861UsrTypeQry -s s1862UsrTypeQry_z:s1862UsrTypeQry"  
+R1712   SRVGRP=PAYGRP_JLCRM1 SRVID=26551 MIN=1 MAX=1
+        CLOPT="-A -r -o /iboss1/run/log/R1712.log -s s1712Qry_w:s1712Qry"
+R9189   SRVGRP=CHGGRP_JLCRM1 SRVID=26552 MIN=1 MAX=1
+        CLOPT="-A -r -o /iboss1/run/log/R9189.log -s s9189Qry_w:s9189Qry -s s9189Qry_z:s9189Qry"
+R2976   SRVGRP=CALLGRP_JLCRM1 SRVID=26553 MIN=1 MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/R2976.log -s sPhoneBelQry_w:sPhoneBelQry -s sPhoneBelQry_z:sPhoneBelQry -s s2976Cfm_w:s2976Cfm -s s2976Cfm_z:s2976Cfm -s sPhoneModeQry_w:sPhoneModeQry -s sPhoneModeQry_z:sPhoneModeQry"        
+R1861Pub        SRVGRP=PAYGRP_JLCRM1 SRVID=26554 MIN=1  MAX=1
+        CLOPT="-A -r -o /iboss1/run/log/R1861Pub.log -s s1861RatifyPass_w:s1861RatifyPass -s s1861RatifyPass_z:s1861RatifyPass"    
+R3330   SRVGRP=SMAPGRP_JLCRM1 SRVID=26555 MIN=1   MAX=1
+        CLOPT="-A -o /iboss1/run/log/R3330.log -s s3354Cfm_z:s3354Cfm"        
+R12_19  SRVGRP=CHGGRP_JLCRM1 SRVID=26556 MIN=1   MAX=1
+        CLOPT="-A -r  -o /iboss1/run/log/R12_19.log -s s1219Cfm_w:s1219Cfm -s s1219Cfm_z:s1219Cfm"  
+Rg633  SRVGRP=CHGGRP_JLCRM1 SRVID=26557 MIN=1   MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rg633.log"
+
+R6282	SRVGRP=CALLGRP_JLCRM1 SRVID=26558 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/R6282.log"
+
+RpayCardOneBoss	SRVGRP=CALLGRP_JLCRM1 SRVID=26559 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RpayCardOneBoss.log"
+        
+ 
+Rg693	SRVGRP=CALLGRP_JLCRM1 SRVID=26560 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rg693.log"
+
+Rg732	SRVGRP=CALLGRP_JLCRM1 SRVID=26561 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rg732.log"
+
+Rg733	SRVGRP=CALLGRP_JLCRM1 SRVID=26575 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/Rg733.log"
+
+	
+RWebTermInterface	SRVGRP=CALLGRP_JLCRM1 SRVID=26573 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RWebTermInterface.log"
+	
+RTransQry	SRVGRP=CALLGRP_JLCRM1 SRVID=26574 MIN=1  MAX=1
+	CLOPT="-A -r  -o /iboss1/run/log/RTransQry.log"	
+        
+###############################################################
+#提供给ESOP系统服务
+##########################################
+RGetOpenWay SRVGRP=NGBODC_JLCRM1 SRVID=24547  MIN=1   MAX=1
+        CLOPT="-A -r -t -o /iboss1/run/log/RGetOpenWay.log"
+
+###############################################################
+#Tuxedo系统服务
+###############################################################
+
+JSL		SRVGRP=JSLGRP_JLBOSS SRVID=15000 RESTART=Y GRACE=0 MAXGEN=10
+		CLOPT= "-A -r  -- -n //10.161.249.14:14111 -m20 -M50 -x10"
+
+JSL		SRVGRP=JSLGRP_JLBOSS SRVID=15100 RESTART=Y GRACE=0 MAXGEN=10
+		CLOPT= "-A -r  -- -n //10.161.249.14:14000 -m20 -M50 -x10"
+
+JREPSVR		SRVGRP=JREPGRP_JLBOSS SRVID=15500      RESTART=Y       GRACE=0
+		MAXGEN=10       REPLYQ=Y
+		CLOPT="-A -r  -- -W  -P /iboss1/run/cfg/jrepository"
+
+WSL		SRVGRP=WSLGRP_JLBOSS SRVID=16000 RESTART=Y MAXGEN=10
+		CLOPT= "-A -- -n //10.161.249.14:16111  -m10 -M20 -x10 -K both -c 10240" 
+#for www czd 20130128       
+WSL             SRVGRP=WSLGRP_JLBOSS SRVID=16020 SEQUENCE=1003 RESTART=Y MAXGEN=10
+                        CLOPT= "-A -- -n //10.161.249.14:26322  -m10 -M20 -x10 -p 23000 -P 23999 -K both -c 10240"
+#for www czd 20130128  
+WSL             SRVGRP=WSLGRP_JLBOSS SRVID=16030 SEQUENCE=1003 RESTART=Y MAXGEN=10
+                        CLOPT= "-A -- -n //10.161.249.14:26333  -m10 -M20 -x10  -p 24000 -P 24999 -K both -c 10240"
+
+DMADM		SRVGRP=WTCGRP_JLBOSS	SRVID=1	CLOPT="-At -r -o /iboss1/run/log/DMADM.out "
+GWADM           SRVGRP=WTCGRP_JLBOSS    SRVID=2 CLOPT="-At -r -o /iboss1/run/log/GWADM.out "
+GWTDOMAIN       SRVGRP=WTCGRP_JLBOSS    SRVID=3 CLOPT="-At -r -o /iboss1/run/log/GWTDOMAIN.out "
+##DMADM          SRVGRP=WTCGRP_JLBOSS    SRVID=1
+##GWADM          SRVGRP=WTCGRP_JLBOSS    SRVID=2
+##GWTDOMAIN      SRVGRP=WTCGRP_JLBOSS    SRVID=3
+
+*SERVICES
+

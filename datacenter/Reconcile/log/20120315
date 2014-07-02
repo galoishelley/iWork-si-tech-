@@ -1,0 +1,102 @@
+connect to OFFON success
+TIME:2012/03/15 14:00:24
+
+process is killed
+TIME:2012/03/15 14:00:37
+
+connect to OFFON success
+TIME:2012/03/15 14:03:39
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         992012031400000020120315000000[272:122]
+TIME:2012/03/15 14:03:39
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/03/15 14:03:39
+
+INSERT to db succ 8913943731|13900000000!
+TIME:2012/03/15 14:03:39
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         9a2012031400000020120315000000[272:122]
+TIME:2012/03/15 14:03:39
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/03/15 14:03:39
+
+INSERT to db succ 8913943732|13900000000!
+TIME:2012/03/15 14:03:39
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         9b2012031400000020120315000000[272:122]
+TIME:2012/03/15 14:03:39
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/03/15 14:03:39
+
+INSERT to db succ 8913943733|13900000000!
+TIME:2012/03/15 14:03:39
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         9d2012031400000020120315000000[272:122]
+TIME:2012/03/15 14:03:39
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/03/15 14:03:39
+
+INSERT to db succ 8913943734|13900000000!
+TIME:2012/03/15 14:03:39
+
+SND:`BD`0COL:TRANS      jifee     jifee                                     13900000000         9g2012031400000020120315000000[272:122]
+TIME:2012/03/15 14:03:39
+
+RCV:`BD`1COL:TRANS      jifee     jifee                                     RETN=00002 [272]
+TIME:2012/03/15 14:03:39
+
+INSERT to db succ 8913943735|13900000000!
+TIME:2012/03/15 14:03:39
+
+process is killed
+TIME:2012/03/15 14:03:45
+
+connect to OFFON success
+TIME:2012/03/15 14:06:03
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13944869316         999999990000000000[272:110]
+TIME:2012/03/15 14:06:03
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00002                                                                                                                                                                                              [272]
+TIME:2012/03/15 14:06:03
+
+INSERT to db succ 8913943738|13944869316!
+TIME:2012/03/15 14:06:03
+
+process is killed
+TIME:2012/03/15 14:06:06
+
+connect to OFFON success
+TIME:2012/03/15 14:28:39
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13944869316         9b9076040000000XHS[272:110]
+TIME:2012/03/15 14:28:39
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00002                                                                                                                                                                                              [272]
+TIME:2012/03/15 14:28:39
+
+INSERT to db succ 8913943740|13944869316!
+TIME:2012/03/15 14:28:39
+
+process is killed
+TIME:2012/03/15 14:28:42
+
+connect to OFFON success
+TIME:2012/03/15 14:33:43
+
+SND:`BD`0QRY:ORDER      jifee     jifee                                     13944869316         9g900003AJL0010901[272:110]
+TIME:2012/03/15 14:33:43
+
+RCV:`BD`1QRY:ORDER      jifee     jifee                                     RETN=00002                                                                                                                                                                                              [272]
+TIME:2012/03/15 14:33:43
+
+INSERT to db succ 8913945617|13944869316!
+TIME:2012/03/15 14:33:43
+
+process is killed
+TIME:2012/03/15 14:33:46
+

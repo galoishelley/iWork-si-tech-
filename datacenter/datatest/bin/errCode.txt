@@ -1,0 +1,19 @@
+cmd_deal()==-1
+socket创建连接错误
+cmd_deal()==-100
+连接超时
+cmd_deal()==-2
+连接错误
+cmd_deal()==-3
+写入socket错误
+cmd_deal()==-4
+读取socket错误
+cmd_deal()==-11
+接口返回值格式错误
+cmd_deal()==-12
+接口返回值格式错误
+
+backdatacenterzc.complete_status		解释
+3701  					RETN=00001; 表示无订购关系 
+3702  					RETN=00002;表示该操作失败
+3999  					RETN=00000;表示有订购关系

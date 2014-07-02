@@ -1,0 +1,42 @@
+connect to OFFON success
+TIME:2013/05/15 16:53:47
+
+SND:`BD`0ADD:MCNS       jifee     jifee                                     PHONENO=13844800677,PHONENO=13844800677,TYPEFLAG=;[272:122]
+TIME:2013/05/15 16:53:47
+
+connect to OFFON success
+TIME:2013/05/15 17:43:41
+
+SND:`BD`0ADD:MCNS       jifee     jifee                                     PHONENO=13844800677,PHONENO=13844800677,TYPEFLAG=;[272:122]
+TIME:2013/05/15 17:43:41
+
+RCV:`BD`1ADD:MCNS       jifee     jifee                                     RETN=00002;                                                                                                                                                                                            [272]
+TIME:2013/05/15 17:43:42
+
+INSERT to db succ 8915039636|13844800677!
+TIME:2013/05/15 17:43:42
+
+SND:`BD`0DEL:MCNS       jifee     jifee                                     PHONENO=13844800677,PHONENO=13844800677,TYPEFLAG=;[272:122]
+TIME:2013/05/15 17:43:42
+
+RCV:`BD`1DEL:MCNS       jifee     jifee                                     RETN=00002;                                                                                                                                                                                            [272]
+TIME:2013/05/15 17:43:42
+
+INSERT to db succ 8915039640|13844800677!
+TIME:2013/05/15 17:43:42
+
+process is killed
+TIME:2013/05/15 17:46:20
+
+connect to OFFON success
+TIME:2013/05/15 17:49:19
+
+SND:`BD`0ADD:MCNS       jifee     jifee                                     PHONENO=13844800677,PHONENO=13844800677,TYPEFLAG=;[272:122]
+TIME:2013/05/15 17:49:19
+
+RCV:`BD`1ADD:MCNS       jifee     jifee                                     RETN=00002;                                                                                                                                                                                            [272]
+TIME:2013/05/15 17:49:19
+
+INSERT to db succ 8915039636|13844800677!
+TIME:2013/05/15 17:49:19
+
